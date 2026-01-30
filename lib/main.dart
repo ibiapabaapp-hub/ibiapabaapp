@@ -6,7 +6,7 @@ import 'package:forui/forui.dart';
 import 'package:ibiapabaapp/screens/onboarding/company_onboarding_screen.dart';
 import 'package:ibiapabaapp/screens/onboarding/user_onboarding_screen.dart';
 
-import 'package:ibiapabaapp/screens/home_screen.dart';
+import 'package:ibiapabaapp/screens/home/home_screen.dart';
 import 'package:ibiapabaapp/screens/login/login_screen.dart';
 import 'package:ibiapabaapp/screens/register/register_screen.dart';
 import 'package:ibiapabaapp/screens/welcome/welcome_screen.dart';
