@@ -3,7 +3,7 @@ cli:
   snippet-output: lib
 
   # The default file or directory to output generated widget styles.
-  style-output: lib/theme
+  style-output: lib/app/theme
   
   # The default file or directory to output generated themes.
-  theme-output: lib/theme/theme.dart
+  theme-output: lib/app/theme/theme.dart
