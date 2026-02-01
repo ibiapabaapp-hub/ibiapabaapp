@@ -73,7 +73,10 @@ class App extends StatelessWidget {
             ? customDarkTheme
             : customLightTheme;
 
-        return FAnimatedTheme(data: foruiTheme, child: child!);
+        return FAnimatedTheme(
+          data: foruiTheme,
+          child: FToaster(child: child!, style: (style) => style),
+        );
       },
     );
   }
