@@ -3,6 +3,7 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ibiapabaapp/services/api_service.dart';
+import 'package:ibiapabaapp/theme/theme.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -66,10 +67,10 @@ class _RegisterFormState extends State<RegisterForm> {
         children: [
           FTextFormField(
             control: _nameControl,
-            label: Text(
-              "Nome completo",
-              style: TextStyle(color: FTheme.of(context).colors.foreground),
-            ),
+            style: (style) => style
+                .withForeground(FTheme.of(context).colors)
+                .withLabelPadding(bottom: 8),
+            label: Text("Nome completo"),
             hint: 'Nome completo',
             enabled: !_isLoading,
             autovalidateMode: .onUnfocus,
@@ -79,10 +80,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
           FTextFormField.email(
             control: _emailControl,
-            label: Text(
-              "Email",
-              style: TextStyle(color: FTheme.of(context).colors.foreground),
-            ),
+            style: (style) => style
+                .withForeground(FTheme.of(context).colors)
+                .withLabelPadding(bottom: 8),
+            label: Text("Email"),
             hint: 'exemplo@email.com',
             enabled: !_isLoading,
             autovalidateMode: .onUnfocus,
@@ -95,10 +96,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
           FTextFormField.password(
             control: _passwordControl,
-            label: Text(
-              "Senha",
-              style: TextStyle(color: FTheme.of(context).colors.foreground),
-            ),
+            style: (style) => style
+                .withForeground(FTheme.of(context).colors)
+                .withLabelPadding(bottom: 8),
+            label: Text("Senha"),
             hint: 'Senha',
             enabled: !_isLoading,
             autovalidateMode: .onUnfocus,

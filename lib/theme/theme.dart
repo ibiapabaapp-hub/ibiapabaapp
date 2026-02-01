@@ -13,7 +13,7 @@ FThemeData customZincLight() {
     background: Color(0xFFFFFFFF),
     foreground: Color(0xFF09090B),
     primary: brandPrimaryLight,
-    primaryForeground: Colors.black,
+    primaryForeground: Colors.white,
     secondary: Color(0xFFF4F4F5),
     secondaryForeground: Color(0xFF18181B),
     muted: Color(0xFFF4F4F5),
@@ -136,25 +136,40 @@ FTypography _typography({
   ),
 );
 
-FStyle _style({required FColors colors, required FTypography typography}) =>
-    FStyle(
-      formFieldStyle: FFormFieldStyle.inherit(
-        colors: colors,
-        typography: typography,
-      ),
-      focusedOutlineStyle: FFocusedOutlineStyle(
-        color: colors.primary,
-        borderRadius: FLerpBorderRadius.circular(24),
-      ),
-      iconStyle: IconThemeData(color: colors.primary, size: 20),
-      tappableStyle: FTappableStyle(),
-      borderRadius: FLerpBorderRadius.circular(24),
-      borderWidth: 1,
-      shadow: const [
-        BoxShadow(
-          color: Color(0x0d000000),
-          offset: Offset(0, 1),
-          blurRadius: 2,
+FStyle _style({
+  required FColors colors,
+  required FTypography typography,
+}) => FStyle(
+  formFieldStyle:
+      FFormFieldStyle.inherit(colors: colors, typography: typography).copyWith(
+        labelTextStyle: FWidgetStateMap.all(
+          TextStyle(color: colors.foreground, fontWeight: .w500),
         ),
-      ],
+      ),
+  focusedOutlineStyle: FFocusedOutlineStyle(
+    color: colors.primary,
+    borderRadius: FLerpBorderRadius.circular(24),
+  ),
+  iconStyle: IconThemeData(color: colors.primary, size: 20),
+  tappableStyle: FTappableStyle(),
+  borderRadius: FLerpBorderRadius.circular(24),
+  borderWidth: 1,
+  shadow: const [
+    BoxShadow(color: Color(0x0d000000), offset: Offset(0, 1), blurRadius: 2),
+  ],
+);
+
+extension AppFormFieldStyle on FTextFieldStyle {
+  FTextFieldStyle withForeground(FColors colors) {
+    return copyWith(
+      contentTextStyle: FWidgetStateMap.all(
+        TextStyle(color: colors.foreground, fontSize: 14),
+      ),
+      cursorColor: colors.primary,
     );
+  }
+
+  FTextFieldStyle withLabelPadding({required double bottom}) {
+    return copyWith(labelPadding: EdgeInsets.fromLTRB(0, 0, 0, bottom));
+  }
+}
