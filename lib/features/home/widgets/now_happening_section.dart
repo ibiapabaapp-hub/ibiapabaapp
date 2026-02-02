@@ -15,7 +15,7 @@ class NowHappeningSection extends StatelessWidget {
         children: [
           Text(
             "Acontecendo agora em Ubajara",
-            style: TextStyle(fontSize: 18, fontWeight: .w600),
+            style: TextStyle(fontSize: 20, fontWeight: .w600),
           ),
           Column(
             spacing: 16,
@@ -25,6 +25,12 @@ class NowHappeningSection extends StatelessWidget {
                 (index) => SizedBox(
                   width: .infinity,
                   child: FCard(
+                    style: (style) => style.copyWith(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: context.theme.colors.secondary,
+                      ),
+                    ),
                     title: Text(
                       "Evento $index",
                       style: TextStyle(fontSize: 18),
@@ -35,6 +41,7 @@ class NowHappeningSection extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 20),
         ],
       ),
     );
