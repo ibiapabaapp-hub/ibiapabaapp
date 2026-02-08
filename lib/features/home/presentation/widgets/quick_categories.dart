@@ -18,7 +18,7 @@ class QuickCategoriesList extends StatelessWidget {
     return Padding(
       padding: const .fromLTRB(24, 0, 0, 0),
       child: SizedBox(
-        height: 44,
+        height: 40,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           physics: const ClampingScrollPhysics(),
@@ -30,7 +30,7 @@ class QuickCategoriesList extends StatelessWidget {
               style: FButtonStyle.secondary(),
               child: Text(
                 _categories.elementAt(index),
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 14),
               ),
             );
           },

@@ -15,7 +15,8 @@ class NowHappeningSection extends StatelessWidget {
         children: [
           Text(
             "Acontecendo agora em Ubajara",
-            style: TextStyle(fontSize: 20, fontWeight: .w600),
+            style: TextStyle(fontSize: 18, fontWeight: .w600),
+            strutStyle: StrutStyle(leading: 1.2),
           ),
           Column(
             spacing: 16,

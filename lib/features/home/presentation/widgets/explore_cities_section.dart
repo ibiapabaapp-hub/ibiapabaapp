@@ -28,7 +28,8 @@ class ExploreCitiesSection extends StatelessWidget {
       children: [
         Text(
           "Explore as cidades da Ibiapaba",
-          style: TextStyle(fontSize: 20, fontWeight: .w600),
+          style: TextStyle(fontSize: 18, fontWeight: .w600),
+          strutStyle: StrutStyle(leading: 1.2),
         ),
         SizedBox(
           height: 280,
