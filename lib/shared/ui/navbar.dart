@@ -23,7 +23,7 @@ class Navbar extends StatelessWidget {
       onChange: (i) {
         switch (i) {
           case 0:
-            context.push('/app/home');
+            context.go('/app/home');
             break;
           case 1:
             context.push('/app/search');
@@ -36,21 +36,27 @@ class Navbar extends StatelessWidget {
             break;
         }
       },
-      children: const [
+      children: [
         FBottomNavigationBarItem(
-          icon: Icon(FIcons.house),
+          icon: Icon(index == 0 ? Icons.home_rounded : Icons.home_outlined),
           label: Text('Início'),
         ),
         FBottomNavigationBarItem(
-          icon: Icon(FIcons.search),
+          icon: Icon(Icons.search_rounded),
           label: Text('Buscar'),
         ),
         FBottomNavigationBarItem(
-          icon: Icon(FIcons.heart),
+          icon: Icon(
+            index == 2
+                ? Icons.favorite_outlined
+                : Icons.favorite_outline_rounded,
+          ),
           label: Text('Favoritos'),
         ),
         FBottomNavigationBarItem(
-          icon: Icon(FIcons.user),
+          icon: Icon(
+            index == 3 ? Icons.person_rounded : Icons.person_outline_rounded,
+          ),
           label: Text('Perfil'),
         ),
       ],
