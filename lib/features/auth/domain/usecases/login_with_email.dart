@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:ibiapabaapp/core/errors/failures/failures.dart';
+import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/repositories/auth_repository.dart';
 
 class LoginWithEmail {
@@ -5,7 +8,7 @@ class LoginWithEmail {
 
   LoginWithEmail(this.repository);
 
-  Future<void> call(String email, String password) {
-    return repository.loginWithEmail(email: email, password: password);
+  Future<Either<Failure, AuthResult>> call(String email, String password) {
+    return repository.login(email: email, password: password);
   }
 }
