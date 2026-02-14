@@ -22,7 +22,7 @@ class RegisterHeader extends StatelessWidget {
         FButton(
           onPress: () {},
           style: FButtonStyle.secondary(),
-          prefix: Image.asset('assets/images/google-g-logo.webp', width: 24),
+          prefix: Image.asset('assets/images/google-g-logo.webp', width: 16),
           child: Text("Entrar com Google", style: TextStyle(fontSize: 14)),
         ),
       ],
