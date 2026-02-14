@@ -5,6 +5,7 @@ import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_loc
 import 'package:ibiapabaapp/features/home/presentation/widgets/now_happening_section.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/quick_categories.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/sponsored_highlights.dart';
+import 'package:ibiapabaapp/shared/ui/main_wrapper.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,29 +18,15 @@ class HomeScreen extends StatelessWidget {
         children: [
           _HomeHeader(),
           QuickCategoriesList(),
-          _MainWrapper(
+          MainWrapper(
             children: [
               SponsoredHighlights(),
-              const SizedBox(),
               NowHappeningSection(),
               ExploreCitiesSection(),
             ],
           ),
         ],
       ),
-    );
-  }
-}
-
-class _MainWrapper extends StatelessWidget {
-  final List<Widget> children;
-  const _MainWrapper({required this.children});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: .fromLTRB(24, 0, 24, 32),
-      child: Column(spacing: 24, children: children),
     );
   }
 }
@@ -81,7 +68,7 @@ class _HomeHeader extends StatelessWidget {
                         ),
                       ),
                       Icon(
-                        FIcons.chevronDown,
+                        Icons.keyboard_arrow_down_rounded,
                         weight: 2,
                         size: 16,
                         color: context.theme.colors.secondaryForeground,
@@ -95,7 +82,7 @@ class _HomeHeader extends StatelessWidget {
           FButton.icon(
             onPress: () {},
             style: FButtonStyle.ghost(),
-            child: Icon(FIcons.bell, size: 20),
+            child: Icon(Icons.notifications_outlined, size: 24),
           ),
         ],
       ),
