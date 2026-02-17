@@ -64,7 +64,7 @@ class _HomeHeader extends StatelessWidget {
                         'Ubajara, CE',
                         style: TextStyle(
                           fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       Icon(
@@ -79,10 +79,31 @@ class _HomeHeader extends StatelessWidget {
               ),
             ],
           ),
-          FButton.icon(
-            onPress: () {},
-            style: FButtonStyle.ghost(),
-            child: Icon(Icons.notifications_outlined, size: 24),
+
+          Stack(
+            children: [
+              FButton.icon(
+                onPress: () {},
+                style: FButtonStyle.ghost(),
+                child: Icon(Icons.notifications_outlined, size: 24),
+              ),
+
+              Positioned(
+                top: 6,
+                right: 4,
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  padding: EdgeInsets.all(4),
+                  alignment: .center,
+                  decoration: BoxDecoration(
+                    color: context.theme.colors.primary,
+                    borderRadius: BorderRadius.all(.circular(24)),
+                  ),
+                  child: FittedBox(),
+                ),
+              ),
+            ],
           ),
         ],
       ),
