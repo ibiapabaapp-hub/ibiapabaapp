@@ -4,21 +4,21 @@ import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/features/auth/data/exceptions/auth_exceptions.dart';
 import 'package:ibiapabaapp/features/auth/domain/failures/auth_failures.dart';
 
-extension ToAuthFailure on Object {
-  Failure mapAuthExceptionToFailure() {
-    return AuthExceptionToFailureMapper.map(this);
-  }
-}
-
 class AuthExceptionToFailureMapper {
   static Failure map(Object error) {
+    if (error is Failure) return error;
+
     if (error is AppException) {
-      final failure = _AuthFailureRegistry.getByCode(error);
+      final failure =
+          _AuthFailureRegistry.getByCode(error) ??
+          _AuthFailureRegistry.getByType(error);
       if (failure != null) return failure;
-      final byType = _AuthFailureRegistry.getByType(error);
-      if (byType != null) return byType;
     }
-    return GlobalExceptionToFailureMapper.map(error);
+    try {
+      return GlobalExceptionToFailureMapper.map(error);
+    } catch (_) {
+      return ServerFailure('Erro inesperado: ${error.toString()}');
+    }
   }
 }
 
@@ -50,8 +50,7 @@ class _AuthFailureRegistry {
       e.message;
 
   static final Map<String, FailureFactory> _byCode = {
-    'user_not_found': (e) =>
-        UserNotFoundFailure(message: _displayMessage(e)),
+    'user_not_found': (e) => UserNotFoundFailure(message: _displayMessage(e)),
     'wrong_password': (e) => WrongPasswordFailure(message: _displayMessage(e)),
     'invalid_credentials': (e) =>
         WrongPasswordFailure(message: _displayMessage(e)),
@@ -59,8 +58,7 @@ class _AuthFailureRegistry {
         EmailAlreadyRegisteredFailure(message: _displayMessage(e)),
     'password_mismatch': (e) =>
         PasswordMismatchFailure(message: _displayMessage(e)),
-    'invalid_token': (e) =>
-        InvalidTokenFailure(message: _displayMessage(e)),
+    'invalid_token': (e) => InvalidTokenFailure(message: _displayMessage(e)),
   };
 
   static final Map<Type, FailureFactory> _byType = {
