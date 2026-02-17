@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class StepDots extends StatelessWidget {
   final int current;
@@ -8,24 +10,16 @@ class StepDots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(total, (index) {
-        final isActiveOrPast = index <= current;
-
-        return AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          margin: EdgeInsets.symmetric(horizontal: 4),
-          width: isActiveOrPast ? 10 : 6,
-          height: isActiveOrPast ? 10 : 6,
-          decoration: BoxDecoration(
-            color: isActiveOrPast
-                ? Colors.white
-                : Colors.white.withAlpha((255 / 3).toInt()),
-            shape: BoxShape.circle,
-          ),
-        );
-      }),
+    return AnimatedSmoothIndicator(
+      activeIndex: current,
+      count: total,
+      effect: ColorTransitionEffect(
+        dotHeight: 8,
+        dotWidth: 8,
+        spacing: 8,
+        dotColor: context.theme.colors.mutedForeground,
+        activeDotColor: context.theme.colors.foreground,
+      ),
     );
   }
 }
