@@ -1,45 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import necessário
 import 'package:forui/forui.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/data/secure_storage/tokens/token_storage.dart';
+import 'package:ibiapabaapp/features/auth/presentation/providers/session_provider.dart';
 import 'package:ibiapabaapp/shared/ui/sheet_drag_indicator.dart';
 
 void showChangeLocationSheet({required BuildContext context}) {
   showModalBottomSheet(
+    useRootNavigator: true,
+    isScrollControlled: true,
     context: context,
     barrierColor: Colors.black45,
     isDismissible: true,
-    builder: (context) => Container(
-      height: MediaQuery.of(context).size.height * 0.72,
-      decoration: BoxDecoration(
-        color: context.theme.colors.background,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 16,
-          children: [
-            SheetDragIndicator(),
-            const SizedBox(),
-            const Text(
-              'Alternar cidade atual',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
+    builder: (context) => Consumer(
+      builder: (context, ref, child) {
+        final theme = context.theme;
 
-            FButton(
-              onPress: () async {
-                TokenStorageImpl.instance.clearTokens();
-                context.go('/welcome');
-              },
-              style: FButtonStyle.destructive(),
-              prefix: const Icon(Icons.logout),
-              child: const Text('Logout'),
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.72,
+          decoration: BoxDecoration(
+            color: theme.colors.background,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          ),
+
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SheetDragIndicator(),
+                const SizedBox(height: 24),
+                Text(
+                  'Alternar cidade atual',
+                  style: theme.typography.xl2.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const Spacer(),
+                FButton(
+                  onPress: () async {
+                    Navigator.of(context).pop();
+                    await ref.read(sessionProvider.notifier).logout();
+                  },
+                  style: FButtonStyle.destructive(),
+                  prefix: Icon(Icons.logout),
+                  child: const Text('Sair da conta'),
+                ),
+                const SizedBox(height: 16),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     ),
   );
 }
