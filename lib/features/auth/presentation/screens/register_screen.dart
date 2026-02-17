@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/auth/data/datasources/auth_remote_datasource.dart';
-import 'package:ibiapabaapp/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:ibiapabaapp/features/auth/domain/usecases/check_unique_availability.dart';
-import 'package:ibiapabaapp/features/auth/domain/usecases/register_with_email.dart';
 import 'package:ibiapabaapp/features/auth/presentation/controllers/register_controller.dart';
+import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/register_state.dart';
 import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/birth_date_step.dart';
 import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/email_step.dart';
@@ -15,63 +13,26 @@ import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/ph
 import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/username_step.dart';
 import 'package:ibiapabaapp/shared/ui/step_dots.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  late final RegisterController controller;
-  final pageController = PageController();
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
+  late final pageController = PageController();
   int currentStep = 0;
 
   @override
   void initState() {
     super.initState();
-    controller = RegisterController(
-      RegisterWithEmail(AuthRepositoryImpl(AuthRemoteDatasourceImpl())),
-      CheckUniqueAvailability(AuthRepositoryImpl(AuthRemoteDatasourceImpl())),
-    );
-    controller.addListener(_controllerListener);
   }
 
   @override
   void dispose() {
     super.dispose();
-    controller.removeListener(_controllerListener);
-  }
-
-  void _controllerListener() {
-    final state = controller.state;
-
-    if (state is RegisterSuccess) {
-      showFToast(
-        context: context,
-        icon: Icon(Icons.check),
-        title: Text(
-          "Bem vindo(a) ao IbiapabaApp!",
-          style: TextStyle(color: context.theme.colors.foreground),
-        ),
-        alignment: FToastAlignment.bottomCenter,
-        duration: const Duration(seconds: 4),
-      );
-      context.go('/app/home');
-    }
-
-    if (state is RegisterError) {
-      showFToast(
-        context: context,
-        icon: const Icon(Icons.gpp_maybe_outlined),
-        title: Text('Erro ao cadastrar'),
-        description: Text(state.message),
-        alignment: FToastAlignment.bottomCenter,
-        duration: const Duration(seconds: 4),
-      );
-    }
-
-    setState(() {});
+    pageController.dispose();
   }
 
   void next() {
@@ -104,6 +65,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final RegisterController controller = ref.watch(registerControllerProvider);
+
+    ref.listen(registerControllerProvider.select((c) => c.state), (
+      previous,
+      nextState,
+    ) {
+      if (nextState is RegisterSuccess) {
+        showFToast(
+          context: context,
+          icon: Icon(Icons.check),
+          title: Text(
+            "Bem vindo(a) ao IbiapabaApp!",
+            style: TextStyle(color: context.theme.colors.foreground),
+          ),
+          alignment: FToastAlignment.bottomCenter,
+          duration: const Duration(seconds: 4),
+        );
+        context.go('/app/home');
+      }
+
+      if (nextState is RegisterError) {
+        showFToast(
+          context: context,
+          icon: const Icon(Icons.gpp_maybe_outlined),
+          title: Text('Erro ao cadastrar'),
+          description: Text(nextState.message),
+          alignment: FToastAlignment.bottomCenter,
+          duration: const Duration(seconds: 4),
+        );
+      }
+    });
+
     return PopScope(
       canPop: currentStep == 0,
       onPopInvokedWithResult: (didPop, _) {
@@ -122,6 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ],
         ),
         child: SafeArea(
+          top: false,
           child: Column(
             children: [
               StepDots(current: currentStep, total: 6),
