@@ -6,11 +6,11 @@ class AuthResponseParser {
     return AuthResult(
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
-      user: _userFromJson(json['user'] as Map<String, dynamic>),
+      user: userFromJson(json['user'] as Map<String, dynamic>),
     );
   }
 
-  static User _userFromJson(Map<String, dynamic> json) {
+  static User userFromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'] as String,
       name: json['name'] as String,
