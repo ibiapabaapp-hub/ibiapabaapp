@@ -1,61 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/ui/tap_scale_container.dart';
+import 'package:ibiapabaapp/shared/ui/tappable_container.dart';
 
 class ItemsGrid extends StatelessWidget {
   final String title;
   final int crossAxisCount;
   final List<String> items;
-  final void Function(String category)? onTap;
+  final void Function(String category)? onItemTap;
+  final void Function() onSeeAllTap;
 
   const ItemsGrid({
     super.key,
-    this.onTap,
+    this.onItemTap,
     required this.items,
     this.crossAxisCount = 2,
     required this.title,
+    required this.onSeeAllTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: .start,
-      crossAxisAlignment: .start,
-      spacing: 16,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox.shrink(),
-        Text(title, style: TextStyle(fontSize: 18, fontWeight: .w600)),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: items.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            mainAxisExtent: 72,
-          ),
-          itemBuilder: (context, index) {
-            final category = items[index];
+        const SizedBox(height: 16),
 
-            return TapScaleContainer(
-              color: context.theme.colors.secondary,
-              borderRadius: BorderRadius.circular(16),
-              onTap: () => onTap?.call(category),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                child: Center(
-                  child: Text(
-                    category,
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    style: const TextStyle(fontFamily: 'DMSans', fontSize: 14),
-                  ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+            FButton.raw(
+              onPress: () => onSeeAllTap.call(),
+              style: FButtonStyle.ghost(),
+              child: Text(
+                'Ver tudo',
+                style: TextStyle(
+                  color: context.theme.colors.mutedForeground,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            const double spacing = 8.0;
+            final double itemWidth =
+                (constraints.maxWidth - spacing) / crossAxisCount;
+
+            return Wrap(
+              spacing: spacing,
+              runSpacing: spacing,
+              children: items.map((category) {
+                return SizedBox(
+                  width: itemWidth,
+                  height: 72,
+                  child: TappableContainer(
+                    color: context.theme.colors.secondary,
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () => onItemTap?.call(category),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          category,
+                          textAlign: TextAlign.center,
+                          softWrap: true,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
             );
           },
         ),
