@@ -5,8 +5,8 @@ abstract class Failure {
 }
 
 class ServerFailure extends Failure {
-  const ServerFailure(String message, {required super.code})
-    : super(message: message);
+  const ServerFailure(String message)
+    : super(message: message, code: 'server_error');
 }
 
 class UnauthorizedFailure extends Failure {

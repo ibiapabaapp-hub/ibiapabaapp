@@ -1,21 +1,20 @@
 import 'exceptions.dart';
 import '../failures/failures.dart';
 
-extension ToGlobalFailure on Object {
-  Failure mapGlobalExceptionToFailure() {
-    return GlobalExceptionToFailureMapper.map(this);
-  }
-}
-
 typedef ExceptionToFailureFactory = Failure Function(AppException e);
 
 class GlobalExceptionToFailureMapper {
   static Failure map(Object error) {
-    if (error is AppException) {
-      final factory = _GlobalExceptionFailureRegistry.getByType(error);
-      return factory(error);
+    try {
+      if (error is AppException) {
+        final factory = _GlobalExceptionFailureRegistry.getByType(error);
+        return factory(error);
+      }
+
+      return _GlobalExceptionFailureRegistry.fallback;
+    } catch (e) {
+      return _GlobalExceptionFailureRegistry.fallback;
     }
-    return _GlobalExceptionFailureRegistry.fallback;
   }
 }
 
@@ -32,14 +31,16 @@ class _GlobalExceptionFailureRegistry {
 
   static const Failure fallback = ServerFailure(
     'Ocorreu um erro inesperado. Tente novamente.',
-    code: 'unknown',
   );
 
-  static String _displayMessage(AppException e) =>
-      _userMessageByType[e.runtimeType] ?? e.message;
+  static String _displayMessage(AppException e) {
+    final message = _userMessageByType[e.runtimeType];
+    if (message != null) return message;
+    return e.message.isNotEmpty ? e.message : 'Erro desconhecido';
+  }
 
   static final Map<Type, ExceptionToFailureFactory> _byType = {
-    ServerException: (e) => ServerFailure(_displayMessage(e), code: e.code),
+    ServerException: (e) => ServerFailure(_displayMessage(e)),
     BadRequestException: (e) =>
         BadRequestFailure(_displayMessage(e), code: e.code),
     ForbiddenException: (e) =>
@@ -52,11 +53,6 @@ class _GlobalExceptionFailureRegistry {
 
   static ExceptionToFailureFactory getByType(AppException e) {
     return _byType[e.runtimeType] ??
-        (e) => ServerFailure(
-          e.message.trim().isNotEmpty
-              ? e.message
-              : _userMessageByType[ServerException]!,
-          code: e.code,
-        );
+        (err) => ServerFailure(_displayMessage(err));
   }
 }
