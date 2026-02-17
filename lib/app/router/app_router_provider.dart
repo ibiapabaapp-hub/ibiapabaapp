@@ -17,7 +17,7 @@ part 'app_router_provider.g.dart';
 
 @riverpod
 GoRouter appRouter(Ref ref) {
-  final user = ref.watch(sessionProvider);
+  final isAuthenticated = ref.watch(isAuthenticatedProvider);
 
   return GoRouter(
     initialLocation: '/app/home',
@@ -26,10 +26,12 @@ GoRouter appRouter(Ref ref) {
           state.matchedLocation.startsWith('/welcome') ||
           state.matchedLocation.startsWith('/auth');
 
-      if (user == null) {
+      // não está logado e tenta acessar área restrita -> Welcome
+      if (!isAuthenticated) {
         return isLoggingIn ? null : '/welcome';
       }
 
+      // está logado e tenta acessar área de login -> Home
       if (isLoggingIn) {
         return '/app/home';
       }
