@@ -81,7 +81,6 @@ class _LoginFormState extends State<LoginForm> {
     return Form(
       key: _formKey,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 16,
         children: [
@@ -117,20 +116,14 @@ class _LoginFormState extends State<LoginForm> {
 
           const SizedBox(height: 8),
 
-          SizedBox(
-            width: double.infinity,
-            child: FButton(
-              onPress: isLoading ? null : _submit,
-              child: Text(
-                isLoading ? 'Entrando…' : 'Entrar',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
+          FButton(
+            onPress: isLoading ? null : _submit,
+            child: Text(isLoading ? 'Entrando…' : 'Entrar'),
           ),
 
           FButton(
             style: FButtonStyle.ghost(),
-            onPress: () => context.replace('/auth/register'),
+            onPress: () => context.push('/auth/register'),
             child: const Text('Criar conta'),
           ),
         ],
