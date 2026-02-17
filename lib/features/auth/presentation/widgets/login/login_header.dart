@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:go_router/go_router.dart';
+import 'package:ibiapabaapp/shared/ui/sheet_drag_indicator.dart';
 
 class LoginHeader extends StatelessWidget {
   const LoginHeader({super.key});
@@ -9,38 +9,22 @@ class LoginHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      spacing: 8,
       children: [
-        Row(
-          mainAxisAlignment: .start,
-          children: [
-            FButton.icon(
-              style: FButtonStyle.ghost(),
-              onPress: () => context.pop(),
-              child: Icon(
-                Icons.close,
-
-                size: 24,
-                color: context.theme.colors.mutedForeground,
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: Text(
-                  'Login',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ],
+        const SheetDragIndicator(),
+        const SizedBox(height: 24),
+        const Text(
+          'Login',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 24),
         FButton(
           onPress: () {},
           style: FButtonStyle.outline(),
           prefix: Image.asset('assets/images/google-g-logo.webp', width: 18),
-          child: Text("Continuar com Google", style: TextStyle(fontSize: 16)),
+          child: const Text(
+            "Continuar com Google",
+            style: TextStyle(fontSize: 16),
+          ),
         ),
       ],
     );
