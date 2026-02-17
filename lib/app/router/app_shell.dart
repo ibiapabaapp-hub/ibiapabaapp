@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/shared/ui/navbar.dart';
 
@@ -35,15 +36,17 @@ class _AppShellState extends State<AppShell> {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                behavior: .fixed,
+                behavior: .floating,
                 duration: const Duration(seconds: 2),
                 elevation: 10,
-                shape: Border.all(color: Colors.grey.shade800),
-                backgroundColor: Colors.black,
+                backgroundColor: context.theme.colors.secondary,
                 content: Text(
                   textAlign: .center,
                   'Volte novamente para sair',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                    color: context.theme.colors.secondaryForeground,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             );
@@ -52,14 +55,9 @@ class _AppShellState extends State<AppShell> {
         }
       },
       child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(child: widget.child),
-              const Navbar(),
-            ],
-          ),
-        ),
+        extendBody: true,
+        bottomNavigationBar: SafeArea(child: const Navbar()),
+        body: SafeArea(child: widget.child),
       ),
     );
   }
