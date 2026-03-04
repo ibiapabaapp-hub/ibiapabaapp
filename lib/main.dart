@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ibiapabaapp/app/app.dart';
+import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/session_provider.dart';
 
 void main() async {
@@ -13,7 +14,7 @@ void main() async {
   try {
     await container.read(sessionProvider.notifier).restoreSession();
   } catch (e) {
-    debugPrint('Erro ao restaurar sessão: $e');
+    logger.d('Erro ao restaurar sessão: $e');
   }
 
   runApp(UncontrolledProviderScope(container: container, child: const App()));
