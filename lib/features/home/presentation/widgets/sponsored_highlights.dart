@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:forui/forui.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/carousel/content_carousel.dart';
 
 class SponsoredHighlights extends StatefulWidget {
   const SponsoredHighlights({super.key});
@@ -10,79 +8,54 @@ class SponsoredHighlights extends StatefulWidget {
   State<SponsoredHighlights> createState() => _SponsoredHighlightsState();
 }
 
+enum ImageItemSourceType { asset, network }
+
+class ImageItem {
+  final String? title;
+  final String assetUrl;
+  final ImageItemSourceType sourceType;
+
+  ImageItem({this.title, required this.assetUrl, required this.sourceType});
+}
+
 class _SponsoredHighlightsState extends State<SponsoredHighlights> {
   int activeIndex = 0;
-  final CarouselSliderController _carouselController =
-      CarouselSliderController();
 
-  final List<String> _items = [
-    "Destaques patrocinados",
-    "Promoções imperdíveis",
-    "Ofertas próximas de você",
+  final List<ContentItem> _items = [
+    ContentItem(
+      type: .image,
+      source: .network,
+      url:
+          'https://instagram.fjdo10-1.fna.fbcdn.net/v/t51.82787-15/619274405_17932095936169278_9113178893503771846_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=MzgxNTcwMjMyMDU4NDI1NDIwOQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNDd4MTY3OS5zZHIuQzMifQ%3D%3D&_nc_ohc=Aqmq0VcUj00Q7kNvwGW_3yI&_nc_oc=Adk59Yq6XcxK43LG7PhxZN-rxet_RjjtlAj_hAZ_Vpq5-ej2dnLCz309WXYzvWHctXpE0TqO4EpQbZbMa8yFQ5DG&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fjdo10-1.fna&_nc_gid=oyYpeGPvc3efwquyHNHfWA&oh=00_AfvKfCH_xjwZOZySns1Axal11wiOFTd7hcgu4KB4bTGoPQ&oe=69A4E906',
+      route: '/app/companies/1',
+    ),
+    ContentItem(
+      type: .image,
+      source: .network,
+      url:
+          'https://instagram.fjdo10-1.fna.fbcdn.net/v/t51.82787-15/634077920_17872584768540232_8046203275083850636_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=MzgzNTI3MzU1Mzg3MzU0NjkwMQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwNDB4MTMwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=ujMkhqShJoQQ7kNvwH24qg7&_nc_oc=AdnTrmt3KAwjaXz8Adg18CDmjLFROzJyrsE_vOQ-bQerG11rfU3iN1a--ZAGhCHT72zfv54HR1QpE5TlcQrIAlHG&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fjdo10-1.fna&_nc_gid=pM0bb7qQxpmnr6ST9mMV_w&oh=00_AfuApBauTXCYceEYev7FQQ9qi_ShApBhR3B2xuVmwgQumQ&oe=69A4CF68',
+      route: '/app/events/2',
+    ),
+    ContentItem(
+      type: .image,
+      source: .network,
+      url:
+          'https://instagram.fjdo1-2.fna.fbcdn.net/v/t39.30808-6/615806104_1505684451118692_7931494716238578524_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ig_cache_key=MzgxMDE3MTkxMjY1Njc2NDYwNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=r-pgxV_tePkQ7kNvwFqkZPp&_nc_oc=AdmOn-VZCNzMjHu8qKBT-pLFKpuUCtc2m96deCsZ4iiQtdLglHInyQX75VK6TfqhxmOJPAaQwMoAH60nPolxytMl&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fjdo1-2.fna&_nc_gid=iTI15amYO5VOM6Am6W01OQ&oh=00_AfsbQC_tCUBRs5GHIhU3tO1bBMaWTXph1VPUKyTqkNFgGA&oe=69A4DDF9',
+      route: '/app/events/3',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1 / 1,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Stack(
-          children: [
-            CarouselSlider.builder(
-              carouselController: _carouselController,
-              itemCount: _items.length,
-              itemBuilder: (context, index, realIndex) {
-                return _bannerItem(context);
-              },
-              options: CarouselOptions(
-                height: double.infinity,
-                viewportFraction: 1,
-                autoPlay: true,
-                pageSnapping: true,
-                pauseAutoPlayOnTouch: true,
-                enableInfiniteScroll: false,
-                autoPlayInterval: const Duration(seconds: 4),
-                onPageChanged: (index, reason) {
-                  setState(() => activeIndex = index);
-                },
-              ),
-            ),
-
-            // Positioned(top: 12, left: 12, child: _SponsoredLabel()),
-            Positioned(
-              bottom: 12,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: AnimatedSmoothIndicator(
-                  activeIndex: activeIndex,
-                  count: _items.length,
-                  effect: ExpandingDotsEffect(
-                    dotHeight: 8,
-                    dotWidth: 8,
-                    activeDotColor: context.theme.colors.foreground,
-                    dotColor: context.theme.colors.foreground.withAlpha(164),
-                    expansionFactor: 3,
-                    spacing: 8,
-                  ),
-                  onDotClicked: (index) =>
-                      _carouselController.animateToPage(index),
-                ),
-              ),
-            ),
-          ],
+    return SizedBox(
+      width: 450,
+      child: AspectRatio(
+        aspectRatio: 5 / 6,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: ContentCarousel(items: _items),
         ),
       ),
-    );
-  }
-
-  Widget _bannerItem(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      color: context.theme.colors.muted,
-      alignment: Alignment.center,
-      child: Image.asset('assets/images/banner-trilhao-quadrado.webp'),
     );
   }
 }
