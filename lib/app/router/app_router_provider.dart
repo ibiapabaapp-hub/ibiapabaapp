@@ -1,9 +1,17 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ibiapabaapp/app/router/transitions/fade_through_page.dart';
+import 'package:ibiapabaapp/app/router/transitions/shared_axis_page.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/session_provider.dart';
+import 'package:ibiapabaapp/features/cities/presentation/screens/cities_overview_screen.dart';
+import 'package:ibiapabaapp/features/cities/presentation/screens/single_city_screen.dart';
+import 'package:ibiapabaapp/features/company/presentation/screens/companies_overview_screen.dart';
+import 'package:ibiapabaapp/features/company/presentation/screens/single_company_screen.dart';
+import 'package:ibiapabaapp/features/events/presentation/screens/events_overview_screen.dart';
+import 'package:ibiapabaapp/features/events/presentation/screens/single_event_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-// Imports das suas telas
 import 'package:ibiapabaapp/app/router/app_shell.dart';
 import 'package:ibiapabaapp/features/home/presentation/screens/home_screen.dart';
 import 'package:ibiapabaapp/features/home/presentation/screens/search_screen.dart';
@@ -39,7 +47,7 @@ GoRouter appRouter(Ref ref) {
       return null;
     },
     routes: [
-      // Welcome & Onboarding
+      // ===================== Welcome & Onboarding =====================
       GoRoute(
         path: '/welcome',
         builder: (context, state) => const WelcomeScreen(),
@@ -53,39 +61,106 @@ GoRouter appRouter(Ref ref) {
         builder: (context, state) => const CompanyOnboardingScreen(),
       ),
 
-      // Authentication
+      // ===================== Authentication =====================
       GoRoute(
         path: '/auth/register',
         builder: (context, state) => const RegisterScreen(),
       ),
 
-      // Application Shell
+      // ===================== AppShell =====================
       ShellRoute(
         builder: (context, state, child) => AppShell(child: child),
         routes: [
+          // ===================== Navbar =====================
           GoRoute(
             path: '/app/home',
-            builder: (context, state) => const HomeScreen(),
-            routes: [
-              GoRoute(
-                path: 'details',
-                builder: (context, state) =>
-                    const Placeholder(child: Text('Details')),
-              ),
-            ],
+            pageBuilder: (context, state) =>
+                FadeThroughPage(key: state.pageKey, child: const HomeScreen()),
           ),
           GoRoute(
             path: '/app/search',
-            builder: (context, state) => const SearchScreen(),
+            pageBuilder: (context, state) => FadeThroughPage(
+              key: state.pageKey,
+              child: const SearchScreen(),
+            ),
           ),
           GoRoute(
             path: '/app/favorites',
-            builder: (context, state) =>
-                const Placeholder(child: Text("Favorites")),
+            pageBuilder: (context, state) => FadeThroughPage(
+              key: state.pageKey,
+              child: const Placeholder(child: Text("Favorites")),
+            ),
           ),
           GoRoute(
             path: '/app/profile',
-            builder: (context, state) => ProfileScreen(),
+            pageBuilder: (context, state) =>
+                FadeThroughPage(key: state.pageKey, child: ProfileScreen()),
+          ),
+
+          // ===================== Cities =====================
+          GoRoute(
+            path: '/app/cities',
+            pageBuilder: (context, state) => FadeThroughPage(
+              key: state.pageKey,
+              child: CitiesOverviewScreen(),
+            ),
+            routes: [
+              GoRoute(
+                path: ':id',
+                pageBuilder: (context, state) => SharedAxisPage(
+                  key: state.pageKey,
+                  child: SingleCityScreen(
+                    id: state.pathParameters['id'].toString(),
+                  ),
+                  type: SharedAxisTransitionType.scaled,
+                  duration: const Duration(milliseconds: 500),
+                ),
+              ),
+            ],
+          ),
+
+          // ===================== Companies =====================
+          GoRoute(
+            path: '/app/companies',
+            pageBuilder: (context, state) => FadeThroughPage(
+              key: state.pageKey,
+              child: CompaniesOverviewScreen(),
+            ),
+            routes: [
+              GoRoute(
+                path: '/:id',
+                pageBuilder: (context, state) => SharedAxisPage(
+                  key: state.pageKey,
+                  child: SingleCompanyScreen(
+                    id: state.pathParameters['id'].toString(),
+                  ),
+                  type: SharedAxisTransitionType.scaled,
+                  duration: const Duration(milliseconds: 500),
+                ),
+              ),
+            ],
+          ),
+
+          // ===================== Events =====================
+          GoRoute(
+            path: '/app/events',
+            pageBuilder: (context, state) => FadeThroughPage(
+              key: state.pageKey,
+              child: EventsOverviewScreen(),
+            ),
+            routes: [
+              GoRoute(
+                path: '/:id',
+                pageBuilder: (context, state) => SharedAxisPage(
+                  key: state.pageKey,
+                  child: SingleEventScreen(
+                    id: state.pathParameters['id'].toString(),
+                  ),
+                  type: SharedAxisTransitionType.scaled,
+                  duration: const Duration(milliseconds: 500),
+                ),
+              ),
+            ],
           ),
         ],
       ),
