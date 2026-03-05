@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/explore_cities_section.dart';
+import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CityCard extends StatelessWidget {
