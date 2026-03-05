@@ -7,7 +7,7 @@ import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.d
 import 'package:ibiapabaapp/shared/ui/fragments/comments/comment.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/comments/comment_list.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/expandable_text.dart';
-import 'package:ibiapabaapp/shared/ui/layout/wrappers/resource_page_wrapper.dart';
+import 'package:ibiapabaapp/shared/ui/layout/wrappers/detail_page_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class EventDetailScreen extends StatefulWidget {
@@ -54,7 +54,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     return Skeletonizer(
       effect: customShimmerEffect(context),
       enabled: _isLoading,
-      child: ResourcePageWrapper(
+      child: DetailPageWrapper(
         carousel: ContentCarousel(items: _defaultItems, isLoading: _isLoading),
         headerChildren: FHeader.nested(
           prefixes: [

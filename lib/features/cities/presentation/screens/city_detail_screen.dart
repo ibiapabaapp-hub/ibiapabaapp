@@ -5,7 +5,7 @@ import 'package:ibiapabaapp/shared/ui/fragments/carousel/content_carousel.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/expandable_text.dart';
 import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
-import 'package:ibiapabaapp/shared/ui/layout/wrappers/resource_page_wrapper.dart';
+import 'package:ibiapabaapp/shared/ui/layout/wrappers/detail_page_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CityDetailScreen extends StatefulWidget {
@@ -53,7 +53,7 @@ class _CityDetailScreenState extends State<CityDetailScreen> {
     return Skeletonizer(
       effect: customShimmerEffect(context),
       enabled: _isLoading,
-      child: ResourcePageWrapper(
+      child: DetailPageWrapper(
         carousel: ContentCarousel(items: _defaultItems, isLoading: _isLoading),
         headerChildren: FHeader.nested(
           prefixes: [
