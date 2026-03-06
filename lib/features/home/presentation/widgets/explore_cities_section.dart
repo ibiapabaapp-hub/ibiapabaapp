@@ -1,63 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
 import 'package:ibiapabaapp/features/cities/presentation/widgets/city_card.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-class ExploreCitiesSection extends StatefulWidget {
+final List<City> _mockCities = List.generate(
+  5,
+  (index) => City(
+    id: 'mock-$index',
+    slug: 'mock',
+    name: 'Carregando cidade',
+    coverImgUrl: '',
+    categories: ['Categoria', 'Subcategoria'],
+  ),
+);
+
+class ExploreCitiesSection extends ConsumerStatefulWidget {
   const ExploreCitiesSection({super.key});
 
   @override
-  State<ExploreCitiesSection> createState() => _ExploreCitiesSectionState();
+  ConsumerState<ExploreCitiesSection> createState() =>
+      _ExploreCitiesSectionState();
 }
 
-class _ExploreCitiesSectionState extends State<ExploreCitiesSection> {
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
-      if (mounted) setState(() => _isLoading = false);
-    });
-  }
-
+class _ExploreCitiesSectionState extends ConsumerState<ExploreCitiesSection> {
   @override
   Widget build(BuildContext context) {
-    final List<City> cities = [
-      City(
-        id: 'ubajara',
-        slug: 'ubajara',
-        name: 'Ubajara',
-        imageUrl:
-            'https://imgs.search.brave.com/N4w28VWC72gH2Zi0HYc7q3-sUFkeDmsxHuZtLw7rakc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dmlhamFsaS5jb20u/YnIvd3AtY29udGVu/dC91cGxvYWRzLzIw/MjIvMDQvc2VycmEt/ZGEtaWJpYXBhYmEt/OS5qcGc',
-        categories: ['Alto da Serra', 'Turismo', 'Belas paisagens'],
-      ),
-      City(
-        id: 'tiangua',
-        slug: 'tiangua',
-        name: 'Tianguá',
-        imageUrl:
-            'https://imgs.search.brave.com/N4w28VWC72gH2Zi0HYc7q3-sUFkeDmsxHuZtLw7rakc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dmlhamFsaS5jb20u/YnIvd3AtY29udGVu/dC91cGxvYWRzLzIw/MjIvMDQvc2VycmEt/ZGEtaWJpYXBhYmEt/OS5qcGc',
-        categories: ['Alto da Serra', 'Urbana'],
-      ),
-      City(
-        id: 'sao_benedito',
-        slug: 'sao-benedito',
-        name: 'São Benedito',
-        imageUrl:
-            'https://imgs.search.brave.com/N4w28VWC72gH2Zi0HYc7q3-sUFkeDmsxHuZtLw7rakc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dmlhamFsaS5jb20u/YnIvd3AtY29udGVu/dC91cGxvYWRzLzIw/MjIvMDQvc2VycmEt/ZGEtaWJpYXBhYmEt/OS5qcGc',
-        categories: ['Alto da Serra', 'Ecoturismo', 'Floricultura'],
-      ),
-      City(
-        id: 'vicosa',
-        slug: 'vicosa-do-ceara',
-        name: 'Viçosa do Ceará',
-        imageUrl:
-            'https://imgs.search.brave.com/N4w28VWC72gH2Zi0HYc7q3-sUFkeDmsxHuZtLw7rakc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dmlhamFsaS5jb20u/YnIvd3AtY29udGVu/dC91cGxvYWRzLzIw/MjIvMDQvc2VycmEt/ZGEtaWJpYXBhYmEt/OS5qcGc',
-        categories: ['Alto da Serra', 'Turismo Histórico', 'Cachaça'],
-      ),
-    ];
+    final citiesAsync = ref.watch(citiesProvider);
 
     return Column(
       mainAxisAlignment: .start,
@@ -65,19 +39,70 @@ class _ExploreCitiesSectionState extends State<ExploreCitiesSection> {
       spacing: 16,
       children: [
         SectionHeader(
-          title: 'Explore as Cidades da Ibiapaba',
+          title: 'Explore as cidades da Ibiapaba',
           onSeeAllTap: () => context.push('/app/cities'),
         ),
-        SizedBox(
-          height: 400,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            physics: const ClampingScrollPhysics(),
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
-            itemCount: cities.length,
-            itemBuilder: (context, index) => SizedBox(
-              width: 200,
-              child: CityCard(city: cities.elementAt(index)),
+        citiesAsync.when(
+          skipLoadingOnRefresh: false,
+          loading: () => _Section(cities: _mockCities, isLoading: true),
+
+          error: (error, stack) => Center(
+            child: Expanded(
+              child: Column(
+                mainAxisAlignment: .center,
+                spacing: 16,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    color: context.theme.colors.mutedForeground,
+                    size: 64,
+                  ),
+                  Text(
+                    'Erro ao carregar cidades',
+                    style: context.theme.typography.base,
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          data: (cities) => _Section(cities: cities, isLoading: false),
+        ),
+      ],
+    );
+  }
+}
+
+class _Section extends StatelessWidget {
+  final bool isLoading;
+  final List<City> cities;
+
+  const _Section({required this.cities, required this.isLoading});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 8,
+      children: [
+        Skeletonizer(
+          effect: customShimmerEffect(context),
+          enabled: isLoading,
+          child: SizedBox(
+            height: 270,
+            child: ListView.separated(
+              cacheExtent: 500,
+              addRepaintBoundaries: true,
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemCount: cities.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 12),
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: 250,
+                  child: CityCard(city: cities[index]),
+                );
+              },
             ),
           ),
         ),

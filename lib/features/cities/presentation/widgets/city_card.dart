@@ -17,28 +17,17 @@ class CityCard extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () => context.push('app/cities/${city.id}'),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Stack(
-              children: [
-                Image.network(
-                  city.imageUrl,
-                  fit: BoxFit.cover,
-                  height: 160,
-                  width: double.infinity,
-                  loadingBuilder: (context, child, loading) {
-                    if (loading == null) return child;
-                    return Bone(
-                      width: double.infinity,
-                      height: double.infinity,
-                    );
-                  },
-                ),
-                Positioned(
-                  top: 8,
-                  left: 8,
-                  child: Skeleton.ignore(
-                    ignore: true,
+          child: SizedBox(
+            height: 160,
+            width: .infinity,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Stack(
+                children: [
+                  getCityImage(context: context, coverImgUrl: city.coverImgUrl),
+                  Positioned(
+                    top: 8,
+                    left: 8,
                     child: Container(
                       padding: .all(4),
                       decoration: BoxDecoration(
@@ -52,8 +41,8 @@ class CityCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -70,12 +59,10 @@ class CityCard extends StatelessWidget {
             ...city.categories.map(
               (cat) => FBadge(
                 style: FBadgeStyle.secondary(),
-                child: Skeleton.ignore(
-                  child: Text(
-                    cat,
-                    style: context.theme.typography.xs.copyWith(
-                      fontWeight: .normal,
-                    ),
+                child: Text(
+                  cat,
+                  style: context.theme.typography.xs.copyWith(
+                    fontWeight: .normal,
                   ),
                 ),
               ),
@@ -85,4 +72,38 @@ class CityCard extends StatelessWidget {
       ],
     );
   }
+}
+
+Widget getCityImage({required BuildContext context, String? coverImgUrl}) {
+  if (coverImgUrl == null) {
+    return Container(
+      color: context.theme.colors.muted,
+      width: double.infinity,
+      height: 160,
+    );
+  }
+
+  return Image.network(
+    coverImgUrl,
+    height: 160,
+    width: double.infinity,
+    fit: BoxFit.cover,
+    loadingBuilder: (context, child, loadingProgress) {
+      if (loadingProgress != null) {
+        return const Bone(
+          width: double.infinity,
+          height: 160,
+          borderRadius: .all(.circular(8)),
+        );
+      }
+      return child;
+    },
+    errorBuilder: (context, error, stackTrace) {
+      return Container(
+        color: context.theme.colors.muted,
+        width: double.infinity,
+        height: 160,
+      );
+    },
+  );
 }

@@ -5,7 +5,7 @@ class City {
   final String name;
   final String slug;
   final String? description;
-  final String imageUrl;
+  final String? coverImgUrl;
   final List<String> categories;
   final LatLng? location;
 
@@ -16,6 +16,6 @@ class City {
     this.description,
     required this.categories,
     this.location,
-    required this.imageUrl,
+    this.coverImgUrl,
   });
 }
