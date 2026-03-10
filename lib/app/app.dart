@@ -50,7 +50,7 @@ class App extends ConsumerWidget {
 
         return FAnimatedTheme(
           data: foruiTheme,
-          child: FToaster(child: child!, style: (style) => style),
+          child: FToaster(style: (style) => style, child: child!),
         );
       },
     );
