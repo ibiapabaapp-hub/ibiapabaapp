@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/session_provider.dart';
-import 'package:ibiapabaapp/shared/ui/main_wrapper.dart';
+import 'package:ibiapabaapp/shared/ui/layout/wrappers/main_wrapper.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -10,9 +10,10 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(sessionProvider);
-    return FScaffold(
-      header: FHeader.nested(),
-      child: SafeArea(
+    return SafeArea(
+      top: true,
+      child: FScaffold(
+        header: FHeader.nested(),
         child: SingleChildScrollView(
           child: MainWrapper(
             children: [
