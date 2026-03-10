@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class EventCard extends StatelessWidget {
   final Event event;
@@ -99,12 +98,10 @@ class EventCard extends StatelessWidget {
   Widget _buildBadge(BuildContext context, String text) {
     return FBadge(
       style: FBadgeStyle.outline(),
-      child: Skeleton.ignore(
-        child: Text(
-          text,
-          style: context.theme.typography.sm.copyWith(
-            fontWeight: FontWeight.normal,
-          ),
+      child: Text(
+        text,
+        style: context.theme.typography.sm.copyWith(
+          fontWeight: FontWeight.normal,
         ),
       ),
     );

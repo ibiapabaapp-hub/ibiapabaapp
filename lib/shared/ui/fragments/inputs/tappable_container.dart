@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:skeletonizer/skeletonizer.dart'; // Importação necessária
+// Importação necessária
 
 class TappableContainer extends StatelessWidget {
   final Widget child;
@@ -22,7 +22,7 @@ class TappableContainer extends StatelessWidget {
       onPress: onTap,
       child: Container(
         decoration: BoxDecoration(color: color, borderRadius: borderRadius),
-        child: Skeleton.ignore(ignore: true, child: child),
+        child: child,
       ),
     );
   }

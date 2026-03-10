@@ -3,83 +3,19 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/carousel/carousel_dot_indicator.dart';
-import 'package:skeletonizer/skeletonizer.dart';
-
-enum ContentType { image, video }
-
-enum ContentSource { asset, network }
-
-class ContentItem {
-  final String url;
-  final ContentType type;
-  final ContentSource source;
-  final String? title;
-  final String? route;
-
-  ContentItem({
-    required this.url,
-    required this.type,
-    required this.source,
-    this.title,
-    this.route,
-  });
-}
-
-class ContentMedia extends StatelessWidget {
-  final ContentItem? item;
-  final bool isLoading;
-
-  const ContentMedia({super.key, this.item, required this.isLoading});
-
-  @override
-  Widget build(BuildContext context) {
-    if (isLoading || item == null) {
-      return Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: context.theme.colors.muted,
-      );
-    }
-
-    if (item!.type == ContentType.video) {
-      return _buildVideoPlaceholder();
-    }
-
-    return _buildImage();
-  }
-
-  Widget _buildImage() {
-    return item!.source == ContentSource.asset
-        ? Image.asset(item!.url, fit: BoxFit.cover, width: double.infinity)
-        : Image.network(
-            item!.url,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            errorBuilder: (_, _, _) => const Icon(Icons.broken_image),
-          );
-  }
-
-  Widget _buildVideoPlaceholder() {
-    return Skeleton.replace(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(color: Colors.black),
-          const Icon(Icons.play_circle_fill, size: 50, color: Colors.white70),
-        ],
-      ),
-    );
-  }
-}
+import 'package:ibiapabaapp/shared/ui/fragments/media/content_media.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
 
 class ContentCarousel extends StatefulWidget {
-  final List<ContentItem> items;
+  final List<MediaSource> items;
   final bool isLoading;
+  final double aspectRatio;
 
   const ContentCarousel({
     super.key,
     required this.items,
     this.isLoading = false,
+    this.aspectRatio = 16 / 18,
   });
 
   @override
@@ -93,94 +29,95 @@ class _ContentCarouselState extends State<ContentCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    final displayItems = widget.isLoading
-        ? [
-            ContentItem(
-              url: '',
-              type: ContentType.image,
-              source: ContentSource.asset,
-            ),
-          ]
-        : widget.items;
+    if (widget.isLoading || widget.items.isEmpty) {
+      return AspectRatio(
+        aspectRatio: widget.aspectRatio,
+        child: Container(color: context.theme.colors.muted),
+      );
+    }
 
-    return AspectRatio(
-      aspectRatio: 16 / 18,
-      child: Stack(
-        children: [
-          CarouselSlider.builder(
-            carouselController: _carouselController,
-            itemCount: displayItems.length,
-            itemBuilder: (context, index, _) => GestureDetector(
-              onTap: () {
-                if (displayItems[index].route != null) {
-                  context.push(displayItems[index].route!);
-                }
-              },
-              child: ContentMedia(
-                item: widget.isLoading ? null : displayItems[index],
-                isLoading: widget.isLoading,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isTablet = constraints.maxWidth > 600;
+        final double viewportFraction = isTablet ? 0.85 : 1.0;
+
+        return Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 550),
+            child: AspectRatio(
+              aspectRatio: isTablet ? 16 / 9 : widget.aspectRatio,
+              child: Stack(
+                children: [
+                  CarouselSlider.builder(
+                    carouselController: _carouselController,
+                    itemCount: widget.items.length,
+                    itemBuilder: (context, index, realIndex) {
+                      final item = widget.items[index];
+
+                      // Pre-fetching lógico:
+                      // O ContentMedia do próximo índice será instanciado,
+                      // mas com isPlaying: false. O video_player pode
+                      // começar o buffering silencioso se implementarmos isso nele.
+
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isTablet ? 8.0 : 0.0,
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                            isTablet ? 16 : 0,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (item.route != null) context.push(item.route!);
+                              // Próximo passo: adicionar abertura da Galeria FullScreen aqui
+                            },
+                            child: ContentMedia(
+                              source: item,
+                              isPlaying: activeIndex == index,
+                              isVideo:
+                                  item.isVideo,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: double.infinity,
+                      viewportFraction: viewportFraction,
+                      autoPlay: widget.items.length > 1,
+                      autoPlayInterval: const Duration(
+                        seconds: 7,
+                      ), // Aumentado para dar tempo de ver vídeos
+                      pauseAutoPlayOnTouch: true,
+                      enlargeCenterPage: isTablet,
+                      enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                      enableInfiniteScroll: widget.items.length > 1,
+                      onPageChanged: (index, reason) {
+                        setState(() => activeIndex = index);
+                      },
+                    ),
+                  ),
+
+                  // Indicadores (Dots)
+                  if (widget.items.length > 1)
+                    Positioned(
+                      bottom: 16,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: CarouselDotIndicator(
+                          activeIndex: activeIndex,
+                          itemsLength: widget.items.length,
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
-            options: CarouselOptions(
-              height: double.infinity,
-              viewportFraction: 1.0,
-              autoPlay: !widget.isLoading && displayItems.length > 1,
-              enableInfiniteScroll: false,
-              onPageChanged: (index, _) {
-                if (!widget.isLoading) setState(() => activeIndex = index);
-              },
-            ),
           ),
-
-          // Indicadores (Dots)
-          Positioned(
-            bottom: 12,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Skeleton.ignore(
-                ignore: widget.isLoading,
-                child: CarouselDotIndicator(
-                  activeIndex: activeIndex,
-                  itemsLength: displayItems.length,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
-
-// class _SponsoredLabel extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-//       decoration: BoxDecoration(
-//         color: context.theme.colors.primary,
-//         borderRadius: BorderRadius.circular(6),
-//       ),
-//       child: Row(
-//         mainAxisAlignment: .center,
-//         crossAxisAlignment: .center,
-//         children: [
-//           Icon(
-//             Icons.campaign,
-//             size: 24,
-//             color: context.theme.colors.primaryForeground,
-//           ),
-//           Text(
-//             '2° Trilhão Tianguá Offroad',
-//             style: TextStyle(
-//               fontWeight: .w600,
-//               fontSize: 16,
-//               color: context.theme.colors.primaryForeground,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -17,14 +16,10 @@ class SectionHeader extends StatelessWidget {
       spacing: 12,
       crossAxisAlignment: .center,
       children: [
-        Skeleton.replace(
-          replace: true,
-          replacement: Bone.text(fontSize: 18, textAlign: .start, width: 188),
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            strutStyle: StrutStyle(leading: 1.2),
-          ),
+        Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          strutStyle: StrutStyle(leading: 1.2),
         ),
 
         if (onSeeAllTap != null)
