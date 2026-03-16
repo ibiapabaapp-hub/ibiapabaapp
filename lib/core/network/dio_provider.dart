@@ -19,7 +19,7 @@ Dio dio(Ref ref) {
   final dio = Dio(
     BaseOptions(
       baseUrl: dotenv.env['API_BASE_URL']!,
-      connectTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 6),
       headers: {
         'Content-Type': 'application/json',
         'User-Agent': 'ibiapabaapp/1.0',
