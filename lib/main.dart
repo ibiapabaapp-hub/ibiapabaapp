@@ -4,20 +4,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ibiapabaapp/app/app.dart';
 import 'package:ibiapabaapp/core/cache/cache_database_provider.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/session_provider.dart';
+import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   final container = ProviderContainer();
 
+  // Warm-up
   try {
     await Future.wait([
       dotenv.load(fileName: ".env"),
       container.read(cacheDatabaseProvider.future),
     ]);
-
-    await container.read(sessionProvider.notifier).restoreSession();
+    await container.read(appSessionProvider.notifier).restore();
   } catch (e, stack) {
     final logger = container.read(loggerProvider);
     logger.e(
@@ -25,6 +27,8 @@ void main() async {
       error: e,
       stackTrace: stack,
     );
+  } finally {
+    FlutterNativeSplash.remove();
   }
 
   runApp(UncontrolledProviderScope(container: container, child: const App()));
