@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "92.0.0"
+  acanthis:
+    dependency: "direct main"
+    description:
+      name: acanthis
+      sha256: "0e003d8a563e74b376c58e7d347e142e429d18603be5b70c80362b77730f66b5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.4"
   analysis_server_plugin:
     dependency: transitive
     description:
@@ -353,6 +361,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.9"
+  email_validator:
+    dependency: transitive
+    description:
+      name: email_validator
+      sha256: b19aa5d92fdd76fbc65112060c94d45ba855105a28bb6e462de7ff03b12fa1fb
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -893,6 +909,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  nanoid2:
+    dependency: transitive
+    description:
+      name: nanoid2
+      sha256: "35b5048f836652a1d711db0d716bdee59fcaaa4c37792db8b3568da4f7feb2f9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   native_toolchain_c:
     dependency: transitive
     description:
@@ -930,6 +954,14 @@ packages:
     description:
       name: octo_image
       sha256: "34faa6639a78c7e3cbe79be6f9f96535867e879748ade7d17c9b1ae7536293bd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  openapi_types:
+    dependency: transitive
+    description:
+      name: openapi_types
+      sha256: b47dcbd0fa71bb814e3988dc3d022355e8babe2bbd4bad976750d94f4069aa4e
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
@@ -1578,6 +1610,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.4"
+  yaml_writer:
+    dependency: transitive
+    description:
+      name: yaml_writer
+      sha256: "69651cd7238411179ac32079937d4aa9a2970150d6b2ae2c6fe6de09402a5dc5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
 sdks:
   dart: ">=3.10.7 <4.0.0"
   flutter: ">=3.38.4"
