@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/network/dio_error_to_exception_mapper.dart';
+import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/core/storage/token_storage_strategy.dart';
 import 'package:ibiapabaapp/features/auth/data/datasources/auth_remote_datasource.dart';
-import 'package:ibiapabaapp/features/auth/data/parsers/auth_response_parser.dart';
-import 'package:ibiapabaapp/features/auth/data/parsers/check_availability_parser.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/auth_response_parser.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/check_availability_parser.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/register_form_data.dart';
@@ -28,7 +28,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       );
       return AuthResponseParser.fromJson(response.data);
     } on DioException catch (e) {
-      throw DioErrorToExceptionMapper.map(e);
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
@@ -43,7 +43,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       );
       return AuthResponseParser.fromJson(response.data);
     } on DioException catch (e) {
-      throw DioErrorToExceptionMapper.map(e);
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
@@ -59,7 +59,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       );
       return CheckAvailabilityParser.fromJson(response.data);
     } on DioException catch (e) {
-      throw DioErrorToExceptionMapper.map(e);
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
@@ -69,7 +69,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       final response = await _dio.get('/auth/me');
       return AuthResponseParser.userFromJson(response.data);
     } on DioException catch (e) {
-      throw DioErrorToExceptionMapper.map(e);
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
@@ -84,7 +84,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
 
       return AuthResponseParser.fromJson(response.data);
     } on DioException catch (e) {
-      throw DioErrorToExceptionMapper.map(e);
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
 import 'package:latlong2/latlong.dart';
 
-class CityParser {
+class CityModel {
   static City fromJson(Map<String, dynamic> json) {
     LatLng? location;
 

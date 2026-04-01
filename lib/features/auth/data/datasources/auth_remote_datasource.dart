@@ -10,7 +10,6 @@ abstract class AuthRemoteDatasource {
 
   Future<CheckAvailability> checkAvailability({
     required String field,
-
     required String value,
   });
 

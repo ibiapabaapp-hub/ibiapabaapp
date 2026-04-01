@@ -1,6 +1,6 @@
 import 'package:ibiapabaapp/features/companies/domain/entities/company.dart';
 
-class CompanyParser {
+class CompanyModel {
   static Company fromJson(Map<String, dynamic> json) {
     return Company(
       id: json['id'].toString(),

@@ -1,6 +1,6 @@
 import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';
 
-class MediaParser {
+class MediaModel {
   static Media fromJson(Map<String, dynamic> json) {
     return Media(
       id: json['id'] as String,
