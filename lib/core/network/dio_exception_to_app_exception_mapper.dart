@@ -40,7 +40,7 @@ class _ResponsePayload {
 
 // mapeia apenas por [code] retornado pelo backend, sem inferência por mensagem.
 // exige code + message: se o backend não enviar code, usa [http_<status>].
-class DioErrorToExceptionMapper {
+class DioExceptionToAppExceptionMapper {
   static String _code(int? status, String? backendCode) {
     if (backendCode != null && backendCode.trim().isNotEmpty) {
       return backendCode.trim();
