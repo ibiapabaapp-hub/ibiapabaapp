@@ -26,7 +26,7 @@ class CitiesRepositoryImpl
   LogFeature get feature => LogFeature.cities;
 
   @override
-  Future<Either<Failure, List<City>>> getAllCities({
+  Future<Either<AppFailure, List<City>>> getAllCities({
     bool forceRefresh = false,
   }) async {
     try {
@@ -36,7 +36,6 @@ class CitiesRepositoryImpl
       }
 
       final remoteCities = await remoteDatasource.getAllCities();
-
       await localDatasource.clearCache();
       await localDatasource.cacheCities(remoteCities);
 
@@ -53,7 +52,7 @@ class CitiesRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, City?>> getCityById(String id) async {
+  Future<Either<AppFailure, City?>> getCityById(String id) async {
     try {
       final city = await localDatasource.getCityById(id);
       return Right(city);

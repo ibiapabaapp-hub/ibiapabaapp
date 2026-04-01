@@ -8,7 +8,7 @@ class GetEntityMedia {
 
   GetEntityMedia(this.repository);
 
-  Future<Either<Failure, List<Media>>> call({
+  Future<Either<AppFailure, List<Media>>> call({
     required EntityType entityType,
     required String entityId,
   }) {

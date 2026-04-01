@@ -7,7 +7,7 @@ class GetCompanyById {
   final CompaniesRepository repository;
   GetCompanyById(this.repository);
 
-  Future<Either<Failure, Company?>> call(String id) {
+  Future<Either<AppFailure, Company?>> call(String id) {
     return repository.getCompanyById(id);
   }
 }

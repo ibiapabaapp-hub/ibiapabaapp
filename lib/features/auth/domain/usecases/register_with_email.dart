@@ -12,7 +12,7 @@ class RegisterWithEmail
   RegisterWithEmail(this.repository);
 
   @override
-  Future<Either<Failure, AuthResult>> call(RegisterWithEmailParams params) {
+  Future<Either<AppFailure, AuthResult>> call(RegisterWithEmailParams params) {
     return repository.register(registerFormData: params.registerFormData);
   }
 }

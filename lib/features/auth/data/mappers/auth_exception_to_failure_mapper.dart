@@ -5,8 +5,8 @@ import 'package:ibiapabaapp/features/auth/data/exceptions/auth_exceptions.dart';
 import 'package:ibiapabaapp/features/auth/domain/failures/auth_failures.dart';
 
 class AuthExceptionToFailureMapper {
-  static Failure map(Object error) {
-    if (error is Failure) return error;
+  static AppFailure map(Object error) {
+    if (error is AppFailure) return error;
 
     if (error is AppException) {
       final failure =
@@ -22,7 +22,7 @@ class AuthExceptionToFailureMapper {
   }
 }
 
-typedef FailureFactory = Failure Function(AppException e);
+typedef FailureFactory = AppFailure Function(AppException e);
 
 class _AuthFailureRegistry {
   static const Map<String, String> _userMessageByCode = {
@@ -74,12 +74,12 @@ class _AuthFailureRegistry {
         InvalidTokenFailure(message: _displayMessage(e)),
   };
 
-  static Failure? getByCode(AppException e) {
+  static AppFailure? getByCode(AppException e) {
     final factory = _byCode[e.code];
     return factory != null ? factory(e) : null;
   }
 
-  static Failure? getByType(AppException e) {
+  static AppFailure? getByType(AppException e) {
     final factory = _byType[e.runtimeType];
     return factory != null ? factory(e) : null;
   }

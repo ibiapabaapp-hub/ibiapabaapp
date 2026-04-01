@@ -9,7 +9,7 @@ class GetCityById implements Usecase<City?, GetCityByIdParams> {
   GetCityById(this.repository);
 
   @override
-  Future<Either<Failure, City?>> call(GetCityByIdParams params) {
+  Future<Either<AppFailure, City?>> call(GetCityByIdParams params) {
     return repository.getCityById(params.id);
   }
 }

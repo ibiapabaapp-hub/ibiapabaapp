@@ -20,7 +20,7 @@ class MediasRepositoryImpl
   LogFeature get feature => LogFeature.medias;
 
   @override
-  Future<Either<Failure, List<Media>>> getEntityMedia({
+  Future<Either<AppFailure, List<Media>>> getEntityMedia({
     required EntityType entityType,
     required String entityId,
   }) async {

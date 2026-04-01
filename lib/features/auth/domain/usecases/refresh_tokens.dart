@@ -10,7 +10,7 @@ class RefreshTokens implements UsecaseWithoutParams<AuthResult> {
   RefreshTokens(this.repository);
 
   @override
-  Future<Either<Failure, AuthResult>> call() {
+  Future<Either<AppFailure, AuthResult>> call() {
     return repository.refreshTokens();
   }
 }

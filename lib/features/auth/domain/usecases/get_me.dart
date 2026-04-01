@@ -10,7 +10,7 @@ class GetMe implements UsecaseWithoutParams<User> {
   GetMe(this.repository);
 
   @override
-  Future<Either<Failure, User>> call() {
+  Future<Either<AppFailure, User>> call() {
     return repository.getMe();
   }
 }

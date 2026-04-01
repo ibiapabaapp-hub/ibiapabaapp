@@ -11,7 +11,7 @@ class CheckUniqueAvailability
   CheckUniqueAvailability(this.repository);
 
   @override
-  Future<Either<Failure, CheckAvailability>> call(
+  Future<Either<AppFailure, CheckAvailability>> call(
     CheckUniqueAvailabilityParams params,
   ) {
     return repository.checkAvailability(

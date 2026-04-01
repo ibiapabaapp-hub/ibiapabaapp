@@ -23,7 +23,7 @@ class CompaniesRepositoryImpl
   LogFeature get feature => LogFeature.companies;
 
   @override
-  Future<Either<Failure, List<Company>>> getAllCompanies() async {
+  Future<Either<AppFailure, List<Company>>> getAllCompanies() async {
     try {
       final result = await remoteDatasource.getAllCompanies();
       return Right(result);
@@ -39,7 +39,7 @@ class CompaniesRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, Company?>> getCompanyById(String id) async {
+  Future<Either<AppFailure, Company?>> getCompanyById(String id) async {
     try {
       final result = await remoteDatasource.getCompanyById(id);
       return Right(result);

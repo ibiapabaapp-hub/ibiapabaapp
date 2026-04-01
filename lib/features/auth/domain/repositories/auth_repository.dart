@@ -6,21 +6,21 @@ import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/user.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, CheckAvailability>> checkAvailability({
+  Future<Either<AppFailure, CheckAvailability>> checkAvailability({
     required AvailabilityField field,
     required String value,
   });
 
-  Future<Either<Failure, AuthResult>> login({
+  Future<Either<AppFailure, AuthResult>> login({
     required String email,
     required String password,
   });
 
-  Future<Either<Failure, AuthResult>> register({
+  Future<Either<AppFailure, AuthResult>> register({
     required RegisterFormData registerFormData,
   });
 
-  Future<Either<Failure, User>> getMe();
+  Future<Either<AppFailure, User>> getMe();
 
-  Future<Either<Failure, AuthResult>> refreshTokens();
+  Future<Either<AppFailure, AuthResult>> refreshTokens();
 }

@@ -8,7 +8,7 @@ class GetAllCompanies {
 
   GetAllCompanies(this.repository);
 
-  Future<Either<Failure, List<Company>>> call() {
+  Future<Either<AppFailure, List<Company>>> call() {
     return repository.getAllCompanies();
   }
 }

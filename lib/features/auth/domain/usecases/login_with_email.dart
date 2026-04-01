@@ -10,7 +10,7 @@ class LoginWithEmail implements Usecase<AuthResult, LoginWithEmailParams> {
   LoginWithEmail(this.repository);
 
   @override
-  Future<Either<Failure, AuthResult>> call(LoginWithEmailParams params) {
+  Future<Either<AppFailure, AuthResult>> call(LoginWithEmailParams params) {
     return repository.login(email: params.email, password: params.password);
   }
 }

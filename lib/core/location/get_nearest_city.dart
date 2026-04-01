@@ -18,7 +18,7 @@ class GetNearestCity implements Usecase<City, List<City>> {
   final _distance = const Distance();
 
   @override
-  Future<Either<Failure, City>> call(List<City> cities) async {
+  Future<Either<AppFailure, City>> call(List<City> cities) async {
     if (cities.isEmpty) {
       return left(const LocationUnknownFailure('Nenhuma cidade disponível.'));
     }
@@ -64,13 +64,12 @@ class GetNearestCity implements Usecase<City, List<City>> {
     return right(nearest);
   }
 
-  Failure _mapExceptionToFailure(LocationException e) => switch (e) {
+  AppFailure _mapExceptionToFailure(LocationException e) => switch (e) {
     LocationPermissionDeniedException() =>
       const LocationPermissionDeniedFailure(),
     LocationPermissionPermanentlyDeniedException() =>
       const LocationPermissionPermanentlyDeniedFailure(),
-    LocationDisabledException() =>
-      const LocationDisabledFailure(),
+    LocationDisabledException() => const LocationDisabledFailure(),
     LocationTimeoutException() => const LocationTimeoutFailure(),
     LocationUnknownException() => LocationUnknownFailure(e.message),
   };

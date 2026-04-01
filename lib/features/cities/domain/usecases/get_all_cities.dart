@@ -9,7 +9,7 @@ class GetAllCities implements Usecase<List<City>, GetAllCitiesParams> {
   GetAllCities(this.repository);
 
   @override
-  Future<Either<Failure, List<City>>> call(GetAllCitiesParams params) {
+  Future<Either<AppFailure, List<City>>> call(GetAllCitiesParams params) {
     return repository.getAllCities(forceRefresh: params.forceRefresh);
   }
 }
