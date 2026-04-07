@@ -2,12 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/core/storage/token_storage_strategy.dart';
 import 'package:ibiapabaapp/features/auth/data/datasources/auth_remote_datasource.dart';
-import 'package:ibiapabaapp/features/auth/infra/models/auth_response_parser.dart';
-import 'package:ibiapabaapp/features/auth/infra/models/check_availability_parser.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/register_form_data.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/user.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/auth_result_model.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/check_availability_model.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/user_model.dart';
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   final Dio _dio;
@@ -20,15 +21,15 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<AuthResult> login({
     required String email,
     required String password,
-  }) async {
-    try {
-      final response = await _dio.post(
-        '/auth/login',
-        data: {'email': email, 'password': password},
-      );
-      return AuthResponseParser.fromJson(response.data);
-    } on DioException catch (e) {
-      throw DioExceptionToAppExceptionMapper.map(e);
+    }) async {
+      try {
+        final response = await _dio.post(
+          '/auth/login',
+          data: {'email': email, 'password': password},
+        );
+        return AuthResultModel.fromJson(response.data);
+      } on DioException catch (e) {
+        throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
@@ -41,7 +42,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         '/auth/register',
         data: registerFormData.toJson(),
       );
-      return AuthResponseParser.fromJson(response.data);
+      return AuthResultModel.fromJson(response.data);
     } on DioException catch (e) {
       throw DioExceptionToAppExceptionMapper.map(e);
     }
@@ -57,7 +58,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         '/auth/check-unique',
         queryParameters: {'field': field, 'value': value},
       );
-      return CheckAvailabilityParser.fromJson(response.data);
+      return CheckAvailabilityModel.fromJson(response.data);
     } on DioException catch (e) {
       throw DioExceptionToAppExceptionMapper.map(e);
     }
@@ -67,7 +68,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   Future<User> getMe() async {
     try {
       final response = await _dio.get('/auth/me');
-      return AuthResponseParser.userFromJson(response.data);
+      return UserModel.fromJson(response.data);
     } on DioException catch (e) {
       throw DioExceptionToAppExceptionMapper.map(e);
     }
@@ -82,7 +83,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         options: Options(headers: {'x-refresh-token': refreshToken}),
       );
 
-      return AuthResponseParser.fromJson(response.data);
+      return AuthResultModel.fromJson(response.data);
     } on DioException catch (e) {
       throw DioExceptionToAppExceptionMapper.map(e);
     }

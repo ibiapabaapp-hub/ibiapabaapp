@@ -1,44 +1,50 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ibiapabaapp/features/companies/domain/entities/company.dart';
 
-class CompanyModel {
-  static Company fromJson(Map<String, dynamic> json) {
-    return Company(
-      id: json['id'].toString(),
-      name: json['name'],
-      slug: json['slug'],
-      cnpj: json['cnpj'] ?? '',
-      maxReachLevel: ReachLevel.values.firstWhere(
-        (e) => e.name == json['max_reach_level'],
-        orElse: () => ReachLevel.local,
-      ),
-      coverImgUrl: json['cover_img_url'] ?? '',
-      description: json['description'] as String?,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
-      categories:
-          (json['categories'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          [],
-    );
-  }
+part 'company_model.freezed.dart';
+part 'company_model.g.dart';
+
+@freezed
+abstract class CompanyModel with _$CompanyModel implements Company {
+  const CompanyModel._();
+
+  const factory CompanyModel({
+    @Default('') String id,
+    @Default('') String slug,
+    String? cnpj,
+    @Default('') String name,
+    String? description,
+    @JsonKey(unknownEnumValue: ReachLevel.local)
+    required ReachLevel maxReachLevel,
+    String? coverImgUrl,
+    @Default([]) List<String> categories,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+  }) = _CompanyModel;
+
+  factory CompanyModel.fromJson(Map<String, dynamic> json) =>
+      _$CompanyModelFromJson(json);
 
   static List<Company> fromJsonList(dynamic jsonList) {
     if (jsonList == null) return [];
-    final list = jsonList as List<dynamic>;
-    return list.map((json) => fromJson(json as Map<String, dynamic>)).toList();
+    return (jsonList as List<dynamic>)
+        .map((json) => CompanyModel.fromJson(json as Map<String, dynamic>))
+        .toList();
   }
 
   static Map<String, dynamic> toMap(Company company) {
-    return {
-      'id': company.id,
-      'name': company.name,
-      'cnpj': company.cnpj,
-      'slug': company.slug,
-      'cover_img_url': company.coverImgUrl,
-      'max_reach_level': company.maxReachLevel.name,
-      'description': company.description,
-      'categories': company.categories,
-    };
+    if (company is CompanyModel) return company.toJson();
+    return CompanyModel(
+      id: company.id,
+      name: company.name,
+      cnpj: company.cnpj,
+      slug: company.slug,
+      coverImgUrl: company.coverImgUrl,
+      maxReachLevel: company.maxReachLevel,
+      description: company.description,
+      categories: company.categories,
+      createdAt: company.createdAt,
+      updatedAt: company.updatedAt,
+    ).toJson();
   }
 }
