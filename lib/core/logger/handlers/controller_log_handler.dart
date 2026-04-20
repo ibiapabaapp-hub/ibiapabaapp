@@ -6,7 +6,10 @@ mixin ControllerLogHandler {
   LogFeature get feature;
   LogLayer get defaultLayer => LogLayer.controller;
 
-  void logControllerError({required LogTag action, required dynamic failure}) {
+  void logControllerError({
+    required LogTag action,
+    required dynamic failure,
+  }) {
     final String fullTag =
         '${defaultLayer.tag}${feature.tag}${action.tag}${LogStatus.error.tag}';
 
