@@ -57,7 +57,7 @@ class _FlutterMapWidgetState extends State<FlutterMapWidget> {
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'com.example.ibiapabaapp',
+          userAgentPackageName: 'com.ibiapabaapp.app',
           retinaMode: RetinaMode.isHighDensity(context),
         ),
         if (current != null)

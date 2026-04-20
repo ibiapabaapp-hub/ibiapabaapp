@@ -1,6 +1,7 @@
 import 'package:easy_stars/easy_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:ibiapabaapp/shared/ui/layout/sheet_drag_indicator.dart';
 
 const commentMaxLength = 300;
@@ -22,7 +23,7 @@ void showRatingInputSheet({required BuildContext context}) {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: Column(
@@ -98,7 +99,7 @@ class _FormState extends State<_Form> {
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
-    showFToast(
+    showAppToast(
       context: context,
       duration: Duration(seconds: 3),
       alignment: .bottomCenter,

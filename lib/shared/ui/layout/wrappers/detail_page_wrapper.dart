@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// TODO: mover FavoriteButton para canto inferior direito do carrossel para facilitar toque
 class DetailPageWrapper extends StatelessWidget {
   final Widget headerChildren;
   final Widget carousel;
@@ -29,7 +30,7 @@ class DetailPageWrapper extends StatelessWidget {
               ],
             ),
             Container(
-              padding: .symmetric(horizontal: 24),
+              padding: .symmetric(horizontal: 16),
               child: Column(crossAxisAlignment: .start, children: bodyChildren),
             ),
           ],

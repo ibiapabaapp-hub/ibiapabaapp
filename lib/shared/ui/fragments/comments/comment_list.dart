@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/comments/comment.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 
 class CommentList extends StatelessWidget {
   final List<CommentItem> comments;
@@ -15,7 +16,7 @@ class CommentList extends StatelessWidget {
         FButton.raw(
           style: FButtonStyle.ghost(),
           onPress: () {
-            showFToast(
+            showAppToast(
               context: context,
               title: Text(
                 'TODO: página com todos os comentários',
