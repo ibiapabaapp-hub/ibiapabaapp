@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$EventModel {
 
- String get id; String get slug; String get name; String? get userId; String? get companyId; String? get description;@JsonKey(unknownEnumValue: EventType.simple) EventType get type; ReachLevel get reachLevel; String? get coverImgUrl; List<String> get categories; DateTime get startDate; DateTime get endDate; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get slug; String get name;@JsonKey(name: 'user_id') String? get userId;@JsonKey(name: 'company_id') String? get companyId; String? get description;@JsonKey(unknownEnumValue: EventType.simple) EventType get type;@JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level') ReachLevel get reachLevel;@JsonKey(name: 'cover_img_url') String? get coverImgUrl; List<String> get categories;@JsonKey(name: 'start_date') DateTime get startDate;@JsonKey(name: 'end_date') DateTime get endDate;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt;
 /// Create a copy of EventModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $EventModelCopyWith<$Res>  {
   factory $EventModelCopyWith(EventModel value, $Res Function(EventModel) _then) = _$EventModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String slug, String name, String? userId, String? companyId, String? description,@JsonKey(unknownEnumValue: EventType.simple) EventType type, ReachLevel reachLevel, String? coverImgUrl, List<String> categories, DateTime startDate, DateTime endDate, DateTime createdAt, DateTime updatedAt
+ String id, String slug, String name,@JsonKey(name: 'user_id') String? userId,@JsonKey(name: 'company_id') String? companyId, String? description,@JsonKey(unknownEnumValue: EventType.simple) EventType type,@JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level') ReachLevel reachLevel,@JsonKey(name: 'cover_img_url') String? coverImgUrl, List<String> categories,@JsonKey(name: 'start_date') DateTime startDate,@JsonKey(name: 'end_date') DateTime endDate,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
 });
 
 
@@ -166,7 +166,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String slug,  String name,  String? userId,  String? companyId,  String? description, @JsonKey(unknownEnumValue: EventType.simple)  EventType type,  ReachLevel reachLevel,  String? coverImgUrl,  List<String> categories,  DateTime startDate,  DateTime endDate,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String slug,  String name, @JsonKey(name: 'user_id')  String? userId, @JsonKey(name: 'company_id')  String? companyId,  String? description, @JsonKey(unknownEnumValue: EventType.simple)  EventType type, @JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level')  ReachLevel reachLevel, @JsonKey(name: 'cover_img_url')  String? coverImgUrl,  List<String> categories, @JsonKey(name: 'start_date')  DateTime startDate, @JsonKey(name: 'end_date')  DateTime endDate, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EventModel() when $default != null:
 return $default(_that.id,_that.slug,_that.name,_that.userId,_that.companyId,_that.description,_that.type,_that.reachLevel,_that.coverImgUrl,_that.categories,_that.startDate,_that.endDate,_that.createdAt,_that.updatedAt);case _:
@@ -187,7 +187,7 @@ return $default(_that.id,_that.slug,_that.name,_that.userId,_that.companyId,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String slug,  String name,  String? userId,  String? companyId,  String? description, @JsonKey(unknownEnumValue: EventType.simple)  EventType type,  ReachLevel reachLevel,  String? coverImgUrl,  List<String> categories,  DateTime startDate,  DateTime endDate,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String slug,  String name, @JsonKey(name: 'user_id')  String? userId, @JsonKey(name: 'company_id')  String? companyId,  String? description, @JsonKey(unknownEnumValue: EventType.simple)  EventType type, @JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level')  ReachLevel reachLevel, @JsonKey(name: 'cover_img_url')  String? coverImgUrl,  List<String> categories, @JsonKey(name: 'start_date')  DateTime startDate, @JsonKey(name: 'end_date')  DateTime endDate, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _EventModel():
 return $default(_that.id,_that.slug,_that.name,_that.userId,_that.companyId,_that.description,_that.type,_that.reachLevel,_that.coverImgUrl,_that.categories,_that.startDate,_that.endDate,_that.createdAt,_that.updatedAt);case _:
@@ -207,7 +207,7 @@ return $default(_that.id,_that.slug,_that.name,_that.userId,_that.companyId,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String slug,  String name,  String? userId,  String? companyId,  String? description, @JsonKey(unknownEnumValue: EventType.simple)  EventType type,  ReachLevel reachLevel,  String? coverImgUrl,  List<String> categories,  DateTime startDate,  DateTime endDate,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String slug,  String name, @JsonKey(name: 'user_id')  String? userId, @JsonKey(name: 'company_id')  String? companyId,  String? description, @JsonKey(unknownEnumValue: EventType.simple)  EventType type, @JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level')  ReachLevel reachLevel, @JsonKey(name: 'cover_img_url')  String? coverImgUrl,  List<String> categories, @JsonKey(name: 'start_date')  DateTime startDate, @JsonKey(name: 'end_date')  DateTime endDate, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _EventModel() when $default != null:
 return $default(_that.id,_that.slug,_that.name,_that.userId,_that.companyId,_that.description,_that.type,_that.reachLevel,_that.coverImgUrl,_that.categories,_that.startDate,_that.endDate,_that.createdAt,_that.updatedAt);case _:
@@ -222,18 +222,18 @@ return $default(_that.id,_that.slug,_that.name,_that.userId,_that.companyId,_tha
 @JsonSerializable()
 
 class _EventModel extends EventModel {
-  const _EventModel({required this.id, required this.slug, required this.name, this.userId, this.companyId, this.description, @JsonKey(unknownEnumValue: EventType.simple) required this.type, required this.reachLevel, this.coverImgUrl, final  List<String> categories = const [], required this.startDate, required this.endDate, required this.createdAt, required this.updatedAt}): _categories = categories,super._();
+  const _EventModel({required this.id, required this.slug, required this.name, @JsonKey(name: 'user_id') this.userId, @JsonKey(name: 'company_id') this.companyId, this.description, @JsonKey(unknownEnumValue: EventType.simple) required this.type, @JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level') required this.reachLevel, @JsonKey(name: 'cover_img_url') this.coverImgUrl, final  List<String> categories = const [], @JsonKey(name: 'start_date') required this.startDate, @JsonKey(name: 'end_date') required this.endDate, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt}): _categories = categories,super._();
   factory _EventModel.fromJson(Map<String, dynamic> json) => _$EventModelFromJson(json);
 
 @override final  String id;
 @override final  String slug;
 @override final  String name;
-@override final  String? userId;
-@override final  String? companyId;
+@override@JsonKey(name: 'user_id') final  String? userId;
+@override@JsonKey(name: 'company_id') final  String? companyId;
 @override final  String? description;
 @override@JsonKey(unknownEnumValue: EventType.simple) final  EventType type;
-@override final  ReachLevel reachLevel;
-@override final  String? coverImgUrl;
+@override@JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level') final  ReachLevel reachLevel;
+@override@JsonKey(name: 'cover_img_url') final  String? coverImgUrl;
  final  List<String> _categories;
 @override@JsonKey() List<String> get categories {
   if (_categories is EqualUnmodifiableListView) return _categories;
@@ -241,10 +241,10 @@ class _EventModel extends EventModel {
   return EqualUnmodifiableListView(_categories);
 }
 
-@override final  DateTime startDate;
-@override final  DateTime endDate;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override@JsonKey(name: 'start_date') final  DateTime startDate;
+@override@JsonKey(name: 'end_date') final  DateTime endDate;
+@override@JsonKey(name: 'created_at') final  DateTime createdAt;
+@override@JsonKey(name: 'updated_at') final  DateTime updatedAt;
 
 /// Create a copy of EventModel
 /// with the given fields replaced by the non-null parameter values.
@@ -279,7 +279,7 @@ abstract mixin class _$EventModelCopyWith<$Res> implements $EventModelCopyWith<$
   factory _$EventModelCopyWith(_EventModel value, $Res Function(_EventModel) _then) = __$EventModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String slug, String name, String? userId, String? companyId, String? description,@JsonKey(unknownEnumValue: EventType.simple) EventType type, ReachLevel reachLevel, String? coverImgUrl, List<String> categories, DateTime startDate, DateTime endDate, DateTime createdAt, DateTime updatedAt
+ String id, String slug, String name,@JsonKey(name: 'user_id') String? userId,@JsonKey(name: 'company_id') String? companyId, String? description,@JsonKey(unknownEnumValue: EventType.simple) EventType type,@JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level') ReachLevel reachLevel,@JsonKey(name: 'cover_img_url') String? coverImgUrl, List<String> categories,@JsonKey(name: 'start_date') DateTime startDate,@JsonKey(name: 'end_date') DateTime endDate,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
 });
 
 

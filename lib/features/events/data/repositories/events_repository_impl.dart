@@ -17,7 +17,7 @@ class EventsRepositoryImpl
   EventsRepositoryImpl({required this.remoteDatasource, required this.logger});
 
   @override
-  LogFeature get feature => LogFeature.companies;
+  LogFeature get feature => LogFeature.events;
 
   @override
   Future<Either<AppFailure, List<Event>>> getAllEvents() async {

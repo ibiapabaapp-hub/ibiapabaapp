@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ibiapabaapp/features/companies/domain/entities/company.dart';
+import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
 import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
 
 part 'event_model.freezed.dart';
@@ -13,17 +13,19 @@ abstract class EventModel with _$EventModel implements Event {
     required String id,
     required String slug,
     required String name,
-    String? userId,
-    String? companyId,
+    @JsonKey(name: 'user_id') String? userId,
+    @JsonKey(name: 'company_id') String? companyId,
     String? description,
+
     @JsonKey(unknownEnumValue: EventType.simple) required EventType type,
+    @JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level')
     required ReachLevel reachLevel,
-    String? coverImgUrl,
+    @JsonKey(name: 'cover_img_url') String? coverImgUrl,
     @Default([]) List<String> categories,
-    required DateTime startDate,
-    required DateTime endDate,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @JsonKey(name: 'start_date') required DateTime startDate,
+    @JsonKey(name: 'end_date') required DateTime endDate,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _EventModel;
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>

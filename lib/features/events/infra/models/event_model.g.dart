@@ -10,25 +10,29 @@ _EventModel _$EventModelFromJson(Map<String, dynamic> json) => _EventModel(
   id: json['id'] as String,
   slug: json['slug'] as String,
   name: json['name'] as String,
-  userId: json['userId'] as String?,
-  companyId: json['companyId'] as String?,
+  userId: json['user_id'] as String?,
+  companyId: json['company_id'] as String?,
   description: json['description'] as String?,
   type: $enumDecode(
     _$EventTypeEnumMap,
     json['type'],
     unknownValue: EventType.simple,
   ),
-  reachLevel: $enumDecode(_$ReachLevelEnumMap, json['reachLevel']),
-  coverImgUrl: json['coverImgUrl'] as String?,
+  reachLevel: $enumDecode(
+    _$ReachLevelEnumMap,
+    json['reach_level'],
+    unknownValue: ReachLevel.local,
+  ),
+  coverImgUrl: json['cover_img_url'] as String?,
   categories:
       (json['categories'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList() ??
       const [],
-  startDate: DateTime.parse(json['startDate'] as String),
-  endDate: DateTime.parse(json['endDate'] as String),
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  startDate: DateTime.parse(json['start_date'] as String),
+  endDate: DateTime.parse(json['end_date'] as String),
+  createdAt: DateTime.parse(json['created_at'] as String),
+  updatedAt: DateTime.parse(json['updated_at'] as String),
 );
 
 Map<String, dynamic> _$EventModelToJson(_EventModel instance) =>
@@ -36,17 +40,17 @@ Map<String, dynamic> _$EventModelToJson(_EventModel instance) =>
       'id': instance.id,
       'slug': instance.slug,
       'name': instance.name,
-      'userId': instance.userId,
-      'companyId': instance.companyId,
+      'user_id': instance.userId,
+      'company_id': instance.companyId,
       'description': instance.description,
       'type': _$EventTypeEnumMap[instance.type]!,
-      'reachLevel': _$ReachLevelEnumMap[instance.reachLevel]!,
-      'coverImgUrl': instance.coverImgUrl,
+      'reach_level': _$ReachLevelEnumMap[instance.reachLevel]!,
+      'cover_img_url': instance.coverImgUrl,
       'categories': instance.categories,
-      'startDate': instance.startDate.toIso8601String(),
-      'endDate': instance.endDate.toIso8601String(),
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'start_date': instance.startDate.toIso8601String(),
+      'end_date': instance.endDate.toIso8601String(),
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
     };
 
 const _$EventTypeEnumMap = {
