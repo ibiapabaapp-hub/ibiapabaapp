@@ -30,7 +30,7 @@ class BusinessCard extends StatelessWidget {
                 children: [
                   getBusinessImage(
                     context: context,
-                    coverImgUrl: business.coverImgUrl,
+                    coverImgUrl: business.avatar,
                   ),
                   Positioned(
                     top: 8,

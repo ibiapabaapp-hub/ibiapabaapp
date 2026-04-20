@@ -13,7 +13,8 @@ abstract class BusinessModel with _$BusinessModel implements Business {
     @Default('') String slug,
     String? cnpj,
     @Default('') String name,
-    String? description,
+    String? bio,
+    String? avatar,
 
     @JsonKey(unknownEnumValue: ReachLevel.local, name: 'max_reach_level')
     required ReachLevel maxReachLevel,
@@ -21,7 +22,6 @@ abstract class BusinessModel with _$BusinessModel implements Business {
     @JsonKey(name: 'cover_img_url') String? coverImgUrl,
     @Default([]) List<String> categories,
     @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _BusinessModel;
 
   factory BusinessModel.fromJson(Map<String, dynamic> json) =>
@@ -39,14 +39,12 @@ abstract class BusinessModel with _$BusinessModel implements Business {
     return BusinessModel(
       id: business.id,
       name: business.name,
-      cnpj: business.cnpj,
       slug: business.slug,
-      coverImgUrl: business.coverImgUrl,
+      bio: business.bio,
+      avatar: business.avatar,
       maxReachLevel: business.maxReachLevel,
-      description: business.description,
       categories: business.categories,
       createdAt: business.createdAt,
-      updatedAt: business.updatedAt,
     ).toJson();
   }
 }

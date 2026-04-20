@@ -106,7 +106,7 @@ class _BusinessDetailContent extends StatelessWidget {
               ExpandableText(
                 text: isLoading
                     ? 'Este é um texto de exemplo para o skeleton ocupar espaço...'
-                    : (business?.description ?? 'Sem descrição disponível.'),
+                    : (business?.bio ?? 'Sem descrição disponível.'),
               ),
               const FDivider(),
               SectionHeader(title: 'Acontecendo agora', onSeeAllTap: () {}),

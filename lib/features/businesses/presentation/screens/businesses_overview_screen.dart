@@ -14,13 +14,10 @@ final List<Business> _mockCompanies = List.generate(
   (index) => Business(
     id: 'mock-$index',
     slug: 'mock',
-    cnpj: 'cnpj',
     name: 'Carregando empresa',
     maxReachLevel: ReachLevel.regional,
-    coverImgUrl: '',
     categories: ['Categoria', 'Subcategoria'],
     createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
   ),
 );
 
