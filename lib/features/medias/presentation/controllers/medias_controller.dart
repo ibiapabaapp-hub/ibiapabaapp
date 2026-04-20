@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ibiapabaapp/core/entities/entity_type.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
@@ -13,14 +14,15 @@ part 'medias_controller.g.dart';
 @riverpod
 class EntityMedias extends _$EntityMedias with ControllerLogHandler {
   @override
-  Logger get logger => ref.read(loggerProvider);
+  late final Logger logger;
 
   @override
   LogFeature get feature => LogFeature.medias;
 
   @override
   Future<List<Media>> build(EntityType entityType, String entityId) async {
-    final user = ref.watch(appSessionProvider.select((s) => s.user));
+    logger = ref.read(loggerProvider);
+    final user = ref.watch(appSessionProvider.select((s) => s.account));
     if (user == null) return [];
 
     return _fetchRemote(entityType, entityId);
@@ -35,6 +37,8 @@ class EntityMedias extends _$EntityMedias with ControllerLogHandler {
       entityType: entityType,
       entityId: entityId,
     );
+
+    if (!ref.mounted) throw Exception('Provider disposed');
 
     return result.fold(
       (failure) {

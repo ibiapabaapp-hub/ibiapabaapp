@@ -1,3 +1,5 @@
+import 'package:ibiapabaapp/core/entities/entity_type.dart';
+
 class Media {
   final String id;
   final EntityType entityType;
@@ -20,23 +22,6 @@ class Media {
     required this.isCover,
     required this.position,
   });
-}
-
-enum EntityType {
-  city,
-  event,
-  company;
-
-  String get pathSegment {
-    switch (this) {
-      case EntityType.city:
-        return 'cities';
-      case EntityType.event:
-        return 'events';
-      case EntityType.company:
-        return 'companies';
-    }
-  }
 }
 
 enum MediaType { image, video }

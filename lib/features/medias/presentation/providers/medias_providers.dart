@@ -4,6 +4,7 @@ import 'package:ibiapabaapp/features/medias/data/datasource/medias_remote_dataso
 import 'package:ibiapabaapp/features/medias/data/repositories/medias_repository_impl.dart';
 import 'package:ibiapabaapp/features/medias/data/usecases/get_entity_media.dart';
 import 'package:ibiapabaapp/features/medias/domain/repositories/medias_repository.dart';
+import 'package:ibiapabaapp/features/medias/infra/medias_remote_datasource_impl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'medias_providers.g.dart';

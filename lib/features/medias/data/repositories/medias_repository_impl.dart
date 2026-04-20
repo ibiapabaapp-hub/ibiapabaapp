@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:ibiapabaapp/core/entities/entity_type.dart';
 import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
