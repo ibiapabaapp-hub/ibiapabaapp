@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ibiapabaapp/core/entities/entity_type.dart';
 import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
@@ -19,14 +20,15 @@ part 'city_detail_controller.g.dart';
 @riverpod
 class CityDetail extends _$CityDetail with ControllerLogHandler {
   @override
-  Logger get logger => ref.read(loggerProvider);
+  late final Logger logger;
 
   @override
   LogFeature get feature => LogFeature.cities;
 
   @override
   Future<CityDetailData?> build(String id) async {
-    final user = ref.watch(appSessionProvider.select((s) => s.user));
+    logger = ref.read(loggerProvider);
+    final user = ref.watch(appSessionProvider.select((s) => s.account));
     if (user == null) return null;
 
     final results = await Future.wait([
@@ -36,8 +38,10 @@ class CityDetail extends _$CityDetail with ControllerLogHandler {
           .call(entityType: EntityType.city, entityId: id),
     ]);
 
-    final cityResult = results[0] as Either<Failure, City?>;
-    final mediaResult = results[1] as Either<Failure, List<Media>>;
+    if (!ref.mounted) throw Exception('Provider disposed');
+
+    final cityResult = results[0] as Either<AppFailure, City?>;
+    final mediaResult = results[1] as Either<AppFailure, List<Media>>;
 
     final city = cityResult.fold(
       (failure) {

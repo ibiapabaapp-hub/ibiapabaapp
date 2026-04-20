@@ -55,7 +55,7 @@ final class CitiesLocalDatasourceProvider
 }
 
 String _$citiesLocalDatasourceHash() =>
-    r'075cc0a343b4de952cb1fde26399add2697edeb7';
+    r'c3b3c277a1b3cf505fb8046b601245f4eaa54f64';
 
 @ProviderFor(citiesRemoteDatasource)
 final citiesRemoteDatasourceProvider = CitiesRemoteDatasourceProvider._();

@@ -14,41 +14,28 @@ part 'cities_controller.g.dart';
 @riverpod
 class Cities extends _$Cities with ControllerLogHandler {
   @override
-  Logger get logger => ref.read(loggerProvider);
+  late final Logger logger;
 
   @override
   LogFeature get feature => LogFeature.cities;
 
-  static const _cacheThreshold = Duration(hours: 1);
-
   @override
   Future<List<City>> build() async {
-    final user = ref.watch(appSessionProvider.select((s) => s.user));
+    logger = ref.read(loggerProvider);
+    final user = ref.watch(appSessionProvider.select((s) => s.account));
     if (user == null) return [];
-
-    final localCache = ref.read(citiesLocalDatasourceProvider);
-    final cachedCities = await localCache.getCachedCities();
-    final lastUpdate = await localCache.getLastCacheTime();
-
-    if (cachedCities.isNotEmpty) {
-      final now = DateTime.now();
-      final isStale =
-          lastUpdate == null || now.difference(lastUpdate) > _cacheThreshold;
-
-      if (isStale) {
-        Future.microtask(() => _updateFromRemote());
-      }
-      return cachedCities;
-    }
-
     return _fetchRemote();
   }
 
-  Future<List<City>> _fetchRemote() async {
+  Future<List<City>> _fetchRemote({bool forceRefresh = false}) async {
     final getAllCitiesUsecase = ref.read(getAllCitiesProvider);
     final localCache = ref.read(citiesLocalDatasourceProvider);
 
-    final result = await getAllCitiesUsecase(GetAllCitiesParams());
+    final result = await getAllCitiesUsecase(
+      GetAllCitiesParams(forceRefresh: forceRefresh),
+    );
+
+    if (!ref.mounted) throw Exception('Provider disposed');
 
     return result.fold(
       (failure) {
@@ -63,47 +50,8 @@ class Cities extends _$Cities with ControllerLogHandler {
     );
   }
 
-  Future<void> _updateFromRemote() async {
-    try {
-      final getAllCitiesUsecase = ref.read(getAllCitiesProvider);
-      final localCache = ref.read(citiesLocalDatasourceProvider);
-      final result = await getAllCitiesUsecase(GetAllCitiesParams());
-
-      result.fold(
-        (failure) {
-          logControllerError(action: CityAction.getAllCities, failure: failure);
-          logger.e;
-        },
-        (cities) async {
-          logControllerSuccess(action: CityAction.getAllCities);
-          await localCache.cacheCities(cities);
-          state = AsyncData(cities);
-        },
-      );
-    } catch (e) {
-      logger.e;
-    }
-  }
-
   Future<void> refresh() async {
-    state = await AsyncValue.guard(() async {
-      final getAllCitiesUsecase = ref.read(getAllCitiesProvider);
-      final localCache = ref.read(citiesLocalDatasourceProvider);
-      final result = await getAllCitiesUsecase(
-        GetAllCitiesParams(forceRefresh: true),
-      );
-
-      return result.fold(
-        (failure) {
-          logControllerError(action: CityAction.getAllCities, failure: failure);
-          throw Exception(failure.message);
-        },
-        (cities) async {
-          logControllerSuccess(action: CityAction.getAllCities);
-          await localCache.cacheCities(cities);
-          return cities;
-        },
-      );
-    });
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => _fetchRemote(forceRefresh: true));
   }
 }

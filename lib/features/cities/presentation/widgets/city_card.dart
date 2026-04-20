@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ibiapabaapp/core/entities/entity_type.dart';
 import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/media/content_media.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
 import 'package:ibiapabaapp/shared/ui/layout/entity_badge.dart';
+import 'package:ibiapabaapp/shared/utils/get_entity_icon.dart';
 
 class CityCard extends StatelessWidget {
   final City city;
@@ -27,7 +29,11 @@ class CityCard extends StatelessWidget {
               child: Stack(
                 children: [
                   getCityImage(context: context, coverImgUrl: city.coverImgUrl),
-                  Positioned(top: 8, left: 8, child: EntityBadge(type: .city)),
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: EntityBadge(type: EntityType.city),
+                  ),
                 ],
               ),
             ),
@@ -99,7 +105,7 @@ class _DefaultErrorPlaceholder extends StatelessWidget {
       width: double.infinity,
       height: height,
       child: Icon(
-        Icons.location_city_rounded,
+        getEntityIcon(EntityType.city),
         size: 48,
         color: context.theme.colors.mutedForeground,
       ),

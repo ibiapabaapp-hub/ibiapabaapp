@@ -8,6 +8,8 @@ import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/repositories/cities_repository.dart';
 import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
 import 'package:ibiapabaapp/features/cities/domain/usecases/get_city_by_id.dart';
+import 'package:ibiapabaapp/features/cities/infra/cities_local_datasource_impl.dart';
+import 'package:ibiapabaapp/features/cities/infra/cities_remote_datasource_impl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cities_providers.g.dart';
@@ -15,8 +17,8 @@ part 'cities_providers.g.dart';
 // DATA
 @riverpod
 CitiesLocalDatasource citiesLocalDatasource(Ref ref) {
-  final db = ref.watch(cacheDatabaseProvider).requireValue;
-  return CitiesLocalDatasourceImpl(cacheDatabase: db);
+  final service = ref.watch(cacheDatabaseServiceProvider);
+  return CitiesLocalDatasourceImpl(cacheService: service);
 }
 
 @riverpod
