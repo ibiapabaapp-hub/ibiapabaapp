@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
+import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
 
 void showThemeDialog(BuildContext context, WidgetRef ref) {
   final current = ref.read(
-    appSessionProvider.select((s) => s.themeMode ?? ThemeMode.system),
+    userPreferencesStateProvider.select((s) => s.themeMode),
   );
-  final session = ref.read(appSessionProvider.notifier);
+  final prefs = ref.read(userPreferencesStateProvider.notifier);
   final foruiTheme = context.theme;
 
   showFDialog(
@@ -19,7 +19,7 @@ void showThemeDialog(BuildContext context, WidgetRef ref) {
         style: style,
         animation: animation,
         current: current,
-        session: session,
+        prefs: prefs,
       ),
     ),
   );
@@ -29,13 +29,13 @@ class _ThemeDialogContent extends ConsumerStatefulWidget {
   final FDialogStyle style;
   final Animation<double> animation;
   final ThemeMode current;
-  final AppSessionNotifier session;
+  final UserPreferencesState prefs;
 
   const _ThemeDialogContent({
     required this.style,
     required this.animation,
     required this.current,
-    required this.session,
+    required this.prefs,
   });
 
   @override
@@ -79,7 +79,7 @@ class _ThemeDialogContentState extends ConsumerState<_ThemeDialogContent> {
               }, style: context.theme.typography.sm),
               onChange: (_) async {
                 setState(() => _selected = option);
-                await widget.session.setFavoriteThemeMode(option);
+                await widget.prefs.setFavoriteThemeMode(option);
                 if (context.mounted) context.pop();
               },
             ),
