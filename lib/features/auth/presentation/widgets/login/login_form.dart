@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/features/auth/presentation/controllers/login_controller.dart';
+import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
 import 'package:ibiapabaapp/app/theme/theme.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/login_state.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends ConsumerStatefulWidget {
   final LoginController controller;
   const LoginForm({super.key, required this.controller});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends ConsumerState<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
   String _email = '';
@@ -36,7 +39,7 @@ class _LoginFormState extends State<LoginForm> {
     final state = widget.controller.state;
 
     if (state is LoginSuccess) {
-      showFToast(
+      showAppToast(
         context: context,
         icon: Icon(Icons.check),
         title: Text(
@@ -50,7 +53,7 @@ class _LoginFormState extends State<LoginForm> {
     }
 
     if (state is LoginError) {
-      showFToast(
+      showAppToast(
         context: context,
         icon: const Icon(Icons.gpp_maybe_outlined),
         title: const Text('Erro ao fazer login'),
@@ -76,6 +79,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final authValidator = ref.watch(authValidatorProvider);
     final isLoading = widget.controller.state is LoginLoading;
 
     return Form(
@@ -92,11 +96,7 @@ class _LoginFormState extends State<LoginForm> {
             hint: "exemplo@email.com",
             enabled: !isLoading,
             autovalidateMode: .onUnfocus,
-            validator: (v) {
-              if (v == null || v.isEmpty) return 'Informe o email';
-              if (!v.contains('@')) return 'Email inválido';
-              return null;
-            },
+            validator: (v) => authValidator.validateField(AuthFields.email, v),
           ),
 
           FTextFormField.password(
@@ -108,11 +108,8 @@ class _LoginFormState extends State<LoginForm> {
             enabled: !isLoading,
             autovalidateMode: .onUnfocus,
             onSubmit: (_) => _submit(),
-            validator: (v) {
-              if (v == null || v.isEmpty) return 'Informe a senha';
-              if (v.length < 8) return 'No mínimo 8 caracteres';
-              return null;
-            },
+            // validator: (v) =>
+            //     authValidator.validateField(AuthFields.password, v),
           ),
 
           const SizedBox(height: 8),
