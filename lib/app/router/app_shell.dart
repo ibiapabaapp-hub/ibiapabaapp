@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/inputs/navbar.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 
 class AppShell extends ConsumerStatefulWidget {
   final Widget child;
@@ -24,9 +25,13 @@ class _AppShellState extends ConsumerState<AppShell> {
     final locationIsHome = location == '/app/home';
 
     final routesWithoutNavbar = [
-      '/app/companies',
+      '/app/businesses',
       '/app/cities',
       '/app/events',
+      '/app/search/expanded',
+      '/app/settings',
+      '/app/under-development-notice',
+      '/app/webview',
     ];
 
     final bool hideNavbar = routesWithoutNavbar.any(
@@ -44,7 +49,7 @@ class _AppShellState extends ConsumerState<AppShell> {
             now.difference(_lastBackPressed!) > const Duration(seconds: 2)) {
           _lastBackPressed = now;
 
-          showFToast(
+          showAppToast(
             duration: Duration(seconds: 3),
             alignment: .bottomCenter,
             context: context,
