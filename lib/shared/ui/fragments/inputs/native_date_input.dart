@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/services.dart';
+import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
 import 'package:intl/intl.dart';
 
-class NativeDateInput extends StatefulWidget {
+class NativeDateInput extends ConsumerStatefulWidget {
   final TextEditingController controller;
   final Function(DateTime?) onDateChanged;
 
@@ -15,39 +17,10 @@ class NativeDateInput extends StatefulWidget {
   });
 
   @override
-  State<NativeDateInput> createState() => _NativeDateInputState();
+  ConsumerState<NativeDateInput> createState() => _NativeDateInputState();
 }
 
-class _NativeDateInputState extends State<NativeDateInput> {
-  String? _validateDate(String? value) {
-    if (value == null || value.isEmpty || value.length < 10) {
-      return 'Informe uma data válida (DD/MM/AAAA)';
-    }
-
-    try {
-      final date = DateFormat('dd/MM/yyyy').parseStrict(value);
-      final now = DateTime.now();
-
-      int age = now.year - date.year;
-      if (now.month < date.month ||
-          (now.month == date.month && now.day < date.day)) {
-        age--;
-      }
-
-      if (age < 16) {
-        return 'Você deve ter pelo menos 16 anos';
-      }
-
-      if (date.year < 1900 || date.isAfter(now)) {
-        return 'Data de nascimento inválida';
-      }
-    } catch (e) {
-      return 'Data inválida';
-    }
-
-    return null;
-  }
-
+class _NativeDateInputState extends ConsumerState<NativeDateInput> {
   Future<void> _selectDate(BuildContext context) async {
     DateTime initialDate = DateTime.now().subtract(
       const Duration(days: 365 * 16),
@@ -74,12 +47,15 @@ class _NativeDateInputState extends State<NativeDateInput> {
       final formatted = DateFormat('dd/MM/yyyy').format(picked);
       widget.controller.text = formatted;
       widget.onDateChanged(picked);
-      FocusScope.of(context).requestFocus(FocusNode());
+      if (context.mounted) {
+        FocusScope.of(context).requestFocus(FocusNode());
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final authValidator = ref.watch(authValidatorProvider);
     final theme = context.theme;
 
     return Material(
@@ -99,7 +75,8 @@ class _NativeDateInputState extends State<NativeDateInput> {
             controller: widget.controller,
             keyboardType: TextInputType.number,
             style: theme.typography.sm.copyWith(color: theme.colors.foreground),
-            validator: _validateDate,
+            validator: (v) =>
+                authValidator.validateField(AuthFields.birthDate, v),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
