@@ -21,7 +21,7 @@ class Businesses extends _$Businesses with ControllerLogHandler {
   @override
   Future<List<Business>> build() async {
     logger = ref.read(loggerProvider);
-    final user = ref.watch(appSessionProvider.select((s) => s.baseUser));
+    final user = ref.watch(appSessionProvider.select((s) => s.account));
     if (user == null) return [];
     return _fetchRemote();
   }

@@ -27,7 +27,7 @@ class BusinessDetail extends _$BusinessDetail with ControllerLogHandler {
   @override
   Future<BusinessDetailData?> build(String id) async {
     logger = ref.read(loggerProvider);
-    final user = ref.watch(appSessionProvider.select((s) => s.baseUser));
+    final user = ref.watch(appSessionProvider.select((s) => s.account));
     if (user == null) return null;
 
     final results = await Future.wait([

@@ -33,7 +33,7 @@ final class BusinessesProvider
   Businesses create() => Businesses();
 }
 
-String _$businessesHash() => r'133f53cb2360d4a58fff237841bc3af0e2b74cd7';
+String _$businessesHash() => r'1bea5207c5f07cdf2e14546ce8a83a97dc4f7a64';
 
 abstract class _$Businesses extends $AsyncNotifier<List<Business>> {
   FutureOr<List<Business>> build();
