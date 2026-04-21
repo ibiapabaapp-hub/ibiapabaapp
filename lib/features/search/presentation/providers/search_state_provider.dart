@@ -29,6 +29,7 @@ class SearchState extends _$SearchState with ControllerLogHandler {
       if (!ref.mounted) return;
 
       state = state.copyWith(recentSearches: recentSearches);
+      logControllerSuccess(action: SearchAction.restore);
     } catch (e) {
       logControllerError(action: SearchAction.restore, failure: e);
     }
