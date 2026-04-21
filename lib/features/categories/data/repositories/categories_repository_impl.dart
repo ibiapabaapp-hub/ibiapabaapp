@@ -8,6 +8,7 @@ import 'package:ibiapabaapp/features/categories/domain/entities/category_entity.
 import 'package:ibiapabaapp/features/categories/domain/entities/child_category.dart';
 import 'package:ibiapabaapp/features/categories/domain/entities/parent_category.dart';
 import 'package:ibiapabaapp/features/categories/domain/repositories/categories_repository.dart';
+import 'package:ibiapabaapp/features/categories/domain/tags/categories_logtags.dart';
 import 'package:logger/logger.dart';
 
 class CategoriesRepositoryImpl

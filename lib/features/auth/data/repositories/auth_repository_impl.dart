@@ -9,6 +9,7 @@ import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/account.dart';
 import 'package:ibiapabaapp/features/auth/domain/repositories/auth_repository.dart';
+import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
 import 'package:logger/logger.dart';
 
 class AuthRepositoryImpl with RepositoryLogHandler implements AuthRepository {

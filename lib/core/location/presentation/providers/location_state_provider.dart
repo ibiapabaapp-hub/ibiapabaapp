@@ -1,6 +1,7 @@
 import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/location/data/datasources/location_local_storage.dart';
 import 'package:ibiapabaapp/core/location/domain/entities/location_data.dart';
+import 'package:ibiapabaapp/core/location/domain/tags/location_logtags.dart';
 import 'package:ibiapabaapp/core/location/presentation/providers/location_providers.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
@@ -41,7 +42,7 @@ class LocationState extends _$LocationState with ControllerLogHandler {
         devicePosition: devicePosition,
       );
     } catch (e) {
-      logControllerError(action: AppSessionAction.restore, failure: e);
+      logControllerError(action: LocationActions.restore, failure: e);
     }
   }
 
@@ -49,13 +50,13 @@ class LocationState extends _$LocationState with ControllerLogHandler {
   Future<void> setCurrentCity(City city) async {
     await _storage.saveCurrentCityId(city.id);
     state = state.copyWith(currentCity: city);
-    logControllerSuccess(action: AppSessionAction.setCurrentCity);
+    logControllerSuccess(action: LocationActions.setCurrentCity);
   }
 
   Future<void> clearCurrentCity() async {
     await _storage.clearCurrentCity();
     state = state.copyWith(clearCity: true);
-    logControllerSuccess(action: AppSessionAction.clearCurrentCity);
+    logControllerSuccess(action: LocationActions.clearCurrentCity);
   }
 
   Future<AppFailure?> detectAndSetNearestCity() async {
@@ -68,7 +69,7 @@ class LocationState extends _$LocationState with ControllerLogHandler {
     return citiesResult.fold(
       (failure) {
         logControllerError(
-          action: AppSessionAction.detectNearestCity,
+          action: LocationActions.detectNearestCity,
           failure: failure,
         );
         return failure;
@@ -81,7 +82,7 @@ class LocationState extends _$LocationState with ControllerLogHandler {
         return result.fold(
           (failure) {
             logControllerError(
-              action: AppSessionAction.detectNearestCity,
+              action: LocationActions.detectNearestCity,
               failure: failure,
             );
             if (failure is LocationPermissionPermanentlyDeniedFailure) {
@@ -91,7 +92,7 @@ class LocationState extends _$LocationState with ControllerLogHandler {
           },
           (nearestCity) async {
             await setCurrentCity(nearestCity);
-            logControllerSuccess(action: AppSessionAction.detectNearestCity);
+            logControllerSuccess(action: LocationActions.detectNearestCity);
             return null;
           },
         );
@@ -106,10 +107,10 @@ class LocationState extends _$LocationState with ControllerLogHandler {
     try {
       final pos = await ref.read(locationServiceProvider).getCurrentLocation();
       state = state.copyWith(devicePosition: pos);
-      logControllerSuccess(action: AppSessionAction.resolveDevicePosition);
+      logControllerSuccess(action: LocationActions.resolveDevicePosition);
     } catch (failure) {
       logControllerError(
-        action: AppSessionAction.resolveDevicePosition,
+        action: LocationActions.resolveDevicePosition,
         failure: failure,
       );
     }

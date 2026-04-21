@@ -2,6 +2,7 @@ import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
+import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
 import 'package:ibiapabaapp/features/auth/domain/usecases/check_unique_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/usecases/register_with_email.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';

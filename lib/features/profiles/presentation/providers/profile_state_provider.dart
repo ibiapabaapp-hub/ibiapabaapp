@@ -5,6 +5,7 @@ import 'package:ibiapabaapp/features/auth/domain/entities/account.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
 import 'package:ibiapabaapp/features/profiles/data/datasources/profiles_local_storage.dart';
 import 'package:ibiapabaapp/features/profiles/domain/entities/profile.dart';
+import 'package:ibiapabaapp/features/profiles/domain/tags/profiles_logtags.dart';
 import 'package:ibiapabaapp/features/profiles/presentation/providers/profiles_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
 import 'package:ibiapabaapp/features/auth/domain/usecases/login_with_email.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/login_state.dart';

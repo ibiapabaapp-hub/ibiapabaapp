@@ -6,6 +6,7 @@ import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
 import 'package:ibiapabaapp/features/medias/data/datasource/medias_remote_datasource.dart';
 import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';
 import 'package:ibiapabaapp/features/medias/domain/repositories/medias_repository.dart';
+import 'package:ibiapabaapp/features/medias/domain/tags/medias_logtags.dart';
 import 'package:logger/logger.dart';
 
 class MediasRepositoryImpl

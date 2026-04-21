@@ -6,6 +6,7 @@ import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
 import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
 import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
+import 'package:ibiapabaapp/features/onboarding/domain/tags/onboarding_logtags.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/states/business_data_states.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -33,13 +34,13 @@ class BusinessDataController extends _$BusinessDataController
     result.fold(
       (failure) {
         logControllerError(
-          action: BusinessDataAction.getCities,
+          action: OnboardingAction.getCities,
           failure: failure,
         );
         return;
       },
       (cities) {
-        logControllerSuccess(action: BusinessDataAction.getCities);
+        logControllerSuccess(action: OnboardingAction.getCities);
         citiesList = cities;
       },
     );
@@ -55,7 +56,7 @@ class BusinessDataController extends _$BusinessDataController
 
     if (account == null) {
       logControllerError(
-        action: UserInterestsAction.complete,
+        action: OnboardingAction.submitInterests,
         failure: InternalFailure(
           'Falha no envio: Usuário não encontrado na sessão',
         ),

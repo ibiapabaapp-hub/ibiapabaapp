@@ -8,6 +8,7 @@ import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
 import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
 import 'package:ibiapabaapp/features/events/domain/entities/event_detail_data.dart';
+import 'package:ibiapabaapp/features/events/domain/tags/events_logtags.dart';
 import 'package:ibiapabaapp/features/events/domain/usecases/get_event_by_id.dart';
 import 'package:ibiapabaapp/features/events/presentation/providers/events_providers.dart';
 import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';

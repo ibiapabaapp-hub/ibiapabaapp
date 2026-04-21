@@ -6,6 +6,7 @@ import 'package:ibiapabaapp/features/cities/data/datasource/cities_local_datasou
 import 'package:ibiapabaapp/features/cities/data/datasource/cities_remote_datasource.dart';
 import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/repositories/cities_repository.dart';
+import 'package:ibiapabaapp/features/cities/domain/tags/cities_logtags.dart';
 import 'package:logger/logger.dart';
 
 class CitiesRepositoryImpl

@@ -2,6 +2,7 @@ import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/features/search/data/datasources/search_local_storage.dart';
+import 'package:ibiapabaapp/features/search/data/tags/search_logtags.dart';
 import 'package:ibiapabaapp/features/search/presentation/providers/search_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

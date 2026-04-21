@@ -8,6 +8,7 @@ import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
 import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/entities/city_detail_data.dart';
+import 'package:ibiapabaapp/features/cities/domain/tags/cities_logtags.dart';
 import 'package:ibiapabaapp/features/cities/domain/usecases/get_city_by_id.dart';
 import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
 import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';

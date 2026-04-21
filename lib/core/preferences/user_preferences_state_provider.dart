@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
+import 'package:ibiapabaapp/core/preferences/preferences_logtags.dart';
 import 'package:ibiapabaapp/core/preferences/user_preferences_providers.dart';
 import 'package:ibiapabaapp/core/preferences/user_preferences_storage.dart';
 import 'package:logger/logger.dart';
@@ -16,7 +17,7 @@ class UserPreferencesState extends _$UserPreferencesState
   late final Logger logger = ref.read(loggerProvider);
 
   @override
-  LogFeature get feature => LogFeature.session;
+  LogFeature get feature => LogFeature.preferences;
 
   @override
   UserPreferences build() => const UserPreferences();
@@ -36,20 +37,20 @@ class UserPreferencesState extends _$UserPreferencesState
         themeMode: favoriteThemeMode,
       );
     } catch (e) {
-      logControllerError(action: AppSessionAction.restore, failure: e);
+      logControllerError(action: PreferencesActions.restore, failure: e);
     }
   }
 
   Future<void> setNeedsOnboarding(bool value) async {
     await _storage.setNeedsOnboarding(value);
     state = state.copyWith(needsOnboarding: value);
-    logControllerSuccess(action: AppSessionAction.setNeedsOnboarding);
+    logControllerSuccess(action: PreferencesActions.setNeedsOnboarding);
   }
 
   Future<void> setFavoriteThemeMode(ThemeMode mode) async {
     await _storage.saveFavoriteThemeMode(mode);
     state = state.copyWith(themeMode: mode);
-    logControllerSuccess(action: AppSessionAction.setFavoriteThemeMode);
+    logControllerSuccess(action: PreferencesActions.setFavoriteThemeMode);
   }
 
   Future<ThemeMode> getFavoriteThemeMode() async {

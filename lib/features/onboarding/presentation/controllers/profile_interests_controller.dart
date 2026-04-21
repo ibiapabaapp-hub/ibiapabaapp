@@ -4,6 +4,7 @@ import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/features/categories/domain/entities/category_entity.dart';
 import 'package:ibiapabaapp/features/categories/presentation/providers/categories_providers.dart';
+import 'package:ibiapabaapp/features/onboarding/domain/tags/onboarding_logtags.dart';
 import 'package:ibiapabaapp/features/profiles/domain/entities/profile_interests.dart';
 import 'package:ibiapabaapp/features/profiles/domain/entities/profile_interests_response.dart';
 import 'package:ibiapabaapp/features/profiles/domain/usecases/update_profile_interests.dart';
@@ -115,7 +116,7 @@ class ProfileInterestsController extends _$ProfileInterestsController
 
     if (profile == null) {
       logControllerError(
-        action: ProfileAction.updateProfileInterests,
+        action: OnboardingAction.updateInterests,
         failure: InternalFailure(
           'Falha no envio: Perfil não encontrado na sessão',
         ),
@@ -140,7 +141,7 @@ class ProfileInterestsController extends _$ProfileInterestsController
 
       if (!ref.mounted) {
         logControllerError(
-          action: ProfileAction.updateProfileInterests,
+          action: OnboardingAction.updateInterests,
           failure: InternalFailure(
             'Envio completado mas controlador foi desmontado.',
           ),
@@ -152,7 +153,7 @@ class ProfileInterestsController extends _$ProfileInterestsController
         (failure) {
           logger.e('Falha na API: ${failure.message}');
           logControllerError(
-            action: ProfileAction.updateProfileInterests,
+            action: OnboardingAction.updateInterests,
             failure: failure,
           );
           state = state.copyWith(
@@ -162,7 +163,7 @@ class ProfileInterestsController extends _$ProfileInterestsController
           return null;
         },
         (success) {
-          logControllerSuccess(action: ProfileAction.updateProfileInterests);
+          logControllerSuccess(action: OnboardingAction.updateInterests);
           state = state.copyWith(
             status: ProfileInterestsStatus.completed,
             clearError: true,
@@ -172,7 +173,7 @@ class ProfileInterestsController extends _$ProfileInterestsController
       );
     } catch (e) {
       logControllerError(
-        action: ProfileAction.updateProfileInterests,
+        action: OnboardingAction.updateInterests,
         failure: InternalFailure('Erro inesperado durante o envio: $e'),
       );
       state = state.copyWith(

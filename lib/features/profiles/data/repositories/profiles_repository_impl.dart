@@ -7,6 +7,7 @@ import 'package:ibiapabaapp/features/profiles/domain/entities/profile.dart';
 import 'package:ibiapabaapp/features/profiles/domain/entities/profile_interests.dart';
 import 'package:ibiapabaapp/features/profiles/domain/entities/profile_interests_response.dart';
 import 'package:ibiapabaapp/features/profiles/domain/repositories/profiles_repository.dart';
+import 'package:ibiapabaapp/features/profiles/domain/tags/profiles_logtags.dart';
 import 'package:logger/logger.dart';
 
 class ProfilesRepositoryImpl

@@ -4,6 +4,7 @@ import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/core/storage/token_storage_provider.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/account.dart';
+import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
 import 'package:ibiapabaapp/features/profiles/domain/entities/profile.dart';
 import 'package:ibiapabaapp/features/profiles/presentation/providers/profile_state_provider.dart';
@@ -41,7 +42,7 @@ class AuthState extends _$AuthState with ControllerLogHandler {
 
     await getMeResult.fold(
       (failure) async {
-        logControllerError(action: AppSessionAction.restore, failure: failure);
+        logControllerError(action: AuthAction.restore, failure: failure);
 
         final refreshResult = await ref.read(refreshTokensProvider).call();
         await refreshResult.fold(
@@ -53,7 +54,7 @@ class AuthState extends _$AuthState with ControllerLogHandler {
         _applyAccount(user);
         await _loadAccountProfiles();
         await ref.read(profileStateProvider.notifier).restore();
-        logControllerSuccess(action: AppSessionAction.restore);
+        logControllerSuccess(action: AuthAction.restore);
       },
     );
   }
@@ -63,12 +64,11 @@ class AuthState extends _$AuthState with ControllerLogHandler {
     if (!ref.mounted) return;
 
     result.fold(
-      (failure) => logControllerError(
-        action: AppSessionAction.initSession,
-        failure: failure,
-      ),
+      (failure) =>
+          logControllerError(action: AuthAction.initSession, failure: failure),
       (profiles) async {
-        logControllerSuccess(action: AppSessionAction.getAccountProfiles);
+        // TODO: mover p/ profiles feature
+        logControllerSuccess(action: AuthAction.getAccountProfiles);
         _applyAccountProfiles(profiles);
       },
     );
@@ -82,7 +82,7 @@ class AuthState extends _$AuthState with ControllerLogHandler {
     await ref.read(tokenStorageProvider).saveTokens(result);
     if (!ref.mounted) return;
     await _applySession(result);
-    logControllerSuccess(action: AppSessionAction.initSession);
+    logControllerSuccess(action: AuthAction.initSession);
   }
 
   Future<void> _applySession(AuthResult result) async {
@@ -97,7 +97,7 @@ class AuthState extends _$AuthState with ControllerLogHandler {
   Future<void> logout() async {
     await ref.read(tokenStorageProvider).clearTokens();
     state = const AuthData();
-    logControllerSuccess(action: AppSessionAction.logout);
+    logControllerSuccess(action: AuthAction.logout);
   }
 }
 
