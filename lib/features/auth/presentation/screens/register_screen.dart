@@ -100,18 +100,18 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           back();
         }
       },
-      child: FScaffold(
-        header: FHeader.nested(
-          prefixes: [
-            FButton.icon(
-              style: FButtonStyle.ghost(),
-              onPress: _handleBack,
-              child: Icon(Icons.arrow_back, size: 24),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          top: false,
+      child: SafeArea(
+        top: false,
+        child: FScaffold(
+          header: FHeader.nested(
+            prefixes: [
+              FButton.icon(
+                style: FButtonStyle.ghost(),
+                onPress: _handleBack,
+                child: Icon(Icons.arrow_back, size: 24),
+              ),
+            ],
+          ),
           child: Column(
             children: [
               StepDots(current: currentStep, total: 6),

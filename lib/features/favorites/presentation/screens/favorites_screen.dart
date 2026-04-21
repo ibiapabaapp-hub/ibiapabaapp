@@ -6,51 +6,47 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
-      child: FScaffold(
-        childPad: false,
-        header: FHeader.nested(
-          prefixes: [
-            Text(
-              'Favoritos',
-              style: context.theme.typography.lg.copyWith(
-                fontWeight: FontWeight.bold,
+    return FScaffold(
+      header: FHeader.nested(
+        prefixes: [
+          Text(
+            'Favoritos',
+            style: context.theme.typography.lg.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: 16,
+          children: [
+            Expanded(
+              child: FTabs(
+                children: [
+                  FTabEntry(
+                    label: const Text('Cidades'),
+                    child: _EmptyState(
+                      title: 'Nenhuma cidade favoritada ainda.',
+                    ),
+                  ),
+                  FTabEntry(
+                    label: const Text('Empresas'),
+                    child: _EmptyState(
+                      title: 'Nenhuma empresa favoritada ainda.',
+                    ),
+                  ),
+                  FTabEntry(
+                    label: const Text('Eventos'),
+                    child: _EmptyState(
+                      title: 'Nenhum evento favoritado ainda.',
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
-        ),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: 16,
-            children: [
-              Expanded(
-                child: FTabs(
-                  children: [
-                    FTabEntry(
-                      label: const Text('Cidades'),
-                      child: _EmptyState(
-                        title: 'Nenhuma cidade favoritada ainda.',
-                      ),
-                    ),
-                    FTabEntry(
-                      label: const Text('Empresas'),
-                      child: _EmptyState(
-                        title: 'Nenhuma empresa favoritada ainda.',
-                      ),
-                    ),
-                    FTabEntry(
-                      label: const Text('Eventos'),
-                      child: _EmptyState(
-                        title: 'Nenhum evento favoritado ainda.',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
