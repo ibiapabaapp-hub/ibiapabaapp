@@ -8,6 +8,7 @@ import 'package:ibiapabaapp/app/theme/date_field_style.dart';
 import 'package:ibiapabaapp/app/theme/dialog_style.dart';
 import 'package:ibiapabaapp/app/theme/divider_styles.dart';
 import 'package:ibiapabaapp/app/theme/multi_select_style.dart';
+import 'package:ibiapabaapp/app/theme/scaffold_style.dart';
 import 'package:ibiapabaapp/app/theme/select_style.dart';
 import 'package:ibiapabaapp/app/theme/switch_style.dart';
 import 'package:ibiapabaapp/app/theme/tabs_style.dart';
@@ -17,6 +18,8 @@ import 'package:ibiapabaapp/app/theme/tile_style.dart';
 
 const brandPrimaryLight = Color(0xFF376208);
 const brandPrimaryDark = Color(0xFFB9FF70);
+const brandSuccessLight = Color(0xFF22C55E);
+const brandSuccessDark = Color(0xFF4ADE80);
 
 FThemeData customZincLight() {
   const colors = FColors(
@@ -90,6 +93,7 @@ FThemeData customZincLight() {
       style: style,
     ),
     tabsStyle: tabsStyle(colors: colors, typography: typography, style: style),
+    scaffoldStyle: scaffoldStyle(colors: colors, style: style),
   );
 }
 
@@ -165,6 +169,7 @@ FThemeData customZincDark() {
       style: style,
     ),
     tabsStyle: tabsStyle(colors: colors, typography: typography, style: style),
+    scaffoldStyle: scaffoldStyle(colors: colors, style: style),
   );
 }
 
