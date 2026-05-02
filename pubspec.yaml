@@ -46,7 +46,6 @@ dependencies:
   logger: ^2.6.2
   brasil_fields: ^1.18.0
   intl: ^0.20.2
-  carousel_slider: ^5.1.2
   smooth_page_indicator: ^2.0.1
   flutter_riverpod: ^3.2.1
   riverpod_annotation: ^4.0.2
@@ -72,6 +71,7 @@ dependencies:
   url_launcher: ^6.3.2
   collection: ^1.19.1
   maplibre_gl: ^0.26.0
+  carousel_slider_plus: ^7.1.2
 
 dev_dependencies:
   flutter_test:

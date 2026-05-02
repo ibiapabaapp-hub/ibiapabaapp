@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:ibiapabaapp/features/welcome/widgets/welcome_actions.dart';
-import 'package:ibiapabaapp/features/welcome/widgets/welcome_header.dart';
+import 'package:ibiapabaapp/features/welcome/widgets/welcome_carousel.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -10,11 +10,17 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: FScaffold(
-        child: SingleChildScrollView(
-          child: Column(
-            spacing: 32,
-            children: [WelcomeHeader(), WelcomeActions()],
-          ),
+        childPad: false,
+        child: Column(
+          mainAxisAlignment: .center,
+          spacing: 24,
+          children: [
+            WelcomeCarousel(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: WelcomeActions(),
+            ),
+          ],
         ),
       ),
     );

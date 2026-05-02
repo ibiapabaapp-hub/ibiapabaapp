@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/carousel/carousel_dot_indicator.dart';
@@ -49,7 +49,7 @@ class _ContentCarouselState extends State<ContentCarousel> {
               child: Stack(
                 children: [
                   CarouselSlider.builder(
-                    carouselController: _carouselController,
+                    controller: _carouselController,
                     itemCount: widget.items.length,
                     itemBuilder: (context, index, realIndex) {
                       final item = widget.items[index];
