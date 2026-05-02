@@ -1,8 +1,16 @@
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibiapabaapp/core/location/presentation/providers/location_state_provider.dart';
 import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
+import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
+import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
+import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/recent_locations_list.dart';
+import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/sheet_actions.dart';
+import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/sheet_header.dart';
+import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/sheet_map.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:ibiapabaapp/shared/ui/layout/sheet_drag_indicator.dart';
 import 'package:ibiapabaapp/shared/ui/maps/app_map.dart';
@@ -31,6 +39,11 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
   bool _loadingLocation = false;
   String? _locationError;
 
+  bool get _locationSupported =>
+      defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.iOS ||
+      kIsWeb;
+
   static const _fallbackPosition = AppLatLng(-3.9248, -40.8868);
 
   // Widget de mapa criado UMA VEZ — nunca recriado em rebuilds
@@ -40,21 +53,82 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
   void initState() {
     super.initState();
 
-    // Lê a posição já disponível em sessão antes de montar o mapa —
-    // evita o "pulo" de fallback → posição real na segunda abertura
     final sessionPos = ref.read(locationStateProvider).devicePosition;
     final initialPos = sessionPos != null
         ? AppLatLng(sessionPos.latitude, sessionPos.longitude)
         : _fallbackPosition;
 
+    Future<void> onCitySelectedManually(String cityName) async {
+      setState(() {
+        _loadingLocation = true;
+        _locationError = null;
+      });
+
+      final navigator = Navigator.of(context, rootNavigator: true);
+      final previousCity = ref.read(appSessionProvider).currentCity;
+
+      final citiesResult = await ref
+          .read(getAllCitiesProvider)
+          .call(const GetAllCitiesParams());
+
+      if (!mounted) return;
+
+      citiesResult.fold(
+        (failure) {
+          setState(() {
+            _loadingLocation = false;
+            _locationError = failure.message;
+          });
+        },
+        (cities) async {
+          final city = cities.firstWhereOrNull(
+            (c) => c.name.toLowerCase() == cityName.toLowerCase(),
+          );
+
+          if (city == null) {
+            setState(() {
+              _loadingLocation = false;
+              _locationError = 'Cidade não encontrada.';
+            });
+            return;
+          }
+
+          await ref.read(locationStateProvider.notifier).setCurrentCity(city);
+
+          if (!mounted) return;
+          setState(() => _loadingLocation = false);
+          navigator.pop();
+
+          final newCity = ref.read(appSessionProvider).currentCity;
+          final cityChanged = newCity != null && newCity.id != previousCity?.id;
+
+          showAppToast(
+            alignment: .bottomCenter,
+            context: context,
+            icon: Icon(
+              cityChanged ? Icons.location_on : Icons.location_on_outlined,
+            ),
+            title: Text(
+              cityChanged ? 'Localização atualizada' : 'Localização confirmada',
+            ),
+            description: Text(
+              cityChanged
+                  ? 'Você agora está em ${newCity.name}'
+                  : 'Você continua em ${newCity?.name ?? 'sua cidade atual'}',
+            ),
+          );
+        },
+      );
+    }
+
     _mapWidget = AppMapProvider.create(
       initialPosition: initialPos,
       initialZoom: sessionPos != null ? 15.0 : 13.0,
       currentPosition: sessionPos != null ? initialPos : null,
+      onCitySelected: onCitySelectedManually,
+      currentCityName: ref.read(locationStateProvider).currentCity?.name,
     );
 
-    // Resolve posição silenciosamente se ainda não foi obtida nesta sessão
-    // Se já existir em session, retorna imediatamente sem chamar o GPS
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(locationStateProvider.notifier).resolveDevicePosition();
     });
@@ -66,13 +140,10 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
       _locationError = null;
     });
 
-    final navigator = Navigator.of(context, rootNavigator: true);
     final previousCity = ref.read(appSessionProvider).currentCity;
-
     final failure = await ref
         .read(locationStateProvider.notifier)
         .detectAndSetNearestCity();
-    // detectAndSetNearestCity já chama resolveDevicePosition(force: true) internamente
 
     if (!mounted) return;
 
@@ -100,7 +171,6 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
       );
     } else {
       setState(() => _loadingLocation = false);
-      navigator.pop();
 
       final newCity = ref.read(appSessionProvider).currentCity;
       final cityChanged = newCity != null && newCity.id != previousCity?.id;
@@ -127,9 +197,7 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
   Widget build(BuildContext context) {
     final theme = context.theme;
 
-    // Lê direto do appSessionProvider — zero overhead, sem provider extra
-    final session = ref.watch(locationStateProvider);
-    final devicePos = session.devicePosition;
+    final devicePos = ref.watch(locationStateProvider).devicePosition;
     final currentPosition = devicePos != null
         ? AppLatLng(devicePos.latitude, devicePos.longitude)
         : null;
@@ -155,21 +223,24 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
               const SizedBox(height: 16),
 
               // ── Header ────────────────────────────────────────────────────
-              _SheetHeader(),
+              SheetHeader(),
               const SizedBox(height: 12),
 
               // ── Mapa ──────────────────────────────────────────────────────
-              _SheetMap(
+              if (!_locationSupported) SheetActionsUnsupported(),
+
+              SheetMap(
                 isLoadingMap: _loadingLocation,
                 mapWithPosition: mapWithPosition,
               ),
               const SizedBox(height: 12),
 
               // ── Botões ────────────────────────────────────────────────────
-              _SheetActions(
-                isLoadingLocation: _loadingLocation,
-                detectNearestCity: _detectNearestCity,
-              ),
+              if (_locationSupported)
+                SheetActions(
+                  isLoadingLocation: _loadingLocation,
+                  detectNearestCity: _detectNearestCity,
+                ),
 
               // ── Erro ──────────────────────────────────────────────────────
               if (_locationError != null) ...[
@@ -192,157 +263,9 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
                 ),
               ),
               const SizedBox(height: 12),
-              _RecentLocationsList(theme: theme),
+              RecentLocationsList(),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SheetHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Alterar localização',
-          style: context.theme.typography.lg.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        IconButton(
-          icon: const Icon(Icons.settings_outlined),
-          onPressed: () {},
-          padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(),
-        ),
-      ],
-    );
-  }
-}
-
-class _SheetMap extends StatelessWidget {
-  final AppMapWidget mapWithPosition;
-  final bool isLoadingMap;
-
-  const _SheetMap({required this.isLoadingMap, required this.mapWithPosition});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: SizedBox(
-        height: 180,
-        child: Stack(
-          children: [
-            mapWithPosition,
-            if (isLoadingMap)
-              Positioned.fill(
-                child: ColoredBox(
-                  color: context.theme.colors.muted,
-                  child: Center(
-                    child: FCircularProgress(
-                      style: (style) => style.copyWith(
-                        iconStyle: style.iconStyle.copyWith(size: 32),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SheetActions extends StatelessWidget {
-  final bool isLoadingLocation;
-  final VoidCallback detectNearestCity;
-
-  const _SheetActions({
-    required this.isLoadingLocation,
-    required this.detectNearestCity,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: FButton(
-            onPress: isLoadingLocation ? null : detectNearestCity,
-            style: FButtonStyle.primary(),
-            prefix: isLoadingLocation
-                ? const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : null,
-            child: Text(isLoadingLocation ? 'Detectando...' : 'Me localize'),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: FButton(
-            onPress: () {},
-            style: FButtonStyle.secondary(),
-            child: const Text('Editar'),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _RecentLocationsList extends StatelessWidget {
-  final FThemeData theme;
-  const _RecentLocationsList({required this.theme});
-
-  static const _recentLocations = ['Tianguá', 'Ubajara', 'Croatá'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colors.background,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: theme.colors.border, width: 1),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: _recentLocations.length,
-          separatorBuilder: (_, _) =>
-              Divider(height: 1, thickness: 1, color: theme.colors.border),
-          itemBuilder: (context, index) {
-            final city = _recentLocations[index];
-            return ListTile(
-              leading: Icon(
-                Icons.location_on_outlined,
-                color: theme.colors.mutedForeground,
-                size: 20,
-              ),
-              title: Text(
-                city,
-                style: theme.typography.sm.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: Icon(
-                Icons.chevron_right,
-                color: theme.colors.mutedForeground,
-                size: 18,
-              ),
-              onTap: () {},
-            );
-          },
         ),
       ),
     );

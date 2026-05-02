@@ -5,7 +5,7 @@ import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/businesses_section.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/explore_cities_section.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/now_happening_section.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet.dart';
+import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/change_location_sheet.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/quick_categories.dart';
 
 class HomeScreen extends StatelessWidget {
