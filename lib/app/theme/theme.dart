@@ -18,8 +18,6 @@ import 'package:ibiapabaapp/app/theme/tile_style.dart';
 
 const brandPrimaryLight = Color(0xFF376208);
 const brandPrimaryDark = Color(0xFFB9FF70);
-const brandSuccessLight = Color(0xFF22C55E);
-const brandSuccessDark = Color(0xFF4ADE80);
 
 FThemeData customZincLight() {
   const colors = FColors(

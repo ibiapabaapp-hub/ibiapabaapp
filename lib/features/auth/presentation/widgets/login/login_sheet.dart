@@ -24,7 +24,7 @@ void showLoginSheet({
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: Column(
