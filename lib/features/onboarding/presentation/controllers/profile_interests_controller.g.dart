@@ -44,7 +44,7 @@ final class ProfileInterestsControllerProvider
 }
 
 String _$profileInterestsControllerHash() =>
-    r'02e5e73f507119b1bd114b4f1a6cf427ebf9486f';
+    r'16375809431028c99170eae831c9e65dfbea45fe';
 
 abstract class _$ProfileInterestsController
     extends $Notifier<ProfileInterestsState> {

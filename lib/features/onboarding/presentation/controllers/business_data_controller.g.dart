@@ -34,7 +34,7 @@ final class BusinessDataControllerProvider
 }
 
 String _$businessDataControllerHash() =>
-    r'3930283af652631f536d2adde7e112cc739a36e1';
+    r'4a8113671c72cb71df53a658b4cc1acc1fe6118a';
 
 abstract class _$BusinessDataController
     extends $AsyncNotifier<BusinessDataState> {

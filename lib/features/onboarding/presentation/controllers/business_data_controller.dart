@@ -29,7 +29,7 @@ class BusinessDataController extends _$BusinessDataController
     List<City> citiesList = [];
     final result = await ref
         .read(getAllCitiesProvider)
-        .call(GetAllCitiesParams());
+        .call(const GetAllCitiesParams());
 
     result.fold(
       (failure) {
@@ -57,7 +57,7 @@ class BusinessDataController extends _$BusinessDataController
     if (account == null) {
       logControllerError(
         action: OnboardingAction.submitInterests,
-        failure: InternalFailure(
+        failure: const InternalFailure(
           'Falha no envio: Usuário não encontrado na sessão',
         ),
       );

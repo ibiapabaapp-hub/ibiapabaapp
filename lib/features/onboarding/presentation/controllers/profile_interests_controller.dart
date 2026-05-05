@@ -117,7 +117,7 @@ class ProfileInterestsController extends _$ProfileInterestsController
     if (profile == null) {
       logControllerError(
         action: OnboardingAction.updateInterests,
-        failure: InternalFailure(
+        failure: const InternalFailure(
           'Falha no envio: Perfil não encontrado na sessão',
         ),
       );
@@ -142,7 +142,7 @@ class ProfileInterestsController extends _$ProfileInterestsController
       if (!ref.mounted) {
         logControllerError(
           action: OnboardingAction.updateInterests,
-          failure: InternalFailure(
+          failure: const InternalFailure(
             'Envio completado mas controlador foi desmontado.',
           ),
         );
