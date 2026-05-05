@@ -66,7 +66,7 @@ class _ProfileSwitcherSheetContent extends ConsumerWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            FDivider(),
+            const FDivider(),
 
             // ─── Perfil pessoal ───────────────────────────────────────────
             _ProfileTile(

@@ -38,7 +38,7 @@ class PersonalProfileContent extends StatelessWidget {
           seeAllText: 'Ajuda',
           onSeeAllTap: () => context.push(
             '/app/under-development-notice',
-            extra: UnderDevelopmentArgs(
+            extra: const UnderDevelopmentArgs(
               featureName: 'Interações',
               featureIcon: FIcons.messageSquare,
               featureDescription:
@@ -82,7 +82,7 @@ class _InsightsSection extends StatelessWidget {
     return UnimplementedWrapper(
       child: FCard(
         title: Text('Insights', style: context.theme.typography.base),
-        subtitle: Text(
+        subtitle: const Text(
           'Em breve você poderá ver seu progresso na exploração da Ibiapaba aqui.',
         ),
       ),
@@ -101,7 +101,7 @@ class _QuickSettingsSection extends StatelessWidget {
           onPress: () => context.push('/app/interests/businesses'),
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          prefix: Icon(FIcons.userStar, size: 24),
+          prefix: const Icon(FIcons.userStar, size: 24),
           child: Text('Seus interesses', style: context.theme.typography.base),
         ),
         UnimplementedWrapper(
@@ -110,7 +110,7 @@ class _QuickSettingsSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.shieldCheck, size: 24),
+            prefix: const Icon(FIcons.shieldCheck, size: 24),
             child: Text('Segurança', style: context.theme.typography.base),
           ),
         ),
@@ -120,7 +120,7 @@ class _QuickSettingsSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.bell, size: 24),
+            prefix: const Icon(FIcons.bell, size: 24),
             child: Text('Notificações', style: context.theme.typography.base),
           ),
         ),
@@ -129,7 +129,7 @@ class _QuickSettingsSection extends StatelessWidget {
           onPress: () => context.push('/app/settings'),
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          prefix: Icon(FIcons.settings, size: 24),
+          prefix: const Icon(FIcons.settings, size: 24),
           child: Text(
             'Configurações do aplicativo',
             style: context.theme.typography.base,
@@ -152,7 +152,7 @@ class _InteractionsSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.calendar, size: 24),
+            prefix: const Icon(FIcons.calendar, size: 24),
             child: Text(
               'Agenda de eventos',
               style: context.theme.typography.base,
@@ -165,7 +165,7 @@ class _InteractionsSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.map, size: 24),
+            prefix: const Icon(FIcons.map, size: 24),
             child: Text('Roteiros', style: context.theme.typography.base),
           ),
         ),
@@ -175,7 +175,7 @@ class _InteractionsSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.heart, size: 24),
+            prefix: const Icon(FIcons.heart, size: 24),
             child: Text('Favoritos', style: context.theme.typography.base),
           ),
         ),
@@ -185,7 +185,7 @@ class _InteractionsSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.messageSquare, size: 24),
+            prefix: const Icon(FIcons.messageSquare, size: 24),
             child: Text('Avaliações', style: context.theme.typography.base),
           ),
         ),
@@ -195,7 +195,7 @@ class _InteractionsSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.ticket, size: 24),
+            prefix: const Icon(FIcons.ticket, size: 24),
             child: Text('Inscrições', style: context.theme.typography.base),
           ),
         ),
@@ -205,7 +205,7 @@ class _InteractionsSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.messageCircleWarning, size: 24),
+            prefix: const Icon(FIcons.messageCircleWarning, size: 24),
             child: Text('Denúncias', style: context.theme.typography.base),
           ),
         ),
@@ -226,7 +226,7 @@ class _ExpeditionSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.trophy, size: 24),
+            prefix: const Icon(FIcons.trophy, size: 24),
             child: Text('Conquistas', style: context.theme.typography.base),
           ),
         ),
@@ -236,7 +236,7 @@ class _ExpeditionSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.mountain, size: 24),
+            prefix: const Icon(FIcons.mountain, size: 24),
             child: Text(
               'Ranking de Altitude',
               style: context.theme.typography.base,
@@ -249,7 +249,7 @@ class _ExpeditionSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.target, size: 24),
+            prefix: const Icon(FIcons.target, size: 24),
             child: Text(
               'Desafios de temporada',
               style: context.theme.typography.base,
@@ -273,7 +273,7 @@ class _AppInfoSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.circleQuestionMark, size: 24),
+            prefix: const Icon(FIcons.circleQuestionMark, size: 24),
             child: Text(
               'Suporte e Ajuda',
               style: context.theme.typography.base,
@@ -286,7 +286,7 @@ class _AppInfoSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.megaphone, size: 24),
+            prefix: const Icon(FIcons.megaphone, size: 24),
             child: Text(
               'Reportar problema',
               style: context.theme.typography.base,
@@ -299,7 +299,7 @@ class _AppInfoSection extends StatelessWidget {
             onPress: () {},
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
-            prefix: Icon(FIcons.star, size: 24),
+            prefix: const Icon(FIcons.star, size: 24),
             child: Text(
               'Avaliar experiência',
               style: context.theme.typography.base,
@@ -312,12 +312,12 @@ class _AppInfoSection extends StatelessWidget {
             openWebView(
               context,
               title: 'Sobre',
-              url: 'https://www.ibiapabaapp.com.br/about',
+              url: 'https://www.ibiapabaapp.com.br/',
             );
           },
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          prefix: Icon(FIcons.info, size: 24),
+          prefix: const Icon(FIcons.info, size: 24),
           child: Text('Sobre', style: context.theme.typography.base),
         ),
       ],

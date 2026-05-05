@@ -25,7 +25,7 @@ class ProfileCard extends ConsumerWidget {
           onPress: () {
             showProfileSwitcherSheet(context, ref);
           },
-          child: Icon(FIcons.chevronDown),
+          child: const Icon(FIcons.chevronDown),
         ),
       ],
     );

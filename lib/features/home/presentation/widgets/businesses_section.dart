@@ -12,6 +12,7 @@ final List<Business> _mockCompanies = List.generate(
   5,
   (index) => Business(
     id: 'mock-$index',
+    profileId: 'mock-$index-profile',
     maxReachLevel: .local,
     slug: 'mock',
     name: 'Carregando empresa',

@@ -19,7 +19,6 @@ class ProfileScreen extends ConsumerWidget {
     return SafeArea(
       top: true,
       child: FScaffold(
-        header: FHeader.nested(),
         child: SingleChildScrollView(
           child: Column(
             spacing: 12,

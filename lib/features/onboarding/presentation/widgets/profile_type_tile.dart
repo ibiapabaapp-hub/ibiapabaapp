@@ -97,7 +97,7 @@ class _SelectionIndicator extends StatelessWidget {
       child: isSelected
           ? Icon(
               Icons.check_circle,
-              key: ValueKey('checked'),
+              key: const ValueKey('checked'),
               color: context.theme.colors.primary,
               size: 20,
             )

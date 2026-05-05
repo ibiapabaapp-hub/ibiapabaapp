@@ -51,7 +51,7 @@ class _AccountSection extends StatelessWidget {
         .tile(
           prefix: const Icon(FIcons.user),
           title: const Text('Perfil'),
-          subtitle: Text('Nome, foto, informações adicionais'),
+          subtitle: const Text('Nome, foto, informações adicionais'),
           suffix: const Icon(FIcons.chevronRight),
           onPress: () => showTodoToast(context, 'Perfil'),
           // onPress: () => context.push('/onboarding'),
@@ -150,14 +150,14 @@ class _SocialSection extends StatelessWidget {
         .tile(
           prefix: const Icon(FIcons.messageCircleQuestionMark),
           title: const Text('Ajuda e suporte'),
-          subtitle: Text('FAQ e contato'),
+          subtitle: const Text('FAQ e contato'),
           suffix: const Icon(FIcons.chevronRight),
           onPress: () => showTodoToast(context, 'Ajuda e suporte'),
         ),
         .tile(
           prefix: const Icon(FIcons.info),
           title: const Text('Sobre o app'),
-          subtitle: Text('Versão 1.0.0'),
+          subtitle: const Text('Versão 1.0.0'),
           suffix: const Icon(FIcons.chevronRight),
           onPress: () => showTodoToast(context, 'Sobre'),
         ),

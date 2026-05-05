@@ -81,7 +81,7 @@ class _ExploreCitiesSectionState extends ConsumerState<ExploreCitiesSection> {
             ),
           ),
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
       ],
     );
   }

@@ -10,7 +10,7 @@ import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
 import 'package:ibiapabaapp/shared/ui/layout/vertical_items_list.dart';
 
 final List<Event> _mockEvents = List.generate(
-  5,
+  3,
   (index) => Event(
     id: 'mock-$index',
     name: 'Carregando evento...',
@@ -56,9 +56,9 @@ class _NowHappeningSectionState extends ConsumerState<NowHappeningSection> {
           eventsAsync.when(
             skipLoadingOnRefresh: false,
             loading: () => VerticalItemsList(
-              isLoading: false,
+              isLoading: true,
               items: _mockEvents,
-              separator: const SizedBox(height: 24),
+              separator: const SizedBox(height: 16),
               itemBuilder: (_, event) => EventCard(event: event),
             ),
 
@@ -90,7 +90,7 @@ class _NowHappeningSectionState extends ConsumerState<NowHappeningSection> {
             data: (events) => VerticalItemsList(
               isLoading: false,
               items: events,
-              separator: const SizedBox(height: 24),
+              separator: const SizedBox(height: 16),
               itemBuilder: (_, event) => EventCard(event: event),
             ),
           ),

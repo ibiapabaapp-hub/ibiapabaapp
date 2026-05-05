@@ -34,7 +34,7 @@ class QuickCategoriesList extends StatelessWidget {
           );
         },
         style: FButtonStyle.secondary(),
-        child: Text(category, style: TextStyle(fontSize: 14)),
+        child: Text(category, style: const TextStyle(fontSize: 14)),
       ),
     );
   }

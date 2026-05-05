@@ -29,7 +29,7 @@ class CityCard extends StatelessWidget {
               child: Stack(
                 children: [
                   getCityImage(context: context, coverImgUrl: city.coverImgUrl),
-                  Positioned(
+                  const Positioned(
                     top: 8,
                     left: 8,
                     child: EntityBadge(type: EntityType.city),

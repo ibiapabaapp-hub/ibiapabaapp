@@ -7,13 +7,13 @@ class SponsoredHighlights extends StatelessWidget {
 
   static final List<MediaSource> _items = [
     NetworkMedia(
-      url: 'https://cdn.ibiapabaapp.com.br/cities/ubajara',
+      url: 'https://cdn.ibiapabaapp.com.br/cities/ubajara.png',
       route: '/app/cities/ubajara',
       title: 'Ubajara',
       isVideo: false,
     ),
     NetworkMedia(
-      url: 'https://cdn.ibiapabaapp.com.br/cities/tiangua',
+      url: 'https://cdn.ibiapabaapp.com.br/cities/tiangua.png',
       route: '/app/cities/tiangua',
       title: 'Tianguá',
       isVideo: false,
@@ -23,13 +23,13 @@ class SponsoredHighlights extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: .symmetric(horizontal: 16),
+      padding: const .symmetric(horizontal: 16),
       child: Center(
         child: SizedBox(
-          width: 450,
+          width: .infinity,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: ContentCarousel(items: _items, aspectRatio: 5 / 6),
+            borderRadius: BorderRadius.circular(12),
+            child: ContentCarousel(items: _items, aspectRatio: 3 / 2),
           ),
         ),
       ),

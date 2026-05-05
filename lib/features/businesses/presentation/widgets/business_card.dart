@@ -32,7 +32,7 @@ class BusinessCard extends StatelessWidget {
                     context: context,
                     coverImgUrl: business.avatar,
                   ),
-                  Positioned(
+                  const Positioned(
                     top: 8,
                     left: 8,
                     child: EntityBadge(type: .business),
@@ -77,7 +77,8 @@ Widget getBusinessImage({
   String? coverImgUrl,
   Widget? fallback,
 }) {
-  final errorPlaceholder = fallback ?? _DefaultErrorPlaceholder(height: 160);
+  final errorPlaceholder =
+      fallback ?? const _DefaultErrorPlaceholder(height: 160);
 
   if (coverImgUrl == null || coverImgUrl.isEmpty) {
     return errorPlaceholder;

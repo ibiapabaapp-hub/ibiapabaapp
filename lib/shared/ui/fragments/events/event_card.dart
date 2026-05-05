@@ -15,82 +15,108 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
-    final typography = theme.typography;
-
-    return FCard(
-      style: (style) => style.copyWith(
-        contentStyle: (s) => s.copyWith(padding: EdgeInsets.all(6)),
-        decoration: style.decoration.copyWith(
-          border: Border.all(width: 0, color: Colors.transparent),
-          borderRadius: BorderRadius.circular(16),
+    return GestureDetector(
+      onTap: () => context.push('/app/events/${event.id}'),
+      child: FCard(
+        style: (style) => style.copyWith(
+          contentStyle: (s) => s.copyWith(padding: const EdgeInsets.all(12)),
+          decoration: style.decoration.copyWith(
+            border: Border.all(width: 0, color: Colors.transparent),
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
-      ),
-      child: GestureDetector(
-        onTap: () => context.push('/app/events/${event.id}'),
-        child: Row(
-          mainAxisSize: .min,
-          crossAxisAlignment: .center,
-          spacing: 16,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 6,
           children: [
-            SizedBox(
-              width: 120,
-              height: 120,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Stack(
-                  children: [
-                    _getEventImage(
-                      theme: context.theme,
-                      context: context,
-                      coverImgUrl: event.coverImgUrl,
-                    ),
-                    Positioned(
-                      top: 8,
-                      left: 8,
-                      child: EntityBadge(type: .event),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            Flexible(
-              child: Padding(
-                padding: const .fromLTRB(0, 0, 8, 0),
-                child: Column(
-                  spacing: 2,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      event.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: typography.base.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${_getFormattedDDMM(event.startDate)} até ${_getFormattedDDMM(event.endDate)}',
-                      style: typography.sm.copyWith(
-                        color: theme.colors.mutedForeground,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-
-                    Wrap(
-                      runSpacing: 4,
-                      spacing: 4,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
+              children: [
+                SizedBox(
+                  width: 70,
+                  height: 70,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Stack(
                       children: [
-                        _buildBadge(context, 'Evento'),
-                        _buildBadge(context, 'Esportivo'),
+                        _getEventImage(
+                          context: context,
+                          coverImgUrl: event.coverImgUrl,
+                        ),
+                        const Positioned(
+                          top: 4,
+                          left: 4,
+                          child: EntityBadge(type: .event),
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 4,
+                    children: [
+                      Text(
+                        event.name,
+                        style: context.theme.typography.sm.copyWith(
+                          fontWeight: .w600,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+
+                      Text(
+                        '${_getFormattedDDMM(event.startDate)} - ${_getFormattedDDMM(event.endDate)}',
+                        style: context.theme.typography.xs.copyWith(
+                          color: context.theme.colors.mutedForeground,
+                        ),
+                      ),
+
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final availableWidth = constraints.maxWidth;
+                          final badgeWidth = 60.0; // Estimated badge width
+                          final spacing = 4.0;
+                          final maxBadges =
+                              (availableWidth + spacing) ~/
+                              (badgeWidth + spacing);
+
+                          final badges = <Widget>[
+                            _buildBadge(context, 'Evento'),
+                          ];
+
+                          if (event.categories.isNotEmpty) {
+                            final categoryBadges = event.categories
+                                .take(2)
+                                .map((cat) => _buildBadge(context, cat))
+                                .toList();
+
+                            final remainingSlots = maxBadges - 1;
+                            if (remainingSlots > 0) {
+                              badges.addAll(
+                                categoryBadges.take(remainingSlots),
+                              );
+                            }
+                          } else {
+                            if (maxBadges > 1) {
+                              badges.add(_buildBadge(context, 'Esportivo'));
+                            }
+                          }
+
+                          return Wrap(
+                            runSpacing: 4,
+                            spacing: 4,
+                            children: badges,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -107,19 +133,16 @@ class EventCard extends StatelessWidget {
       style: FBadgeStyle.secondary(),
       child: Text(
         text,
-        style: context.theme.typography.sm.copyWith(
-          fontWeight: FontWeight.normal,
-          fontSize: 12,
-        ),
+        style: context.theme.typography.xs.copyWith(fontWeight: .normal),
       ),
     );
   }
 
   Widget _getEventImage({
     required BuildContext context,
-    required FThemeData theme,
     String? coverImgUrl = '',
   }) {
+    final theme = context.theme;
     return ContentMedia(
       source: NetworkMedia(url: coverImgUrl ?? ''),
       fit: BoxFit.cover,
@@ -128,7 +151,7 @@ class EventCard extends StatelessWidget {
         child: Icon(
           getEntityIcon(.event),
           color: theme.colors.mutedForeground,
-          size: 32,
+          size: 48,
         ),
       ),
     );
