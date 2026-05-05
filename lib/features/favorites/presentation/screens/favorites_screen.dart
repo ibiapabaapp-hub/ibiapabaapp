@@ -1,47 +1,116 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
+import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/features/businesses/presentation/controllers/businesses_controller.dart';
+import 'package:ibiapabaapp/features/businesses/presentation/widgets/business_card.dart';
+import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/features/cities/presentation/controllers/cities_controller.dart';
+import 'package:ibiapabaapp/features/cities/presentation/widgets/city_card.dart';
+import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/features/events/presentation/controllers/events_controller.dart';
+import 'package:ibiapabaapp/features/favorites/presentation/providers/favorites_state_provider.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/events/event_card.dart';
 
-class FavoritesScreen extends StatelessWidget {
+class FavoritesScreen extends ConsumerStatefulWidget {
   const FavoritesScreen({super.key});
 
   @override
+  ConsumerState<FavoritesScreen> createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
+  bool _hasFetched = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_hasFetched) {
+      _hasFetched = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _fetchFavoritedEntities();
+      });
+    }
+  }
+
+  void _fetchFavoritedEntities() {
+    final favorites = ref.read(favoritesStateProvider).favorites;
+    final citiesNotifier = ref.read(citiesProvider.notifier);
+    final eventsNotifier = ref.read(eventsProvider.notifier);
+
+    for (final fav in favorites) {
+      if (fav.cityId != null) {
+        citiesNotifier.getCityById(fav.cityId!);
+      } else if (fav.eventId != null) {
+        eventsNotifier.getEventById(fav.eventId!);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final favorites = ref.watch(favoritesStateProvider).favorites;
+    final citiesState = ref.watch(citiesProvider);
+    final businessesState = ref.watch(businessesProvider);
+    final eventsState = ref.watch(eventsProvider);
+
+    final cityIds = favorites
+        .where((f) => f.cityId != null)
+        .map((f) => f.cityId!)
+        .toSet();
+    final businessIds = favorites
+        .where((f) => f.businessProfileId != null)
+        .map((f) => f.businessProfileId!)
+        .toSet();
+    final eventIds = favorites
+        .where((f) => f.eventId != null)
+        .map((f) => f.eventId!)
+        .toSet();
+
+    final cities = citiesState.maybeWhen(
+      data: (list) => list.where((city) => cityIds.contains(city.id)).toList(),
+      orElse: () => <City>[],
+    );
+
+    final businesses = businessesState.maybeWhen(
+      data: (list) => list
+          .where((business) => businessIds.contains(business.profileId))
+          .toList(),
+      orElse: () => <Business>[],
+    );
+
+    final events = eventsState.maybeWhen(
+      data: (list) =>
+          list.where((event) => eventIds.contains(event.id)).toList(),
+      orElse: () => <Event>[],
+    );
+
     return FScaffold(
-      header: FHeader.nested(
-        prefixes: [
-          Text(
-            'Favoritos',
-            style: context.theme.typography.lg.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           spacing: 16,
           children: [
+            Text(
+              'Favoritos',
+              style: context.theme.typography.lg.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Expanded(
               child: FTabs(
                 children: [
                   FTabEntry(
                     label: const Text('Cidades'),
-                    child: _EmptyState(
-                      title: 'Nenhuma cidade favoritada ainda.',
-                    ),
+                    child: _buildCityTab(citiesState, cities),
                   ),
                   FTabEntry(
                     label: const Text('Empresas'),
-                    child: _EmptyState(
-                      title: 'Nenhuma empresa favoritada ainda.',
-                    ),
+                    child: _buildBusinessTab(businessesState, businesses),
                   ),
                   FTabEntry(
                     label: const Text('Eventos'),
-                    child: _EmptyState(
-                      title: 'Nenhum evento favoritado ainda.',
-                    ),
+                    child: _buildEventTab(eventsState, events),
                   ),
                 ],
               ),
@@ -49,6 +118,58 @@ class FavoritesScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildCityTab(AsyncValue<List<City>> state, List<City> cities) {
+    return state.maybeWhen(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, _) => Center(child: Text('Erro: $error')),
+      orElse: () => cities.isNotEmpty
+          ? ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: cities.length,
+              itemBuilder: (context, index) => CityCard(city: cities[index]),
+              separatorBuilder: (_, _) => const SizedBox(height: 16),
+            )
+          : const _EmptyState(title: 'Nenhuma cidade favoritada ainda.'),
+    );
+  }
+
+  Widget _buildBusinessTab(
+    AsyncValue<List<Business>> state,
+    List<Business> businesses,
+  ) {
+    return state.maybeWhen(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, _) => Center(child: Text('Erro: $error')),
+      orElse: () => businesses.isNotEmpty
+          ? ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: businesses.length,
+              itemBuilder: (context, index) =>
+                  BusinessCard(business: businesses[index]),
+              separatorBuilder: (_, _) => const SizedBox(height: 16),
+            )
+          : const _EmptyState(title: 'Nenhuma empresa favoritada ainda.'),
+    );
+  }
+
+  Widget _buildEventTab(AsyncValue<List<Event>> state, List<Event> events) {
+    return state.maybeWhen(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, _) => Center(child: Text('Erro: $error')),
+      orElse: () => events.isNotEmpty
+          ? ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: events.length,
+              itemBuilder: (context, index) => EventCard(event: events[index]),
+              separatorBuilder: (_, _) => const SizedBox(height: 16),
+            )
+          : const _EmptyState(title: 'Nenhum evento favoritado ainda.'),
     );
   }
 }
@@ -59,13 +180,11 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Center(
-        child: Text(
-          title,
-          style: context.theme.typography.sm.copyWith(
-            color: context.theme.colors.mutedForeground,
-          ),
+    return Center(
+      child: Text(
+        title,
+        style: context.theme.typography.sm.copyWith(
+          color: context.theme.colors.mutedForeground,
         ),
       ),
     );
