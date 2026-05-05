@@ -55,7 +55,7 @@ final class LocationLocalStorageProvider
 }
 
 String _$locationLocalStorageHash() =>
-    r'c7cf61d1879322f373c6826e645e2e97cfff47ad';
+    r'42f9fee100050bfcf7e83b092ae30eaaceda1e98';
 
 @ProviderFor(locationService)
 final locationServiceProvider = LocationServiceProvider._();
