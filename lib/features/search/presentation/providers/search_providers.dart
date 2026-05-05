@@ -2,6 +2,7 @@ import 'package:ibiapabaapp/core/cache/cache_database_provider.dart';
 import 'package:ibiapabaapp/core/network/dio_provider.dart';
 import 'package:ibiapabaapp/features/search/data/datasources/search_remote_datasource.dart';
 import 'package:ibiapabaapp/features/search/data/datasources/search_local_storage.dart';
+import 'package:ibiapabaapp/features/search/infra/search_local_storage_impl.dart';
 import 'package:ibiapabaapp/features/search/data/repositories/search_repository_impl.dart';
 import 'package:ibiapabaapp/features/search/domain/entities/search_result.dart';
 import 'package:ibiapabaapp/features/search/domain/repositories/search_repository.dart';
@@ -14,7 +15,7 @@ part 'search_providers.g.dart';
 @riverpod
 SearchLocalStorage searchLocalStorage(Ref ref) {
   final cacheService = ref.watch(cacheDatabaseServiceProvider);
-  return SearchLocalStorage(cacheService);
+  return SearchLocalStorageImpl(cacheService);
 }
 
 @riverpod

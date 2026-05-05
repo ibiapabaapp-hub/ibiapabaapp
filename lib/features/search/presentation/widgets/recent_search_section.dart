@@ -15,7 +15,12 @@ class RecentSearchSection extends ConsumerWidget {
     final recentSearches = session.recentSearches;
 
     if (recentSearches.isEmpty) {
-      return const SizedBox.shrink();
+      return Text(
+        "Nenhuma pesquisa recente",
+        style: context.theme.typography.sm.copyWith(
+          color: context.theme.colors.mutedForeground,
+        ),
+      );
     }
 
     return Column(

@@ -55,7 +55,7 @@ final class SearchLocalStorageProvider
 }
 
 String _$searchLocalStorageHash() =>
-    r'80768ddb479b75ce57da07708fe8b4ecf45a83aa';
+    r'8f006aac5fc4c972a1e0f2f7699bb976d20238d3';
 
 @ProviderFor(searchRemoteDatasource)
 final searchRemoteDatasourceProvider = SearchRemoteDatasourceProvider._();

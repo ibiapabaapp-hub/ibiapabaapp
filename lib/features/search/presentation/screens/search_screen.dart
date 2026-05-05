@@ -4,6 +4,7 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/core/network/dio_provider.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/explore_cities_section.dart';
+import 'package:ibiapabaapp/features/search/presentation/widgets/search_field_shell.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:ibiapabaapp/shared/ui/layout/items_grid.dart';
 import 'package:ibiapabaapp/shared/ui/layout/wrappers/main_wrapper.dart';
@@ -49,7 +50,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     final dioClient = ref.watch(dioProvider);
 
     return SafeArea(
-      top: true,
+      maintainBottomViewPadding: false,
       child: SingleChildScrollView(
         child: Skeletonizer(
           effect: customShimmerEffect(context),
@@ -57,7 +58,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           child: Column(
             spacing: 16,
             children: [
-              _SearchHeader(),
+              const _SearchHeader(),
               MainWrapper(
                 hasTopPadding: false,
                 children: [
@@ -89,55 +90,23 @@ class _SearchHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'searchBar',
-      flightShuttleBuilder:
-          (flightContext, animation, direction, fromCtx, toCtx) {
-            return _SearchFieldShell(
-              color: context.theme.colors.muted,
-              child: FTextField(
-                style: (s) => s.copyWith(filled: true),
-                hint: 'O que vamos fazer hoje na Ibiapaba?',
-                readOnly: true,
-              ),
-            );
-          },
-      child: Material(
-        color: Colors.transparent,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => context.push('/app/search/expanded'),
-          child: _SearchFieldShell(
-            color: context.theme.colors.muted,
-            child: Skeleton.unite(
-              borderRadius: .circular(16),
-              child: IgnorePointer(
-                child: FTextField(
-                  style: (s) => s.copyWith(filled: true),
-                  hint: 'O que vamos fazer hoje na Ibiapaba?',
-                ),
-              ),
-            ),
+    final theme = context.theme;
+    return SearchFieldShell(
+      child: FButton(
+        prefix: Icon(
+          FIcons.search,
+          size: 16,
+          color: theme.colors.mutedForeground,
+        ),
+        style: FButtonStyle.outline(),
+        onPress: () => context.push('/app/search/expanded'),
+        child: Text(
+          'O que vamos fazer hoje na Ibiapaba?',
+          style: theme.typography.sm.copyWith(
+            color: theme.colors.mutedForeground,
           ),
         ),
       ),
-    );
-  }
-}
-
-class _SearchFieldShell extends StatelessWidget {
-  const _SearchFieldShell({required this.color, required this.child});
-
-  final Color color;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(color: color),
-      padding: const EdgeInsets.fromLTRB(16, 32, 16, 24),
-      child: child,
     );
   }
 }

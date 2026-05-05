@@ -8,6 +8,7 @@ import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/features/search/presentation/providers/search_providers.dart';
 import 'package:ibiapabaapp/features/search/presentation/providers/search_state_provider.dart';
 import 'package:ibiapabaapp/features/search/presentation/widgets/recent_search_section.dart';
+import 'package:ibiapabaapp/features/search/presentation/widgets/search_field_shell.dart';
 import 'package:ibiapabaapp/features/search/presentation/widgets/search_list.dart';
 import 'package:ibiapabaapp/features/search/presentation/widgets/search_suggestion_section.dart';
 
@@ -88,55 +89,46 @@ class _ExpandedSearchScreenState extends ConsumerState<ExpandedSearchScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.colors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Hero(
-              tag: 'searchBar',
-              child: Material(
-                color: Colors.transparent,
-                child: _SearchFieldShell(
-                  color: context.theme.colors.muted.withAlpha(200),
-                  child: Row(
-                    spacing: 16,
-                    children: [
-                      GestureDetector(
-                        onTap: () => context.pop(),
-                        child: Icon(
-                          Icons.arrow_back,
-                          size: 24,
-                          color: context.theme.colors.foreground,
-                        ),
-                      ),
-                      Expanded(
-                        child: FTextField(
-                          control: _searchControl,
-                          focusNode: _focusNode,
-                          autofocus: true,
-                          hint: 'O que vamos fazer hoje na Ibiapaba?',
-                          style: (s) => s.copyWith(filled: true),
-                        ),
-                      ),
-                    ],
+      body: Column(
+        children: [
+          SearchFieldShell(
+            child: Row(
+              spacing: 16,
+              children: [
+                GestureDetector(
+                  onTap: () => context.pop(),
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 24,
+                    color: context.theme.colors.foreground,
                   ),
                 ),
-              ),
+                Expanded(
+                  child: FTextField(
+                    control: _searchControl,
+                    focusNode: _focusNode,
+                    autofocus: true,
+                    hint: 'O que vamos fazer hoje na Ibiapaba?',
+                    style: (s) => s.copyWith(filled: true),
+                  ),
+                ),
+              ],
             ),
+          ),
 
-            Expanded(
-              child: FadeTransition(
-                opacity: _contentFade,
-                child: SlideTransition(
-                  position: _contentSlide,
-                  child: _SearchContent(
-                    query: _query,
-                    onSuggestionTap: _onSuggestionTap,
-                  ),
+          Expanded(
+            child: FadeTransition(
+              opacity: _contentFade,
+              child: SlideTransition(
+                position: _contentSlide,
+                child: _SearchContent(
+                  query: _query,
+                  onSuggestionTap: _onSuggestionTap,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -236,25 +228,8 @@ class _SearchContent extends ConsumerWidget {
       children: [
         RecentSearchSection(onSuggestionTap: onSuggestionTap),
         const FDivider(),
-        SearchSuggestionSection(),
+        const SearchSuggestionSection(),
       ],
-    );
-  }
-}
-
-class _SearchFieldShell extends StatelessWidget {
-  const _SearchFieldShell({required this.color, required this.child});
-
-  final Color color;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(color: color),
-      padding: const EdgeInsets.fromLTRB(16, 32, 16, 24),
-      child: child,
     );
   }
 }
