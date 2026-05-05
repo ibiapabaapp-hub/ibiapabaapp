@@ -58,69 +58,6 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
         ? AppLatLng(sessionPos.latitude, sessionPos.longitude)
         : _fallbackPosition;
 
-    Future<void> onCitySelectedManually(String cityName) async {
-      setState(() {
-        _loadingLocation = true;
-        _locationError = null;
-      });
-
-      final navigator = Navigator.of(context, rootNavigator: true);
-      final previousCity = ref.read(appSessionProvider).currentCity;
-
-      final citiesResult = await ref
-          .read(getAllCitiesProvider)
-          .call(const GetAllCitiesParams());
-
-      if (!mounted) return;
-
-      citiesResult.fold(
-        (failure) {
-          setState(() {
-            _loadingLocation = false;
-            _locationError = failure.message;
-          });
-        },
-        (cities) async {
-          final city = cities.firstWhereOrNull(
-            (c) => c.name.toLowerCase() == cityName.toLowerCase(),
-          );
-
-          if (city == null) {
-            setState(() {
-              _loadingLocation = false;
-              _locationError = 'Cidade não encontrada.';
-            });
-            return;
-          }
-
-          await ref.read(locationStateProvider.notifier).setCurrentCity(city);
-
-          if (!mounted) return;
-          setState(() => _loadingLocation = false);
-          navigator.pop();
-
-          final newCity = ref.read(appSessionProvider).currentCity;
-          final cityChanged = newCity != null && newCity.id != previousCity?.id;
-
-          showAppToast(
-            alignment: .bottomCenter,
-            context: context,
-            icon: Icon(
-              cityChanged ? Icons.location_on : Icons.location_on_outlined,
-            ),
-            title: Text(
-              cityChanged ? 'Localização atualizada' : 'Localização confirmada',
-            ),
-            description: Text(
-              cityChanged
-                  ? 'Você agora está em ${newCity.name}'
-                  : 'Você continua em ${newCity?.name ?? 'sua cidade atual'}',
-            ),
-          );
-        },
-      );
-    }
-
     _mapWidget = AppMapProvider.create(
       initialPosition: initialPos,
       initialZoom: sessionPos != null ? 15.0 : 13.0,
@@ -132,6 +69,69 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(locationStateProvider.notifier).resolveDevicePosition();
     });
+  }
+
+  Future<void> onCitySelectedManually(String cityName) async {
+    setState(() {
+      _loadingLocation = true;
+      _locationError = null;
+    });
+
+    final navigator = Navigator.of(context, rootNavigator: true);
+    final previousCity = ref.read(appSessionProvider).currentCity;
+
+    final citiesResult = await ref
+        .read(getAllCitiesProvider)
+        .call(const GetAllCitiesParams());
+
+    if (!mounted) return;
+
+    citiesResult.fold(
+      (failure) {
+        setState(() {
+          _loadingLocation = false;
+          _locationError = failure.message;
+        });
+      },
+      (cities) async {
+        final city = cities.firstWhereOrNull(
+          (c) => c.name.toLowerCase() == cityName.toLowerCase(),
+        );
+
+        if (city == null) {
+          setState(() {
+            _loadingLocation = false;
+            _locationError = 'Cidade não encontrada.';
+          });
+          return;
+        }
+
+        await ref.read(locationStateProvider.notifier).setCurrentCity(city);
+
+        if (!mounted) return;
+        setState(() => _loadingLocation = false);
+        navigator.pop();
+
+        final newCity = ref.read(appSessionProvider).currentCity;
+        final cityChanged = newCity != null && newCity.id != previousCity?.id;
+
+        showAppToast(
+          alignment: .bottomCenter,
+          context: context,
+          icon: Icon(
+            cityChanged ? Icons.location_on : Icons.location_on_outlined,
+          ),
+          title: Text(
+            cityChanged ? 'Localização atualizada' : 'Localização confirmada',
+          ),
+          description: Text(
+            cityChanged
+                ? 'Você agora está em ${newCity.name}'
+                : 'Você continua em ${newCity?.name ?? 'sua cidade atual'}',
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _detectNearestCity() async {
@@ -219,15 +219,15 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: const SheetDragIndicator()),
+              const Center(child: SheetDragIndicator()),
               const SizedBox(height: 16),
 
               // ── Header ────────────────────────────────────────────────────
-              SheetHeader(),
+              const SheetHeader(),
               const SizedBox(height: 12),
 
               // ── Mapa ──────────────────────────────────────────────────────
-              if (!_locationSupported) SheetActionsUnsupported(),
+              if (!_locationSupported) const SheetActionsUnsupported(),
 
               SheetMap(
                 isLoadingMap: _loadingLocation,
@@ -240,6 +240,12 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
                 SheetActions(
                   isLoadingLocation: _loadingLocation,
                   detectNearestCity: _detectNearestCity,
+                  currentCityName: ref
+                      .read(locationStateProvider)
+                      .currentCity
+                      ?.name,
+                  currentPosition: currentPosition,
+                  onCitySelected: onCitySelectedManually,
                 ),
 
               // ── Erro ──────────────────────────────────────────────────────
@@ -263,7 +269,7 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
                 ),
               ),
               const SizedBox(height: 12),
-              RecentLocationsList(),
+              const RecentLocationsList(),
             ],
           ),
         ),
