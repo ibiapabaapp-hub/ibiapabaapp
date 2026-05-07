@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:forui/forui.dart';
+import 'package:ibiapabaapp/app/theme/select_search_style.dart';
+import 'package:ibiapabaapp/app/theme/text_field_style.dart';
 
 // ignore_for_file: unnecessary_ignore
 // ignore_for_file: avoid_redundant_argument_values
@@ -11,17 +13,29 @@ FSelectStyle selectStyle({
   required FTypography typography,
   required FStyle style,
 }) => FSelectStyle(
-  selectFieldStyle: .inherit(
+  selectFieldStyle: textFieldStyle(
     colors: colors,
     typography: typography,
-    style: style.copyWith(borderRadius: .circular(12)),
+    style: style,
   ),
   iconStyle: IconThemeData(color: colors.mutedForeground, size: 18),
-  searchStyle: .inherit(colors: colors, typography: typography, style: style),
+  searchStyle: selectSearchStyle(
+    colors: colors,
+    typography: typography,
+    style: style,
+  ),
+
   contentStyle: .inherit(
     colors: colors,
     typography: typography,
-    style: style.copyWith(borderRadius: .circular(12)),
+    style: style.copyWith(
+      borderRadius: .circular(12),
+      formFieldStyle: textFieldStyle(
+        colors: colors,
+        typography: typography,
+        style: style,
+      ).call,
+    ),
   ),
   emptyTextStyle: typography.sm,
 );

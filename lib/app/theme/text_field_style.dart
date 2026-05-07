@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:forui/forui.dart';
+import 'package:ibiapabaapp/app/theme/button_style.dart';
 
 FTextFieldStyle textFieldStyle({
   required FColors colors,
@@ -8,11 +9,12 @@ FTextFieldStyle textFieldStyle({
   required FStyle style,
 }) {
   final label = _labelStyles(style: style).verticalStyle;
-  final ghost = _buttonStyles(
+  final ghost = getButtonStyles(
     colors: colors,
     typography: typography,
     style: style,
   ).ghost;
+
   final textStyle = typography.sm.copyWith(
     fontFamily: typography.defaultFontFamily,
     color: colors.foreground,
@@ -33,6 +35,7 @@ FTextFieldStyle textFieldStyle({
         )
         .call,
   );
+
   return .new(
     keyboardAppearance: colors.brightness,
     clearButtonStyle: buttonStyle,
@@ -55,6 +58,8 @@ FTextFieldStyle textFieldStyle({
       ),
       WidgetState.any: textStyle.copyWith(color: colors.primary),
     }),
+    filled: true,
+    fillColor: colors.barrier.withAlpha(128),
     cursorColor: colors.primary,
     border: FWidgetStateMap({
       WidgetState.error: OutlineInputBorder(
@@ -99,82 +104,5 @@ FLabelStyles _labelStyles({required FStyle style}) => FLabelStyles(
     labelPadding: const .only(bottom: 5),
     descriptionPadding: const .only(top: 5),
     errorPadding: const .only(top: 5),
-  ),
-);
-
-FButtonStyles _buttonStyles({
-  required FColors colors,
-  required FTypography typography,
-  required FStyle style,
-}) => FButtonStyles(
-  primary: .inherit(
-    colors: colors,
-    style: style,
-    typography: typography,
-    color: colors.primary,
-    foregroundColor: colors.primaryForeground,
-  ),
-  secondary: .inherit(
-    colors: colors,
-    style: style,
-    typography: typography,
-    color: colors.secondary,
-    foregroundColor: colors.secondaryForeground,
-  ),
-  destructive: .inherit(
-    colors: colors,
-    style: style,
-    typography: typography,
-    color: colors.destructive,
-    foregroundColor: colors.destructiveForeground,
-  ),
-  outline: FButtonStyle(
-    decoration: FWidgetStateMap({
-      WidgetState.disabled: BoxDecoration(
-        border: .all(color: colors.disable(colors.border)),
-        borderRadius: .circular(12),
-      ),
-      WidgetState.hovered | WidgetState.pressed: BoxDecoration(
-        border: .all(color: colors.border),
-        borderRadius: .circular(12),
-        color: colors.secondary,
-      ),
-      WidgetState.any: BoxDecoration(
-        border: .all(color: colors.border),
-        borderRadius: .circular(12),
-      ),
-    }),
-    focusedOutlineStyle: style.focusedOutlineStyle,
-    contentStyle: .inherit(
-      typography: typography,
-      enabled: colors.secondaryForeground,
-      disabled: colors.disable(colors.secondaryForeground),
-    ),
-    iconContentStyle: .inherit(
-      enabled: colors.secondaryForeground,
-      disabled: colors.disable(colors.secondaryForeground),
-    ),
-    tappableStyle: style.tappableStyle,
-  ),
-  ghost: FButtonStyle(
-    decoration: FWidgetStateMap({
-      WidgetState.disabled: BoxDecoration(borderRadius: .circular(12)),
-      WidgetState.hovered | WidgetState.pressed: BoxDecoration(
-        borderRadius: .circular(12),
-        color: colors.secondary,
-      ),
-      WidgetState.any: BoxDecoration(borderRadius: .circular(12)),
-    }),
-    focusedOutlineStyle: style.focusedOutlineStyle,
-    contentStyle: .inherit(
-      typography: typography,
-      enabled: colors.secondaryForeground,
-      disabled: colors.disable(colors.secondaryForeground),
-    ),
-    iconContentStyle: .inherit(
-      enabled: colors.secondaryForeground,
-      disabled: colors.disable(colors.secondaryForeground),
-    ),
-    tappableStyle: style.tappableStyle,
   ),
 );
