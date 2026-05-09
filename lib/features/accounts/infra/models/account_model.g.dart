@@ -20,7 +20,7 @@ _AccountModel _$AccountModelFromJson(Map<String, dynamic> json) =>
       displayName: json['display_name'] as String,
       bio: json['bio'] as String?,
       avatarUrl: json['avatar_url'] as String?,
-      type: $enumDecode(_$AccountTypeEnumMap, json['type']),
+      type: const AccountTypeConverter().fromJson(json['type'] as String),
       interests: json['interests'] == null
           ? null
           : AccountInterestsModel.fromJson(
@@ -31,7 +31,10 @@ _AccountModel _$AccountModelFromJson(Map<String, dynamic> json) =>
           : AccountBusinessModel.fromJson(
               json['business'] as Map<String, dynamic>,
             ),
-      gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
+      gender: _$JsonConverterFromJson<String, Gender>(
+        json['gender'],
+        const GenderConverter().fromJson,
+      ),
     );
 
 Map<String, dynamic> _$AccountModelToJson(_AccountModel instance) =>
@@ -48,20 +51,21 @@ Map<String, dynamic> _$AccountModelToJson(_AccountModel instance) =>
       'display_name': instance.displayName,
       'bio': instance.bio,
       'avatar_url': instance.avatarUrl,
-      'type': _$AccountTypeEnumMap[instance.type]!,
+      'type': const AccountTypeConverter().toJson(instance.type),
       'interests': instance.interests,
       'business': instance.business,
-      'gender': _$GenderEnumMap[instance.gender],
+      'gender': _$JsonConverterToJson<String, Gender>(
+        instance.gender,
+        const GenderConverter().toJson,
+      ),
     };
 
-const _$AccountTypeEnumMap = {
-  AccountType.personal: 'personal',
-  AccountType.business: 'business',
-};
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
 
-const _$GenderEnumMap = {
-  Gender.male: 'male',
-  Gender.female: 'female',
-  Gender.non_binary: 'non_binary',
-  Gender.prefer_not_to_say: 'prefer_not_to_say',
-};
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);

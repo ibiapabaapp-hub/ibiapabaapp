@@ -41,14 +41,21 @@ class AccountsState extends _$AccountsState with ControllerLogHandler {
         updatedAt: account.updatedAt,
         slug: account.slug,
         displayName: account.displayName,
+        bio: account.bio,
+        avatarUrl: account.avatarUrl,
         type: account.type,
         interests: interests,
+        business: account.business,
+        gender: account.gender,
       );
     }
 
     await repository.addCachedAccount(composedAccount);
     await repository.saveActiveAccountId(composedAccount.id);
-    state = state.copyWith(activeAccountId: composedAccount.id);
+    state = state.copyWith(
+      activeAccountId: composedAccount.id,
+      activeAccount: composedAccount,
+    );
     await loadCachedAccounts();
   }
 

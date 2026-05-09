@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/account_business_model.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/account_interests_model.dart';
+import 'package:ibiapabaapp/features/accounts/infra/models/converters/account_type_converter.dart';
+import 'package:ibiapabaapp/features/accounts/infra/models/converters/gender_converter.dart';
 import '../../domain/entities/account.dart';
 import '../../domain/entities/account_type.dart';
 import '../../domain/entities/gender.dart';
@@ -23,10 +25,10 @@ abstract class AccountModel with _$AccountModel implements Account {
     @JsonKey(name: 'display_name') required String displayName,
     String? bio,
     @JsonKey(name: 'avatar_url') String? avatarUrl,
-    required AccountType type,
+    @AccountTypeConverter() required AccountType type,
     AccountInterestsModel? interests,
     AccountBusinessModel? business,
-    Gender? gender,
+    @GenderConverter() Gender? gender,
   }) = _AccountModel;
 
   factory AccountModel.fromJson(Map<String, dynamic> json) =>

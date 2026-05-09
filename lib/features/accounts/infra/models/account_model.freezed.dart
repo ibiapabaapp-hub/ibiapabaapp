@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AccountModel {
 
- String get id; String get email;@JsonKey(name: 'phone_number') String? get phoneNumber; String get name; bool get active;@JsonKey(name: 'is_verified') bool get isVerified;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt; String get slug;@JsonKey(name: 'display_name') String get displayName; String? get bio;@JsonKey(name: 'avatar_url') String? get avatarUrl; AccountType get type; AccountInterestsModel? get interests; AccountBusinessModel? get business; Gender? get gender;
+ String get id; String get email;@JsonKey(name: 'phone_number') String? get phoneNumber; String get name; bool get active;@JsonKey(name: 'is_verified') bool get isVerified;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt; String get slug;@JsonKey(name: 'display_name') String get displayName; String? get bio;@JsonKey(name: 'avatar_url') String? get avatarUrl;@AccountTypeConverter() AccountType get type; AccountInterestsModel? get interests; AccountBusinessModel? get business;@GenderConverter() Gender? get gender;
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $AccountModelCopyWith<$Res>  {
   factory $AccountModelCopyWith(AccountModel value, $Res Function(AccountModel) _then) = _$AccountModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String email,@JsonKey(name: 'phone_number') String? phoneNumber, String name, bool active,@JsonKey(name: 'is_verified') bool isVerified,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt, String slug,@JsonKey(name: 'display_name') String displayName, String? bio,@JsonKey(name: 'avatar_url') String? avatarUrl, AccountType type, AccountInterestsModel? interests, AccountBusinessModel? business, Gender? gender
+ String id, String email,@JsonKey(name: 'phone_number') String? phoneNumber, String name, bool active,@JsonKey(name: 'is_verified') bool isVerified,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt, String slug,@JsonKey(name: 'display_name') String displayName, String? bio,@JsonKey(name: 'avatar_url') String? avatarUrl,@AccountTypeConverter() AccountType type, AccountInterestsModel? interests, AccountBusinessModel? business,@GenderConverter() Gender? gender
 });
 
 
@@ -192,7 +192,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String email, @JsonKey(name: 'phone_number')  String? phoneNumber,  String name,  bool active, @JsonKey(name: 'is_verified')  bool isVerified, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt,  String slug, @JsonKey(name: 'display_name')  String displayName,  String? bio, @JsonKey(name: 'avatar_url')  String? avatarUrl,  AccountType type,  AccountInterestsModel? interests,  AccountBusinessModel? business,  Gender? gender)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String email, @JsonKey(name: 'phone_number')  String? phoneNumber,  String name,  bool active, @JsonKey(name: 'is_verified')  bool isVerified, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt,  String slug, @JsonKey(name: 'display_name')  String displayName,  String? bio, @JsonKey(name: 'avatar_url')  String? avatarUrl, @AccountTypeConverter()  AccountType type,  AccountInterestsModel? interests,  AccountBusinessModel? business, @GenderConverter()  Gender? gender)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AccountModel() when $default != null:
 return $default(_that.id,_that.email,_that.phoneNumber,_that.name,_that.active,_that.isVerified,_that.createdAt,_that.updatedAt,_that.slug,_that.displayName,_that.bio,_that.avatarUrl,_that.type,_that.interests,_that.business,_that.gender);case _:
@@ -213,7 +213,7 @@ return $default(_that.id,_that.email,_that.phoneNumber,_that.name,_that.active,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String email, @JsonKey(name: 'phone_number')  String? phoneNumber,  String name,  bool active, @JsonKey(name: 'is_verified')  bool isVerified, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt,  String slug, @JsonKey(name: 'display_name')  String displayName,  String? bio, @JsonKey(name: 'avatar_url')  String? avatarUrl,  AccountType type,  AccountInterestsModel? interests,  AccountBusinessModel? business,  Gender? gender)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String email, @JsonKey(name: 'phone_number')  String? phoneNumber,  String name,  bool active, @JsonKey(name: 'is_verified')  bool isVerified, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt,  String slug, @JsonKey(name: 'display_name')  String displayName,  String? bio, @JsonKey(name: 'avatar_url')  String? avatarUrl, @AccountTypeConverter()  AccountType type,  AccountInterestsModel? interests,  AccountBusinessModel? business, @GenderConverter()  Gender? gender)  $default,) {final _that = this;
 switch (_that) {
 case _AccountModel():
 return $default(_that.id,_that.email,_that.phoneNumber,_that.name,_that.active,_that.isVerified,_that.createdAt,_that.updatedAt,_that.slug,_that.displayName,_that.bio,_that.avatarUrl,_that.type,_that.interests,_that.business,_that.gender);case _:
@@ -233,7 +233,7 @@ return $default(_that.id,_that.email,_that.phoneNumber,_that.name,_that.active,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String email, @JsonKey(name: 'phone_number')  String? phoneNumber,  String name,  bool active, @JsonKey(name: 'is_verified')  bool isVerified, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt,  String slug, @JsonKey(name: 'display_name')  String displayName,  String? bio, @JsonKey(name: 'avatar_url')  String? avatarUrl,  AccountType type,  AccountInterestsModel? interests,  AccountBusinessModel? business,  Gender? gender)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String email, @JsonKey(name: 'phone_number')  String? phoneNumber,  String name,  bool active, @JsonKey(name: 'is_verified')  bool isVerified, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt,  String slug, @JsonKey(name: 'display_name')  String displayName,  String? bio, @JsonKey(name: 'avatar_url')  String? avatarUrl, @AccountTypeConverter()  AccountType type,  AccountInterestsModel? interests,  AccountBusinessModel? business, @GenderConverter()  Gender? gender)?  $default,) {final _that = this;
 switch (_that) {
 case _AccountModel() when $default != null:
 return $default(_that.id,_that.email,_that.phoneNumber,_that.name,_that.active,_that.isVerified,_that.createdAt,_that.updatedAt,_that.slug,_that.displayName,_that.bio,_that.avatarUrl,_that.type,_that.interests,_that.business,_that.gender);case _:
@@ -248,7 +248,7 @@ return $default(_that.id,_that.email,_that.phoneNumber,_that.name,_that.active,_
 @JsonSerializable()
 
 class _AccountModel implements AccountModel {
-  const _AccountModel({required this.id, required this.email, @JsonKey(name: 'phone_number') this.phoneNumber, required this.name, required this.active, @JsonKey(name: 'is_verified') required this.isVerified, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt, required this.slug, @JsonKey(name: 'display_name') required this.displayName, this.bio, @JsonKey(name: 'avatar_url') this.avatarUrl, required this.type, this.interests, this.business, this.gender});
+  const _AccountModel({required this.id, required this.email, @JsonKey(name: 'phone_number') this.phoneNumber, required this.name, required this.active, @JsonKey(name: 'is_verified') required this.isVerified, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt, required this.slug, @JsonKey(name: 'display_name') required this.displayName, this.bio, @JsonKey(name: 'avatar_url') this.avatarUrl, @AccountTypeConverter() required this.type, this.interests, this.business, @GenderConverter() this.gender});
   factory _AccountModel.fromJson(Map<String, dynamic> json) => _$AccountModelFromJson(json);
 
 @override final  String id;
@@ -263,10 +263,10 @@ class _AccountModel implements AccountModel {
 @override@JsonKey(name: 'display_name') final  String displayName;
 @override final  String? bio;
 @override@JsonKey(name: 'avatar_url') final  String? avatarUrl;
-@override final  AccountType type;
+@override@AccountTypeConverter() final  AccountType type;
 @override final  AccountInterestsModel? interests;
 @override final  AccountBusinessModel? business;
-@override final  Gender? gender;
+@override@GenderConverter() final  Gender? gender;
 
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
@@ -301,7 +301,7 @@ abstract mixin class _$AccountModelCopyWith<$Res> implements $AccountModelCopyWi
   factory _$AccountModelCopyWith(_AccountModel value, $Res Function(_AccountModel) _then) = __$AccountModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String email,@JsonKey(name: 'phone_number') String? phoneNumber, String name, bool active,@JsonKey(name: 'is_verified') bool isVerified,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt, String slug,@JsonKey(name: 'display_name') String displayName, String? bio,@JsonKey(name: 'avatar_url') String? avatarUrl, AccountType type, AccountInterestsModel? interests, AccountBusinessModel? business, Gender? gender
+ String id, String email,@JsonKey(name: 'phone_number') String? phoneNumber, String name, bool active,@JsonKey(name: 'is_verified') bool isVerified,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt, String slug,@JsonKey(name: 'display_name') String displayName, String? bio,@JsonKey(name: 'avatar_url') String? avatarUrl,@AccountTypeConverter() AccountType type, AccountInterestsModel? interests, AccountBusinessModel? business,@GenderConverter() Gender? gender
 });
 
 
