@@ -13,7 +13,7 @@ part of 'google_oauth_state_provider.dart';
 final googleOAuthStateProvider = GoogleOAuthStateProvider._();
 
 final class GoogleOAuthStateProvider
-    extends $NotifierProvider<GoogleOAuthState, GoogleOAuthData> {
+    extends $NotifierProvider<GoogleOAuthState, GoogleOAuthDataState> {
   GoogleOAuthStateProvider._()
     : super(
         from: null,
@@ -33,27 +33,27 @@ final class GoogleOAuthStateProvider
   GoogleOAuthState create() => GoogleOAuthState();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GoogleOAuthData value) {
+  Override overrideWithValue(GoogleOAuthDataState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<GoogleOAuthData>(value),
+      providerOverride: $SyncValueProvider<GoogleOAuthDataState>(value),
     );
   }
 }
 
-String _$googleOAuthStateHash() => r'6d516228f1b4923cca36635cb6a2383ef4c0ccf0';
+String _$googleOAuthStateHash() => r'492f0428ea1dd1def85de98fa2b6737131aee320';
 
-abstract class _$GoogleOAuthState extends $Notifier<GoogleOAuthData> {
-  GoogleOAuthData build();
+abstract class _$GoogleOAuthState extends $Notifier<GoogleOAuthDataState> {
+  GoogleOAuthDataState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<GoogleOAuthData, GoogleOAuthData>;
+    final ref = this.ref as $Ref<GoogleOAuthDataState, GoogleOAuthDataState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<GoogleOAuthData, GoogleOAuthData>,
-              GoogleOAuthData,
+              AnyNotifier<GoogleOAuthDataState, GoogleOAuthDataState>,
+              GoogleOAuthDataState,
               Object?,
               Object?
             >;

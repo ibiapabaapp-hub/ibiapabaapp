@@ -24,7 +24,7 @@ GoRouter appRouter(Ref ref) {
           loc.startsWith('/onboarding');
 
       return switch (target) {
-        RedirectTarget.loading => '/loading',
+        RedirectTarget.loading => isInAuthFlow ? null : '/loading',
         RedirectTarget.welcome => isInAuthFlow ? null : '/welcome',
         RedirectTarget.onboarding =>
           isInAuthFlow ? null : '/onboarding/newcomer',

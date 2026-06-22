@@ -6,6 +6,7 @@ import 'package:ibiapabaapp/features/onboarding/presentation/controllers/google_
 import 'package:ibiapabaapp/features/onboarding/presentation/states/google_onboarding_state.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/widgets/profile_type_tile.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
 import 'package:ibiapabaapp/shared/ui/layout/form_topbar.dart';
@@ -164,7 +165,7 @@ class _GoogleAccountTypeScreenState
     }
 
     if (state.status == GoogleOnboardingStatus.success) {
-      // Navigate to home
+      ref.read(userPreferencesStateProvider.notifier).setNeedsOnboarding(false);
       context.go('/app/home');
     }
   }

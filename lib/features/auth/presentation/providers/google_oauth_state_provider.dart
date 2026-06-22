@@ -7,19 +7,25 @@ import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/gender.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/google_auth_result.dart';
+import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
+import 'package:ibiapabaapp/features/auth/domain/usecases/check_unique_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/usecases/complete_google_registration.dart';
 import 'package:ibiapabaapp/features/auth/domain/usecases/login_with_google.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
+import 'package:ibiapabaapp/features/auth/presentation/states/google_oauth_data_state.dart';
+import 'package:ibiapabaapp/shared/ui/forms/fields/email/email_checker.dart';
+import 'package:ibiapabaapp/shared/ui/forms/fields/slug/slug_checker.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'google_oauth_state_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-class GoogleOAuthState extends _$GoogleOAuthState with ControllerLogHandler {
+class GoogleOAuthState extends _$GoogleOAuthState
+    with ControllerLogHandler
+    implements SlugChecker, EmailChecker /*, PhoneChecker */ {
   @override
   late final Logger logger = ref.read(loggerProvider);
 
@@ -27,8 +33,13 @@ class GoogleOAuthState extends _$GoogleOAuthState with ControllerLogHandler {
   LogFeature get feature => LogFeature.auth;
 
   @override
-  GoogleOAuthData build() => const GoogleOAuthData();
+  GoogleOAuthDataState build() => const GoogleOAuthDataState();
 
+  void reset() {
+    state = const GoogleOAuthDataState();
+  }
+
+  // ─── Submits ───────────────────────────────────────────────────────────────
   Future<bool> signInWithGoogle() async {
     state = state.copyWith(isLoading: true, failure: null);
 
@@ -147,29 +158,36 @@ class GoogleOAuthState extends _$GoogleOAuthState with ControllerLogHandler {
             ),
           );
 
-      result.fold(
-        (failure) {
-          state = state.copyWith(isLoading: false, failure: failure);
-          logControllerError(
-            action: AuthAction.completeGoogleRegistration,
-            failure: failure,
-          );
-        },
-        (response) {
-          final authResult = AuthResult(
-            accessToken: response.accessToken,
-            refreshToken: response.refreshToken,
-            account: response.account,
-          );
-          ref.read(authStateProvider.notifier).initSession(authResult);
-          state = state.copyWith(
-            isLoading: false,
-            tempToken: null,
-            googleAuthResult: null,
-          );
-          logControllerSuccess(action: AuthAction.completeGoogleRegistration);
-        },
+      if (result.isLeft()) {
+        result.fold(
+          (failure) {
+            state = state.copyWith(isLoading: false, failure: failure);
+            logControllerError(
+              action: AuthAction.completeGoogleRegistration,
+              failure: failure,
+            );
+          },
+          (_) {},
+        );
+        return;
+      }
+
+      final response = result.fold(
+        (l) => throw UnimplementedError(),
+        (r) => r,
       );
+      final authResult = AuthResult(
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken,
+        account: response.account,
+      );
+      await ref.read(authStateProvider.notifier).initSession(authResult);
+      state = state.copyWith(
+        isLoading: false,
+        tempToken: null,
+        googleAuthResult: null,
+      );
+      logControllerSuccess(action: AuthAction.completeGoogleRegistration);
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
@@ -182,48 +200,143 @@ class GoogleOAuthState extends _$GoogleOAuthState with ControllerLogHandler {
     }
   }
 
-  void reset() {
-    state = const GoogleOAuthData();
+  // ─── Slug ──────────────────────────────────────────────────────────────────
+  @override
+  Future<bool> checkSlugAvailability(String slug) async {
+    state = state.copyWith(slugAvailable: null, slugChecking: true);
+
+    final checkAvailability = ref.read(checkUniqueAvailabilityProvider);
+    final result = await checkAvailability(
+      CheckUniqueAvailabilityParams(field: AvailabilityField.slug, value: slug),
+    );
+
+    if (!ref.mounted) return false;
+
+    return result.fold(
+      (failure) {
+        state = state.copyWith(slugAvailable: false, slugChecking: false);
+        logControllerError(
+          action: AuthAction.completeGoogleRegistration,
+          failure: failure,
+        );
+        return false;
+      },
+      (availabilityResult) {
+        state = state.copyWith(
+          slugAvailable: availabilityResult.available,
+          slugChecking: false,
+        );
+        return availabilityResult.available;
+      },
+    );
   }
 
+  @override
+  void setSlug(String slug) {
+    state = state.copyWith(clearSlugStatus: true);
+  }
+
+  @override
+  bool? isSlugAvailable() => state.slugAvailable;
+
+  @override
+  bool isSlugChecking() => state.slugChecking;
+
+  // ─── Email ─────────────────────────────────────────────────────────────────
+  @override
+  Future<bool> checkEmailAvailability(String email) async {
+    state = state.copyWith(emailAvailable: null, emailChecking: true);
+
+    final checkAvailability = ref.read(checkUniqueAvailabilityProvider);
+    final result = await checkAvailability(
+      CheckUniqueAvailabilityParams(
+        field: AvailabilityField.email,
+        value: email,
+      ),
+    );
+
+    if (!ref.mounted) return false;
+
+    return result.fold(
+      (failure) {
+        state = state.copyWith(emailAvailable: false, emailChecking: false);
+        logControllerError(
+          action: AuthAction.completeGoogleRegistration,
+          failure: failure,
+        );
+        return false;
+      },
+      (availabilityResult) {
+        state = state.copyWith(
+          emailAvailable: availabilityResult.available,
+          emailChecking: false,
+        );
+        return availabilityResult.available;
+      },
+    );
+  }
+
+  @override
+  void setEmail(String email) {
+    state = state.copyWith(clearEmailStatus: true);
+  }
+
+  @override
+  bool? isEmailAvailable() => state.emailAvailable;
+
+  @override
+  bool isEmailChecking() => state.emailChecking;
+
+  // @override
+  // Future<bool> checkPhoneAvailability(String phone) async {
+  //   state = state.copyWith(phoneAvailable: null, phoneChecking: true);
+
+  //   final checkAvailability = ref.read(checkUniqueAvailabilityProvider);
+  //   final result = await checkAvailability(
+  //     CheckUniqueAvailabilityParams(
+  //       field: AvailabilityField.phoneNumber,
+  //       value: phone,
+  //     ),
+  //   );
+
+  //   if (!ref.mounted) return false;
+
+  //   return result.fold(
+  //     (failure) {
+  //       state = state.copyWith(phoneAvailable: false, phoneChecking: false);
+  //       logControllerError(
+  //         action: AuthAction.completeGoogleRegistration,
+  //         failure: failure,
+  //       );
+  //       return false;
+  //     },
+  //     (availabilityResult) {
+  //       state = state.copyWith(
+  //         phoneAvailable: availabilityResult.available,
+  //         phoneChecking: false,
+  //       );
+  //       return availabilityResult.available;
+  //     },
+  //   );
+  // }
+
+  // @override
+  // void setPhone(String phone) {
+  //   state = state.copyWith(clearPhoneStatus: true);
+  // }
+
+  // @override
+  // bool? isPhoneAvailable() => state.phoneAvailable;
+
+  // @override
+  // bool isPhoneChecking() => state.phoneChecking;
+
+  // ─── Helpers ───────────────────────────────────────────────────────────────
   String _getClientId() {
     return dotenv.env['GOOGLE_CLIENT_ID'] ?? '';
   }
 
   String _getServerClientId() {
     return dotenv.env['GOOGLE_CLIENT_ID_WEB'] ?? '';
-  }
-}
-
-class GoogleOAuthData {
-  final bool isLoading;
-  final String? tempToken;
-  final GoogleAuthResult? googleAuthResult;
-  final AppFailure? failure;
-
-  const GoogleOAuthData({
-    this.isLoading = false,
-    this.tempToken,
-    this.googleAuthResult,
-    this.failure,
-  });
-
-  GoogleOAuthData copyWith({
-    bool? isLoading,
-    String? tempToken,
-    GoogleAuthResult? googleAuthResult,
-    AppFailure? failure,
-    bool clearTempToken = false,
-    bool clearGoogleAuthResult = false,
-    bool clearFailure = false,
-  }) {
-    return GoogleOAuthData(
-      isLoading: isLoading ?? this.isLoading,
-      tempToken: clearTempToken ? null : (tempToken ?? this.tempToken),
-      googleAuthResult: clearGoogleAuthResult
-          ? null
-          : (googleAuthResult ?? this.googleAuthResult),
-      failure: clearFailure ? null : (failure ?? this.failure),
-    );
   }
 }
