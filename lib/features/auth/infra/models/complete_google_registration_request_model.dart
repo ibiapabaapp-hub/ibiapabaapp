@@ -1,25 +1,34 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/gender.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
 
-part 'complete_google_registration_request_model.freezed.dart';
 part 'complete_google_registration_request_model.g.dart';
 
-@freezed
-abstract class CompleteGoogleRegistrationRequestModel
-    with _$CompleteGoogleRegistrationRequestModel {
-  const CompleteGoogleRegistrationRequestModel._();
+@JsonSerializable()
+class CompleteGoogleRegistrationRequestModel extends Equatable {
+  @JsonKey(name: 'temp_token')
+  final String tempToken;
 
-  const factory CompleteGoogleRegistrationRequestModel({
-    @JsonKey(name: 'temp_token') required String tempToken,
-    required String slug,
-    required String type,
-    String? gender,
-  }) = _CompleteGoogleRegistrationRequestModel;
+  final String slug;
+
+  final String type;
+
+  final String? gender;
+
+  const CompleteGoogleRegistrationRequestModel({
+    required this.tempToken,
+    required this.slug,
+    required this.type,
+    this.gender,
+  });
 
   factory CompleteGoogleRegistrationRequestModel.fromJson(
     Map<String, dynamic> json,
   ) => _$CompleteGoogleRegistrationRequestModelFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$CompleteGoogleRegistrationRequestModelToJson(this);
 
   static CompleteGoogleRegistrationRequestModel fromDomain({
     required String tempToken,
@@ -34,4 +43,7 @@ abstract class CompleteGoogleRegistrationRequestModel
       gender: gender?.value,
     );
   }
+
+  @override
+  List<Object?> get props => [tempToken, slug, type, gender];
 }

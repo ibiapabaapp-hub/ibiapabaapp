@@ -1,25 +1,42 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
 import '../../domain/entities/google_auth_result.dart';
 
-part 'google_auth_result_model.freezed.dart';
 part 'google_auth_result_model.g.dart';
 
-@freezed
-abstract class GoogleAuthResultModel with _$GoogleAuthResultModel {
-  const GoogleAuthResultModel._();
+@JsonSerializable()
+class GoogleAuthResultModel extends Equatable {
+  @JsonKey(name: 'is_new_user')
+  final bool isNewUser;
 
-  const factory GoogleAuthResultModel({
-    @JsonKey(name: 'is_new_user') required bool isNewUser,
-    @JsonKey(name: 'temp_token', defaultValue: null) String? tempToken,
-    @JsonKey(name: 'avatar_url') String? avatarUrl,
-    AccountModel? account,
-    @JsonKey(name: 'access_token') String? accessToken,
-    @JsonKey(name: 'refresh_token') String? refreshToken,
-  }) = _GoogleAuthResultModel;
+  @JsonKey(name: 'temp_token')
+  final String? tempToken;
+
+  @JsonKey(name: 'avatar_url')
+  final String? avatarUrl;
+
+  final AccountModel? account;
+
+  @JsonKey(name: 'access_token')
+  final String? accessToken;
+
+  @JsonKey(name: 'refresh_token')
+  final String? refreshToken;
+
+  const GoogleAuthResultModel({
+    required this.isNewUser,
+    this.tempToken,
+    this.avatarUrl,
+    this.account,
+    this.accessToken,
+    this.refreshToken,
+  });
 
   factory GoogleAuthResultModel.fromJson(Map<String, dynamic> json) =>
       _$GoogleAuthResultModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GoogleAuthResultModelToJson(this);
 
   GoogleAuthResult toEntity() {
     return GoogleAuthResult(
@@ -30,4 +47,14 @@ abstract class GoogleAuthResultModel with _$GoogleAuthResultModel {
       refreshToken: refreshToken,
     );
   }
+
+  @override
+  List<Object?> get props => [
+    isNewUser,
+    tempToken,
+    avatarUrl,
+    account,
+    accessToken,
+    refreshToken,
+  ];
 }

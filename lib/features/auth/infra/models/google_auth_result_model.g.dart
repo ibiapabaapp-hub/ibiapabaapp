@@ -6,9 +6,9 @@ part of 'google_auth_result_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_GoogleAuthResultModel _$GoogleAuthResultModelFromJson(
+GoogleAuthResultModel _$GoogleAuthResultModelFromJson(
   Map<String, dynamic> json,
-) => _GoogleAuthResultModel(
+) => GoogleAuthResultModel(
   isNewUser: json['is_new_user'] as bool,
   tempToken: json['temp_token'] as String?,
   avatarUrl: json['avatar_url'] as String?,
@@ -20,7 +20,7 @@ _GoogleAuthResultModel _$GoogleAuthResultModelFromJson(
 );
 
 Map<String, dynamic> _$GoogleAuthResultModelToJson(
-  _GoogleAuthResultModel instance,
+  GoogleAuthResultModel instance,
 ) => <String, dynamic>{
   'is_new_user': instance.isNewUser,
   'temp_token': instance.tempToken,

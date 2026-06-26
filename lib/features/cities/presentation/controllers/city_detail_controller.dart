@@ -1,16 +1,11 @@
-import 'package:dartz/dartz.dart';
 import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
 import 'package:ibiapabaapp/features/cities/domain/entities/city_detail_data.dart';
 import 'package:ibiapabaapp/features/cities/domain/tags/cities_logtags.dart';
-import 'package:ibiapabaapp/features/cities/domain/usecases/get_city_by_id.dart';
 import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
-import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';
 import 'package:ibiapabaapp/features/medias/presentation/providers/medias_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -30,41 +25,23 @@ class CityDetail extends _$CityDetail with ControllerLogHandler {
     final user = ref.watch(accountsStateProvider).activeAccount;
     if (user == null) return null;
 
-    final results = await Future.wait([
-      ref.read(getCityByIdProvider).call(GetCityByIdParams(id: id)),
-      ref
-          .read(getEntityMediaProvider)
-          .call(entityType: EntityType.city, entityId: id),
-    ]);
+    final repository = ref.read(citiesRepositoryProvider);
+    final mediaRepository = ref.read(mediasRepositoryProvider);
+
+    final cityFuture = repository.getCityById(id);
+    final mediaFuture = mediaRepository.getEntityMedia(
+      entityType: EntityType.city,
+      entityId: id,
+    );
+
+    final city = await cityFuture;
+    final media = await mediaFuture;
 
     if (!ref.mounted) throw Exception('Provider disposed');
 
-    final cityResult = results[0] as Either<AppFailure, City?>;
-    final mediaResult = results[1] as Either<AppFailure, List<Media>>;
-
-    final city = cityResult.fold(
-      (failure) {
-        logControllerError(action: CityAction.getCityById, failure: failure);
-        throw Exception(failure.message);
-      },
-      (city) {
-        logControllerSuccess(action: CityAction.getCityById);
-        return city;
-      },
-    );
+    logControllerSuccess(action: CityAction.getCityById);
 
     if (city == null) return null;
-
-    final media = mediaResult.fold(
-      (failure) {
-        logControllerError(action: CityAction.getCityMedia, failure: failure);
-        return <Media>[];
-      },
-      (media) {
-        logControllerSuccess(action: CityAction.getCityMedia);
-        return media;
-      },
-    );
 
     return CityDetailData(city: city, media: media);
   }

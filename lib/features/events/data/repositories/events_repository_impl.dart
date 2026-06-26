@@ -1,11 +1,9 @@
-import 'package:dartz/dartz.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
-import 'package:ibiapabaapp/features/events/data/datasources/events_remote_datasource.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 import 'package:ibiapabaapp/features/events/domain/repositories/events_repository.dart';
-import 'package:ibiapabaapp/features/events/domain/tags/events_logtags.dart';
+import 'package:ibiapabaapp/features/events/infra/models/event_model.dart';
 import 'package:logger/logger.dart';
 
 class EventsRepositoryImpl
@@ -13,42 +11,22 @@ class EventsRepositoryImpl
     implements EventsRepository {
   @override
   final Logger logger;
-  final EventsRemoteDatasource remoteDatasource;
+  final Dio dio;
 
-  EventsRepositoryImpl({required this.remoteDatasource, required this.logger});
+  EventsRepositoryImpl({required this.dio, required this.logger});
 
   @override
   LogFeature get feature => LogFeature.events;
 
   @override
-  Future<Either<AppFailure, List<Event>>> getAllEvents() async {
-    try {
-      final result = await remoteDatasource.getAllEvents();
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: EventAction.getAllEvents,
-        ),
-      );
-    }
+  Future<List<Event>> getAllEvents() async {
+    final response = await dio.get('/events');
+    return EventModel.fromJsonList(response.data);
   }
 
   @override
-  Future<Either<AppFailure, Event?>> getEventById(String id) async {
-    try {
-      final result = await remoteDatasource.getEventById(id);
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: EventAction.getEventById,
-        ),
-      );
-    }
+  Future<Event?> getEventById(String id) async {
+    final response = await dio.get('/events/$id');
+    return EventModel.fromJson(response.data);
   }
 }

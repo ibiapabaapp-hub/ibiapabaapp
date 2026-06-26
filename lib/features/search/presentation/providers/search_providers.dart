@@ -6,7 +6,6 @@ import 'package:ibiapabaapp/features/search/infra/search_local_storage_impl.dart
 import 'package:ibiapabaapp/features/search/data/repositories/search_repository_impl.dart';
 import 'package:ibiapabaapp/features/search/domain/entities/search_result.dart';
 import 'package:ibiapabaapp/features/search/domain/repositories/search_repository.dart';
-import 'package:ibiapabaapp/features/search/domain/usecases/perform_search.dart';
 import 'package:ibiapabaapp/features/search/infra/search_remote_datasource_impl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -31,12 +30,6 @@ SearchRepository searchRepository(Ref ref) {
 }
 
 @riverpod
-PerformSearch performSearch(Ref ref) {
-  final repository = ref.watch(searchRepositoryProvider);
-  return PerformSearch(repository);
-}
-
-@riverpod
 class SearchNotifier extends _$SearchNotifier {
   @override
   FutureOr<List<SearchResult>> build() {
@@ -51,12 +44,12 @@ class SearchNotifier extends _$SearchNotifier {
 
     state = const AsyncValue.loading();
 
-    final usecase = ref.read(performSearchProvider);
-    final result = await usecase(query);
-
-    result.fold(
-      (failure) => state = AsyncValue.error(failure, StackTrace.current),
-      (results) => state = AsyncValue.data(results),
-    );
+    try {
+      final repository = ref.read(searchRepositoryProvider);
+      final results = await repository.search(query);
+      state = AsyncValue.data(results);
+    } catch (e, s) {
+      state = AsyncValue.error(e, s);
+    }
   }
 }

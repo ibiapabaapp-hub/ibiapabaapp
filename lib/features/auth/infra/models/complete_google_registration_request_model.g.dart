@@ -6,9 +6,9 @@ part of 'complete_google_registration_request_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_CompleteGoogleRegistrationRequestModel
+CompleteGoogleRegistrationRequestModel
 _$CompleteGoogleRegistrationRequestModelFromJson(Map<String, dynamic> json) =>
-    _CompleteGoogleRegistrationRequestModel(
+    CompleteGoogleRegistrationRequestModel(
       tempToken: json['temp_token'] as String,
       slug: json['slug'] as String,
       type: json['type'] as String,
@@ -16,7 +16,7 @@ _$CompleteGoogleRegistrationRequestModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$CompleteGoogleRegistrationRequestModelToJson(
-  _CompleteGoogleRegistrationRequestModel instance,
+  CompleteGoogleRegistrationRequestModel instance,
 ) => <String, dynamic>{
   'temp_token': instance.tempToken,
   'slug': instance.slug,

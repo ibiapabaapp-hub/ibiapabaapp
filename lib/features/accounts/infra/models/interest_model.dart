@@ -1,19 +1,29 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
 
-part 'interest_model.freezed.dart';
 part 'interest_model.g.dart';
 
-@freezed
-abstract class InterestModel with _$InterestModel implements Interest {
-  const factory InterestModel({required String id, required String name}) =
-      _InterestModel;
+@JsonSerializable()
+class InterestModel extends Equatable implements Interest {
+  @override
+  final String id;
+
+  @override
+  final String name;
+
+  const InterestModel({required this.id, required this.name});
 
   factory InterestModel.fromJson(Map<String, dynamic> json) =>
       _$InterestModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$InterestModelToJson(this);
 
   static Map<String, dynamic> toMap(Interest interest) => {
     'id': interest.id,
     'name': interest.name,
   };
+
+  @override
+  List<Object?> get props => [id, name];
 }

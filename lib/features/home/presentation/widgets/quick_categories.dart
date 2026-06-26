@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
 import 'package:ibiapabaapp/shared/ui/layout/horizontal_infinite_carousel.dart';
+import 'package:ibiapabaapp/shared/utils/show_todo_toast.dart';
 
 const List<String> _defaultCategories = [
   'Restaurantes',
@@ -54,12 +54,7 @@ class QuickCategoriesList extends ConsumerWidget {
           listHeight: 40,
           separator: Container(width: 6),
           itemBuilder: (context, category) => FButton(
-            onPress: () {
-              showAppToast(
-                context: context,
-                title: 'TODO: Redirecionar para categoria "$category"',
-              );
-            },
+            onPress: () => showTodoToast(context, 'Categoria "$category"'),
             style: FButtonStyle.secondary(),
             child: Text(category, style: const TextStyle(fontSize: 14)),
           ),

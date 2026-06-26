@@ -151,47 +151,6 @@ final class SearchRepositoryProvider
 
 String _$searchRepositoryHash() => r'4557a4d5b26209087d3974071bcdabb51e6e6a69';
 
-@ProviderFor(performSearch)
-final performSearchProvider = PerformSearchProvider._();
-
-final class PerformSearchProvider
-    extends $FunctionalProvider<PerformSearch, PerformSearch, PerformSearch>
-    with $Provider<PerformSearch> {
-  PerformSearchProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'performSearchProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$performSearchHash();
-
-  @$internal
-  @override
-  $ProviderElement<PerformSearch> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  PerformSearch create(Ref ref) {
-    return performSearch(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PerformSearch value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<PerformSearch>(value),
-    );
-  }
-}
-
-String _$performSearchHash() => r'94834ba1c725adb4eb517b6d53f46029b4246bb0';
-
 @ProviderFor(SearchNotifier)
 final searchProvider = SearchNotifierProvider._();
 
@@ -216,7 +175,7 @@ final class SearchNotifierProvider
   SearchNotifier create() => SearchNotifier();
 }
 
-String _$searchNotifierHash() => r'2a75b62416114bb760518ab20f48e33b82f37843';
+String _$searchNotifierHash() => r'4b0975b39a986cc55d395ff3fc5ca2d2eda9a410';
 
 abstract class _$SearchNotifier extends $AsyncNotifier<List<SearchResult>> {
   FutureOr<List<SearchResult>> build();

@@ -4,7 +4,7 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/features/businesses/domain/entities/business_detail_data.dart';
 import 'package:ibiapabaapp/features/businesses/presentation/controllers/business_detail_controller.dart';
-import 'package:ibiapabaapp/features/favorites/presentation/widgets/favorite_button.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/favorite_button.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/carousel/content_carousel.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/expandable_text.dart';

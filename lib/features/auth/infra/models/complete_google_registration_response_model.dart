@@ -1,24 +1,32 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
 import '../../domain/entities/complete_google_registration.dart';
 
-part 'complete_google_registration_response_model.freezed.dart';
 part 'complete_google_registration_response_model.g.dart';
 
-@freezed
-abstract class CompleteGoogleRegistrationResponseModel
-    with _$CompleteGoogleRegistrationResponseModel {
-  const CompleteGoogleRegistrationResponseModel._();
+@JsonSerializable()
+class CompleteGoogleRegistrationResponseModel extends Equatable {
+  @JsonKey(name: 'access_token')
+  final String accessToken;
 
-  const factory CompleteGoogleRegistrationResponseModel({
-    @JsonKey(name: 'access_token') required String accessToken,
-    @JsonKey(name: 'refresh_token') required String refreshToken,
-    required AccountModel account,
-  }) = _CompleteGoogleRegistrationResponseModel;
+  @JsonKey(name: 'refresh_token')
+  final String refreshToken;
+
+  final AccountModel account;
+
+  const CompleteGoogleRegistrationResponseModel({
+    required this.accessToken,
+    required this.refreshToken,
+    required this.account,
+  });
 
   factory CompleteGoogleRegistrationResponseModel.fromJson(
     Map<String, dynamic> json,
   ) => _$CompleteGoogleRegistrationResponseModelFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$CompleteGoogleRegistrationResponseModelToJson(this);
 
   CompleteGoogleRegistrationResponse toEntity() {
     return CompleteGoogleRegistrationResponse(
@@ -27,4 +35,7 @@ abstract class CompleteGoogleRegistrationResponseModel
       account: account,
     );
   }
+
+  @override
+  List<Object?> get props => [accessToken, refreshToken, account];
 }

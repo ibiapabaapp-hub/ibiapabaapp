@@ -101,45 +101,4 @@ final class MediasRepositoryProvider
   }
 }
 
-String _$mediasRepositoryHash() => r'7cc921743f9826cb0ba21a1eefa71261cbc5e067';
-
-@ProviderFor(getEntityMedia)
-final getEntityMediaProvider = GetEntityMediaProvider._();
-
-final class GetEntityMediaProvider
-    extends $FunctionalProvider<GetEntityMedia, GetEntityMedia, GetEntityMedia>
-    with $Provider<GetEntityMedia> {
-  GetEntityMediaProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'getEntityMediaProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$getEntityMediaHash();
-
-  @$internal
-  @override
-  $ProviderElement<GetEntityMedia> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  GetEntityMedia create(Ref ref) {
-    return getEntityMedia(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GetEntityMedia value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GetEntityMedia>(value),
-    );
-  }
-}
-
-String _$getEntityMediaHash() => r'73e9c21c97101f1bf18790925b4bd8510891b1ca';
+String _$mediasRepositoryHash() => r'8e91c17606c64f3031ae7511d63e746f69e9ecfb';

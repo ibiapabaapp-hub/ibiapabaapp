@@ -1,11 +1,9 @@
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/tags/cities_logtags.dart';
-import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
-import 'package:ibiapabaapp/features/cities/domain/usecases/get_city_by_id.dart';
 import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -38,50 +36,30 @@ class Cities extends _$Cities with ControllerLogHandler {
   }
 
   Future<List<City>> _fetchRemote({bool forceRefresh = false}) async {
-    final getAllCitiesUsecase = ref.read(getAllCitiesProvider);
-    final localCache = ref.read(citiesLocalDatasourceProvider);
-
-    final result = await getAllCitiesUsecase(
-      GetAllCitiesParams(forceRefresh: forceRefresh),
-    );
-
-    if (!ref.mounted) throw Exception('Provider disposed');
-
-    return result.fold(
-      (failure) {
-        logControllerError(action: CityAction.getAllCities, failure: failure);
-        throw Exception(failure.message);
-      },
-      (cities) async {
-        logControllerSuccess(action: CityAction.getAllCities);
-        await localCache.cacheCities(cities);
-        return cities;
-      },
-    );
+    final repository = ref.read(citiesRepositoryProvider);
+    try {
+      final cities = await repository.getAllCities(forceRefresh: forceRefresh);
+      if (!ref.mounted) throw Exception('Provider disposed');
+      logControllerSuccess(action: CityAction.getAllCities);
+      return cities;
+    } catch (e) {
+      logControllerError(action: CityAction.getAllCities, failure: e);
+      throw Exception(e.toString());
+    }
   }
 
   Future<void> getAllCities({bool forceRefresh = false}) async {
     state = const AsyncLoading();
-    final usecase = ref.read(getAllCitiesProvider);
-    final localCache = ref.read(citiesLocalDatasourceProvider);
-
-    final result = await usecase(
-      GetAllCitiesParams(forceRefresh: forceRefresh),
-    );
-
-    if (!ref.mounted) return;
-
-    result.fold(
-      (failure) {
-        logControllerError(action: CityAction.getAllCities, failure: failure);
-        state = AsyncError(failure.message, StackTrace.current);
-      },
-      (cities) async {
-        logControllerSuccess(action: CityAction.getAllCities);
-        await localCache.cacheCities(cities);
-        state = AsyncData(cities);
-      },
-    );
+    final repository = ref.read(citiesRepositoryProvider);
+    try {
+      final cities = await repository.getAllCities(forceRefresh: forceRefresh);
+      if (!ref.mounted) return;
+      logControllerSuccess(action: CityAction.getAllCities);
+      state = AsyncData(cities);
+    } catch (e) {
+      logControllerError(action: CityAction.getAllCities, failure: e);
+      state = AsyncError(e.toString(), StackTrace.current);
+    }
   }
 
   Future<void> getCityById(String id) async {
@@ -89,32 +67,27 @@ class Cities extends _$Cities with ControllerLogHandler {
     final currentCities = (state as AsyncData<List<City>>).value;
 
     state = const AsyncLoading();
-    final usecase = ref.read(getCityByIdProvider);
-    final result = await usecase(GetCityByIdParams(id: id));
-
-    if (!ref.mounted) return;
-
-    result.fold(
-      (failure) {
-        logControllerError(action: CityAction.getCityById, failure: failure);
-        state = AsyncError(failure.message, StackTrace.current);
-      },
-      (city) {
-        logControllerSuccess(action: CityAction.getCityById);
-        if (city != null) {
-          final updated = [...currentCities];
-          final index = updated.indexWhere((c) => c.id == city.id);
-          if (index >= 0) {
-            updated[index] = city;
-          } else {
-            updated.add(city);
-          }
-          state = AsyncData(updated);
+    final repository = ref.read(citiesRepositoryProvider);
+    try {
+      final city = await repository.getCityById(id);
+      if (!ref.mounted) return;
+      logControllerSuccess(action: CityAction.getCityById);
+      if (city != null) {
+        final updated = [...currentCities];
+        final index = updated.indexWhere((c) => c.id == city.id);
+        if (index >= 0) {
+          updated[index] = city;
         } else {
-          state = AsyncData(currentCities);
+          updated.add(city);
         }
-      },
-    );
+        state = AsyncData(updated);
+      } else {
+        state = AsyncData(currentCities);
+      }
+    } catch (e) {
+      logControllerError(action: CityAction.getCityById, failure: e);
+      state = AsyncError(e.toString(), StackTrace.current);
+    }
   }
 
   Future<void> refresh() async {

@@ -32,7 +32,10 @@ void showAppToast({
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (icon != null) ...[
-                    IconTheme(data: style.iconStyle, child: icon),
+                    IconTheme(
+                      data: style.iconStyle.copyWith(size: 20),
+                      child: icon,
+                    ),
                     SizedBox(width: style.iconSpacing),
                   ],
                   Expanded(
@@ -50,7 +53,7 @@ void showAppToast({
                         description != null
                             ? Text(
                                 description,
-                                style: context.theme.typography.xs,
+                                style: context.theme.typography.sm,
                               )
                             : const SizedBox.shrink(),
                       ],

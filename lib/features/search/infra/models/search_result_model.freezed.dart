@@ -220,7 +220,7 @@ $Res call({
 });
 
 
-$CityModelCopyWith<$Res> get city;
+
 
 }
 /// @nodoc
@@ -240,16 +240,7 @@ as CityModel,
   ));
 }
 
-/// Create a copy of SearchResultModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$CityModelCopyWith<$Res> get city {
-  
-  return $CityModelCopyWith<$Res>(_self.city, (value) {
-    return _then(_self.copyWith(city: value));
-  });
-}
+
 }
 
 /// @nodoc
@@ -295,7 +286,7 @@ $Res call({
 });
 
 
-$BusinessModelCopyWith<$Res> get business;
+
 
 }
 /// @nodoc
@@ -315,16 +306,7 @@ as BusinessModel,
   ));
 }
 
-/// Create a copy of SearchResultModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$BusinessModelCopyWith<$Res> get business {
-  
-  return $BusinessModelCopyWith<$Res>(_self.business, (value) {
-    return _then(_self.copyWith(business: value));
-  });
-}
+
 }
 
 /// @nodoc
@@ -370,7 +352,7 @@ $Res call({
 });
 
 
-$EventModelCopyWith<$Res> get event;
+
 
 }
 /// @nodoc
@@ -390,16 +372,7 @@ as EventModel,
   ));
 }
 
-/// Create a copy of SearchResultModel
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$EventModelCopyWith<$Res> get event {
-  
-  return $EventModelCopyWith<$Res>(_self.event, (value) {
-    return _then(_self.copyWith(event: value));
-  });
-}
+
 }
 
 // dart format on

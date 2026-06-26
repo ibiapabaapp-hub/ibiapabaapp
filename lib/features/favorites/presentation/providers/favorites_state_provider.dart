@@ -5,11 +5,8 @@ import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
 import 'package:ibiapabaapp/features/favorites/domain/tags/favorites_logtags.dart'
     as fav_tags;
-import 'package:ibiapabaapp/features/favorites/domain/usecases/get_all_favorites_by_account.dart';
-import 'package:ibiapabaapp/features/favorites/domain/usecases/pop_favorite.dart';
-import 'package:ibiapabaapp/features/favorites/domain/usecases/push_favorite.dart';
 import 'package:ibiapabaapp/features/favorites/presentation/providers/favorites_providers.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -42,28 +39,19 @@ class FavoritesState extends _$FavoritesState with ControllerLogHandler {
   Future<void> _loadFavoritesForAccount(String accountId) async {
     try {
       final result = await ref
-          .read(getAllFavoritesByAccountProvider)
-          .call(GetAllFavoritesByAccountParams(accountId: accountId));
+          .read(favoritesRepositoryProvider)
+          .getAllFavoritesByAccount(accountId: accountId);
 
       if (!ref.mounted) return;
 
-      result.fold(
-        (failure) {
-          state = FavoritesStateData(failure: failure);
-          logControllerError(
-            action: fav_tags.FavoriteAction.loadFavorites,
-            failure: failure,
-          );
-        },
-        (favorites) {
-          state = FavoritesStateData(favorites: favorites);
-          logControllerSuccess(action: fav_tags.FavoriteAction.loadFavorites);
-        },
-      );
+      state = FavoritesStateData(favorites: result);
+      logControllerSuccess(action: fav_tags.FavoriteAction.loadFavorites);
     } catch (e, s) {
+      final failure = e is AppFailure ? e : InternalFailure(e.toString());
+      state = FavoritesStateData(failure: failure);
       logControllerError(
         action: fav_tags.FavoriteAction.loadFavorites,
-        failure: e,
+        failure: failure,
         stackTrace: s,
       );
     }
@@ -93,34 +81,20 @@ class FavoritesState extends _$FavoritesState with ControllerLogHandler {
       if (accountsState.activeAccount == null) return;
 
       final result = await ref
-          .read(pushFavoriteProvider)
-          .call(PushFavoriteParams(favorite: favorite));
+          .read(favoritesRepositoryProvider)
+          .pushFavorite(favorite: favorite);
 
       if (!ref.mounted) return;
 
-      result.fold(
-        (failure) {
-          state = FavoritesStateData(
-            favorites: state.favorites,
-            failure: failure,
-          );
-          logControllerError(
-            action: fav_tags.FavoriteAction.pushFavorite,
-            failure: failure,
-          );
-        },
-        (favorite) {
-          final updatedFavorites = [...state.favorites, favorite];
-          state = FavoritesStateData(favorites: updatedFavorites);
-          logControllerSuccess(action: fav_tags.FavoriteAction.pushFavorite);
-        },
-      );
+      final updatedFavorites = [...state.favorites, result];
+      state = FavoritesStateData(favorites: updatedFavorites);
+      logControllerSuccess(action: fav_tags.FavoriteAction.pushFavorite);
     } catch (e, s) {
-      final failure = const InternalFailure('Erro ao adicionar favorito');
+      final failure = e is AppFailure ? e : const InternalFailure('Erro ao adicionar favorito');
       state = FavoritesStateData(favorites: state.favorites, failure: failure);
       logControllerError(
         action: fav_tags.FavoriteAction.pushFavorite,
-        failure: e,
+        failure: failure,
         stackTrace: s,
       );
     }
@@ -132,36 +106,22 @@ class FavoritesState extends _$FavoritesState with ControllerLogHandler {
       if (accountsState.activeAccount == null) return;
 
       final result = await ref
-          .read(popFavoriteProvider)
-          .call(PopFavoriteParams(favorite: favorite));
+          .read(favoritesRepositoryProvider)
+          .popFavorite(favorite: favorite);
 
       if (!ref.mounted) return;
 
-      result.fold(
-        (failure) {
-          state = FavoritesStateData(
-            favorites: state.favorites,
-            failure: failure,
-          );
-          logControllerError(
-            action: fav_tags.FavoriteAction.popFavorite,
-            failure: failure,
-          );
-        },
-        (favorite) {
-          final updatedFavorites = state.favorites
-              .where((f) => f.id != favorite.id)
-              .toList();
-          state = FavoritesStateData(favorites: updatedFavorites);
-          logControllerSuccess(action: fav_tags.FavoriteAction.popFavorite);
-        },
-      );
+      final updatedFavorites = state.favorites
+          .where((f) => f.id != result.id)
+          .toList();
+      state = FavoritesStateData(favorites: updatedFavorites);
+      logControllerSuccess(action: fav_tags.FavoriteAction.popFavorite);
     } catch (e, s) {
-      final failure = const InternalFailure('Erro ao remover favorito');
+      final failure = e is AppFailure ? e : const InternalFailure('Erro ao remover favorito');
       state = FavoritesStateData(favorites: state.favorites, failure: failure);
       logControllerError(
         action: fav_tags.FavoriteAction.popFavorite,
-        failure: e,
+        failure: failure,
         stackTrace: s,
       );
     }

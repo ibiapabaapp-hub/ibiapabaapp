@@ -30,7 +30,7 @@ class FormTopbar extends StatelessWidget {
             : const SizedBox.shrink(),
         Text(
           title,
-          style: context.theme.typography.xl2.copyWith(fontWeight: .w500),
+          style: context.theme.typography.xl2.copyWith(fontWeight: .w600),
         ),
       ],
     );

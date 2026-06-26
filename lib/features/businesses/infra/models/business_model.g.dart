@@ -6,8 +6,8 @@ part of 'business_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_BusinessModel _$BusinessModelFromJson(Map<String, dynamic> json) =>
-    _BusinessModel(
+BusinessModel _$BusinessModelFromJson(Map<String, dynamic> json) =>
+    BusinessModel(
       id: json['id'] as String? ?? '',
       profileId: json['profile_id'] as String? ?? '',
       slug: json['slug'] as String? ?? '',
@@ -29,7 +29,7 @@ _BusinessModel _$BusinessModelFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['created_at'] as String),
     );
 
-Map<String, dynamic> _$BusinessModelToJson(_BusinessModel instance) =>
+Map<String, dynamic> _$BusinessModelToJson(BusinessModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'profile_id': instance.profileId,

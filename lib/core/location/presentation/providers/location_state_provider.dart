@@ -6,8 +6,7 @@ import 'package:ibiapabaapp/core/location/presentation/providers/location_provid
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
-import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -60,44 +59,36 @@ class LocationState extends _$LocationState with ControllerLogHandler {
   }
 
   Future<AppFailure?> detectAndSetNearestCity() async {
-    final citiesResult = await ref
-        .read(getAllCitiesProvider)
-        .call(const GetAllCitiesParams());
+    try {
+      final cities = await ref
+          .read(citiesRepositoryProvider)
+          .getAllCities();
 
-    if (!ref.mounted) return null;
+      if (!ref.mounted) return null;
 
-    return citiesResult.fold(
-      (failure) {
-        logControllerError(
-          action: LocationActions.detectNearestCity,
-          failure: failure,
-        );
-        return failure;
-      },
-      (cities) async {
-        final result = await ref.read(getNearestCityProvider)(cities);
+      final nearestCity = await ref.read(getNearestCityProvider)(cities);
 
-        if (!ref.mounted) return null;
+      if (!ref.mounted) return null;
 
-        return result.fold(
-          (failure) {
-            logControllerError(
-              action: LocationActions.detectNearestCity,
-              failure: failure,
-            );
-            if (failure is LocationPermissionPermanentlyDeniedFailure) {
-              ref.read(locationServiceProvider).openAppSettings();
-            }
-            return failure;
-          },
-          (nearestCity) async {
-            await setCurrentCity(nearestCity);
-            logControllerSuccess(action: LocationActions.detectNearestCity);
-            return null;
-          },
-        );
-      },
-    );
+      await setCurrentCity(nearestCity);
+      logControllerSuccess(action: LocationActions.detectNearestCity);
+      return null;
+    } on AppFailure catch (failure) {
+      logControllerError(
+        action: LocationActions.detectNearestCity,
+        failure: failure,
+      );
+      if (failure is LocationPermissionPermanentlyDeniedFailure) {
+        ref.read(locationServiceProvider).openAppSettings();
+      }
+      return failure;
+    } catch (e) {
+      logControllerError(
+        action: LocationActions.detectNearestCity,
+        failure: e,
+      );
+      return null;
+    }
   }
 
   // ─── Device Position ───────────────────────────────────────────────────────

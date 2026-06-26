@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 import 'package:ibiapabaapp/features/businesses/presentation/controllers/businesses_controller.dart';
 import 'package:ibiapabaapp/features/businesses/presentation/widgets/business_card.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/presentation/controllers/cities_controller.dart';
 import 'package:ibiapabaapp/features/cities/presentation/widgets/city_card.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 import 'package:ibiapabaapp/features/events/presentation/controllers/events_controller.dart';
 import 'package:ibiapabaapp/features/favorites/presentation/providers/favorites_state_provider.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/events/event_card.dart';

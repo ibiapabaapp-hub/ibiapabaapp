@@ -44,7 +44,7 @@ final class GoogleOnboardingControllerProvider
 }
 
 String _$googleOnboardingControllerHash() =>
-    r'a49ff72cc3702d24395fa0d07e70bed96bc27660';
+    r'e4db3315ffd5f2929322d06b799dfa71796f8dd4';
 
 abstract class _$GoogleOnboardingController
     extends $Notifier<GoogleOnboardingState> {

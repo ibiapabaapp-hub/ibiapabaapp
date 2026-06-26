@@ -1,34 +1,67 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 
-part 'event_model.freezed.dart';
 part 'event_model.g.dart';
 
-@freezed
-abstract class EventModel with _$EventModel implements Event {
-  const EventModel._();
+@JsonSerializable()
+class EventModel extends Equatable implements Event {
+  @override
+  final String id;
+  @override
+  final String slug;
+  @override
+  final String name;
+  @override
+  @JsonKey(name: 'owner_account_id')
+  final String ownerAccountId;
+  @override
+  final String? description;
+  @override
+  @JsonKey(unknownEnumValue: EventType.simple)
+  final EventType type;
+  @override
+  @JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level')
+  final ReachLevel reachLevel;
+  @override
+  @JsonKey(name: 'cover_img_url')
+  final String? coverImgUrl;
+  @override
+  final List<String> categories;
+  @override
+  @JsonKey(name: 'start_date')
+  final DateTime startDate;
+  @override
+  @JsonKey(name: 'end_date')
+  final DateTime endDate;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
 
-  const factory EventModel({
-    required String id,
-    required String slug,
-    required String name,
-    @JsonKey(name: 'owner_account_id') required String ownerAccountId,
-    String? description,
-
-    @JsonKey(unknownEnumValue: EventType.simple) required EventType type,
-    @JsonKey(unknownEnumValue: ReachLevel.local, name: 'reach_level')
-    required ReachLevel reachLevel,
-    @JsonKey(name: 'cover_img_url') String? coverImgUrl,
-    @Default([]) List<String> categories,
-    @JsonKey(name: 'start_date') required DateTime startDate,
-    @JsonKey(name: 'end_date') required DateTime endDate,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
-  }) = _EventModel;
+  const EventModel({
+    required this.id,
+    required this.slug,
+    required this.name,
+    required this.ownerAccountId,
+    this.description,
+    required this.type,
+    required this.reachLevel,
+    this.coverImgUrl,
+    this.categories = const [],
+    required this.startDate,
+    required this.endDate,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EventModelToJson(this);
 
   static List<Event> fromJsonList(dynamic jsonList) {
     if (jsonList is! List) return [];
@@ -57,4 +90,21 @@ abstract class EventModel with _$EventModel implements Event {
       updatedAt: event.updatedAt,
     ).toJson();
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        slug,
+        name,
+        ownerAccountId,
+        description,
+        type,
+        reachLevel,
+        coverImgUrl,
+        categories,
+        startDate,
+        endDate,
+        createdAt,
+        updatedAt,
+      ];
 }

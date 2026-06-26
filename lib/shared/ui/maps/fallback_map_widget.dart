@@ -2,8 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
-import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
 import 'package:ibiapabaapp/shared/ui/maps/app_map.dart';
 
@@ -45,15 +44,14 @@ class _FallbackMapWidgetState extends ConsumerState<FallbackMapWidget> {
 
   Future<void> _loadCities() async {
     final container = ProviderScope.containerOf(context, listen: false);
-    final result = await container
-        .read(getAllCitiesProvider)
-        .call(const GetAllCitiesParams());
+    try {
+      final cities = await container
+          .read(citiesRepositoryProvider)
+          .getAllCities();
 
-    if (!mounted) return;
+      if (!mounted) return;
 
-    result.fold(
-      (_) {},
-      (cities) => setState(() {
+      setState(() {
         _cities = cities;
 
         final byName = widget.currentCityName != null
@@ -65,8 +63,8 @@ class _FallbackMapWidgetState extends ConsumerState<FallbackMapWidget> {
             : null;
 
         _selected = byName ?? _cityFromPosition(widget.currentPosition);
-      }),
-    );
+      });
+    } catch (_) {}
   }
 
   City? _cityFromPosition(AppLatLng? pos) {

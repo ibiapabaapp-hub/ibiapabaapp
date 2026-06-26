@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../../../domain/entities/account_type.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
 
 class AccountTypeConverter implements JsonConverter<AccountType, String> {
   const AccountTypeConverter();

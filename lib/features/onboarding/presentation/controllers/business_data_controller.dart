@@ -2,9 +2,8 @@ import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
-import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
 import 'package:ibiapabaapp/features/onboarding/domain/tags/onboarding_logtags.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/states/business_data_states.dart';
@@ -27,23 +26,16 @@ class BusinessDataController extends _$BusinessDataController
     ref.keepAlive();
 
     List<City> citiesList = [];
-    final result = await ref
-        .read(getAllCitiesProvider)
-        .call(const GetAllCitiesParams());
-
-    result.fold(
-      (failure) {
-        logControllerError(
-          action: OnboardingAction.getCities,
-          failure: failure,
-        );
-        return;
-      },
-      (cities) {
-        logControllerSuccess(action: OnboardingAction.getCities);
-        citiesList = cities;
-      },
-    );
+    try {
+      final repository = ref.read(citiesRepositoryProvider);
+      citiesList = await repository.getAllCities();
+      logControllerSuccess(action: OnboardingAction.getCities);
+    } catch (e) {
+      logControllerError(
+        action: OnboardingAction.getCities,
+        failure: e,
+      );
+    }
 
     return BusinessDataState(
       status: BusinessDataStatus.initial,

@@ -1,24 +1,29 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/child_category.dart';
+import 'package:ibiapabaapp/shared/models/child_category.dart';
 
-part 'child_category_model.freezed.dart';
 part 'child_category_model.g.dart';
 
-@freezed
-abstract class ChildCategoryModel
-    with _$ChildCategoryModel
-    implements ChildCategory {
-  const ChildCategoryModel._();
+@JsonSerializable()
+class ChildCategoryModel extends Equatable implements ChildCategory {
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final List<EntityType> entities;
 
-  const factory ChildCategoryModel({
-    @Default('') String id,
-    @Default('') String name,
-    required List<EntityType> entities,
-  }) = _ChildCategoryModel;
+  const ChildCategoryModel({
+    this.id = '',
+    this.name = '',
+    required this.entities,
+  });
 
   factory ChildCategoryModel.fromJson(Map<String, dynamic> json) =>
       _$ChildCategoryModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ChildCategoryModelToJson(this);
 
   static List<ChildCategory> fromJsonList(List<dynamic>? jsonList) {
     if (jsonList == null) return [];
@@ -38,4 +43,7 @@ abstract class ChildCategoryModel
       entities: category.entities,
     ).toJson();
   }
+
+  @override
+  List<Object?> get props => [id, name, entities];
 }

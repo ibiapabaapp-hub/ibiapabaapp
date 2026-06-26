@@ -1,26 +1,33 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/parent_category.dart';
+import 'package:ibiapabaapp/shared/models/parent_category.dart';
 import 'package:ibiapabaapp/features/categories/infra/models/child_category_model.dart';
 
-part 'parent_category_model.freezed.dart';
 part 'parent_category_model.g.dart';
 
-@freezed
-abstract class ParentCategoryModel
-    with _$ParentCategoryModel
-    implements ParentCategory {
-  const ParentCategoryModel._();
+@JsonSerializable()
+class ParentCategoryModel extends Equatable implements ParentCategory {
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final List<EntityType> entities;
+  @override
+  final List<ChildCategoryModel>? children;
 
-  const factory ParentCategoryModel({
-    @Default('') String id,
-    @Default('') String name,
-    required List<EntityType> entities,
-    @Default(null) List<ChildCategoryModel>? children,
-  }) = _ParentCategoryModel;
+  const ParentCategoryModel({
+    this.id = '',
+    this.name = '',
+    required this.entities,
+    this.children,
+  });
 
   factory ParentCategoryModel.fromJson(Map<String, dynamic> json) =>
       _$ParentCategoryModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ParentCategoryModelToJson(this);
 
   static List<ParentCategory> fromJsonList(List<dynamic>? jsonList) {
     if (jsonList == null) return [];
@@ -51,4 +58,7 @@ abstract class ParentCategoryModel
           .toList(),
     ).toJson();
   }
+
+  @override
+  List<Object?> get props => [id, name, entities, children];
 }

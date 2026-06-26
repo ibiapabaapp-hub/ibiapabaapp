@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/media/content_media.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
 import 'package:ibiapabaapp/shared/ui/layout/entity_badge.dart';

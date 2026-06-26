@@ -6,38 +6,35 @@ part of 'account_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_AccountModel _$AccountModelFromJson(Map<String, dynamic> json) =>
-    _AccountModel(
-      id: json['id'] as String,
-      email: json['email'] as String,
-      phoneNumber: json['phone_number'] as String?,
-      name: json['name'] as String,
-      active: json['active'] as bool,
-      isVerified: json['is_verified'] as bool,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
-      slug: json['slug'] as String,
-      displayName: json['display_name'] as String,
-      bio: json['bio'] as String?,
-      avatarUrl: json['avatar_url'] as String?,
-      type: const AccountTypeConverter().fromJson(json['type'] as String),
-      interests: json['interests'] == null
-          ? null
-          : AccountInterestsModel.fromJson(
-              json['interests'] as Map<String, dynamic>,
-            ),
-      business: json['business'] == null
-          ? null
-          : AccountBusinessModel.fromJson(
-              json['business'] as Map<String, dynamic>,
-            ),
-      gender: _$JsonConverterFromJson<String, Gender>(
-        json['gender'],
-        const GenderConverter().fromJson,
-      ),
-    );
+AccountModel _$AccountModelFromJson(Map<String, dynamic> json) => AccountModel(
+  id: json['id'] as String,
+  email: json['email'] as String,
+  phoneNumber: json['phone_number'] as String?,
+  name: json['name'] as String,
+  active: json['active'] as bool,
+  isVerified: json['is_verified'] as bool,
+  createdAt: DateTime.parse(json['created_at'] as String),
+  updatedAt: DateTime.parse(json['updated_at'] as String),
+  slug: json['slug'] as String,
+  displayName: json['display_name'] as String,
+  bio: json['bio'] as String?,
+  avatarUrl: json['avatar_url'] as String?,
+  type: const AccountTypeConverter().fromJson(json['type'] as String),
+  interests: json['interests'] == null
+      ? null
+      : AccountInterestsModel.fromJson(
+          json['interests'] as Map<String, dynamic>,
+        ),
+  business: json['business'] == null
+      ? null
+      : AccountBusinessModel.fromJson(json['business'] as Map<String, dynamic>),
+  gender: _$JsonConverterFromJson<String, Gender>(
+    json['gender'],
+    const GenderConverter().fromJson,
+  ),
+);
 
-Map<String, dynamic> _$AccountModelToJson(_AccountModel instance) =>
+Map<String, dynamic> _$AccountModelToJson(AccountModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,

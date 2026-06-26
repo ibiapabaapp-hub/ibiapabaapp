@@ -1,12 +1,10 @@
-import 'package:dartz/dartz.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:dio/dio.dart';
+import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
 import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
-import 'package:ibiapabaapp/features/cities/data/datasource/cities_local_datasource.dart';
-import 'package:ibiapabaapp/features/cities/data/datasource/cities_remote_datasource.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/repositories/cities_repository.dart';
-import 'package:ibiapabaapp/features/cities/domain/tags/cities_logtags.dart';
+import 'package:ibiapabaapp/features/cities/infra/models/cities_model.dart';
 import 'package:logger/logger.dart';
 
 class CitiesRepositoryImpl
@@ -14,57 +12,52 @@ class CitiesRepositoryImpl
     implements CitiesRepository {
   @override
   final Logger logger;
-  final CitiesRemoteDatasource remoteDatasource;
-  final CitiesLocalDatasource localDatasource;
+  final Dio dio;
+  final CacheDatabaseService cacheService;
+
+  static const _storeName = 'cities_cache';
 
   CitiesRepositoryImpl({
-    required this.localDatasource,
-    required this.remoteDatasource,
     required this.logger,
+    required this.dio,
+    required this.cacheService,
   });
 
   @override
   LogFeature get feature => LogFeature.cities;
 
   @override
-  Future<Either<AppFailure, List<City>>> getAllCities({
-    bool forceRefresh = false,
-  }) async {
-    try {
-      if (!forceRefresh) {
-        final cachedCities = await localDatasource.getCachedCities();
-        if (cachedCities.isNotEmpty) return Right(cachedCities);
-      }
-
-      final remoteCities = await remoteDatasource.getAllCities();
-      await localDatasource.clearCache();
-      await localDatasource.cacheCities(remoteCities);
-
-      return Right(remoteCities);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: CityAction.getAllCities,
-        ),
+  Future<List<City>> getAllCities({bool forceRefresh = false}) async {
+    if (!forceRefresh) {
+      final cached = await cacheService.getList<City>(
+        storeName: _storeName,
+        fromJson: CityModel.fromJson,
+        maxAge: const Duration(days: 30),
       );
+      if (cached.isNotEmpty) return cached;
     }
+
+    final response = await dio.get('/cities');
+    final result = CityModel.fromJsonList(response.data);
+    await cacheService.clear(storeName: _storeName);
+    await cacheService.saveList<City>(
+      storeName: _storeName,
+      items: result,
+      toMap: CityModel.toMap,
+    );
+    return result;
   }
 
   @override
-  Future<Either<AppFailure, City?>> getCityById(String id) async {
-    try {
-      final city = await localDatasource.getCityById(id);
-      return Right(city);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: CityAction.getCityById,
-        ),
-      );
-    }
+  Future<City?> getCityById(String id) async {
+    final cached = await cacheService.getList<City>(
+      storeName: _storeName,
+      fromJson: CityModel.fromJson,
+      maxAge: const Duration(days: 30),
+    );
+    return cached.cast<City?>().firstWhere(
+          (c) => c?.id == id,
+          orElse: () => null,
+        );
   }
 }

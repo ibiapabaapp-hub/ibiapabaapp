@@ -31,6 +31,7 @@ class _AppShellState extends ConsumerState<AppShell> {
       '/app/settings',
       '/app/beta',
       '/app/webview',
+      '/app/accounts/manage',
     ];
 
     final bool hideNavbar = routesWithoutNavbar.any(

@@ -1,25 +1,37 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import '../../domain/entities/check_availability.dart';
 
-part 'check_availability_model.freezed.dart';
 part 'check_availability_model.g.dart';
 
-@freezed
-abstract class CheckAvailabilityModel
-    with _$CheckAvailabilityModel
-    implements CheckAvailability {
-  const factory CheckAvailabilityModel({
-    @JsonKey(
-      fromJson: _availabilityFieldFromApi,
-      toJson: _availabilityFieldToApi,
-    )
-    required AvailabilityField field,
-    required String value,
-    required bool available,
-  }) = _CheckAvailabilityModel;
+@JsonSerializable()
+class CheckAvailabilityModel extends Equatable implements CheckAvailability {
+  @JsonKey(
+    fromJson: _availabilityFieldFromApi,
+    toJson: _availabilityFieldToApi,
+  )
+  @override
+  final AvailabilityField field;
+
+  @override
+  final String value;
+
+  @override
+  final bool available;
+
+  const CheckAvailabilityModel({
+    required this.field,
+    required this.value,
+    required this.available,
+  });
 
   factory CheckAvailabilityModel.fromJson(Map<String, dynamic> json) =>
       _$CheckAvailabilityModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CheckAvailabilityModelToJson(this);
+
+  @override
+  List<Object?> get props => [field, value, available];
 }
 
 AvailabilityField _availabilityFieldFromApi(String value) =>

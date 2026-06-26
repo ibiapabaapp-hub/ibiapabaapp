@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibiapabaapp/core/location/presentation/providers/location_state_provider.dart';
 import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
-import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
 import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/recent_locations_list.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/sheet_actions.dart';
@@ -80,56 +79,54 @@ class _ChangeLocationSheetState extends ConsumerState<_ChangeLocationSheet> {
     final navigator = Navigator.of(context, rootNavigator: true);
     final previousCity = ref.read(appSessionProvider).currentCity;
 
-    final citiesResult = await ref
-        .read(getAllCitiesProvider)
-        .call(const GetAllCitiesParams());
+    try {
+      final cities = await ref
+          .read(citiesRepositoryProvider)
+          .getAllCities();
 
-    if (!mounted) return;
+      if (!mounted) return;
 
-    citiesResult.fold(
-      (failure) {
+      final city = cities.firstWhereOrNull(
+        (c) => c.name.toLowerCase() == cityName.toLowerCase(),
+      );
+
+      if (city == null) {
         setState(() {
           _loadingLocation = false;
-          _locationError = failure.message;
+          _locationError = 'Cidade não encontrada.';
         });
-      },
-      (cities) async {
-        final city = cities.firstWhereOrNull(
-          (c) => c.name.toLowerCase() == cityName.toLowerCase(),
-        );
+        return;
+      }
 
-        if (city == null) {
-          setState(() {
-            _loadingLocation = false;
-            _locationError = 'Cidade não encontrada.';
-          });
-          return;
-        }
+      await ref.read(locationStateProvider.notifier).setCurrentCity(city);
 
-        await ref.read(locationStateProvider.notifier).setCurrentCity(city);
+      if (!mounted) return;
+      setState(() => _loadingLocation = false);
+      navigator.pop();
 
-        if (!mounted) return;
-        setState(() => _loadingLocation = false);
-        navigator.pop();
+      final newCity = ref.read(appSessionProvider).currentCity;
+      final cityChanged = newCity != null && newCity.id != previousCity?.id;
 
-        final newCity = ref.read(appSessionProvider).currentCity;
-        final cityChanged = newCity != null && newCity.id != previousCity?.id;
-
-        showAppToast(
-          alignment: .bottomCenter,
-          context: context,
-          icon: Icon(
-            cityChanged ? Icons.location_on : Icons.location_on_outlined,
-          ),
-          title: cityChanged
-              ? 'Localização atualizada'
-              : 'Localização confirmada',
-          description: cityChanged
-              ? 'Você agora está em ${newCity.name}'
-              : 'Você continua em ${newCity?.name ?? 'sua cidade atual'}',
-        );
-      },
-    );
+      showAppToast(
+        alignment: .bottomCenter,
+        context: context,
+        icon: Icon(
+          cityChanged ? Icons.location_on : Icons.location_on_outlined,
+        ),
+        title: cityChanged
+            ? 'Localização atualizada'
+            : 'Localização confirmada',
+        description: cityChanged
+            ? 'Você agora está em ${newCity.name}'
+            : 'Você continua em ${newCity?.name ?? 'sua cidade atual'}',
+      );
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _loadingLocation = false;
+        _locationError = e.toString();
+      });
+    }
   }
 
   Future<void> _detectNearestCity() async {

@@ -1,34 +1,54 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 
-part 'business_model.freezed.dart';
 part 'business_model.g.dart';
 
-@freezed
-abstract class BusinessModel with _$BusinessModel implements Business {
-  const BusinessModel._();
+@JsonSerializable()
+class BusinessModel extends Equatable implements Business {
+  @override
+  final String id;
+  @JsonKey(defaultValue: '', name: 'profile_id')
+  final String profileId;
+  @override
+  final String slug;
+  final String? cnpj;
+  @override
+  final String name;
+  @override
+  final String? bio;
+  @override
+  @JsonKey(name: 'avatar_url')
+  final String? avatar;
+  @override
+  @JsonKey(unknownEnumValue: ReachLevel.local, name: 'max_reach_level')
+  final ReachLevel maxReachLevel;
+  @JsonKey(name: 'cover_img_url')
+  final String? coverImgUrl;
+  @override
+  final List<String> categories;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
 
-  const factory BusinessModel({
-    @Default('') String id,
-    @Default('')
-    @JsonKey(defaultValue: '', name: 'profile_id')
-    String profileId,
-    @Default('') String slug,
-    String? cnpj,
-    @Default('') String name,
-    String? bio,
-    @JsonKey(name: 'avatar_url') String? avatar,
-
-    @JsonKey(unknownEnumValue: ReachLevel.local, name: 'max_reach_level')
-    required ReachLevel maxReachLevel,
-
-    @JsonKey(name: 'cover_img_url') String? coverImgUrl,
-    @Default([]) List<String> categories,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-  }) = _BusinessModel;
+  const BusinessModel({
+    this.id = '',
+    this.profileId = '',
+    this.slug = '',
+    this.cnpj,
+    this.name = '',
+    this.bio,
+    this.avatar,
+    required this.maxReachLevel,
+    this.coverImgUrl,
+    this.categories = const [],
+    required this.createdAt,
+  });
 
   factory BusinessModel.fromJson(Map<String, dynamic> json) =>
       _$BusinessModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BusinessModelToJson(this);
 
   static List<Business> fromJsonList(dynamic jsonList) {
     if (jsonList == null) return [];
@@ -50,4 +70,19 @@ abstract class BusinessModel with _$BusinessModel implements Business {
       createdAt: business.createdAt,
     ).toJson();
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        profileId,
+        slug,
+        cnpj,
+        name,
+        bio,
+        avatar,
+        maxReachLevel,
+        coverImgUrl,
+        categories,
+        createdAt,
+      ];
 }

@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
-import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
+import 'package:ibiapabaapp/shared/models/media.dart';
 
 class BusinessDetailData {
   final Business business;

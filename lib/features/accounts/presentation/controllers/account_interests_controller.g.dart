@@ -44,7 +44,7 @@ final class AccountInterestsControllerProvider
 }
 
 String _$accountInterestsControllerHash() =>
-    r'f6779e5c5eacc5cb1beaed842de2c9f9ca2ebfc9';
+    r'e7ec85fb83eb9ba61447567622598345c5b73182';
 
 abstract class _$AccountInterestsController
     extends $Notifier<AccountInterestsState> {

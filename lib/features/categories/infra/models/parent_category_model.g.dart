@@ -6,23 +6,20 @@ part of 'parent_category_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ParentCategoryModel _$ParentCategoryModelFromJson(Map<String, dynamic> json) =>
-    _ParentCategoryModel(
+ParentCategoryModel _$ParentCategoryModelFromJson(Map<String, dynamic> json) =>
+    ParentCategoryModel(
       id: json['id'] as String? ?? '',
       name: json['name'] as String? ?? '',
       entities: (json['entities'] as List<dynamic>)
           .map((e) => $enumDecode(_$EntityTypeEnumMap, e))
           .toList(),
-      children:
-          (json['children'] as List<dynamic>?)
-              ?.map(
-                (e) => ChildCategoryModel.fromJson(e as Map<String, dynamic>),
-              )
-              .toList(),
+      children: (json['children'] as List<dynamic>?)
+          ?.map((e) => ChildCategoryModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ParentCategoryModelToJson(
-  _ParentCategoryModel instance,
+  ParentCategoryModel instance,
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,

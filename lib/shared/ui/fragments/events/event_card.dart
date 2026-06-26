@@ -2,7 +2,7 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/media/content_media.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
 import 'package:ibiapabaapp/shared/ui/layout/entity_badge.dart';

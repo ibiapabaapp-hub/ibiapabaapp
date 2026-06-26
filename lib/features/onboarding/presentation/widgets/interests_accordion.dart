@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/category_entity.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/child_category.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/parent_category.dart';
+import 'package:ibiapabaapp/shared/models/category_entity.dart';
+import 'package:ibiapabaapp/shared/models/child_category.dart';
+import 'package:ibiapabaapp/shared/models/parent_category.dart';
 import 'package:ibiapabaapp/features/categories/presentation/providers/categories_providers.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:skeletonizer/skeletonizer.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:latlong2/latlong.dart';
 
 class AppSession {

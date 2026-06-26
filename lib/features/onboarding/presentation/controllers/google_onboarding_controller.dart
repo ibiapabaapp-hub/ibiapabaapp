@@ -1,11 +1,11 @@
+import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/gender.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
-import 'package:ibiapabaapp/features/auth/domain/usecases/check_unique_availability.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/google_oauth_state_provider.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/states/google_onboarding_state.dart';
@@ -55,8 +55,6 @@ class GoogleOnboardingController extends _$GoogleOnboardingController
   }
 
   Future<bool> checkSlug(String v) async {
-    final checkAvailability = ref.read(checkUniqueAvailabilityProvider);
-
     final loadingAvailability =
         Map<
           AvailabilityField,
@@ -69,47 +67,49 @@ class GoogleOnboardingController extends _$GoogleOnboardingController
     );
     state = state.copyWith(availability: loadingAvailability);
 
-    final result = await checkAvailability(
-      CheckUniqueAvailabilityParams(field: AvailabilityField.slug, value: v),
-    );
+    try {
+      final repository = ref.read(authRepositoryProvider);
+      final availabilityResult = await repository.checkAvailability(
+        field: AvailabilityField.slug,
+        value: v,
+      );
 
-    if (!ref.mounted) return false;
+      if (!ref.mounted) return false;
 
-    return result.fold(
-      (failure) {
-        final availability =
-            Map<
-              AvailabilityField,
-              ({bool? available, String? error, bool isChecking})
-            >.from(state.availability);
-        availability[AvailabilityField.slug] = (
-          available: false,
-          error: failure.message,
-          isChecking: false,
-        );
-        state = state.copyWith(availability: availability);
-        logControllerError(
-          action: AuthAction.completeGoogleRegistration,
-          failure: failure,
-        );
-        return false;
-      },
-      (availabilityResult) {
-        final availability =
-            Map<
-              AvailabilityField,
-              ({bool? available, String? error, bool isChecking})
-            >.from(state.availability);
-        availability[AvailabilityField.slug] = (
-          available: availabilityResult.available,
-          error: null,
-          isChecking: false,
-        );
-        state = state.copyWith(availability: availability);
-        logControllerSuccess(action: AuthAction.completeGoogleRegistration);
-        return availabilityResult.available;
-      },
-    );
+      final availability =
+          Map<
+            AvailabilityField,
+            ({bool? available, String? error, bool isChecking})
+          >.from(state.availability);
+      availability[AvailabilityField.slug] = (
+        available: availabilityResult.available,
+        error: null,
+        isChecking: false,
+      );
+      state = state.copyWith(availability: availability);
+      logControllerSuccess(action: AuthAction.completeGoogleRegistration);
+      return availabilityResult.available;
+    } catch (e) {
+      if (!ref.mounted) return false;
+
+      final message = e is AppFailure ? e.message : 'Erro inesperado';
+      final availability =
+          Map<
+            AvailabilityField,
+            ({bool? available, String? error, bool isChecking})
+          >.from(state.availability);
+      availability[AvailabilityField.slug] = (
+        available: false,
+        error: message,
+        isChecking: false,
+      );
+      state = state.copyWith(availability: availability);
+      logControllerError(
+        action: AuthAction.completeGoogleRegistration,
+        failure: e is AppFailure ? e : InternalFailure(message),
+      );
+      return false;
+    }
   }
 
   Future<void> submit() async {

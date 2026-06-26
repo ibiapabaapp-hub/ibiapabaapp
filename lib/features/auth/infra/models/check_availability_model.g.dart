@@ -6,16 +6,16 @@ part of 'check_availability_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_CheckAvailabilityModel _$CheckAvailabilityModelFromJson(
+CheckAvailabilityModel _$CheckAvailabilityModelFromJson(
   Map<String, dynamic> json,
-) => _CheckAvailabilityModel(
+) => CheckAvailabilityModel(
   field: _availabilityFieldFromApi(json['field'] as String),
   value: json['value'] as String,
   available: json['available'] as bool,
 );
 
 Map<String, dynamic> _$CheckAvailabilityModelToJson(
-  _CheckAvailabilityModel instance,
+  CheckAvailabilityModel instance,
 ) => <String, dynamic>{
   'field': _availabilityFieldToApi(instance.field),
   'value': instance.value,

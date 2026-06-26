@@ -41,7 +41,7 @@ final class GoogleOAuthStateProvider
   }
 }
 
-String _$googleOAuthStateHash() => r'492f0428ea1dd1def85de98fa2b6737131aee320';
+String _$googleOAuthStateHash() => r'318ed0bce40fb49c6a4b522c12a36fbcb8042894';
 
 abstract class _$GoogleOAuthState extends $Notifier<GoogleOAuthDataState> {
   GoogleOAuthDataState build();

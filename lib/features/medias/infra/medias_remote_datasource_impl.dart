@@ -3,7 +3,7 @@ import 'package:ibiapabaapp/core/entities/entity_type.dart';
 import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/features/medias/data/datasource/medias_remote_datasource.dart';
 import 'package:ibiapabaapp/features/medias/infra/models/media_model.dart';
-import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';
+import 'package:ibiapabaapp/shared/models/media.dart';
 
 class MediasRemoteDatasourceImpl implements MediasRemoteDatasource {
   final Dio dio;

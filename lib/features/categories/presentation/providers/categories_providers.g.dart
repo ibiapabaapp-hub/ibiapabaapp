@@ -9,103 +9,6 @@ part of 'categories_providers.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(categoriesLocalDatasource)
-final categoriesLocalDatasourceProvider = CategoriesLocalDatasourceProvider._();
-
-final class CategoriesLocalDatasourceProvider
-    extends
-        $FunctionalProvider<
-          CategoriesLocalDatasource,
-          CategoriesLocalDatasource,
-          CategoriesLocalDatasource
-        >
-    with $Provider<CategoriesLocalDatasource> {
-  CategoriesLocalDatasourceProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'categoriesLocalDatasourceProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$categoriesLocalDatasourceHash();
-
-  @$internal
-  @override
-  $ProviderElement<CategoriesLocalDatasource> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  CategoriesLocalDatasource create(Ref ref) {
-    return categoriesLocalDatasource(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(CategoriesLocalDatasource value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<CategoriesLocalDatasource>(value),
-    );
-  }
-}
-
-String _$categoriesLocalDatasourceHash() =>
-    r'6f3be273d7751b2621c401c794edfc4fe473ab47';
-
-@ProviderFor(categoriesRemoteDatasource)
-final categoriesRemoteDatasourceProvider =
-    CategoriesRemoteDatasourceProvider._();
-
-final class CategoriesRemoteDatasourceProvider
-    extends
-        $FunctionalProvider<
-          CategoriesRemoteDatasource,
-          CategoriesRemoteDatasource,
-          CategoriesRemoteDatasource
-        >
-    with $Provider<CategoriesRemoteDatasource> {
-  CategoriesRemoteDatasourceProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'categoriesRemoteDatasourceProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$categoriesRemoteDatasourceHash();
-
-  @$internal
-  @override
-  $ProviderElement<CategoriesRemoteDatasource> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  CategoriesRemoteDatasource create(Ref ref) {
-    return categoriesRemoteDatasource(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(CategoriesRemoteDatasource value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<CategoriesRemoteDatasource>(value),
-    );
-  }
-}
-
-String _$categoriesRemoteDatasourceHash() =>
-    r'de60274d5e07a5531ceb77db313839343424fd6c';
-
 @ProviderFor(categoriesRepository)
 final categoriesRepositoryProvider = CategoriesRepositoryProvider._();
 
@@ -152,103 +55,7 @@ final class CategoriesRepositoryProvider
 }
 
 String _$categoriesRepositoryHash() =>
-    r'a92ec38a275f08cd9b4a4b8cefbd08ca5c2ce8c8';
-
-@ProviderFor(getParentCategories)
-final getParentCategoriesProvider = GetParentCategoriesProvider._();
-
-final class GetParentCategoriesProvider
-    extends
-        $FunctionalProvider<
-          GetParentCategories,
-          GetParentCategories,
-          GetParentCategories
-        >
-    with $Provider<GetParentCategories> {
-  GetParentCategoriesProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'getParentCategoriesProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$getParentCategoriesHash();
-
-  @$internal
-  @override
-  $ProviderElement<GetParentCategories> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  GetParentCategories create(Ref ref) {
-    return getParentCategories(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GetParentCategories value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GetParentCategories>(value),
-    );
-  }
-}
-
-String _$getParentCategoriesHash() =>
-    r'0328f872e21bb39698287d45472a51fd9423c010';
-
-@ProviderFor(getChildrenCategories)
-final getChildrenCategoriesProvider = GetChildrenCategoriesProvider._();
-
-final class GetChildrenCategoriesProvider
-    extends
-        $FunctionalProvider<
-          GetChildrenCategories,
-          GetChildrenCategories,
-          GetChildrenCategories
-        >
-    with $Provider<GetChildrenCategories> {
-  GetChildrenCategoriesProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'getChildrenCategoriesProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$getChildrenCategoriesHash();
-
-  @$internal
-  @override
-  $ProviderElement<GetChildrenCategories> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  GetChildrenCategories create(Ref ref) {
-    return getChildrenCategories(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GetChildrenCategories value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GetChildrenCategories>(value),
-    );
-  }
-}
-
-String _$getChildrenCategoriesHash() =>
-    r'132a79288acba21b84344303420ff6f9583c8689';
+    r'647acb399c2b67ec23d09d4c057089073dd3e1ea';
 
 @ProviderFor(parentCategories)
 final parentCategoriesProvider = ParentCategoriesFamily._();
@@ -307,7 +114,7 @@ final class ParentCategoriesProvider
   }
 }
 
-String _$parentCategoriesHash() => r'2c17a968609229b5203bf51abd313951f6f8a913';
+String _$parentCategoriesHash() => r'8d57dda8a16796cf3d0225a43644cacec92e4fe2';
 
 final class ParentCategoriesFamily extends $Family
     with
@@ -393,7 +200,7 @@ final class ChildCategoriesProvider
   }
 }
 
-String _$childCategoriesHash() => r'f15fd00717d3adbd3dc5893a9bd96a2345b18838';
+String _$childCategoriesHash() => r'a095065531638284a6d38daf276b56a264920651';
 
 final class ChildCategoriesFamily extends $Family
     with

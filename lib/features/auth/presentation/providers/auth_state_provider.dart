@@ -3,7 +3,7 @@ import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/core/storage/token_storage_provider.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
@@ -33,16 +33,14 @@ class AuthState extends _$AuthState with ControllerLogHandler {
       return;
     }
 
-    final getMeResult = await ref.read(getMeProvider).call();
-    if (!ref.mounted) {
-      ref.read(accountsStateProvider.notifier).markLoadingDone();
-      return;
-    }
+    try {
+      final repository = ref.read(authRepositoryProvider);
+      final account = await repository.getMe();
+      if (!ref.mounted) {
+        ref.read(accountsStateProvider.notifier).markLoadingDone();
+        return;
+      }
 
-    if (getMeResult.isRight()) {
-      final account = getMeResult.getOrElse(
-        () => throw StateError('unreachable'),
-      );
       await ref.read(accountsStateProvider.notifier).onAuthSuccess(account);
       state = AuthData(
         activeAccountId: account.id,
@@ -50,42 +48,44 @@ class AuthState extends _$AuthState with ControllerLogHandler {
       );
       logControllerSuccess(action: AuthAction.restore);
       return;
-    }
-
-    final failure = getMeResult.fold(
-      (f) => f,
-      (_) => throw StateError('unreachable'),
-    );
-    logControllerError(action: AuthAction.restore, failure: failure);
-
-    if (failure is NetworkFailure) {
-      // Pergunta ao AccountsState se há conta em cache
-      final cachedId = await ref
-          .read(accountsStateProvider.notifier)
-          .restoreFromCache();
-      if (!ref.mounted) return;
-      if (cachedId != null) {
-        state = AuthData(
-          activeAccountId: cachedId,
-          status: AuthStatus.unverified,
-        );
-        logControllerSuccess(action: AuthAction.restoreFromCache);
+    } catch (e) {
+      if (!ref.mounted) {
+        ref.read(accountsStateProvider.notifier).markLoadingDone();
+        return;
       }
-      return;
-    }
 
-    final refreshResult = await ref.read(refreshTokensProvider).call();
-    if (!ref.mounted) {
-      ref
-          .read(accountsStateProvider.notifier)
-          .markLoadingDone();
-      return;
-    }
+      final failure = e is AppFailure ? e : InternalFailure(e.toString());
+      logControllerError(action: AuthAction.restore, failure: failure);
 
-    await refreshResult.fold(
-      (_) async => logout(),
-      (authResult) async => initSession(authResult),
-    );
+      if (failure is NetworkFailure) {
+        final cachedId = await ref
+            .read(accountsStateProvider.notifier)
+            .restoreFromCache();
+        if (!ref.mounted) return;
+        if (cachedId != null) {
+          state = AuthData(
+            activeAccountId: cachedId,
+            status: AuthStatus.unverified,
+          );
+          logControllerSuccess(action: AuthAction.restoreFromCache);
+        }
+        return;
+      }
+
+      try {
+        final repository = ref.read(authRepositoryProvider);
+        final authResult = await repository.refreshTokens();
+        if (!ref.mounted) {
+          ref
+              .read(accountsStateProvider.notifier)
+              .markLoadingDone();
+          return;
+        }
+        await initSession(authResult);
+      } catch (_) {
+        await logout();
+      }
+    }
   }
 
   Future<void> initSession(AuthResult result) async {
@@ -123,8 +123,8 @@ class AuthState extends _$AuthState with ControllerLogHandler {
 
 enum AuthStatus {
   unauthenticated,
-  verified, // online, validado com o backend
-  unverified, // carregado do cache, não validado ainda
+  verified,
+  unverified,
 }
 
 class AuthData {

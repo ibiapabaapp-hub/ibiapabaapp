@@ -6,8 +6,8 @@ part of 'child_category_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ChildCategoryModel _$ChildCategoryModelFromJson(Map<String, dynamic> json) =>
-    _ChildCategoryModel(
+ChildCategoryModel _$ChildCategoryModelFromJson(Map<String, dynamic> json) =>
+    ChildCategoryModel(
       id: json['id'] as String? ?? '',
       name: json['name'] as String? ?? '',
       entities: (json['entities'] as List<dynamic>)
@@ -16,7 +16,7 @@ _ChildCategoryModel _$ChildCategoryModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ChildCategoryModelToJson(
-  _ChildCategoryModel instance,
+  ChildCategoryModel instance,
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,

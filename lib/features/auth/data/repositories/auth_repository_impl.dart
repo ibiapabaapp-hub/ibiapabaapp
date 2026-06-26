@@ -1,170 +1,133 @@
-import 'package:dartz/dartz.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
-import 'package:ibiapabaapp/features/auth/data/datasources/auth_remote_datasource.dart';
-import 'package:ibiapabaapp/features/auth/data/mappers/auth_exception_to_failure_mapper.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/gender.dart';
+import 'package:dio/dio.dart';
+import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
+import 'package:ibiapabaapp/core/storage/token_storage_strategy.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/complete_google_registration.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/google_auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/register_form_data.dart';
 import 'package:ibiapabaapp/features/auth/domain/repositories/auth_repository.dart';
-import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
-import 'package:logger/logger.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
+import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/auth_result_model.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/check_availability_model.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/complete_google_registration_response_model.dart';
+import 'package:ibiapabaapp/features/auth/infra/models/google_auth_result_model.dart';
 
-class AuthRepositoryImpl with RepositoryLogHandler implements AuthRepository {
-  @override
-  final Logger logger;
-  final AuthRemoteDatasource datasource;
+class AuthRepositoryImpl implements AuthRepository {
+  final Dio _dio;
+  final TokenStorageStrategy _storage;
 
-  AuthRepositoryImpl({required this.datasource, required this.logger});
-
-  @override
-  AppFailure Function(Object) get featureMapper =>
-      AuthExceptionToFailureMapper.map;
-
-  @override
-  LogFeature get feature => LogFeature.auth;
+  AuthRepositoryImpl(this._dio, this._storage);
 
   @override
-  Future<Either<AppFailure, AuthResult>> login({
+  Future<AuthResult> login({
     required String email,
     required String password,
   }) async {
     try {
-      final result = await datasource.login(email: email, password: password);
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AuthAction.login,
-        ),
+      final response = await _dio.post(
+        '/auth/login',
+        data: {'email': email, 'password': password},
       );
+      return AuthResultModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, AuthResult>> register({
+  Future<AuthResult> register({
     required RegisterFormData registerFormData,
   }) async {
     try {
-      final result = await datasource.register(
-        registerFormData: registerFormData,
+      final response = await _dio.post(
+        '/auth/register',
+        data: registerFormData.toJson(),
       );
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AuthAction.register,
-        ),
-      );
+      return AuthResultModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, CheckAvailability>> checkAvailability({
+  Future<CheckAvailability> checkAvailability({
     required AvailabilityField field,
     required String value,
   }) async {
     try {
-      final result = await datasource.checkAvailability(
-        field: field.value,
-        value: value,
+      final response = await _dio.get(
+        '/auth/check-unique',
+        queryParameters: {'field': field.value, 'value': value},
       );
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AuthAction.checkAvailability,
-        ),
-      );
+      return CheckAvailabilityModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, Account>> getMe() async {
+  Future<Account> getMe() async {
     try {
-      final result = await datasource.getMe();
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AuthAction.getMe,
-        ),
-      );
+      final response = await _dio.get('/auth/me');
+      return AccountModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, AuthResult>> refreshTokens() async {
+  Future<AuthResult> refreshTokens() async {
     try {
-      final result = await datasource.refreshTokens();
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AuthAction.refreshTokens,
-        ),
+      final refreshToken = await _storage.getRefreshToken();
+      final response = await _dio.post(
+        '/auth/refresh',
+        options: Options(headers: {'x-refresh-token': refreshToken}),
       );
+      return AuthResultModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, GoogleAuthResult>> loginWithGoogle({
-    required String idToken,
-  }) async {
+  Future<GoogleAuthResult> loginWithGoogle({required String idToken}) async {
     try {
-      final result = await datasource.loginWithGoogle(idToken: idToken);
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AuthAction.loginWithGoogle,
-        ),
+      final response = await _dio.post(
+        '/auth/google',
+        data: {'id_token': idToken},
       );
+      return GoogleAuthResultModel.fromJson(response.data).toEntity();
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, CompleteGoogleRegistrationResponse>>
-  completeGoogleRegistration({
+  Future<CompleteGoogleRegistrationResponse> completeGoogleRegistration({
     required String tempToken,
     required String slug,
     required AccountType type,
     Gender? gender,
   }) async {
     try {
-      final result = await datasource.completeGoogleRegistration(
-        tempToken: tempToken,
-        slug: slug,
-        type: type.value,
-        gender: gender?.value,
+      final response = await _dio.post(
+        '/auth/google/complete',
+        data: {
+          'temp_token': tempToken,
+          'slug': slug,
+          'type': type.value,
+          'gender': gender?.value,
+        },
       );
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AuthAction.completeGoogleRegistration,
-        ),
-      );
+      return CompleteGoogleRegistrationResponseModel.fromJson(
+        response.data,
+      ).toEntity();
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 }

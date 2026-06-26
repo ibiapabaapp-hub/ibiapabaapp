@@ -2,8 +2,8 @@ import 'package:ibiapabaapp/core/entities/entity_type.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
+import 'package:ibiapabaapp/shared/models/media.dart';
 import 'package:ibiapabaapp/features/medias/domain/tags/medias_logtags.dart';
 import 'package:ibiapabaapp/features/medias/presentation/providers/medias_providers.dart';
 import 'package:logger/logger.dart';
@@ -31,27 +31,23 @@ class EntityMedias extends _$EntityMedias with ControllerLogHandler {
     EntityType entityType,
     String entityId,
   ) async {
-    final getEntityMedia = ref.read(getEntityMediaProvider);
-    final result = await getEntityMedia(
-      entityType: entityType,
-      entityId: entityId,
-    );
-
-    if (!ref.mounted) throw Exception('Provider disposed');
-
-    return result.fold(
-      (failure) {
-        logControllerError(
-          action: MediaAction.getEntityMedia,
-          failure: failure,
-        );
-        throw Exception(failure.message);
-      },
-      (media) {
-        logControllerSuccess(action: MediaAction.getEntityMedia);
-        return media;
-      },
-    );
+    final repository = ref.read(mediasRepositoryProvider);
+    try {
+      final media = await repository.getEntityMedia(
+        entityType: entityType,
+        entityId: entityId,
+      );
+      if (!ref.mounted) throw Exception('Provider disposed');
+      logControllerSuccess(action: MediaAction.getEntityMedia);
+      return media;
+    } catch (e) {
+      if (!ref.mounted) throw Exception('Provider disposed');
+      logControllerError(
+        action: MediaAction.getEntityMedia,
+        failure: e,
+      );
+      throw Exception(e.toString());
+    }
   }
 
   Future<void> refresh() async {

@@ -1,23 +1,35 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
 
-part 'favorite_model.freezed.dart';
-part 'favorite_model.g.dart';
+class FavoriteModel extends Equatable implements Favorite {
+  @override
+  final String? id;
+  @override
+  final String accountId;
+  @override
+  final String? cityId;
+  @override
+  final String? businessId;
+  @override
+  final String? eventId;
 
-@freezed
-abstract class FavoriteModel with _$FavoriteModel implements Favorite {
-  const FavoriteModel._();
+  const FavoriteModel({
+    this.id,
+    required this.accountId,
+    this.cityId,
+    this.businessId,
+    this.eventId,
+  });
 
-  const factory FavoriteModel({
-    @JsonKey(name: 'id', includeIfNull: false) String? id,
-    @JsonKey(name: 'account_id') required String accountId,
-    @JsonKey(name: 'city_id', defaultValue: null) String? cityId,
-    @JsonKey(name: 'business_id', defaultValue: null) String? businessId,
-    @JsonKey(name: 'event_id', defaultValue: null) String? eventId,
-  }) = _FavoriteModel;
-
-  factory FavoriteModel.fromJson(Map<String, dynamic> json) =>
-      _$FavoriteModelFromJson(json);
+  factory FavoriteModel.fromJson(Map<String, dynamic> json) {
+    return FavoriteModel(
+      id: json['id'] as String?,
+      accountId: json['account_id'] as String,
+      cityId: json['city_id'] as String?,
+      businessId: json['business_id'] as String?,
+      eventId: json['event_id'] as String?,
+    );
+  }
 
   static List<Favorite> fromJsonList(dynamic jsonList) {
     if (jsonList == null) return [];
@@ -44,4 +56,7 @@ abstract class FavoriteModel with _$FavoriteModel implements Favorite {
       'event_id': favorite.eventId,
     };
   }
+
+  @override
+  List<Object?> get props => [id, accountId, cityId, businessId, eventId];
 }
