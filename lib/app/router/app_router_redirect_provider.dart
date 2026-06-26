@@ -1,5 +1,5 @@
 import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/google_oauth_state_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

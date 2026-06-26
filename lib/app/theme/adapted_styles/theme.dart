@@ -208,7 +208,7 @@ FTypography _typography({
   xl2: TextStyle(
     color: colors.foreground,
     fontFamily: defaultFontFamily,
-    fontSize: 22,
+    fontSize: 24,
     height: 1.35,
   ),
   xl3: TextStyle(

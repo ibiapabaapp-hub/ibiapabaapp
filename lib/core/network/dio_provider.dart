@@ -121,23 +121,15 @@ Future<String?> _doRefresh(Ref ref) async {
   try {
     if (!ref.mounted) return null;
 
-    final result = await ref.read(refreshTokensProvider).call();
+    final authResult = await ref.read(authRepositoryProvider).refreshTokens();
 
-    return result.fold(
-      (_) {
-        _pendingRefresh = null;
-        return null;
-      },
-      (authResult) async {
-        if (!ref.mounted) {
-          _pendingRefresh = null;
-          return null;
-        }
-        await ref.read(authStateProvider.notifier).initSession(authResult);
-        _pendingRefresh = null;
-        return authResult.accessToken;
-      },
-    );
+    if (!ref.mounted) {
+      _pendingRefresh = null;
+      return null;
+    }
+    await ref.read(authStateProvider.notifier).initSession(authResult);
+    _pendingRefresh = null;
+    return authResult.accessToken;
   } catch (e) {
     _pendingRefresh = null;
     return null;

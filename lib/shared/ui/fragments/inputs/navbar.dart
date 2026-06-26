@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo.dart';
+import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
+import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo/account_photo.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/widgets/dialogs/account_switcher_dialog.dart';
 
 class DestinationItem {
@@ -132,12 +132,17 @@ class Navbar extends ConsumerWidget {
                 return NavigationDestination(
                   icon: wrapSpecialGestures(
                     isProfile
-                        ? AccountPhoto(account: activeAccount, size: 28)
+                        ? AccountPhoto(
+                            key: ValueKey(activeAccount?.id),
+                            account: activeAccount,
+                            size: 28,
+                          )
                         : Icon(dest.icon, size: 28),
                   ),
                   selectedIcon: wrapSpecialGestures(
                     isProfile
                         ? AccountPhoto(
+                            key: ValueKey(activeAccount?.id),
                             account: activeAccount,
                             size: 28,
                             borderColor: context.theme.colors.foreground,

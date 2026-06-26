@@ -98,3 +98,37 @@ final class InitializedCacheServiceProvider
 
 String _$initializedCacheServiceHash() =>
     r'af262e2168e0759f05ad3e2bae35c2261f7d9cbd';
+
+@ProviderFor(clearUnnecessaryCache)
+final clearUnnecessaryCacheProvider = ClearUnnecessaryCacheProvider._();
+
+final class ClearUnnecessaryCacheProvider
+    extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
+    with $FutureModifier<void>, $FutureProvider<void> {
+  ClearUnnecessaryCacheProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'clearUnnecessaryCacheProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$clearUnnecessaryCacheHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<void> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<void> create(Ref ref) {
+    return clearUnnecessaryCache(ref);
+  }
+}
+
+String _$clearUnnecessaryCacheHash() =>
+    r'a3597700dfec1d293efab317bd39fd2877625edc';

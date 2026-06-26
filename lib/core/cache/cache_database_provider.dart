@@ -16,3 +16,19 @@ Future<CacheDatabaseService> initializedCacheService(Ref ref) async {
   await service.init();
   return service;
 }
+
+@riverpod
+Future<void> clearUnnecessaryCache(Ref ref) async {
+  final service = ref.watch(cacheDatabaseServiceProvider);
+
+  final nonEssentialStores = [
+    'location',
+    'search',
+    'categories_cache',
+    'cities_store',
+  ];
+
+  for (final storeName in nonEssentialStores) {
+    await service.clear(storeName: storeName);
+  }
+}

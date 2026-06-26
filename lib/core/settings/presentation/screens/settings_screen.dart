@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
+import 'package:ibiapabaapp/shared/ui/dialogs/clear_cache_dialog.dart';
 import 'package:ibiapabaapp/shared/ui/dialogs/logout_dialog.dart';
 import 'package:ibiapabaapp/shared/ui/dialogs/theme_dialog.dart';
 import 'package:ibiapabaapp/shared/utils/show_todo_toast.dart';
@@ -31,6 +32,7 @@ class SettingsScreen extends ConsumerWidget {
               _AccountSection(),
               _AppearenceSection(),
               _NotificationsSection(),
+              _StorageSection(),
               _SocialSection(),
               _LogoutButton(),
             ],
@@ -128,6 +130,24 @@ class _NotificationsSection extends StatelessWidget {
           subtitle: const Text('Alertas e avisos'),
           suffix: const Icon(FIcons.chevronRight),
           onPress: () => showTodoToast(context, 'Notificações'),
+        ),
+      ],
+    );
+  }
+}
+
+class _StorageSection extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FTileGroup(
+      label: Text('Armazenamento', style: context.theme.typography.sm),
+      divider: FItemDivider.full,
+      children: [
+        .tile(
+          prefix: const Icon(FIcons.trash),
+          title: const Text('Limpar cache'),
+          subtitle: const Text('Remover dados temporários'),
+          onPress: () => showClearCacheDialog(context, ref),
         ),
       ],
     );

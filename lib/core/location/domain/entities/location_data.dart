@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:latlong2/latlong.dart';
 
 class LocationData {
