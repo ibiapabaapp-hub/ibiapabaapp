@@ -6,10 +6,10 @@ part of 'account_interests_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_AccountInterestsResponseModel _$AccountInterestsResponseModelFromJson(
+AccountInterestsResponseModel _$AccountInterestsResponseModelFromJson(
   Map<String, dynamic> json,
-) => _AccountInterestsResponseModel(count: (json['count'] as num).toInt());
+) => AccountInterestsResponseModel(count: (json['count'] as num).toInt());
 
 Map<String, dynamic> _$AccountInterestsResponseModelToJson(
-  _AccountInterestsResponseModel instance,
+  AccountInterestsResponseModel instance,
 ) => <String, dynamic>{'count': instance.count};

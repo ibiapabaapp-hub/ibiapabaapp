@@ -6,9 +6,9 @@ part of 'account_interests_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_AccountInterestsModel _$AccountInterestsModelFromJson(
+AccountInterestsModel _$AccountInterestsModelFromJson(
   Map<String, dynamic> json,
-) => _AccountInterestsModel(
+) => AccountInterestsModel(
   businesses:
       (json['businesses'] as List<dynamic>?)
           ?.map((e) => InterestModel.fromJson(e as Map<String, dynamic>))
@@ -22,7 +22,7 @@ _AccountInterestsModel _$AccountInterestsModelFromJson(
 );
 
 Map<String, dynamic> _$AccountInterestsModelToJson(
-  _AccountInterestsModel instance,
+  AccountInterestsModel instance,
 ) => <String, dynamic>{
   'businesses': instance.businesses,
   'events': instance.events,

@@ -1,15 +1,15 @@
-import 'package:dartz/dartz.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
+import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/features/accounts/data/datasources/accounts_local_storage.dart';
-import 'package:ibiapabaapp/features/accounts/data/datasources/accounts_remote_datasource.dart';
-import 'package:ibiapabaapp/features/auth/data/mappers/auth_exception_to_failure_mapper.dart';
 import 'package:ibiapabaapp/shared/models/account.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests_response.dart';
 import 'package:ibiapabaapp/features/accounts/domain/repositories/accounts_repository.dart';
-import 'package:ibiapabaapp/features/accounts/domain/tags/accounts_logtags.dart';
+import 'package:ibiapabaapp/features/accounts/infra/models/account_interests_model.dart';
+import 'package:ibiapabaapp/features/accounts/infra/models/account_interests_response_model.dart';
+import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
 import 'package:logger/logger.dart';
 
 class AccountsRepositoryImpl
@@ -17,197 +17,100 @@ class AccountsRepositoryImpl
     implements AccountsRepository {
   @override
   final Logger logger;
-  final AccountsRemoteDatasource remoteDatasource;
+  final Dio _dio;
   final AccountsLocalStorage localStorage;
 
   AccountsRepositoryImpl({
-    required this.remoteDatasource,
+    required Dio dio,
     required this.localStorage,
     required this.logger,
-  });
+  }) : _dio = dio;
 
   @override
   LogFeature get feature => LogFeature.accounts;
 
   @override
-  AppFailure Function(Object) get featureMapper =>
-      AuthExceptionToFailureMapper.map;
-
-  @override
-  Future<Either<AppFailure, List<Account>>> getCachedAccounts() async {
-    try {
-      final cached = await localStorage.getCachedAccounts();
-      return Right(cached);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.getCachedAccounts,
-        ),
-      );
-    }
+  Future<List<Account>> getCachedAccounts() async {
+    return localStorage.getCachedAccounts();
   }
 
   @override
-  Future<Either<AppFailure, void>> addCachedAccount(Account account) async {
-    try {
-      await localStorage.addCachedAccount(account);
-      return const Right(null);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.addCachedAccount,
-        ),
-      );
-    }
+  Future<void> addCachedAccount(Account account) async {
+    await localStorage.addCachedAccount(account);
   }
 
   @override
-  Future<Either<AppFailure, void>> removeCachedAccount(String accountId) async {
-    try {
-      await localStorage.removeCachedAccount(accountId);
-      return const Right(null);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.removeCachedAccount,
-        ),
-      );
-    }
+  Future<void> removeCachedAccount(String accountId) async {
+    await localStorage.removeCachedAccount(accountId);
   }
 
   @override
-  Future<Either<AppFailure, void>> removeAccount(String accountId) async {
+  Future<void> removeAccount(String accountId) async {
     try {
-      await remoteDatasource.removeAccount(accountId);
-      await localStorage.removeCachedAccount(accountId);
-
-      return const Right(null);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.removeAccount,
-        ),
-      );
+      await _dio.delete('/accounts/$accountId');
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
+    await localStorage.removeCachedAccount(accountId);
   }
 
   @override
-  Future<Either<AppFailure, Account>> updateAccount({
+  Future<Account> updateAccount({
     required String accountId,
     required Map<String, dynamic> updates,
   }) async {
     try {
-      final result = await remoteDatasource.updateAccount(
-        accountId: accountId,
-        updates: updates,
+      final response = await _dio.patch(
+        '/accounts/$accountId',
+        data: updates,
       );
+      final result = AccountModel.fromJson(response.data);
       await localStorage.addCachedAccount(result);
-
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.updateAccount,
-        ),
-      );
+      return result;
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, AccountInterests>> getAccountInterests(
-    String accountId,
-  ) async {
+  Future<AccountInterests> getAccountInterests(String accountId) async {
     try {
-      final result = await remoteDatasource.getAccountInterests(accountId);
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.getAccountInterests,
-        ),
-      );
+      final response = await _dio.get('/accounts/$accountId/interests');
+      final model = AccountInterestsModel.fromJson(response.data);
+      return AccountInterestsModel.toEntity(model);
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, AccountInterestsResponse>> updateAccountInterests({
+  Future<AccountInterestsResponse> updateAccountInterests({
     required String accountId,
     required AccountInterests interests,
   }) async {
     try {
-      final result = await remoteDatasource.updateAccountInterests(
-        accountId: accountId,
-        interests: interests,
+      final response = await _dio.post(
+        '/accounts/$accountId/interests',
+        data: AccountInterestsModel.toMap(interests),
       );
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.updateAccountInterests,
-        ),
-      );
+      return AccountInterestsResponseModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 
   @override
-  Future<Either<AppFailure, void>> saveActiveAccountId(String accountId) async {
-    try {
-      await localStorage.saveActiveAccountId(accountId);
-      return const Right(null);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.saveActiveAccountId,
-        ),
-      );
-    }
+  Future<void> saveActiveAccountId(String accountId) async {
+    await localStorage.saveActiveAccountId(accountId);
   }
 
   @override
-  Future<Either<AppFailure, String?>> getActiveAccountId() async {
-    try {
-      final result = await localStorage.getActiveAccountId();
-      return Right(result);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.getActiveAccountId,
-        ),
-      );
-    }
+  Future<String?> getActiveAccountId() async {
+    return localStorage.getActiveAccountId();
   }
 
   @override
-  Future<Either<AppFailure, void>> clearActiveAccountId() async {
-    try {
-      await localStorage.clearActiveAccountId();
-      return const Right(null);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: AccountsAction.clearActiveAccountId,
-        ),
-      );
-    }
+  Future<void> clearActiveAccountId() async {
+    await localStorage.clearActiveAccountId();
   }
 }

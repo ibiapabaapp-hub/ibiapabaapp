@@ -1,11 +1,11 @@
 import 'package:collection/collection.dart';
+import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/shared/models/account.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
 import 'package:ibiapabaapp/features/accounts/domain/tags/accounts_logtags.dart';
-import 'package:ibiapabaapp/features/accounts/domain/usecases/switch_account.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -25,7 +25,7 @@ class AccountsState extends _$AccountsState with ControllerLogHandler {
 
   Future<void> onAuthSuccess(Account account) async {
     final repository = ref.read(accountsRepositoryProvider);
-    final interests = await getAccountInterests(account.id);
+    final interests = await _getAccountInterests(account.id);
 
     Account composedAccount = account;
 
@@ -59,27 +59,23 @@ class AccountsState extends _$AccountsState with ControllerLogHandler {
     await loadCachedAccounts();
   }
 
-  Future<AccountInterests?> getAccountInterests(String accountId) async {
+  Future<AccountInterests?> _getAccountInterests(String accountId) async {
     state = state.copyWith(isLoading: true);
-    final interests = await ref
-        .read(accountsRepositoryProvider)
-        .getAccountInterests(accountId);
-
-    return interests.fold(
-      (fail) {
-        state = state.copyWith(isLoading: false);
-        logControllerError(
-          action: AccountsAction.getAccountInterests,
-          failure: fail,
-        );
-        return null;
-      },
-      (success) {
-        state = state.copyWith(isLoading: false);
-        logControllerSuccess(action: AccountsAction.getAccountInterests);
-        return success;
-      },
-    );
+    try {
+      final repository = ref.read(accountsRepositoryProvider);
+      final interests = await repository.getAccountInterests(accountId);
+      state = state.copyWith(isLoading: false);
+      logControllerSuccess(action: AccountsAction.getAccountInterests);
+      return interests;
+    } catch (e) {
+      final failure = e is AppFailure ? e : InternalFailure(e.toString());
+      state = state.copyWith(isLoading: false);
+      logControllerError(
+        action: AccountsAction.getAccountInterests,
+        failure: failure,
+      );
+      return null;
+    }
   }
 
   Future<String?> restoreFromCache() async {
@@ -115,84 +111,81 @@ class AccountsState extends _$AccountsState with ControllerLogHandler {
 
   Future<void> loadCachedAccounts() async {
     state = state.copyWith(isLoading: true);
-    final result = await ref.read(getCachedAccountsProvider).call();
-    if (!ref.mounted) return;
+    try {
+      final repository = ref.read(accountsRepositoryProvider);
+      final accounts = await repository.getCachedAccounts();
+      if (!ref.mounted) return;
 
-    result.fold(
-      (failure) {
-        logControllerError(
-          action: AccountsAction.getCachedAccounts,
-          failure: failure,
-        );
-        state = state.copyWith(isLoading: false);
-      },
-      (accounts) {
-        final currentActiveId = state.activeAccountId;
-        state = state.copyWith(
-          isLoading: false,
-          cachedAccounts: accounts,
-          activeAccount: accounts.firstWhereOrNull(
-            (a) => a.id == currentActiveId,
-          ),
-        );
-        logControllerSuccess(action: AccountsAction.getCachedAccounts);
-      },
-    );
+      final currentActiveId = state.activeAccountId;
+      state = state.copyWith(
+        isLoading: false,
+        cachedAccounts: accounts,
+        activeAccount: accounts.firstWhereOrNull(
+          (a) => a.id == currentActiveId,
+        ),
+      );
+      logControllerSuccess(action: AccountsAction.getCachedAccounts);
+    } catch (e) {
+      if (!ref.mounted) return;
+      final failure = e is AppFailure ? e : InternalFailure(e.toString());
+      logControllerError(
+        action: AccountsAction.getCachedAccounts,
+        failure: failure,
+      );
+      state = state.copyWith(isLoading: false);
+    }
   }
 
   Future<void> switchAccount(String accountId) async {
-    final result = await ref
-        .read(switchAccountProvider)
-        .call(SwitchAccountParams(accountId: accountId));
-    if (!ref.mounted) return;
+    try {
+      final repository = ref.read(accountsRepositoryProvider);
+      await repository.saveActiveAccountId(accountId);
+      if (!ref.mounted) return;
 
-    result.fold(
-      (failure) {
-        logControllerError(
-          action: AccountsAction.switchAccount,
-          failure: failure,
-        );
-        state = state.copyWith(isLoading: false);
-      },
-      (_) {
-        state = state.copyWith(
-          isLoading: false,
-          activeAccountId: accountId,
-          activeAccount: state.cachedAccounts.firstWhereOrNull(
-            (a) => a.id == accountId,
-          ),
-        );
-        logControllerSuccess(action: AccountsAction.switchAccount);
-      },
-    );
+      state = state.copyWith(
+        isLoading: false,
+        activeAccountId: accountId,
+        activeAccount: state.cachedAccounts.firstWhereOrNull(
+          (a) => a.id == accountId,
+        ),
+      );
+      logControllerSuccess(action: AccountsAction.switchAccount);
+    } catch (e) {
+      if (!ref.mounted) return;
+      final failure = e is AppFailure ? e : InternalFailure(e.toString());
+      logControllerError(
+        action: AccountsAction.switchAccount,
+        failure: failure,
+      );
+      state = state.copyWith(isLoading: false);
+    }
   }
 
   Future<void> removeAccountFromCache(String accountId) async {
     state = state.copyWith(isLoading: true);
-    final repository = ref.read(accountsRepositoryProvider);
-    final result = await repository.removeAccount(accountId);
-    if (!ref.mounted) return;
+    try {
+      final repository = ref.read(accountsRepositoryProvider);
+      await repository.removeAccount(accountId);
+      if (!ref.mounted) return;
 
-    result.fold(
-      (failure) {
-        logControllerError(
-          action: AccountsAction.removeCachedAccount,
-          failure: failure,
-        );
-        state = state.copyWith(isLoading: false);
-      },
-      (_) {
-        final updated = state.cachedAccounts
-            .where((a) => a.id != accountId)
-            .toList();
-        state = state.copyWith(
-          isLoading: false,
-          cachedAccounts: updated,
-          clearActiveAccount: state.activeAccount?.id == accountId,
-        );
-        logControllerSuccess(action: AccountsAction.removeCachedAccount);
-      },
-    );
+      final updated = state.cachedAccounts
+          .where((a) => a.id != accountId)
+          .toList();
+      state = state.copyWith(
+        isLoading: false,
+        cachedAccounts: updated,
+        clearActiveAccount: state.activeAccount?.id == accountId,
+      );
+      logControllerSuccess(action: AccountsAction.removeCachedAccount);
+    } catch (e) {
+      if (!ref.mounted) return;
+      final failure = e is AppFailure ? e : InternalFailure(e.toString());
+      logControllerError(
+        action: AccountsAction.removeCachedAccount,
+        failure: failure,
+      );
+      state = state.copyWith(isLoading: false);
+    }
   }
 
   void markLoadingDone() {

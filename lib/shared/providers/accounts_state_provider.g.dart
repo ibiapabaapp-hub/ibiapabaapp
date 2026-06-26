@@ -41,7 +41,7 @@ final class AccountsStateProvider
   }
 }
 
-String _$accountsStateHash() => r'ac323fe808a434972635b005055a40653cf7b28a';
+String _$accountsStateHash() => r'bf430fe412e5c432e48a308e54b5236039a3cb89';
 
 abstract class _$AccountsState extends $Notifier<AccountsData> {
   AccountsData build();

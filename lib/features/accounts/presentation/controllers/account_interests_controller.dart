@@ -4,7 +4,6 @@ import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests_response.dart';
-import 'package:ibiapabaapp/features/accounts/domain/usecases/update_account_interests.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_providers.dart';
 import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
 import 'package:ibiapabaapp/shared/models/category_entity.dart';
@@ -130,14 +129,11 @@ class AccountInterestsController extends _$AccountInterestsController
     );
 
     try {
-      final result = await ref
-          .read(updateAccountInterestsProvider)
-          .call(
-            UpdateAccountInterestsParams(
-              accountId: account.id,
-              interests: state.interestsData,
-            ),
-          );
+      final repository = ref.read(accountsRepositoryProvider);
+      final result = await repository.updateAccountInterests(
+        accountId: account.id,
+        interests: state.interestsData,
+      );
 
       if (!ref.mounted) {
         logControllerError(
@@ -149,36 +145,21 @@ class AccountInterestsController extends _$AccountInterestsController
         return AccountInterestsResponse(count: 0);
       }
 
-      return result.fold(
-        (failure) {
-          logger.e('Falha na API: ${failure.message}');
-          logControllerError(
-            action: OnboardingAction.updateInterests,
-            failure: failure,
-          );
-          state = state.copyWith(
-            status: AccountInterestsStatus.error,
-            errorMessage: failure.message,
-          );
-          return null;
-        },
-        (success) {
-          logControllerSuccess(action: OnboardingAction.updateInterests);
-          state = state.copyWith(
-            status: AccountInterestsStatus.completed,
-            clearError: true,
-          );
-          return success;
-        },
+      logControllerSuccess(action: OnboardingAction.updateInterests);
+      state = state.copyWith(
+        status: AccountInterestsStatus.completed,
+        clearError: true,
       );
+      return result;
     } catch (e) {
+      final failure = e is AppFailure ? e : InternalFailure('Erro inesperado durante o envio: $e');
       logControllerError(
         action: OnboardingAction.updateInterests,
-        failure: InternalFailure('Erro inesperado durante o envio: $e'),
+        failure: failure,
       );
       state = state.copyWith(
         status: AccountInterestsStatus.error,
-        errorMessage: 'Ocorreu um erro inesperado ao salvar seus interesses.',
+        errorMessage: failure.message,
       );
       return null;
     }

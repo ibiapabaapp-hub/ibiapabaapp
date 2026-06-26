@@ -1,4 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/account_business_model.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/account_interests_model.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/converters/account_type_converter.dart';
@@ -7,32 +8,89 @@ import 'package:ibiapabaapp/shared/models/account.dart';
 import 'package:ibiapabaapp/shared/models/account_type.dart';
 import 'package:ibiapabaapp/shared/models/gender.dart';
 
-part 'account_model.freezed.dart';
 part 'account_model.g.dart';
 
-@freezed
-abstract class AccountModel with _$AccountModel implements Account {
-  const factory AccountModel({
-    required String id,
-    required String email,
-    @JsonKey(name: 'phone_number') String? phoneNumber,
-    required String name,
-    required bool active,
-    @JsonKey(name: 'is_verified') required bool isVerified,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
-    required String slug,
-    @JsonKey(name: 'display_name') required String displayName,
-    String? bio,
-    @JsonKey(name: 'avatar_url') String? avatarUrl,
-    @AccountTypeConverter() required AccountType type,
-    AccountInterestsModel? interests,
-    AccountBusinessModel? business,
-    @GenderConverter() Gender? gender,
-  }) = _AccountModel;
+@JsonSerializable()
+class AccountModel extends Equatable implements Account {
+  @override
+  final String id;
+
+  @override
+  final String email;
+
+  @override
+  @JsonKey(name: 'phone_number')
+  final String? phoneNumber;
+
+  @override
+  final String name;
+
+  @override
+  final bool active;
+
+  @override
+  @JsonKey(name: 'is_verified')
+  final bool isVerified;
+
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+
+  @override
+  final String slug;
+
+  @override
+  @JsonKey(name: 'display_name')
+  final String displayName;
+
+  @override
+  final String? bio;
+
+  @override
+  @JsonKey(name: 'avatar_url')
+  final String? avatarUrl;
+
+  @override
+  @AccountTypeConverter()
+  final AccountType type;
+
+  @override
+  final AccountInterestsModel? interests;
+
+  @override
+  final AccountBusinessModel? business;
+
+  @override
+  @GenderConverter()
+  final Gender? gender;
+
+  const AccountModel({
+    required this.id,
+    required this.email,
+    this.phoneNumber,
+    required this.name,
+    required this.active,
+    required this.isVerified,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.slug,
+    required this.displayName,
+    this.bio,
+    this.avatarUrl,
+    required this.type,
+    this.interests,
+    this.business,
+    this.gender,
+  });
 
   factory AccountModel.fromJson(Map<String, dynamic> json) =>
       _$AccountModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AccountModelToJson(this);
 
   static List<Account> fromJsonList(dynamic jsonList) {
     if (jsonList == null) return [];
@@ -64,4 +122,24 @@ abstract class AccountModel with _$AccountModel implements Account {
         'business': AccountBusinessModel.toMap(account.business!),
     };
   }
+
+  @override
+  List<Object?> get props => [
+    id,
+    email,
+    phoneNumber,
+    name,
+    active,
+    isVerified,
+    createdAt,
+    updatedAt,
+    slug,
+    displayName,
+    bio,
+    avatarUrl,
+    type,
+    interests,
+    business,
+    gender,
+  ];
 }

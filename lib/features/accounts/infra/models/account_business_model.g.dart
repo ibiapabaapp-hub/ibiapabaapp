@@ -6,9 +6,9 @@ part of 'account_business_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_AccountBusinessModel _$AccountBusinessModelFromJson(
+AccountBusinessModel _$AccountBusinessModelFromJson(
   Map<String, dynamic> json,
-) => _AccountBusinessModel(
+) => AccountBusinessModel(
   name: json['name'] as String?,
   document: json['document'] as String?,
   description: json['description'] as String?,
@@ -19,7 +19,7 @@ _AccountBusinessModel _$AccountBusinessModelFromJson(
 );
 
 Map<String, dynamic> _$AccountBusinessModelToJson(
-  _AccountBusinessModel instance,
+  AccountBusinessModel instance,
 ) => <String, dynamic>{
   'name': instance.name,
   'document': instance.document,
