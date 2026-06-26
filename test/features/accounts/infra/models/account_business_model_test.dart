@@ -53,7 +53,7 @@ void main() {
 
       test('should not be equal when name differs', () {
         final a = AccountBusinessModel.fromJson(jsonMap);
-        final b = AccountBusinessModel(name: 'Different Name');
+        const b = AccountBusinessModel(name: 'Different Name');
         expect(a, isNot(equals(b)));
       });
     });
