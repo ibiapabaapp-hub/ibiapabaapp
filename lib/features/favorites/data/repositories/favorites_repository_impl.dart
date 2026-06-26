@@ -1,5 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/features/favorites/data/datasources/favorites_local_storage.dart';
@@ -27,14 +25,14 @@ class FavoritesRepositoryImpl
   LogFeature get feature => LogFeature.favorites;
 
   @override
-  Future<Either<AppFailure, List<Favorite>>> getAllFavoritesByAccount({
+  Future<List<Favorite>> getAllFavoritesByAccount({
     required String accountId,
   }) async {
     try {
       final cachedFavorites = await localStorage.loadFavoritesByAccount(
         accountId: accountId,
       );
-      if (cachedFavorites.isNotEmpty) return Right(cachedFavorites);
+      if (cachedFavorites.isNotEmpty) return cachedFavorites;
 
       final result = await remoteDatasource.getAllFavoritesByAccount(
         accountId: accountId,
@@ -43,53 +41,50 @@ class FavoritesRepositoryImpl
         favorites: result,
         accountId: accountId,
       );
-      return Right(result);
+      return result;
     } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: FavoriteAction.getAllFavoritesByAccount,
-        ),
+      handleRepositoryError(
+        exception: e,
+        stackTrace: stack,
+        action: FavoriteAction.getAllFavoritesByAccount,
       );
+      rethrow;
     }
   }
 
   @override
-  Future<Either<AppFailure, Favorite>> pushFavorite({
+  Future<Favorite> pushFavorite({
     required Favorite favorite,
   }) async {
     try {
       final result = await remoteDatasource.pushFavorite(favorite: favorite);
       await localStorage.pushFavorite(favorite: result);
-      return Right(result);
+      return result;
     } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: FavoriteAction.pushFavorite,
-        ),
+      handleRepositoryError(
+        exception: e,
+        stackTrace: stack,
+        action: FavoriteAction.pushFavorite,
       );
+      rethrow;
     }
   }
 
   @override
-  Future<Either<AppFailure, Favorite>> popFavorite({
+  Future<Favorite> popFavorite({
     required Favorite favorite,
   }) async {
     try {
       final result = await remoteDatasource.popFavorite(favorite: favorite);
       await localStorage.popFavorite(favorite: favorite);
-      return Right(result);
+      return result;
     } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: FavoriteAction.popFavorite,
-        ),
+      handleRepositoryError(
+        exception: e,
+        stackTrace: stack,
+        action: FavoriteAction.popFavorite,
       );
+      rethrow;
     }
   }
 }

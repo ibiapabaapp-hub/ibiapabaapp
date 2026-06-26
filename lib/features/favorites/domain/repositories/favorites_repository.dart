@@ -1,15 +1,13 @@
-import 'package:dartz/dartz.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
 
 abstract class FavoritesRepository {
-  Future<Either<AppFailure, List<Favorite>>> getAllFavoritesByAccount({
+  Future<List<Favorite>> getAllFavoritesByAccount({
     required String accountId,
   });
-  Future<Either<AppFailure, Favorite>> pushFavorite({
+  Future<Favorite> pushFavorite({
     required Favorite favorite,
   });
-  Future<Either<AppFailure, Favorite>> popFavorite({
+  Future<Favorite> popFavorite({
     required Favorite favorite,
   });
 }
