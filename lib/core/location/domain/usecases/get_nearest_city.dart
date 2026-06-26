@@ -1,44 +1,35 @@
-import 'package:dartz/dartz.dart';
+import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/location/infra/location_service.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../../../features/cities/domain/entities/city.dart';
-import '../../../errors/failures/failures.dart';
-import '../../../usecases/usecase.dart';
 import '../exceptions/location_exceptions.dart';
 
-class GetNearestCity implements Usecase<City, List<City>> {
+class GetNearestCity {
   GetNearestCity({required this.locationService});
 
   final LocationService locationService;
   final _distance = const Distance();
 
-  // TODO: refatorar para dividir responsabilidades
-  @override
-  Future<Either<AppFailure, City>> call(List<City> cities) async {
+  Future<City> call(List<City> cities) async {
     if (cities.isEmpty) {
-      return left(const LocationUnknownFailure('Nenhuma cidade disponível.'));
+      throw const LocationUnknownFailure('Nenhuma cidade disponível.');
     }
 
-    // 1. Obtém localização
     final LatLng userLocation;
     try {
       userLocation = await locationService.getCurrentLocation();
     } on LocationException catch (e) {
-      return left(_mapExceptionToFailure(e));
+      throw _mapExceptionToFailure(e);
     }
 
-    // 2. Filtra cidades que possuem coordenadas
     final citiesWithLocation = cities.where((c) => c.location != null).toList();
     if (citiesWithLocation.isEmpty) {
-      return left(
-        const LocationUnknownFailure(
-          'Nenhuma cidade possui coordenadas cadastradas.',
-        ),
+      throw const LocationUnknownFailure(
+        'Nenhuma cidade possui coordenadas cadastradas.',
       );
     }
 
-    // 3. Encontra a mais próxima
     City nearest = citiesWithLocation.first;
     double minDistance = _distance.as(
       LengthUnit.Kilometer,
@@ -58,7 +49,7 @@ class GetNearestCity implements Usecase<City, List<City>> {
       }
     }
 
-    return right(nearest);
+    return nearest;
   }
 
   AppFailure _mapExceptionToFailure(LocationException e) => switch (e) {

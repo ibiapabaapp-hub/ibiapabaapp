@@ -66,27 +66,22 @@ class LocationState extends _$LocationState with ControllerLogHandler {
 
       if (!ref.mounted) return null;
 
-      final result = await ref.read(getNearestCityProvider)(cities);
+      final nearestCity = await ref.read(getNearestCityProvider)(cities);
 
       if (!ref.mounted) return null;
 
-      return result.fold(
-        (failure) {
-          logControllerError(
-            action: LocationActions.detectNearestCity,
-            failure: failure,
-          );
-          if (failure is LocationPermissionPermanentlyDeniedFailure) {
-            ref.read(locationServiceProvider).openAppSettings();
-          }
-          return failure;
-        },
-        (nearestCity) async {
-          await setCurrentCity(nearestCity);
-          logControllerSuccess(action: LocationActions.detectNearestCity);
-          return null;
-        },
+      await setCurrentCity(nearestCity);
+      logControllerSuccess(action: LocationActions.detectNearestCity);
+      return null;
+    } on AppFailure catch (failure) {
+      logControllerError(
+        action: LocationActions.detectNearestCity,
+        failure: failure,
       );
+      if (failure is LocationPermissionPermanentlyDeniedFailure) {
+        ref.read(locationServiceProvider).openAppSettings();
+      }
+      return failure;
     } catch (e) {
       logControllerError(
         action: LocationActions.detectNearestCity,
