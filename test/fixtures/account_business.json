@@ -1,0 +1,9 @@
+{
+  "name": "Test Business",
+  "document": "12345678901",
+  "description": "A test business description",
+  "website": "https://example.com",
+  "address": "123 Main St",
+  "phone": "+5511999999999",
+  "category": "food"
+}

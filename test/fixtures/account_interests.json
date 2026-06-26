@@ -1,0 +1,9 @@
+{
+  "businesses": [
+    {"id": "b1", "name": "Business 1"},
+    {"id": "b2", "name": "Business 2"}
+  ],
+  "events": [
+    {"id": "e1", "name": "Event 1"}
+  ]
+}
