@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/usecases/usecase.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/child_category.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/category_entity.dart';
+import 'package:ibiapabaapp/shared/models/child_category.dart';
+import 'package:ibiapabaapp/shared/models/category_entity.dart';
 import 'package:ibiapabaapp/features/categories/domain/repositories/categories_repository.dart';
 
 class GetChildrenCategories

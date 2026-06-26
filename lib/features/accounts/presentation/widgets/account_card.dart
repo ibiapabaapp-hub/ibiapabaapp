@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibiapabaapp/app/theme/custom_styles/inverted_badge.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo/account_photo.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/widgets/dialogs/account_switcher_dialog.dart';
 
 class AccountCard extends ConsumerWidget {
@@ -19,7 +19,7 @@ class AccountCard extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: 12,
       children: [
-        AccountPhoto(account: account, size: 48),
+        AccountPhoto(key: ValueKey(account.id), account: account, size: 48),
         _AccountInfo(account: account),
         FButton.icon(
           style: FButtonStyle.ghost(),

@@ -1,7 +1,7 @@
 import 'package:ibiapabaapp/core/storage/token_response.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/gender.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
 
 class CompleteGoogleRegistrationRequest {
   final String tempToken;

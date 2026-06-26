@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/usecases/usecase.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/gender.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/complete_google_registration.dart';
 import 'package:ibiapabaapp/features/auth/domain/repositories/auth_repository.dart';
 

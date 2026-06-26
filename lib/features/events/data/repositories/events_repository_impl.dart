@@ -3,7 +3,7 @@ import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
 import 'package:ibiapabaapp/features/events/data/datasources/events_remote_datasource.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 import 'package:ibiapabaapp/features/events/domain/repositories/events_repository.dart';
 import 'package:ibiapabaapp/features/events/domain/tags/events_logtags.dart';
 import 'package:logger/logger.dart';

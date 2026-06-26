@@ -1,13 +1,10 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/app/theme/custom_styles/fselect_item_style.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/gender.dart';
-import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/controllers/google_onboarding_controller.dart';
-import 'package:ibiapabaapp/shared/ui/layout/availability_suffix.dart';
 import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
 
 class GoogleSlugGenderScreen extends ConsumerStatefulWidget {
@@ -21,41 +18,8 @@ class GoogleSlugGenderScreen extends ConsumerStatefulWidget {
 class _GoogleSlugGenderScreenState
     extends ConsumerState<GoogleSlugGenderScreen> {
   final _formKey = GlobalKey<FormState>();
-  late final FTextFieldControl _slugController;
-  Timer? _debounce;
 
-  final RegExp _slugRegex = RegExp(
-    r'^(?=.{4,30}$)(?![._])(?!.*[._]{2})[a-zA-Z0-9._]+(?<![._])$',
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    _slugController = FTextFieldControl.managed(
-      onChange: (v) => _onSlugChanged(v.text),
-    );
-  }
-
-  @override
-  void dispose() {
-    _debounce?.cancel();
-    super.dispose();
-  }
-
-  void _onSlugChanged(String value) {
-    _debounce?.cancel();
-
-    final trimmed = value.trim();
-    ref.read(googleOnboardingControllerProvider.notifier).setSlug(trimmed);
-
-    if (!_slugRegex.hasMatch(trimmed)) {
-      return;
-    }
-
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      ref.read(googleOnboardingControllerProvider.notifier).checkSlug(trimmed);
-    });
-  }
+  
 
   void _submit() {
     FocusScope.of(context).unfocus();
@@ -73,7 +37,6 @@ class _GoogleSlugGenderScreenState
   Widget build(BuildContext context) {
     final state = ref.watch(googleOnboardingControllerProvider);
     final controller = ref.read(googleOnboardingControllerProvider.notifier);
-    final authValidator = ref.watch(authValidatorProvider);
     final isAvailable = controller.isSlugAvailable();
     final canContinue =
         isAvailable != null && isAvailable == true && state.gender != null;
@@ -102,37 +65,7 @@ class _GoogleSlugGenderScreenState
               spacing: 24,
               children: [
                 const _Heading(),
-                FTextFormField(
-                  prefixBuilder: (context, style, states) => Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 4, 0),
-                    child: Text(
-                      '@',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: context.theme.colors.secondaryForeground,
-                      ),
-                    ),
-                  ),
-                  suffixBuilder: (context, style, states) => AvailabilitySuffix(
-                    isAvailable: isAvailable,
-                    isChecking: controller.isSlugChecking(),
-                  ),
-                  label: const Text('Nome de usuário'),
-                  control: _slugController,
-                  hint: 'john_doe',
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (v) =>
-                      authValidator.validateField(AuthFields.slug, v),
-                  onSubmit: (_) => _submit(),
-                ),
-                if (isAvailable != null && isAvailable == true)
-                  Text(
-                    'Nome de usuário disponível!',
-                    style: context.theme.typography.sm.copyWith(
-                      color: context.theme.colors.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                
                 _GenderSelection(
                   selectedGender: state.gender,
                   onGenderSelected: (gender) {

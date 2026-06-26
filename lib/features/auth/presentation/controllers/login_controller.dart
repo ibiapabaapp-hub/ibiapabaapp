@@ -5,9 +5,12 @@ import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
 import 'package:ibiapabaapp/features/auth/domain/usecases/login_with_email.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/login_state.dart';
+import 'package:ibiapabaapp/shared/ui/forms/fields/email/email_checker.dart';
 import 'package:logger/logger.dart';
 
-class LoginController extends ChangeNotifier with ControllerLogHandler {
+class LoginController extends ChangeNotifier
+    with ControllerLogHandler
+    implements EmailChecker {
   @override
   final Logger logger;
   final LoginWithEmail loginWithEmail;
@@ -25,6 +28,28 @@ class LoginController extends ChangeNotifier with ControllerLogHandler {
   LoginState _state = LoginInitial();
   LoginState get state => _state;
 
+  String _email = '';
+  String get email => _email;
+
+  // ─── Email ─────────────────────────────────────────────────────────────────
+  @override
+  Future<bool> checkEmailAvailability(String email) async {
+    return false;
+  }
+
+  @override
+  void setEmail(String email) {
+    _email = email;
+  }
+
+  @override
+  bool? isEmailAvailable() => null;
+
+  @override
+  bool isEmailChecking() => false;
+
+
+  // ─── Submit ────────────────────────────────────────────────────────────────
   Future<void> login({required String email, required String password}) async {
     _state = LoginLoading();
     notifyListeners();

@@ -5,9 +5,9 @@ import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dar
 import 'package:ibiapabaapp/features/auth/domain/entities/complete_google_registration.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/google_auth_result.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/register_form_data.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/gender.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
 
 abstract class AuthRepository {
   Future<Either<AppFailure, CheckAvailability>> checkAvailability({

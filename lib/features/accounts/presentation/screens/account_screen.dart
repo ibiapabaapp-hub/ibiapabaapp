@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_card.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/widgets/contents/business_account_content.dart';

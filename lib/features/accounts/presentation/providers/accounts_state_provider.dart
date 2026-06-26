@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
 import 'package:ibiapabaapp/features/accounts/domain/tags/accounts_logtags.dart';
 import 'package:ibiapabaapp/features/accounts/domain/usecases/switch_account.dart';

@@ -5,7 +5,7 @@ import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/features/accounts/data/datasources/accounts_local_storage.dart';
 import 'package:ibiapabaapp/features/accounts/data/datasources/accounts_remote_datasource.dart';
 import 'package:ibiapabaapp/features/auth/data/mappers/auth_exception_to_failure_mapper.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
 import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests_response.dart';
 import 'package:ibiapabaapp/features/accounts/domain/repositories/accounts_repository.dart';

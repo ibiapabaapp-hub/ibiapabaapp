@@ -4,7 +4,7 @@ import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
 import 'package:ibiapabaapp/features/cities/data/datasource/cities_local_datasource.dart';
 import 'package:ibiapabaapp/features/cities/data/datasource/cities_remote_datasource.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/repositories/cities_repository.dart';
 import 'package:ibiapabaapp/features/cities/domain/tags/cities_logtags.dart';
 import 'package:logger/logger.dart';

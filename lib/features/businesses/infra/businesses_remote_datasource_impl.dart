@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/features/businesses/data/datasource/businesses_remote_datasource.dart';
 import 'package:ibiapabaapp/features/businesses/infra/models/business_model.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 
 class BusinessesRemoteDatasourceImpl implements BusinessesRemoteDatasource {
   final Dio dio;

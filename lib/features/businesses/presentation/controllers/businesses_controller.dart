@@ -2,7 +2,7 @@ import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 import 'package:ibiapabaapp/features/businesses/domain/tags/businesses_logtags.dart';
 import 'package:ibiapabaapp/features/businesses/presentation/providers/businesses_providers.dart';
 import 'package:logger/logger.dart';

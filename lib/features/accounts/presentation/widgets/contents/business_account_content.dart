@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:ibiapabaapp/core/beta/presentation/screens/under_development_screen.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/widgets/contents/sections/business_sections.dart';
 import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
 

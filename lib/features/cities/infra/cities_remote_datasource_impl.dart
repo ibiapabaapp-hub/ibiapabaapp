@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/features/cities/data/datasource/cities_remote_datasource.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/infra/models/cities_model.dart';
 
 class CitiesRemoteDatasourceImpl implements CitiesRemoteDatasource {

@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/features/categories/data/datasources/categories_remote_datasouce.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/category_entity.dart';
+import 'package:ibiapabaapp/shared/models/category_entity.dart';
 import 'package:ibiapabaapp/features/categories/infra/models/child_category_model.dart';
 import 'package:ibiapabaapp/features/categories/infra/models/parent_category_model.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/child_category.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/parent_category.dart';
+import 'package:ibiapabaapp/shared/models/child_category.dart';
+import 'package:ibiapabaapp/shared/models/parent_category.dart';
 
 class CategoriesRemoteDatasourceImpl implements CategoriesRemoteDatasource {
   final Dio dio;

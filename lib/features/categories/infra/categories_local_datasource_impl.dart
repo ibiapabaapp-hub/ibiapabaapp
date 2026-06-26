@@ -1,7 +1,7 @@
 import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
 import 'package:ibiapabaapp/features/categories/data/datasources/categories_local_datasouce.dart';
 import 'package:ibiapabaapp/features/categories/infra/models/child_category_model.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/child_category.dart';
+import 'package:ibiapabaapp/shared/models/child_category.dart';
 
 class CategoriesLocalDatasourceImpl implements CategoriesLocalDatasource {
   final CacheDatabaseService cacheService;

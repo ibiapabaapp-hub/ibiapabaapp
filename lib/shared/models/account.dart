@@ -1,7 +1,7 @@
-import 'account_type.dart';
-import 'account_business.dart';
-import 'account_interests.dart';
-import 'gender.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/features/accounts/domain/entities/account_business.dart';
+import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
 
 class Account {
   // Authentication fields

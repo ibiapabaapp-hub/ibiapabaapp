@@ -1,6 +1,6 @@
 import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
 import 'package:ibiapabaapp/features/cities/data/datasource/cities_local_datasource.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/infra/models/cities_model.dart';
 
 class CitiesLocalDatasourceImpl implements CitiesLocalDatasource {

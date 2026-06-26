@@ -3,9 +3,9 @@ import 'package:ibiapabaapp/features/accounts/infra/models/account_business_mode
 import 'package:ibiapabaapp/features/accounts/infra/models/account_interests_model.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/converters/account_type_converter.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/converters/gender_converter.dart';
-import '../../domain/entities/account.dart';
-import '../../domain/entities/account_type.dart';
-import '../../domain/entities/gender.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibiapabaapp/shared/models/gender.dart';
 
 part 'account_model.freezed.dart';
 part 'account_model.g.dart';

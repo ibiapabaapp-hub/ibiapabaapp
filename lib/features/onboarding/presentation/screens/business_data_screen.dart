@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/app/theme/theme.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/controllers/business_data_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -16,19 +15,19 @@ class BusinessDataScreen extends ConsumerStatefulWidget {
 }
 
 class _BusinessDataScreenState extends ConsumerState<BusinessDataScreen> {
-  bool _isLoading = false;
+  // bool _isLoading = false;
 
   // TODO: terminar envio do form
-  void _handleComplete() async {
-    setState(() => _isLoading = true);
-    try {
-      await ref.read(businessDataControllerProvider.notifier).submit();
+  // void _handleComplete() async {
+  //   setState(() => _isLoading = true);
+  //   try {
+  //     await ref.read(businessDataControllerProvider.notifier).submit();
 
-      if (mounted) context.push('/app/home');
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
-    }
-  }
+  //     if (mounted) context.push('/app/home');
+  //   } finally {
+  //     if (mounted) setState(() => _isLoading = false);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -107,15 +106,10 @@ class _CompanyFormState extends ConsumerState<_CompanyForm> {
         mainAxisAlignment: MainAxisAlignment.start,
         spacing: 16,
         children: [
-          FTextFormField(
-            control: const FTextFieldControl.managed(),
-            label: const FLabel(
-              axis: Axis.vertical,
-              child: Text('Nome da empresa'),
-            ),
+          const FTextFormField(
+            control: FTextFieldControl.managed(),
+            label: FLabel(axis: Axis.vertical, child: Text('Nome da empresa')),
             hint: 'Nome fantasia',
-            style: (style) =>
-                style.withBaseFontSize(typography: context.theme.typography),
             autovalidateMode: AutovalidateMode.onUnfocus,
             // validator: (v) => authValidator.validateField(.name, v),
             // onSubmit: (_) => _submit(),

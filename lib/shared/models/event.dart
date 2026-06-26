@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'business.dart';
 
 enum EventType { simple, featured }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/controllers/google_onboarding_controller.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/states/google_onboarding_state.dart';
 import 'package:ibiapabaapp/features/onboarding/presentation/widgets/profile_type_tile.dart';

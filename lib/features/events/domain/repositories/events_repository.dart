@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 
 abstract class EventsRepository {
   Future<Either<AppFailure, List<Event>>> getAllEvents();

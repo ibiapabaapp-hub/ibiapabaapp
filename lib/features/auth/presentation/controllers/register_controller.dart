@@ -1,23 +1,26 @@
 import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
 import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
 import 'package:ibiapabaapp/features/auth/domain/usecases/check_unique_availability.dart';
 import 'package:ibiapabaapp/features/auth/domain/usecases/register_with_email.dart';
+import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/register_state.dart';
 import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
+import 'package:ibiapabaapp/shared/ui/forms/fields/email/email_checker.dart';
+import 'package:ibiapabaapp/shared/ui/forms/fields/slug/slug_checker.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
 
 part 'register_controller.g.dart';
 
 @riverpod
 class RegisterController extends _$RegisterController
-    with ControllerLogHandler {
+    with ControllerLogHandler
+    implements SlugChecker, EmailChecker /*, PhoneChecker */ {
   @override
   late final Logger logger = ref.read(loggerProvider);
 
@@ -27,24 +30,27 @@ class RegisterController extends _$RegisterController
   @override
   RegisterState build() => RegisterState.initial();
 
+  // ─── Helpers ───────────────────────────────────────────────────────────────
   bool? isAvailable(AvailabilityField field) =>
       state.availability[field]?.available;
   String? getError(AvailabilityField field) => state.availability[field]?.error;
   bool isChecking(AvailabilityField field) =>
       state.availability[field]?.isChecking ?? false;
 
+  // ─── Setters ───────────────────────────────────────────────────────────────
   void setName(String v) {
     state = state.copyWith(
       formData: state.formData.copyWithField(AuthFields.name, v),
     );
   }
 
-  void setBirthDate(DateTime? v) {
-    state = state.copyWith(
-      formData: state.formData.copyWithField(AuthFields.birthDate, v),
-    );
-  }
+  // void setBirthDate(DateTime? v) {
+  //   state = state.copyWith(
+  //     formData: state.formData.copyWithField(AuthFields.birthDate, v),
+  //   );
+  // }
 
+  @override
   void setSlug(String v) {
     final availability =
         Map<
@@ -62,23 +68,25 @@ class RegisterController extends _$RegisterController
     );
   }
 
-  void setPhone(String v) {
-    final availability =
-        Map<
-          AvailabilityField,
-          ({bool? available, String? error, bool isChecking})
-        >.from(state.availability);
-    availability[AvailabilityField.phoneNumber] = (
-      available: null,
-      error: null,
-      isChecking: false,
-    );
-    state = state.copyWith(
-      formData: state.formData.copyWithField(AuthFields.phoneNumber, v),
-      availability: availability,
-    );
-  }
+  // @override
+  // void setPhone(String v) {
+  //   final availability =
+  //       Map<
+  //         AvailabilityField,
+  //         ({bool? available, String? error, bool isChecking})
+  //       >.from(state.availability);
+  //   availability[AvailabilityField.phoneNumber] = (
+  //     available: null,
+  //     error: null,
+  //     isChecking: false,
+  //   );
+  //   state = state.copyWith(
+  //     formData: state.formData.copyWithField(AuthFields.phoneNumber, v),
+  //     availability: availability,
+  //   );
+  // }
 
+  @override
   void setEmail(String v) {
     final availability =
         Map<
@@ -108,6 +116,7 @@ class RegisterController extends _$RegisterController
     );
   }
 
+  // ─── Unique Validation ─────────────────────────────────────────────────────
   Future<bool> _validateUnique(AvailabilityField field, String value) async {
     final checkAvailability = ref.read(checkUniqueAvailabilityProvider);
 
@@ -163,13 +172,42 @@ class RegisterController extends _$RegisterController
     );
   }
 
-  Future<bool> checkSlug(String v) =>
-      _validateUnique(AvailabilityField.slug, v);
-  Future<bool> checkEmail(String v) =>
-      _validateUnique(AvailabilityField.email, v);
-  Future<bool> checkPhone(String v) =>
-      _validateUnique(AvailabilityField.phoneNumber, v);
+  // Future<bool> checkPhone(String v) =>
+  //     _validateUnique(AvailabilityField.phoneNumber, v);
 
+  // ─── Slug ──────────────────────────────────────────────────────────────────
+  @override
+  Future<bool> checkSlugAvailability(String slug) =>
+      _validateUnique(AvailabilityField.slug, slug);
+
+  @override
+  bool? isSlugAvailable() => isAvailable(AvailabilityField.slug);
+
+  @override
+  bool isSlugChecking() => isChecking(AvailabilityField.slug);
+
+  // ─── Email ─────────────────────────────────────────────────────────────────
+  @override
+  Future<bool> checkEmailAvailability(String email) =>
+      _validateUnique(AvailabilityField.email, email);
+
+  @override
+  bool? isEmailAvailable() => isAvailable(AvailabilityField.email);
+
+  @override
+  bool isEmailChecking() => isChecking(AvailabilityField.email);
+
+  // @override
+  // Future<bool> checkPhoneAvailability(String phone) =>
+  //     _validateUnique(AvailabilityField.phoneNumber, phone);
+
+  // @override
+  // bool? isPhoneAvailable() => isAvailable(AvailabilityField.phoneNumber);
+
+  // @override
+  // bool isPhoneChecking() => isChecking(AvailabilityField.phoneNumber);
+
+  // ─── Submit ────────────────────────────────────────────────────────────────
   Future<void> submit() async {
     state = state.copyWith(status: RegisterStatus.loading);
 

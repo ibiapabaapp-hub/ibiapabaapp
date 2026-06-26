@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
-import 'package:ibiapabaapp/features/medias/domain/entity/media.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
+import 'package:ibiapabaapp/shared/models/media.dart';
 
 class CityDetailData {
   final City city;

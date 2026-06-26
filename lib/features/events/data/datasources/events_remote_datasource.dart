@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 
 abstract class EventsRemoteDatasource {
   Future<List<Event>> getAllEvents();

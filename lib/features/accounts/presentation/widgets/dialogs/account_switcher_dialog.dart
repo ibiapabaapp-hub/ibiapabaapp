@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/app/theme/custom_styles/inverted_badge.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_type.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibiapabaapp/shared/models/account_type.dart';
 import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo.dart';
+import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo/account_photo.dart';
 import 'package:ibiapabaapp/shared/ui/layout/sheet_drag_indicator.dart';
 
 void showAccountSwitcherSheet(BuildContext context, WidgetRef ref) {
@@ -123,7 +123,9 @@ class _AccountSwitcherSheetContent extends ConsumerWidget {
                     ),
                   ),
                 ),
-                onPress: () => context.push('/auth/login'),
+                onPress: () {
+                  context.push('/auth/login');
+                },
                 prefix: Container(
                   width: 40,
                   height: 40,
@@ -158,7 +160,8 @@ class _AccountSwitcherSheetContent extends ConsumerWidget {
                   ),
                 ),
                 onPress: () {
-                  context.push('/app/account/manage');
+                  context.push('/app/accounts/manage');
+                  context.pop();
                 },
                 prefix: Container(
                   width: 40,
@@ -169,7 +172,7 @@ class _AccountSwitcherSheetContent extends ConsumerWidget {
                   ),
                   child: Icon(
                     FIcons.settings,
-                    color: context.theme.colors.mutedForeground,
+                    color: context.theme.colors.foreground,
                   ),
                 ),
                 title: Text(
@@ -243,7 +246,7 @@ class _AccountTile extends StatelessWidget {
         ),
       ),
       onPress: onTap,
-      prefix: AccountPhoto(account: account, size: 40, isSelected: isSelected),
+      prefix: AccountPhoto(key: ValueKey(account.id), account: account, size: 40, isSelected: isSelected),
       title: Text(
         name,
         style: context.theme.typography.sm.copyWith(

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 
 part 'event_model.freezed.dart';
 part 'event_model.g.dart';

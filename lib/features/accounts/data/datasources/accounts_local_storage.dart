@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
 
 abstract class AccountsLocalStorage {
   Future<void> saveCachedAccounts(List<Account> accounts);

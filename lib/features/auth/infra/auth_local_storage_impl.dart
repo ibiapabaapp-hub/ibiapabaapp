@@ -1,6 +1,6 @@
 import 'package:ibiapabaapp/core/cache/base_cache_storage.dart';
 import 'package:ibiapabaapp/features/auth/data/datasources/auth_local_storage.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
 import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
 
 class AuthLocalStorageImpl extends BaseCacheStorage

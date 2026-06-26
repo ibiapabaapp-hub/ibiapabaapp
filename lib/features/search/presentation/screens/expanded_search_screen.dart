@@ -87,48 +87,50 @@ class _ExpandedSearchScreenState extends ConsumerState<ExpandedSearchScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.theme.colors.background,
-      body: Column(
-        children: [
-          SearchFieldShell(
-            child: Row(
-              spacing: 16,
-              children: [
-                GestureDetector(
-                  onTap: () => context.pop(),
-                  child: Icon(
-                    Icons.arrow_back,
-                    size: 24,
-                    color: context.theme.colors.foreground,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: context.theme.colors.background,
+        body: Column(
+          children: [
+            SearchFieldShell(
+              child: Row(
+                spacing: 16,
+                children: [
+                  GestureDetector(
+                    onTap: () => context.pop(),
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 24,
+                      color: context.theme.colors.foreground,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: FTextField(
-                    control: _searchControl,
-                    focusNode: _focusNode,
-                    autofocus: true,
-                    hint: 'O que vamos fazer hoje na Ibiapaba?',
-                    style: (s) => s.copyWith(filled: true),
+                  Expanded(
+                    child: FTextField(
+                      control: _searchControl,
+                      focusNode: _focusNode,
+                      autofocus: true,
+                      hint: 'O que vamos fazer hoje na Ibiapaba?',
+                      style: (s) => s.copyWith(filled: true),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
-          Expanded(
-            child: FadeTransition(
-              opacity: _contentFade,
-              child: SlideTransition(
-                position: _contentSlide,
-                child: _SearchContent(
-                  query: _query,
-                  onSuggestionTap: _onSuggestionTap,
+            Expanded(
+              child: FadeTransition(
+                opacity: _contentFade,
+                child: SlideTransition(
+                  position: _contentSlide,
+                  child: _SearchContent(
+                    query: _query,
+                    onSuggestionTap: _onSuggestionTap,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

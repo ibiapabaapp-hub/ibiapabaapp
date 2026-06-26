@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 
 part 'business_model.freezed.dart';
 part 'business_model.g.dart';

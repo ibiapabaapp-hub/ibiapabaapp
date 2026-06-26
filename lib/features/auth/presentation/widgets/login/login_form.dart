@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/features/auth/presentation/controllers/login_controller.dart';
-import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/login_state.dart';
+import 'package:ibiapabaapp/shared/ui/forms/fields/email/email_field.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:ibiapabaapp/shared/utils/show_todo_toast.dart';
 
@@ -33,6 +33,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       onChange: (v) => _password = v.text,
     );
     widget.controller.addListener(_controllerListener);
+    widget.controller.setEmail(_email);
   }
 
   void _controllerListener() {
@@ -76,7 +77,6 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final authValidator = ref.watch(authValidatorProvider);
     final isLoading = widget.controller.state is LoginLoading;
 
     return Form(
@@ -85,13 +85,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 16,
         children: [
-          FTextFormField.email(
-            control: _emailControl,
-            label: const Text("Email"),
-            hint: "exemplo@email.com",
-            enabled: !isLoading,
-            autovalidateMode: .onUnfocus,
-            validator: (v) => authValidator.validateField(AuthFields.email, v),
+          EmailField(
+            emailControl: _emailControl,
+            emailChecker: widget.controller,
           ),
 
           FTextFormField.password(

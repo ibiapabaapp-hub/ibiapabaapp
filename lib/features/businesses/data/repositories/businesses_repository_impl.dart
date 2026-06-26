@@ -4,7 +4,7 @@ import 'package:ibiapabaapp/core/logger/log_tags.dart';
 import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
 import 'package:ibiapabaapp/features/businesses/data/datasource/businesses_local_datasource.dart';
 import 'package:ibiapabaapp/features/businesses/data/datasource/businesses_remote_datasource.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 import 'package:ibiapabaapp/features/businesses/domain/repositories/business_repository.dart';
 import 'package:ibiapabaapp/features/businesses/domain/tags/businesses_logtags.dart';
 import 'package:logger/logger.dart';

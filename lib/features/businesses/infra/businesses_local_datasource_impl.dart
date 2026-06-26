@@ -1,6 +1,6 @@
 import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
 import 'package:ibiapabaapp/features/businesses/data/datasource/businesses_local_datasource.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 import 'package:ibiapabaapp/features/businesses/infra/models/business_model.dart';
 
 class BusinessesLocalDatasourceImpl implements BusinessesLocalDatasource {

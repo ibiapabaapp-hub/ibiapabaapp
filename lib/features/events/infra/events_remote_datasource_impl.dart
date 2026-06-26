@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/features/events/data/datasources/events_remote_datasource.dart';
 import 'package:ibiapabaapp/features/events/infra/models/event_model.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 
 class EventsRemoteDatasourceImpl implements EventsRemoteDatasource {
   final Dio dio;

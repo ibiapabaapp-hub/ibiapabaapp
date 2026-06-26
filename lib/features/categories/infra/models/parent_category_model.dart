@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/parent_category.dart';
+import 'package:ibiapabaapp/shared/models/parent_category.dart';
 import 'package:ibiapabaapp/features/categories/infra/models/child_category_model.dart';
 
 part 'parent_category_model.freezed.dart';

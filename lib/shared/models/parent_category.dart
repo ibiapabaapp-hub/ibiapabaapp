@@ -1,5 +1,5 @@
 import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/features/categories/domain/entities/child_category.dart';
+import 'child_category.dart';
 
 class ParentCategory {
   final String id;

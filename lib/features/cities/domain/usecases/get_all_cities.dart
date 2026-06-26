@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ibiapabaapp/core/errors/failures/failures.dart';
 import 'package:ibiapabaapp/core/usecases/usecase.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/repositories/cities_repository.dart';
 
 class GetAllCities implements Usecase<List<City>, GetAllCitiesParams> {

@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 
 abstract class BusinessesLocalDatasource {
   Future<List<Business>> getCachedBusinesses();

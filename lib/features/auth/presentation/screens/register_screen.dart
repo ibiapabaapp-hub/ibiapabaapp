@@ -4,9 +4,8 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/features/auth/presentation/controllers/register_controller.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/register_state.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/email_step.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/name_step.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/password_step.dart';
+import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/basic_info_step.dart';
+import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/credentials_step.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
 
@@ -110,23 +109,15 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
             children: [
               Expanded(
                 child: BeautifulBackgroundOverlay(
+                  childBelow: true,
                   opacity: 0.1,
                   child: PageView(
                     controller: pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      // BirthDateStep(onNext: next),
-                      NameStep(onNext: next),
-                      EmailStep(onNext: next),
-                      // PhoneStep(onNext: next),
-                      // UsernameStep(onNext: next),
-                      PasswordStep(
-                        onSubmit: () async {
-                          await ref
-                              .read(registerControllerProvider.notifier)
-                              .submit();
-                        },
-                      ),
+                      CredentialsStep(onNext: next),
+                      BasicInfoStep(onNext: next),
+                      // AccountTypeStep(onSubmit: _submit)
                     ],
                   ),
                 ),

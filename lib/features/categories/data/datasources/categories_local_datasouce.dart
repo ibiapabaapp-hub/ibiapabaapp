@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/features/categories/domain/entities/child_category.dart';
+import 'package:ibiapabaapp/shared/models/child_category.dart';
 
 abstract class CategoriesLocalDatasource {
   Future<List<ChildCategory>> getCachedChildren(String parentId);

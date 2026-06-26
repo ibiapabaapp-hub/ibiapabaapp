@@ -4,7 +4,7 @@ import 'package:ibiapabaapp/core/network/dio_provider.dart';
 import 'package:ibiapabaapp/features/cities/data/datasource/cities_local_datasource.dart';
 import 'package:ibiapabaapp/features/cities/data/datasource/cities_remote_datasource.dart';
 import 'package:ibiapabaapp/features/cities/data/repositories/cities_repository_impl.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/domain/repositories/cities_repository.dart';
 import 'package:ibiapabaapp/features/cities/domain/usecases/get_all_cities.dart';
 import 'package:ibiapabaapp/features/cities/domain/usecases/get_city_by_id.dart';

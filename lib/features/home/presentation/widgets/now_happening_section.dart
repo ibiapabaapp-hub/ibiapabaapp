@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event.dart';
+import 'package:ibiapabaapp/shared/models/event.dart';
 import 'package:ibiapabaapp/features/events/presentation/controllers/events_controller.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/events/event_card.dart';
 import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business.dart';
+import 'package:ibiapabaapp/shared/models/business.dart';
 import 'package:ibiapabaapp/shared/ui/layout/vertical_items_list.dart';
 
 final List<Event> _mockEvents = List.generate(
