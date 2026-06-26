@@ -31,27 +31,23 @@ class EntityMedias extends _$EntityMedias with ControllerLogHandler {
     EntityType entityType,
     String entityId,
   ) async {
-    final getEntityMedia = ref.read(getEntityMediaProvider);
-    final result = await getEntityMedia(
-      entityType: entityType,
-      entityId: entityId,
-    );
-
-    if (!ref.mounted) throw Exception('Provider disposed');
-
-    return result.fold(
-      (failure) {
-        logControllerError(
-          action: MediaAction.getEntityMedia,
-          failure: failure,
-        );
-        throw Exception(failure.message);
-      },
-      (media) {
-        logControllerSuccess(action: MediaAction.getEntityMedia);
-        return media;
-      },
-    );
+    final repository = ref.read(mediasRepositoryProvider);
+    try {
+      final media = await repository.getEntityMedia(
+        entityType: entityType,
+        entityId: entityId,
+      );
+      if (!ref.mounted) throw Exception('Provider disposed');
+      logControllerSuccess(action: MediaAction.getEntityMedia);
+      return media;
+    } catch (e) {
+      if (!ref.mounted) throw Exception('Provider disposed');
+      logControllerError(
+        action: MediaAction.getEntityMedia,
+        failure: e,
+      );
+      throw Exception(e.toString());
+    }
   }
 
   Future<void> refresh() async {

@@ -1,28 +1,17 @@
-import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
+import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
 import 'package:ibiapabaapp/features/medias/data/datasource/medias_remote_datasource.dart';
 import 'package:ibiapabaapp/shared/models/media.dart';
 import 'package:ibiapabaapp/features/medias/domain/repositories/medias_repository.dart';
-import 'package:ibiapabaapp/features/medias/domain/tags/medias_logtags.dart';
-import 'package:logger/logger.dart';
 
-class MediasRepositoryImpl
-    with RepositoryLogHandler
-    implements MediasRepository {
-  @override
-  final Logger logger;
+class MediasRepositoryImpl implements MediasRepository {
   final MediasRemoteDatasource remoteDatasource;
 
-  MediasRepositoryImpl({required this.remoteDatasource, required this.logger});
+  MediasRepositoryImpl({required this.remoteDatasource});
 
   @override
-  LogFeature get feature => LogFeature.medias;
-
-  @override
-  Future<Either<AppFailure, List<Media>>> getEntityMedia({
+  Future<List<Media>> getEntityMedia({
     required EntityType entityType,
     required String entityId,
   }) async {
@@ -31,15 +20,9 @@ class MediasRepositoryImpl
         entityType: entityType,
         entityId: entityId,
       );
-      return Right(media);
-    } catch (e, stack) {
-      return Left(
-        handleRepositoryError(
-          exception: e,
-          stackTrace: stack,
-          action: MediaAction.getEntityMedia,
-        ),
-      );
+      return media;
+    } on DioException catch (e) {
+      throw DioExceptionToAppExceptionMapper.map(e);
     }
   }
 }
