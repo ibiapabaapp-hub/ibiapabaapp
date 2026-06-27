@@ -1,7 +1,7 @@
 import 'package:acanthis/acanthis.dart' as acanthis;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:ibiapabaapp/core/validation/base_validator.dart';
+import 'package:ibivibe/core/validation/base_validator.dart';
 
 enum AuthFields {
   name,

@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ibiapabaapp/features/cities/infra/models/cities_model.dart';
-import 'package:ibiapabaapp/features/businesses/infra/models/business_model.dart';
-import 'package:ibiapabaapp/features/events/infra/models/event_model.dart';
-import 'package:ibiapabaapp/features/search/domain/entities/search_result.dart';
+import 'package:ibivibe/features/cities/infra/models/cities_model.dart';
+import 'package:ibivibe/features/businesses/infra/models/business_model.dart';
+import 'package:ibivibe/features/events/infra/models/event_model.dart';
+import 'package:ibivibe/features/search/domain/entities/search_result.dart';
 
 part 'search_result_model.freezed.dart';
 

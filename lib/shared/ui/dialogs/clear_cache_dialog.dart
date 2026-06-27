@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/cache/cache_database_provider.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibivibe/core/cache/cache_database_provider.dart';
+import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
 
 void showClearCacheDialog(BuildContext context, WidgetRef ref) {
   final foruiTheme = context.theme;

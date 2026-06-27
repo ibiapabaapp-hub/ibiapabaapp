@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/logger/handlers/dio_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
+import 'package:ibivibe/core/logger/handlers/dio_log_handler.dart';
+import 'package:ibivibe/core/logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:logger/logger.dart';
 

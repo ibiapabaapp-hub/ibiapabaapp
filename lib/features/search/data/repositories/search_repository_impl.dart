@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/features/search/data/datasources/search_remote_datasource.dart';
-import 'package:ibiapabaapp/features/search/domain/entities/search_result.dart';
-import 'package:ibiapabaapp/features/search/domain/repositories/search_repository.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/features/search/data/datasources/search_remote_datasource.dart';
+import 'package:ibivibe/features/search/domain/entities/search_result.dart';
+import 'package:ibivibe/features/search/domain/repositories/search_repository.dart';
 
 class SearchRepositoryImpl implements SearchRepository {
   final SearchRemoteDatasource remoteDataSource;

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
-import 'package:ibiapabaapp/shared/models/event.dart';
+import 'package:ibivibe/shared/models/business.dart';
+import 'package:ibivibe/shared/models/event.dart';
 
 part 'event_model.g.dart';
 

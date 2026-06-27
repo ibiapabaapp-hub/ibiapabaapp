@@ -1,12 +1,12 @@
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_provider.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
-import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/core/storage/token_storage_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/features/auth/domain/entities/auth_result.dart';
+import 'package:ibivibe/features/auth/domain/tags/auth_logtags.dart';
+import 'package:ibivibe/features/auth/presentation/providers/auth_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

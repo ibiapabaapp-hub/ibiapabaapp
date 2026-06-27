@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/features/cities/infra/models/cities_model.dart';
+import 'package:ibivibe/features/cities/infra/models/cities_model.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {

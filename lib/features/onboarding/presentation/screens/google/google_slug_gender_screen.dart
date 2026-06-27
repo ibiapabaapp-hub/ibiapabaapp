@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/app/theme/custom_styles/fselect_item_style.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/controllers/google_onboarding_controller.dart';
-import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
+import 'package:ibivibe/app/theme/custom_styles/fselect_item_style.dart';
+import 'package:ibivibe/shared/models/gender.dart';
+import 'package:ibivibe/features/onboarding/presentation/controllers/google_onboarding_controller.dart';
+import 'package:ibivibe/shared/ui/layout/beautiful_background_overlay.dart';
 
 class GoogleSlugGenderScreen extends ConsumerStatefulWidget {
   const GoogleSlugGenderScreen({super.key});

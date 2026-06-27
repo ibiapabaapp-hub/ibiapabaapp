@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/shared/models/event.dart';
-import 'package:ibiapabaapp/features/events/domain/repositories/events_repository.dart';
-import 'package:ibiapabaapp/features/events/infra/models/event_model.dart';
+import 'package:ibivibe/core/logger/handlers/repository_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/shared/models/event.dart';
+import 'package:ibivibe/features/events/domain/repositories/events_repository.dart';
+import 'package:ibivibe/features/events/infra/models/event_model.dart';
 import 'package:logger/logger.dart';
 
 class EventsRepositoryImpl

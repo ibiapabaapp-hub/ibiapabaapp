@@ -1,8 +1,8 @@
-import 'package:ibiapabaapp/core/cache/cache_database_provider.dart';
-import 'package:ibiapabaapp/core/location/data/datasources/location_local_storage.dart';
-import 'package:ibiapabaapp/core/location/infra/location_local_storage_impl.dart';
-import 'package:ibiapabaapp/core/location/domain/usecases/get_nearest_city.dart';
-import 'package:ibiapabaapp/core/location/infra/location_service.dart';
+import 'package:ibivibe/core/cache/cache_database_provider.dart';
+import 'package:ibivibe/core/location/data/datasources/location_local_storage.dart';
+import 'package:ibivibe/core/location/infra/location_local_storage_impl.dart';
+import 'package:ibivibe/core/location/domain/usecases/get_nearest_city.dart';
+import 'package:ibivibe/core/location/infra/location_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'location_providers.g.dart';

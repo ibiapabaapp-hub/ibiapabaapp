@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
+import 'package:ibivibe/features/favorites/domain/entities/favorite.dart';
 
 class FavoriteModel extends Equatable implements Favorite {
   @override

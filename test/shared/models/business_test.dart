@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
+import 'package:ibivibe/shared/models/business.dart';
 
 Business _createBusiness({
   String id = '1',

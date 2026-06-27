@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/app/router/app_router_provider.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/google_oauth_state_provider.dart';
+import 'package:ibivibe/app/router/app_router_provider.dart';
+import 'package:ibivibe/features/auth/presentation/providers/google_oauth_state_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class GoogleOAuthButton extends ConsumerWidget {

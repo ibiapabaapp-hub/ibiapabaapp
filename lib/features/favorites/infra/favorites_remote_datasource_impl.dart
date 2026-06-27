@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/features/favorites/data/datasources/favorites_remote_datasource.dart';
-import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
-import 'package:ibiapabaapp/features/favorites/infra/models/favorite_model.dart';
+import 'package:ibivibe/features/favorites/data/datasources/favorites_remote_datasource.dart';
+import 'package:ibivibe/features/favorites/domain/entities/favorite.dart';
+import 'package:ibivibe/features/favorites/infra/models/favorite_model.dart';
 
 class FavoritesRemoteDatasourceImpl implements FavoritesRemoteDatasource {
   final Dio dio;

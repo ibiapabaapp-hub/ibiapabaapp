@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/core/network/dio_logger_interceptor.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_provider.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/core/network/dio_logger_interceptor.dart';
+import 'package:ibivibe/core/storage/token_storage_provider.dart';
+import 'package:ibivibe/features/auth/presentation/providers/auth_providers.dart';
+import 'package:ibivibe/features/auth/presentation/providers/auth_state_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_provider.g.dart';
@@ -22,7 +22,7 @@ Dio dio(Ref ref) {
       connectTimeout: const Duration(seconds: 6),
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'ibiapabaapp/1.0',
+        'User-Agent': 'ibivibe/1.0',
         'ngrok-skip-browser-warning': 'true',
       },
     ),

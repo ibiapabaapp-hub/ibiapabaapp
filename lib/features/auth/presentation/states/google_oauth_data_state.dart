@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/google_auth_result.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/features/auth/domain/entities/google_auth_result.dart';
 
 class GoogleOAuthDataState {
   final bool isLoading;

@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/core/storage/token_response.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibivibe/core/storage/token_response.dart';
+import 'package:ibivibe/shared/models/account.dart';
 
 class AuthResult implements TokenResponse {
   @override

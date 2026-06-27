@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/core/session/app_session.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
+import 'package:ibivibe/core/session/app_session.dart';
+import 'package:ibivibe/shared/models/city.dart';
 import 'package:latlong2/latlong.dart';
 
 void main() {

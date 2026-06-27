@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/auth/presentation/controllers/login_controller.dart';
-import 'package:ibiapabaapp/features/auth/presentation/states/login_state.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/email/email_field.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
-import 'package:ibiapabaapp/shared/utils/show_todo_toast.dart';
+import 'package:ibivibe/features/auth/presentation/controllers/login_controller.dart';
+import 'package:ibivibe/features/auth/presentation/states/login_state.dart';
+import 'package:ibivibe/shared/ui/forms/fields/email/email_field.dart';
+import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibivibe/shared/utils/show_todo_toast.dart';
 
 class LoginForm extends ConsumerStatefulWidget {
   final LoginController controller;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/features/search/domain/entities/search_result.dart';
-import 'package:ibiapabaapp/shared/ui/layout/entity_badge.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
+import 'package:ibivibe/features/search/domain/entities/search_result.dart';
+import 'package:ibivibe/shared/ui/layout/entity_badge.dart';
 
 class SearchItem extends StatelessWidget {
   final SearchResult result;

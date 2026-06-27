@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:geolocator/geolocator.dart';
-import 'package:ibiapabaapp/core/location/domain/exceptions/location_exceptions.dart';
-import 'package:ibiapabaapp/core/location/infra/models/geolocator_wrapper.dart';
+import 'package:ibivibe/core/location/domain/exceptions/location_exceptions.dart';
+import 'package:ibivibe/core/location/infra/models/geolocator_wrapper.dart';
 import 'package:latlong2/latlong.dart';
 
 class LocationService {

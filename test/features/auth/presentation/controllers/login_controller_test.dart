@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
-import 'package:ibiapabaapp/features/auth/domain/repositories/auth_repository.dart';
-import 'package:ibiapabaapp/features/auth/presentation/controllers/login_controller.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
-import 'package:ibiapabaapp/features/auth/presentation/states/login_state.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/features/auth/domain/entities/auth_result.dart';
+import 'package:ibivibe/features/auth/domain/repositories/auth_repository.dart';
+import 'package:ibivibe/features/auth/presentation/controllers/login_controller.dart';
+import 'package:ibivibe/features/auth/presentation/providers/auth_state_provider.dart';
+import 'package:ibivibe/features/auth/presentation/states/login_state.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 

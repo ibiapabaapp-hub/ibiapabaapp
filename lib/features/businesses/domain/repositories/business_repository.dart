@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/shared/models/business.dart';
+import 'package:ibivibe/shared/models/business.dart';
 
 abstract class BusinessesRepository {
   Future<List<Business>> getAllBusinesses();

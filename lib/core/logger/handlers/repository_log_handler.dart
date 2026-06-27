@@ -1,6 +1,6 @@
-import 'package:ibiapabaapp/core/errors/exceptions/global_exception_to_failure_mapper.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibivibe/core/errors/exceptions/global_exception_to_failure_mapper.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
 import 'package:logger/logger.dart';
 
 mixin RepositoryLogHandler {

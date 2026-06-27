@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_impl.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_strategy.dart';
-import 'package:ibiapabaapp/core/storage/token_response.dart';
+import 'package:ibivibe/core/storage/token_storage_impl.dart';
+import 'package:ibivibe/core/storage/token_storage_strategy.dart';
+import 'package:ibivibe/core/storage/token_response.dart';
 
 class FakeTokenResponse implements TokenResponse {
   @override

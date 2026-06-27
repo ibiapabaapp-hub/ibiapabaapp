@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/shared/models/gender.dart';
 
 Account _createAccount({
   String id = '1',

@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/account_business_model.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/account_interests_model.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/converters/account_type_converter.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/converters/gender_converter.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
+import 'package:ibivibe/features/accounts/infra/models/account_business_model.dart';
+import 'package:ibivibe/features/accounts/infra/models/account_interests_model.dart';
+import 'package:ibivibe/features/accounts/infra/models/converters/account_type_converter.dart';
+import 'package:ibivibe/features/accounts/infra/models/converters/gender_converter.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/shared/models/gender.dart';
 
 part 'account_model.g.dart';
 

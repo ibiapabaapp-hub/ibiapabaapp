@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
 
 enum FavoriteAction implements LogTag {
   getAllFavoritesByAccount('[GET_ALL_FAVORITES_BY_ACCOUNT]'),

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/ui/layout/beautiful_background_overlay.dart';
 
 class ManageAccountsScreen extends ConsumerWidget {
   const ManageAccountsScreen({super.key});

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
-import 'package:ibiapabaapp/features/cities/presentation/controllers/cities_controller.dart';
-import 'package:ibiapabaapp/features/cities/presentation/widgets/city_card.dart';
-import 'package:ibiapabaapp/shared/ui/layout/horizontal_infinite_carousel.dart';
-import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
+import 'package:ibivibe/shared/models/city.dart';
+import 'package:ibivibe/features/cities/presentation/controllers/cities_controller.dart';
+import 'package:ibivibe/features/cities/presentation/widgets/city_card.dart';
+import 'package:ibivibe/shared/ui/layout/horizontal_infinite_carousel.dart';
+import 'package:ibivibe/shared/ui/layout/section_header.dart';
 
 final List<City> _mockCities = List.generate(
   5,

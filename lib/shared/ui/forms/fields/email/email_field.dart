@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/email/email_checker.dart';
+import 'package:ibivibe/features/auth/validation/auth_validator.dart';
+import 'package:ibivibe/shared/ui/forms/fields/email/email_checker.dart';
 
 class EmailField extends ConsumerStatefulWidget {
   final FTextFieldControl emailControl;

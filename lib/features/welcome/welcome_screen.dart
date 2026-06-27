@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/welcome/widgets/welcome_carousel.dart';
-import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
+import 'package:ibivibe/features/welcome/widgets/welcome_carousel.dart';
+import 'package:ibivibe/shared/ui/layout/beautiful_background_overlay.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

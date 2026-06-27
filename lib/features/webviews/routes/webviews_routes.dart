@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/webviews/presentation/screens/webview_screen.dart';
+import 'package:ibivibe/features/webviews/presentation/screens/webview_screen.dart';
 
 final List<RouteBase> webviewsRoutes = [
   // ─── WebView ──────────────────────────────────────────────────────

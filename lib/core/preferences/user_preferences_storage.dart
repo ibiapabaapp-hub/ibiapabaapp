@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ibiapabaapp/core/cache/base_cache_storage.dart';
+import 'package:ibivibe/core/cache/base_cache_storage.dart';
 
 class UserPreferencesStorage extends BaseCacheStorage {
   UserPreferencesStorage(super.cacheService);

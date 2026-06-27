@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
-import 'package:ibiapabaapp/shared/utils/lat_lng_converter.dart';
+import 'package:ibivibe/shared/models/city.dart';
+import 'package:ibivibe/shared/utils/lat_lng_converter.dart';
 import 'package:latlong2/latlong.dart';
 
 part 'cities_model.g.dart';

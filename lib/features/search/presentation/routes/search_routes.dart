@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/app/router/transitions/shared_axis_page.dart';
-import 'package:ibiapabaapp/features/search/presentation/screens/expanded_search_screen.dart';
-import 'package:ibiapabaapp/features/search/presentation/screens/search_screen.dart';
+import 'package:ibivibe/app/router/transitions/shared_axis_page.dart';
+import 'package:ibivibe/features/search/presentation/screens/expanded_search_screen.dart';
+import 'package:ibivibe/features/search/presentation/screens/search_screen.dart';
 
 final List<RouteBase> searchRoutes = [
   // ─── Home > Search ─────────────────────────────────────────────────

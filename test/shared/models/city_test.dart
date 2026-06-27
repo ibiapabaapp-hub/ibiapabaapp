@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
+import 'package:ibivibe/shared/models/city.dart';
 import 'package:latlong2/latlong.dart';
 
 City _createCity({

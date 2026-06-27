@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
-import 'package:ibiapabaapp/features/businesses/presentation/controllers/businesses_controller.dart';
-import 'package:ibiapabaapp/features/businesses/presentation/widgets/business_card.dart';
-import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
-import 'package:ibiapabaapp/shared/ui/layout/vertical_items_list.dart';
+import 'package:ibivibe/shared/models/business.dart';
+import 'package:ibivibe/features/businesses/presentation/controllers/businesses_controller.dart';
+import 'package:ibivibe/features/businesses/presentation/widgets/business_card.dart';
+import 'package:ibivibe/shared/ui/layout/section_header.dart';
+import 'package:ibivibe/shared/ui/layout/vertical_items_list.dart';
 
 final List<Business> _mockCompanies = List.generate(
   5,

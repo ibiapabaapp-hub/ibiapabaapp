@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/auth/presentation/controllers/register_controller.dart';
-import 'package:ibiapabaapp/features/auth/presentation/states/register_state.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/basic_info_step.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/credentials_step.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
-import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
+import 'package:ibivibe/features/auth/presentation/controllers/register_controller.dart';
+import 'package:ibivibe/features/auth/presentation/states/register_state.dart';
+import 'package:ibivibe/features/auth/presentation/widgets/register/steps/basic_info_step.dart';
+import 'package:ibivibe/features/auth/presentation/widgets/register/steps/credentials_step.dart';
+import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibivibe/shared/ui/layout/beautiful_background_overlay.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});

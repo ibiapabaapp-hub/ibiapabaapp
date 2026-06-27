@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/core/cache/base_cache_storage.dart';
-import 'package:ibiapabaapp/core/location/data/datasources/location_local_storage.dart';
+import 'package:ibivibe/core/cache/base_cache_storage.dart';
+import 'package:ibivibe/core/location/data/datasources/location_local_storage.dart';
 
 class LocationLocalStorageImpl extends BaseCacheStorage
     implements LocationLocalStorage {

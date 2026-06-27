@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/features/businesses/data/repositories/businesses_repository_impl.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
+import 'package:ibivibe/features/businesses/data/repositories/businesses_repository_impl.dart';
+import 'package:ibivibe/shared/models/business.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/errors/exceptions/exceptions.dart';
-import 'package:ibiapabaapp/features/auth/data/exceptions/auth_exceptions.dart';
+import 'package:ibivibe/core/errors/exceptions/exceptions.dart';
+import 'package:ibivibe/features/auth/data/exceptions/auth_exceptions.dart';
 
 // extrai [code] e [message] do body da resposta.
 // aceita: { code }, { error }, { message }, { errors: [string] }.

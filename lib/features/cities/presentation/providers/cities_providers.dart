@@ -1,9 +1,9 @@
-import 'package:ibiapabaapp/core/cache/cache_database_provider.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/core/network/dio_provider.dart';
-import 'package:ibiapabaapp/features/cities/data/repositories/cities_repository_impl.dart';
-import 'package:ibiapabaapp/features/cities/domain/repositories/cities_repository.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
+import 'package:ibivibe/core/cache/cache_database_provider.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/core/network/dio_provider.dart';
+import 'package:ibivibe/features/cities/data/repositories/cities_repository_impl.dart';
+import 'package:ibivibe/features/cities/domain/repositories/cities_repository.dart';
+import 'package:ibivibe/shared/models/city.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cities_providers.g.dart';

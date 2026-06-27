@@ -1,9 +1,9 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:forui/forui.dart';
-// import 'package:ibiapabaapp/features/auth/presentation/controllers/register_controller.dart';
-// import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
-// import 'package:ibiapabaapp/shared/ui/fragments/inputs/native_date_input.dart';
+// import 'package:ibivibe/features/auth/presentation/controllers/register_controller.dart';
+// import 'package:ibivibe/features/auth/validation/auth_validator.dart';
+// import 'package:ibivibe/shared/ui/fragments/inputs/native_date_input.dart';
 // import 'package:intl/intl.dart';
 
 // class BirthDateStep extends ConsumerStatefulWidget {

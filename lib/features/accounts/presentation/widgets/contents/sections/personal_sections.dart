@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/app/theme/adapted_styles/flat_button_style.dart';
-import 'package:ibiapabaapp/shared/ui/layout/unimplemented_wrapper.dart';
+import 'package:ibivibe/app/theme/adapted_styles/flat_button_style.dart';
+import 'package:ibivibe/shared/ui/layout/unimplemented_wrapper.dart';
 
 class InsightsSection extends StatelessWidget {
   const InsightsSection({super.key});

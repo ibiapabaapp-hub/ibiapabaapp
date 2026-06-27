@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/utils/transform_account_interests.dart';
-import 'package:ibiapabaapp/shared/models/parent_category.dart';
-import 'package:ibiapabaapp/features/categories/presentation/providers/categories_providers.dart';
-import 'package:ibiapabaapp/shared/models/category_entity.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/controllers/account_interests_controller.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/widgets/interests_accordion.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
+import 'package:ibivibe/features/accounts/domain/utils/transform_account_interests.dart';
+import 'package:ibivibe/shared/models/parent_category.dart';
+import 'package:ibivibe/features/categories/presentation/providers/categories_providers.dart';
+import 'package:ibivibe/shared/models/category_entity.dart';
+import 'package:ibivibe/features/accounts/presentation/controllers/account_interests_controller.dart';
+import 'package:ibivibe/features/onboarding/presentation/widgets/interests_accordion.dart';
+import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 final _mockParentCategories = [

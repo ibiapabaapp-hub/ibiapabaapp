@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/core/errors/exceptions/exceptions.dart';
-import 'package:ibiapabaapp/features/accounts/data/repositories/accounts_repository_impl.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests_response.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibivibe/core/errors/exceptions/exceptions.dart';
+import 'package:ibivibe/features/accounts/data/repositories/accounts_repository_impl.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests_response.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';

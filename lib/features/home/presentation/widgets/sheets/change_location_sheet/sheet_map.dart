@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/ui/maps/app_map.dart';
-import 'package:ibiapabaapp/shared/ui/maps/app_map_provider.dart';
-import 'package:ibiapabaapp/shared/ui/maps/fallback_map_widget.dart';
+import 'package:ibivibe/shared/ui/maps/app_map.dart';
+import 'package:ibivibe/shared/ui/maps/app_map_provider.dart';
+import 'package:ibivibe/shared/ui/maps/fallback_map_widget.dart';
 
 class SheetMap extends StatelessWidget {
   final AppMapWidget mapWithPosition;

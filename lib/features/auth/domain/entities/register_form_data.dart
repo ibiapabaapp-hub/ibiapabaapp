@@ -1,6 +1,6 @@
-import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_business.dart';
+import 'package:ibivibe/features/auth/validation/auth_validator.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_business.dart';
 
 class RegisterFormData {
   String name;

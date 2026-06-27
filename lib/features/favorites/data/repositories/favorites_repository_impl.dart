@@ -1,10 +1,10 @@
-import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/features/favorites/data/datasources/favorites_local_storage.dart';
-import 'package:ibiapabaapp/features/favorites/data/datasources/favorites_remote_datasource.dart';
-import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
-import 'package:ibiapabaapp/features/favorites/domain/repositories/favorites_repository.dart';
-import 'package:ibiapabaapp/features/favorites/domain/tags/favorites_logtags.dart';
+import 'package:ibivibe/core/logger/handlers/repository_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/features/favorites/data/datasources/favorites_local_storage.dart';
+import 'package:ibivibe/features/favorites/data/datasources/favorites_remote_datasource.dart';
+import 'package:ibivibe/features/favorites/domain/entities/favorite.dart';
+import 'package:ibivibe/features/favorites/domain/repositories/favorites_repository.dart';
+import 'package:ibivibe/features/favorites/domain/tags/favorites_logtags.dart';
 import 'package:logger/logger.dart';
 
 class FavoritesRepositoryImpl

@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/core/network/dio_logger_interceptor.dart';
-import 'package:ibiapabaapp/core/network/dio_provider.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_provider.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_strategy.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/core/network/dio_logger_interceptor.dart';
+import 'package:ibivibe/core/network/dio_provider.dart';
+import 'package:ibivibe/core/storage/token_storage_provider.dart';
+import 'package:ibivibe/core/storage/token_storage_strategy.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:riverpod/riverpod.dart';
@@ -75,7 +75,7 @@ void main() {
 
       final dio = container.read(dioProvider);
       expect(dio.options.headers['Content-Type'], 'application/json');
-      expect(dio.options.headers['User-Agent'], 'ibiapabaapp/1.0');
+      expect(dio.options.headers['User-Agent'], 'ibivibe/1.0');
       expect(dio.options.headers['ngrok-skip-browser-warning'], 'true');
     });
 

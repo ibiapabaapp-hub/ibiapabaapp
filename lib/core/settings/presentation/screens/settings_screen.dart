@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
-import 'package:ibiapabaapp/shared/ui/dialogs/clear_cache_dialog.dart';
-import 'package:ibiapabaapp/shared/ui/dialogs/logout_dialog.dart';
-import 'package:ibiapabaapp/shared/ui/dialogs/theme_dialog.dart';
-import 'package:ibiapabaapp/shared/utils/show_todo_toast.dart';
+import 'package:ibivibe/core/preferences/user_preferences_state_provider.dart';
+import 'package:ibivibe/shared/ui/dialogs/clear_cache_dialog.dart';
+import 'package:ibivibe/shared/ui/dialogs/logout_dialog.dart';
+import 'package:ibivibe/shared/ui/dialogs/theme_dialog.dart';
+import 'package:ibivibe/shared/utils/show_todo_toast.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

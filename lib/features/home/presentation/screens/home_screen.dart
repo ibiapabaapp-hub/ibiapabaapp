@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/businesses_section.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/explore_cities_section.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/now_happening_section.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/quick_categories.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/change_location_sheet.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/sponsored_highlights.dart';
+import 'package:ibivibe/core/session/app_session_notifier_provider.dart';
+import 'package:ibivibe/features/home/presentation/widgets/businesses_section.dart';
+import 'package:ibivibe/features/home/presentation/widgets/explore_cities_section.dart';
+import 'package:ibivibe/features/home/presentation/widgets/now_happening_section.dart';
+import 'package:ibivibe/features/home/presentation/widgets/quick_categories.dart';
+import 'package:ibivibe/features/home/presentation/widgets/sheets/change_location_sheet/change_location_sheet.dart';
+import 'package:ibivibe/features/home/presentation/widgets/sponsored_highlights.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

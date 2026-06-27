@@ -1,12 +1,12 @@
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/events/domain/entities/event_detail_data.dart';
-import 'package:ibiapabaapp/features/events/domain/tags/events_logtags.dart';
-import 'package:ibiapabaapp/features/events/presentation/providers/events_providers.dart';
-import 'package:ibiapabaapp/features/medias/presentation/providers/medias_providers.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
+import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/features/events/domain/entities/event_detail_data.dart';
+import 'package:ibivibe/features/events/domain/tags/events_logtags.dart';
+import 'package:ibivibe/features/events/presentation/providers/events_providers.dart';
+import 'package:ibivibe/features/medias/presentation/providers/medias_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

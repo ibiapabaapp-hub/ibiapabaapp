@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
+import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 typedef ListItemBuilder<T> = Widget Function(BuildContext context, T item);

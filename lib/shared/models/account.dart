@@ -1,7 +1,7 @@
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_business.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_business.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
+import 'package:ibivibe/shared/models/gender.dart';
 
 class Account {
   // Authentication fields

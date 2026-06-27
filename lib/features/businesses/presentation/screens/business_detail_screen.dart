@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/businesses/domain/entities/business_detail_data.dart';
-import 'package:ibiapabaapp/features/businesses/presentation/controllers/business_detail_controller.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/favorite_button.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/carousel/content_carousel.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/effects/expandable_text.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
-import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
-import 'package:ibiapabaapp/shared/ui/layout/wrappers/detail_page_wrapper.dart';
+import 'package:ibivibe/features/businesses/domain/entities/business_detail_data.dart';
+import 'package:ibivibe/features/businesses/presentation/controllers/business_detail_controller.dart';
+import 'package:ibivibe/shared/ui/fragments/favorite_button.dart';
+import 'package:ibivibe/shared/ui/fragments/carousel/content_carousel.dart';
+import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
+import 'package:ibivibe/shared/ui/fragments/effects/expandable_text.dart';
+import 'package:ibivibe/shared/ui/fragments/media/sources.dart';
+import 'package:ibivibe/shared/ui/layout/section_header.dart';
+import 'package:ibivibe/shared/ui/layout/wrappers/detail_page_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class BusinessDetailScreen extends ConsumerWidget {

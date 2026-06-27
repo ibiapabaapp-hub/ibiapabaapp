@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibivibe/shared/models/account.dart';
 
 abstract class AccountsLocalStorage {
   Future<void> saveCachedAccounts(List<Account> accounts);

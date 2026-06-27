@@ -1,11 +1,11 @@
-import 'package:ibiapabaapp/core/cache/cache_database_provider.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/core/network/dio_provider.dart';
-import 'package:ibiapabaapp/features/categories/data/repositories/categories_repository_impl.dart';
-import 'package:ibiapabaapp/shared/models/category_entity.dart';
-import 'package:ibiapabaapp/shared/models/child_category.dart';
-import 'package:ibiapabaapp/shared/models/parent_category.dart';
-import 'package:ibiapabaapp/features/categories/domain/repositories/categories_repository.dart';
+import 'package:ibivibe/core/cache/cache_database_provider.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/core/network/dio_provider.dart';
+import 'package:ibivibe/features/categories/data/repositories/categories_repository_impl.dart';
+import 'package:ibivibe/shared/models/category_entity.dart';
+import 'package:ibivibe/shared/models/child_category.dart';
+import 'package:ibivibe/shared/models/parent_category.dart';
+import 'package:ibivibe/features/categories/domain/repositories/categories_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'categories_providers.g.dart';

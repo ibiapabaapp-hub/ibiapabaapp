@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/core/errors/exceptions/exceptions.dart';
+import 'package:ibivibe/core/errors/exceptions/exceptions.dart';
 
 sealed class LocationException extends AppException {
   const LocationException(super.message, {super.code = 'LOCATION_ERROR'});

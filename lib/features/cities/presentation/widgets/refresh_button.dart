@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:intl/intl.dart';
 
 class RefreshButton extends StatefulWidget {

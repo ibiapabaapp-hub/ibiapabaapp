@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/shared/models/media.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
+import 'package:ibivibe/shared/models/media.dart';
 
 class MediaModel extends Equatable {
   final String id;

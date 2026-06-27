@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
+import 'package:ibivibe/features/favorites/domain/entities/favorite.dart';
 
 abstract class FavoritesRemoteDatasource {
   Future<List<Favorite>> getAllFavoritesByAccount({required String accountId});

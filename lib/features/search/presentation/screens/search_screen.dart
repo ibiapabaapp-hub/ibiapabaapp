@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/network/dio_provider.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/explore_cities_section.dart';
-import 'package:ibiapabaapp/features/search/presentation/widgets/search_field_shell.dart';
-import 'package:ibiapabaapp/shared/ui/layout/items_grid.dart';
-import 'package:ibiapabaapp/shared/ui/layout/wrappers/main_wrapper.dart';
+import 'package:ibivibe/core/network/dio_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/features/home/presentation/widgets/explore_cities_section.dart';
+import 'package:ibivibe/features/search/presentation/widgets/search_field_shell.dart';
+import 'package:ibivibe/shared/ui/layout/items_grid.dart';
+import 'package:ibivibe/shared/ui/layout/wrappers/main_wrapper.dart';
 
 class SearchScreen extends ConsumerWidget {
   const SearchScreen({super.key});

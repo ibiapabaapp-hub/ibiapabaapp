@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
-import 'package:ibiapabaapp/features/accounts/data/datasources/accounts_local_storage.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests_response.dart';
-import 'package:ibiapabaapp/features/accounts/domain/repositories/accounts_repository.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/account_interests_model.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/account_interests_response_model.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
+import 'package:ibivibe/core/logger/handlers/repository_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/network/dio_exception_to_app_exception_mapper.dart';
+import 'package:ibivibe/features/accounts/data/datasources/accounts_local_storage.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests_response.dart';
+import 'package:ibivibe/features/accounts/domain/repositories/accounts_repository.dart';
+import 'package:ibivibe/features/accounts/infra/models/account_interests_model.dart';
+import 'package:ibivibe/features/accounts/infra/models/account_interests_response_model.dart';
+import 'package:ibivibe/features/accounts/infra/models/account_model.dart';
 import 'package:logger/logger.dart';
 
 class AccountsRepositoryImpl

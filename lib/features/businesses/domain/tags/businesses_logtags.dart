@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
 
 enum BusinessAction implements LogTag {
   getAllBusinesses('[GET_ALL_BUSINESSES]'),

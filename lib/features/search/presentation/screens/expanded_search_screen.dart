@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/features/search/presentation/providers/search_providers.dart';
-import 'package:ibiapabaapp/features/search/presentation/providers/search_state_provider.dart';
-import 'package:ibiapabaapp/features/search/presentation/widgets/recent_search_section.dart';
-import 'package:ibiapabaapp/features/search/presentation/widgets/search_field_shell.dart';
-import 'package:ibiapabaapp/features/search/presentation/widgets/search_list.dart';
-import 'package:ibiapabaapp/features/search/presentation/widgets/search_suggestion_section.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/features/search/presentation/providers/search_providers.dart';
+import 'package:ibivibe/features/search/presentation/providers/search_state_provider.dart';
+import 'package:ibivibe/features/search/presentation/widgets/recent_search_section.dart';
+import 'package:ibivibe/features/search/presentation/widgets/search_field_shell.dart';
+import 'package:ibivibe/features/search/presentation/widgets/search_list.dart';
+import 'package:ibivibe/features/search/presentation/widgets/search_suggestion_section.dart';
 
 class ExpandedSearchScreen extends ConsumerStatefulWidget {
   const ExpandedSearchScreen({super.key});

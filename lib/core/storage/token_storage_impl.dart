@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:ibiapabaapp/core/storage/token_response.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_strategy.dart';
+import 'package:ibivibe/core/storage/token_response.dart';
+import 'package:ibivibe/core/storage/token_storage_strategy.dart';
 
 class TokenStorageImpl implements TokenStorageStrategy {
   TokenStorageImpl._();

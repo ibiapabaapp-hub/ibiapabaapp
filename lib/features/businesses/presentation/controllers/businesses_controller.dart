@@ -1,10 +1,10 @@
-import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
-import 'package:ibiapabaapp/features/businesses/domain/tags/businesses_logtags.dart';
-import 'package:ibiapabaapp/features/businesses/presentation/providers/businesses_providers.dart';
+import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/models/business.dart';
+import 'package:ibivibe/features/businesses/domain/tags/businesses_logtags.dart';
+import 'package:ibivibe/features/businesses/presentation/providers/businesses_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

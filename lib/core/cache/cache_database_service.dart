@@ -11,7 +11,7 @@ class CacheDatabaseService {
 
   Future<Database> init() async {
     final appDir = await getApplicationCacheDirectory();
-    final dbPath = join(appDir.path, 'ibiapabaapp_cache.db');
+    final dbPath = join(appDir.path, 'ibivibe_cache.db');
 
     _db = await databaseFactoryIo.openDatabase(dbPath);
     _logger.i('📦 [Sembast] Banco inicializado em: $dbPath');

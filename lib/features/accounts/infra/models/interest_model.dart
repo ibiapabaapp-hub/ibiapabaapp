@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
 
 part 'interest_model.g.dart';
 

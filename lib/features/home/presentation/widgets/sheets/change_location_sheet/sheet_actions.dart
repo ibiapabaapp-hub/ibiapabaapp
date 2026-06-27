@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/ui/maps/fallback_map_widget.dart';
-import 'package:ibiapabaapp/shared/ui/maps/app_map.dart';
+import 'package:ibivibe/shared/ui/maps/fallback_map_widget.dart';
+import 'package:ibivibe/shared/ui/maps/app_map.dart';
 
 class SheetActions extends StatelessWidget {
   final bool isLoadingLocation;

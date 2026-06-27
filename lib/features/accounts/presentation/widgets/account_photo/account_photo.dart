@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo/get_account_icon.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/features/accounts/presentation/widgets/account_photo/get_account_icon.dart';
 
 class AccountPhoto extends StatelessWidget {
   final Account? account;

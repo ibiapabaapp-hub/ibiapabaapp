@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/core/preferences/preferences_logtags.dart';
-import 'package:ibiapabaapp/core/preferences/user_preferences_providers.dart';
-import 'package:ibiapabaapp/core/preferences/user_preferences_storage.dart';
+import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/core/preferences/preferences_logtags.dart';
+import 'package:ibivibe/core/preferences/user_preferences_providers.dart';
+import 'package:ibivibe/core/preferences/user_preferences_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

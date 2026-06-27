@@ -1,7 +1,7 @@
-import 'package:ibiapabaapp/core/cache/base_cache_storage.dart';
-import 'package:ibiapabaapp/features/favorites/data/datasources/favorites_local_storage.dart';
-import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
-import 'package:ibiapabaapp/features/favorites/infra/models/favorite_model.dart';
+import 'package:ibivibe/core/cache/base_cache_storage.dart';
+import 'package:ibivibe/features/favorites/data/datasources/favorites_local_storage.dart';
+import 'package:ibivibe/features/favorites/domain/entities/favorite.dart';
+import 'package:ibivibe/features/favorites/infra/models/favorite_model.dart';
 
 class FavoritesLocalStorageImpl extends BaseCacheStorage
     implements FavoritesLocalStorage {

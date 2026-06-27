@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/auth/presentation/controllers/register_controller.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/password/create_password_fields.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/email/create_email_field.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/shared/google_oauth_button.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/shared/text_between_dividers.dart';
-import 'package:ibiapabaapp/shared/ui/layout/form_topbar.dart';
+import 'package:ibivibe/features/auth/presentation/controllers/register_controller.dart';
+import 'package:ibivibe/shared/ui/forms/fields/password/create_password_fields.dart';
+import 'package:ibivibe/shared/ui/forms/fields/email/create_email_field.dart';
+import 'package:ibivibe/features/auth/presentation/widgets/shared/google_oauth_button.dart';
+import 'package:ibivibe/features/auth/presentation/widgets/shared/text_between_dividers.dart';
+import 'package:ibivibe/shared/ui/layout/form_topbar.dart';
 
 class CredentialsStep extends ConsumerStatefulWidget {
   final VoidCallback onNext;

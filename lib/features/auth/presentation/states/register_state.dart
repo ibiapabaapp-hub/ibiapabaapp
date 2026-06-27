@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/register_form_data.dart';
+import 'package:ibivibe/features/auth/domain/entities/check_availability.dart';
+import 'package:ibivibe/features/auth/domain/entities/register_form_data.dart';
 
 enum RegisterStatus { initial, loading, success, error }
 

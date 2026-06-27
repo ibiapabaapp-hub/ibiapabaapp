@@ -1,13 +1,13 @@
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/location/data/datasources/location_local_storage.dart';
-import 'package:ibiapabaapp/core/location/domain/entities/location_data.dart';
-import 'package:ibiapabaapp/core/location/domain/tags/location_logtags.dart';
-import 'package:ibiapabaapp/core/location/presentation/providers/location_providers.dart';
-import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
-import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/core/location/data/datasources/location_local_storage.dart';
+import 'package:ibivibe/core/location/domain/entities/location_data.dart';
+import 'package:ibivibe/core/location/domain/tags/location_logtags.dart';
+import 'package:ibivibe/core/location/presentation/providers/location_providers.dart';
+import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/shared/models/city.dart';
+import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

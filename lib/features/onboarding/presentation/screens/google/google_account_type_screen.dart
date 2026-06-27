@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/controllers/google_onboarding_controller.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/states/google_onboarding_state.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/widgets/profile_type_tile.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/features/onboarding/presentation/controllers/google_onboarding_controller.dart';
+import 'package:ibivibe/features/onboarding/presentation/states/google_onboarding_state.dart';
+import 'package:ibivibe/features/onboarding/presentation/widgets/profile_type_tile.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
-import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
-import 'package:ibiapabaapp/shared/ui/layout/form_topbar.dart';
+import 'package:ibivibe/core/preferences/user_preferences_state_provider.dart';
+import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibivibe/shared/ui/layout/beautiful_background_overlay.dart';
+import 'package:ibivibe/shared/ui/layout/form_topbar.dart';
 
 class GoogleAccountTypeScreen extends ConsumerStatefulWidget {
   const GoogleAccountTypeScreen({super.key});

@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/shared/models/event.dart';
-import 'package:ibiapabaapp/shared/models/media.dart';
+import 'package:ibivibe/shared/models/event.dart';
+import 'package:ibivibe/shared/models/media.dart';
 
 class EventDetailData {
   final Event event;

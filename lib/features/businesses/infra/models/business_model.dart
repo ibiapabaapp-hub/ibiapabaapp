@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
+import 'package:ibivibe/shared/models/business.dart';
 
 part 'business_model.g.dart';
 

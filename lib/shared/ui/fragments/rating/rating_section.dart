@@ -1,8 +1,8 @@
 import 'package:easy_stars/easy_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/rating/rating_input_sheet.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibivibe/shared/ui/fragments/rating/rating_input_sheet.dart';
+import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
 
 class RatingSection extends StatefulWidget {
   final double averageRating;

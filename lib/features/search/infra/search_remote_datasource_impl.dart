@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/features/cities/infra/models/cities_model.dart';
-import 'package:ibiapabaapp/features/businesses/infra/models/business_model.dart';
-import 'package:ibiapabaapp/features/events/infra/models/event_model.dart';
-import 'package:ibiapabaapp/features/search/data/datasources/search_remote_datasource.dart';
-import 'package:ibiapabaapp/features/search/infra/models/search_result_model.dart';
+import 'package:ibivibe/features/cities/infra/models/cities_model.dart';
+import 'package:ibivibe/features/businesses/infra/models/business_model.dart';
+import 'package:ibivibe/features/events/infra/models/event_model.dart';
+import 'package:ibivibe/features/search/data/datasources/search_remote_datasource.dart';
+import 'package:ibivibe/features/search/infra/models/search_result_model.dart';
 
 class SearchRemoteDataSourceImpl implements SearchRemoteDatasource {
   final Dio dio;

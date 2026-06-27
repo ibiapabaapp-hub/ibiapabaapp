@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
+import 'package:ibivibe/shared/models/gender.dart';
 
 class GenderConverter implements JsonConverter<Gender, String> {
   const GenderConverter();

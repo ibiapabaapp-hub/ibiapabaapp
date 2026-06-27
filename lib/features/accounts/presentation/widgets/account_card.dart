@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/app/theme/custom_styles/inverted_badge.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo/account_photo.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/widgets/dialogs/account_switcher_dialog.dart';
+import 'package:ibivibe/app/theme/custom_styles/inverted_badge.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/features/accounts/presentation/widgets/account_photo/account_photo.dart';
+import 'package:ibivibe/features/accounts/presentation/widgets/dialogs/account_switcher_dialog.dart';
 
 class AccountCard extends ConsumerWidget {
   final Account account;

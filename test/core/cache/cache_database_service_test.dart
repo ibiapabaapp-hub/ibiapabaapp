@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
+import 'package:ibivibe/core/cache/cache_database_service.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 

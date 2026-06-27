@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/phone/country_code/country_code_config.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/phone/country_code/country_picker_sheet.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/phone/country_code/custom_code_dialog.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/phone/phone_checker.dart';
-import 'package:ibiapabaapp/shared/ui/layout/availability_suffix.dart';
+import 'package:ibivibe/features/auth/validation/auth_validator.dart';
+import 'package:ibivibe/shared/ui/forms/fields/phone/country_code/country_code_config.dart';
+import 'package:ibivibe/shared/ui/forms/fields/phone/country_code/country_picker_sheet.dart';
+import 'package:ibivibe/shared/ui/forms/fields/phone/country_code/custom_code_dialog.dart';
+import 'package:ibivibe/shared/ui/forms/fields/phone/phone_checker.dart';
+import 'package:ibivibe/shared/ui/layout/availability_suffix.dart';
 
 class PhoneField extends ConsumerStatefulWidget {
   final VoidCallback onNext;

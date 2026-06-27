@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/controllers/business_data_controller.dart';
+import 'package:ibivibe/shared/models/city.dart';
+import 'package:ibivibe/features/onboarding/presentation/controllers/business_data_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class BusinessDataScreen extends ConsumerStatefulWidget {

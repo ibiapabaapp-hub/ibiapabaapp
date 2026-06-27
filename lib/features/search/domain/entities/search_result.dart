@@ -1,6 +1,6 @@
-import 'package:ibiapabaapp/shared/models/city.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
-import 'package:ibiapabaapp/shared/models/event.dart';
+import 'package:ibivibe/shared/models/city.dart';
+import 'package:ibivibe/shared/models/business.dart';
+import 'package:ibivibe/shared/models/event.dart';
 
 sealed class SearchResult {
   const SearchResult();

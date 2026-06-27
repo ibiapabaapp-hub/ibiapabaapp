@@ -3,17 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/core/location/presentation/providers/location_state_provider.dart';
-import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
-import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/recent_locations_list.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/sheet_actions.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/sheet_header.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/sheet_map.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
-import 'package:ibiapabaapp/shared/ui/layout/sheet_drag_indicator.dart';
-import 'package:ibiapabaapp/shared/ui/maps/app_map.dart';
-import 'package:ibiapabaapp/shared/ui/maps/app_map_provider.dart';
+import 'package:ibivibe/core/location/presentation/providers/location_state_provider.dart';
+import 'package:ibivibe/core/session/app_session_notifier_provider.dart';
+import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
+import 'package:ibivibe/features/home/presentation/widgets/sheets/change_location_sheet/recent_locations_list.dart';
+import 'package:ibivibe/features/home/presentation/widgets/sheets/change_location_sheet/sheet_actions.dart';
+import 'package:ibivibe/features/home/presentation/widgets/sheets/change_location_sheet/sheet_header.dart';
+import 'package:ibivibe/features/home/presentation/widgets/sheets/change_location_sheet/sheet_map.dart';
+import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibivibe/shared/ui/layout/sheet_drag_indicator.dart';
+import 'package:ibivibe/shared/ui/maps/app_map.dart';
+import 'package:ibivibe/shared/ui/maps/app_map_provider.dart';
 
 void showChangeLocationSheet({required BuildContext context}) {
   showModalBottomSheet(

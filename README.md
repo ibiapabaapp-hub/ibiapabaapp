@@ -1,4 +1,4 @@
-# IbiapabaApp
+# IbiVibe
 
 <div>
   <img src='https://img.shields.io/badge/flutter-%2302569B.svg?style=for-the-badge&logo=flutter&logoColor=white' alt='Flutter'>
@@ -8,13 +8,13 @@
   <img src='https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white' alt='PostgreSQL'>
 </div>
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ibiapabaapp-hub_ibiapabaapp&metric=alert_status&token=f74b646b9b72ed266c152ab5aa8913c400e2957c)](https://sonarcloud.io/summary/new_code?id=ibiapabaapp-hub_ibiapabaapp)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ibivibe-hub_ibivibe&metric=alert_status&token=f74b646b9b72ed266c152ab5aa8913c400e2957c)](https://sonarcloud.io/summary/new_code?id=ibivibe-hub_ibivibe)
 
-Aplicação mobile e web multiplataforma desenvolvida com Flutter para a plataforma IbiapabaApp, conectando usuários às informações sobre cidades, negócios, eventos e conteúdo multimídia da região do Ibiapaba.
+Aplicação mobile e web multiplataforma desenvolvida com Flutter para a plataforma IbiVibe, conectando usuários às informações sobre cidades, negócios, eventos e conteúdo multimídia da região do Ibiapaba.
 
 ## 📱 Sobre o Projeto
 
-IbiapabaApp é uma solução que oferece uma experiência integrada para exploradores urbanos, turistas, residentes e empresários da região do Ibiapaba. O aplicativo facilita a descoberta de estabelecimentos, acompanhamento de eventos, interação com a comunidade e acesso a conteúdo multimídia da região.
+IbiVibe é uma solução que oferece uma experiência integrada para exploradores urbanos, turistas, residentes e empresários da região do Ibiapaba. O aplicativo facilita a descoberta de estabelecimentos, acompanhamento de eventos, interação com a comunidade e acesso a conteúdo multimídia da região.
 
 ### Plataformas Suportadas
 - ✅ Android
@@ -78,8 +78,8 @@ IbiapabaApp é uma solução que oferece uma experiência integrada para explora
 #### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/1manuelc/ibiapabaapp.git
-cd ibiapabaapp
+git clone https://github.com/1manuelc/ibivibe.git
+cd ibivibe
 ```
 
 #### 2. Instalar dependências
@@ -262,7 +262,7 @@ Suporte a múltiplos idiomas com `intl` package. Strings localizadas em `assets/
 
 - **Issues**: Use GitHub Issues para reportar bugs
 - **Autor**: [@1manuelc](https://github.com/1manuelc)
-- **Organização**: [@ibiapabaapp-hub](https://github.com/ibiapabaapp-hub)
+- **Organização**: [@ibivibe-hub](https://github.com/ibivibe-hub)
 
 ## 📄 Licença
 

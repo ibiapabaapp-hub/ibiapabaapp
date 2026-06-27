@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/core/errors/exceptions/exceptions.dart';
+import 'package:ibivibe/core/errors/exceptions/exceptions.dart';
 
 class UserNotFoundException extends AppException {
   const UserNotFoundException(super.message) : super(code: 'user_not_found');

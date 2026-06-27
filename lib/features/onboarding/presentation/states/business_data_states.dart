@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/shared/models/city.dart';
+import 'package:ibivibe/shared/models/city.dart';
 
 enum BusinessDataStatus { initial, responding, completed, error }
 

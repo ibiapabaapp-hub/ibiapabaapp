@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
 
 List<String> getInterestsIdsList(AccountInterests interests) => [
   ...interests.businesses.map((e) => e.id),

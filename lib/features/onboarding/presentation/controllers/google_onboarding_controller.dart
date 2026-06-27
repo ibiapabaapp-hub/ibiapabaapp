@@ -1,14 +1,14 @@
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
-import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/google_oauth_state_provider.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/states/google_onboarding_state.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/shared/models/gender.dart';
+import 'package:ibivibe/features/auth/domain/entities/check_availability.dart';
+import 'package:ibivibe/features/auth/domain/tags/auth_logtags.dart';
+import 'package:ibivibe/features/auth/presentation/providers/auth_providers.dart';
+import 'package:ibivibe/features/auth/presentation/providers/google_oauth_state_provider.dart';
+import 'package:ibivibe/features/onboarding/presentation/states/google_onboarding_state.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
 
 class UserNotFoundFailure extends AppFailure {
   const UserNotFoundFailure({required super.message})

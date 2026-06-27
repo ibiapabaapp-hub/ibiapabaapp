@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/app/router/transitions/fade_through_page.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/screens/google/google_account_type_screen.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/screens/google/google_slug_gender_screen.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/screens/onboarding_newcomer_screen.dart';
-import 'package:ibiapabaapp/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:ibivibe/app/router/transitions/fade_through_page.dart';
+import 'package:ibivibe/features/onboarding/presentation/screens/google/google_account_type_screen.dart';
+import 'package:ibivibe/features/onboarding/presentation/screens/google/google_slug_gender_screen.dart';
+import 'package:ibivibe/features/onboarding/presentation/screens/onboarding_newcomer_screen.dart';
+import 'package:ibivibe/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 final List<RouteBase> onboardingRoutes = [
   GoRoute(

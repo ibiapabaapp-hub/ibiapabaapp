@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/features/favorites/data/repositories/favorites_repository_impl.dart';
-import 'package:ibiapabaapp/features/favorites/domain/entities/favorite.dart';
+import 'package:ibivibe/features/favorites/data/repositories/favorites_repository_impl.dart';
+import 'package:ibivibe/features/favorites/domain/entities/favorite.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';

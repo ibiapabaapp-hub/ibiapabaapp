@@ -1,6 +1,6 @@
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/shared/models/gender.dart';
+import 'package:ibivibe/features/auth/domain/entities/check_availability.dart';
 
 enum GoogleOnboardingStatus { initial, loading, success, error }
 

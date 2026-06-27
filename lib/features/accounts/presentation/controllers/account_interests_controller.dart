@@ -1,14 +1,14 @@
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests.dart';
-import 'package:ibiapabaapp/features/accounts/domain/entities/account_interests_response.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/providers/accounts_providers.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/shared/models/category_entity.dart';
-import 'package:ibiapabaapp/features/categories/presentation/providers/categories_providers.dart';
-import 'package:ibiapabaapp/features/onboarding/domain/tags/onboarding_logtags.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
+import 'package:ibivibe/features/accounts/domain/entities/account_interests_response.dart';
+import 'package:ibivibe/features/accounts/presentation/providers/accounts_providers.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/models/category_entity.dart';
+import 'package:ibivibe/features/categories/presentation/providers/categories_providers.dart';
+import 'package:ibivibe/features/onboarding/domain/tags/onboarding_logtags.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

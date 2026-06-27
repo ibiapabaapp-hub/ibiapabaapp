@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/core/errors/exceptions/exceptions.dart';
-import 'package:ibiapabaapp/features/medias/data/repositories/medias_repository_impl.dart';
-import 'package:ibiapabaapp/shared/models/media.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
+import 'package:ibivibe/core/errors/exceptions/exceptions.dart';
+import 'package:ibivibe/features/medias/data/repositories/medias_repository_impl.dart';
+import 'package:ibivibe/shared/models/media.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';

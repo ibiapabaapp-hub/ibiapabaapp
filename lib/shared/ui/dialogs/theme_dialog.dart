@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
+import 'package:ibivibe/core/preferences/user_preferences_state_provider.dart';
 
 void showThemeDialog(BuildContext context, WidgetRef ref) {
   final current = ref.read(

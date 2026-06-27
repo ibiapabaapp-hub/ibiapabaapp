@@ -1,7 +1,7 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/welcome/widgets/welcome_slides.dart';
+import 'package:ibivibe/features/welcome/widgets/welcome_slides.dart';
 
 class WelcomeCarousel extends StatefulWidget {
   const WelcomeCarousel({super.key});

@@ -1,6 +1,6 @@
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/location/infra/location_service.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/core/location/infra/location_service.dart';
+import 'package:ibivibe/shared/models/city.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../exceptions/location_exceptions.dart';

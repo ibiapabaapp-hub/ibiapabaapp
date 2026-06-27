@@ -1,8 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/app/router/transitions/loading_screen.dart';
-import 'package:ibiapabaapp/app/router/transitions/shared_axis_page.dart';
-import 'package:ibiapabaapp/core/beta/presentation/screens/under_development_screen.dart';
+import 'package:ibivibe/app/router/transitions/loading_screen.dart';
+import 'package:ibivibe/app/router/transitions/shared_axis_page.dart';
+import 'package:ibivibe/core/beta/presentation/screens/under_development_screen.dart';
 
 final List<RouteBase> betaRoutes = [
   GoRoute(

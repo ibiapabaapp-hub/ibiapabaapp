@@ -1,5 +1,5 @@
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/app/theme/adapted_styles/multi_select_field_style.dart';
+import 'package:ibivibe/app/theme/adapted_styles/multi_select_field_style.dart';
 
 // ignore_for_file: unnecessary_ignore
 // ignore_for_file: avoid_redundant_argument_values

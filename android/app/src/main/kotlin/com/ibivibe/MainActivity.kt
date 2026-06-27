@@ -1,4 +1,4 @@
-package com.manuelcdev.ibiapabaapp
+package com.manuelcdev.ibivibe
 
 import io.flutter.embedding.android.FlutterActivity
 

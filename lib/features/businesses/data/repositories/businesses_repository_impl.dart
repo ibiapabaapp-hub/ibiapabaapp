@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
-import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
-import 'package:ibiapabaapp/features/businesses/domain/repositories/business_repository.dart';
-import 'package:ibiapabaapp/features/businesses/infra/models/business_model.dart';
+import 'package:ibivibe/core/cache/cache_database_service.dart';
+import 'package:ibivibe/core/logger/handlers/repository_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/shared/models/business.dart';
+import 'package:ibivibe/features/businesses/domain/repositories/business_repository.dart';
+import 'package:ibivibe/features/businesses/infra/models/business_model.dart';
 import 'package:logger/logger.dart';
 
 class BusinessesRepositoryImpl

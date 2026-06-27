@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
+import 'package:ibivibe/features/accounts/infra/models/account_model.dart';
 import '../../domain/entities/complete_google_registration.dart';
 
 part 'complete_google_registration_response_model.g.dart';

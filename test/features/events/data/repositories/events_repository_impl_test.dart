@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/features/events/data/repositories/events_repository_impl.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
-import 'package:ibiapabaapp/shared/models/event.dart';
+import 'package:ibivibe/features/events/data/repositories/events_repository_impl.dart';
+import 'package:ibivibe/shared/models/business.dart';
+import 'package:ibivibe/shared/models/event.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';

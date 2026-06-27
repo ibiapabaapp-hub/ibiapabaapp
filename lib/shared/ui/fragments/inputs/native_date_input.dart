@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/services.dart';
-import 'package:ibiapabaapp/features/auth/validation/auth_validator.dart';
+import 'package:ibivibe/features/auth/validation/auth_validator.dart';
 import 'package:intl/intl.dart';
 
 class NativeDateInput extends ConsumerStatefulWidget {

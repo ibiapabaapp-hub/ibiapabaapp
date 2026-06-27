@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
 
 Icon getAccountIcon(AccountType type, BuildContext context, double size) {
   switch (type) {

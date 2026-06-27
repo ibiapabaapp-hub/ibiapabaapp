@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:ibiapabaapp/shared/ui/maps/app_map.dart';
-import 'package:ibiapabaapp/shared/ui/maps/fallback_map_widget.dart';
-import 'package:ibiapabaapp/shared/ui/maps/maplibre_map_widget.dart';
+import 'package:ibivibe/shared/ui/maps/app_map.dart';
+import 'package:ibivibe/shared/ui/maps/fallback_map_widget.dart';
+import 'package:ibivibe/shared/ui/maps/maplibre_map_widget.dart';
 
 class AppMapProvider {
   AppMapProvider._();

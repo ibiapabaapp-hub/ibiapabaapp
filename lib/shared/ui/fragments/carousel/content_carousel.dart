@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/carousel/carousel_dot_indicator.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/media/content_media.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
+import 'package:ibivibe/shared/ui/fragments/carousel/carousel_dot_indicator.dart';
+import 'package:ibivibe/shared/ui/fragments/media/content_media.dart';
+import 'package:ibivibe/shared/ui/fragments/media/sources.dart';
 
 class ContentCarousel extends StatefulWidget {
   final List<MediaSource> items;

@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/app/router/transitions/fade_through_page.dart';
-import 'package:ibiapabaapp/app/router/transitions/shared_axis_page.dart';
-import 'package:ibiapabaapp/features/businesses/presentation/screens/business_detail_screen.dart';
-import 'package:ibiapabaapp/features/businesses/presentation/screens/businesses_overview_screen.dart';
+import 'package:ibivibe/app/router/transitions/fade_through_page.dart';
+import 'package:ibivibe/app/router/transitions/shared_axis_page.dart';
+import 'package:ibivibe/features/businesses/presentation/screens/business_detail_screen.dart';
+import 'package:ibivibe/features/businesses/presentation/screens/businesses_overview_screen.dart';
 
 final List<RouteBase> businessesRoutes = [
   // ─── Businesses ─────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/phone/country_code/country_code_config.dart';
+import 'package:ibivibe/shared/ui/forms/fields/phone/country_code/country_code_config.dart';
 
 class CountryPickerResult {
   final String code;

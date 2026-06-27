@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
-import 'package:ibiapabaapp/features/cities/presentation/controllers/cities_controller.dart';
-import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/core/logger/logger.dart';
+import 'package:ibivibe/features/cities/presentation/controllers/cities_controller.dart';
+import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/shared/models/city.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 

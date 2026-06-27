@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/core/logger/handlers/controller_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/features/auth/domain/repositories/auth_repository.dart';
-import 'package:ibiapabaapp/features/auth/domain/tags/auth_logtags.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
-import 'package:ibiapabaapp/features/auth/presentation/states/login_state.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/email/email_checker.dart';
+import 'package:ibivibe/core/errors/failures/failures.dart';
+import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/features/auth/domain/repositories/auth_repository.dart';
+import 'package:ibivibe/features/auth/domain/tags/auth_logtags.dart';
+import 'package:ibivibe/features/auth/presentation/providers/auth_state_provider.dart';
+import 'package:ibivibe/features/auth/presentation/states/login_state.dart';
+import 'package:ibivibe/shared/ui/forms/fields/email/email_checker.dart';
 import 'package:logger/logger.dart';
 
 class LoginController extends ChangeNotifier

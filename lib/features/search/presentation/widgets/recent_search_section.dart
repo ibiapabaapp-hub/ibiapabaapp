@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
-import 'package:ibiapabaapp/features/search/presentation/providers/search_state_provider.dart';
-import 'package:ibiapabaapp/features/search/presentation/widgets/recent_search_item.dart';
+import 'package:ibivibe/core/session/app_session_notifier_provider.dart';
+import 'package:ibivibe/features/search/presentation/providers/search_state_provider.dart';
+import 'package:ibivibe/features/search/presentation/widgets/recent_search_item.dart';
 
 class RecentSearchSection extends ConsumerWidget {
   final ValueChanged<String> onSuggestionTap;

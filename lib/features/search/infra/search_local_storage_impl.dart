@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/core/cache/base_cache_storage.dart';
-import 'package:ibiapabaapp/features/search/data/datasources/search_local_storage.dart';
+import 'package:ibivibe/core/cache/base_cache_storage.dart';
+import 'package:ibivibe/features/search/data/datasources/search_local_storage.dart';
 
 class SearchLocalStorageImpl extends BaseCacheStorage
     implements SearchLocalStorage {

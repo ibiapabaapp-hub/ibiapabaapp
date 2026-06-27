@@ -1,20 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_strategy.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/complete_google_registration.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/google_auth_result.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/register_form_data.dart';
-import 'package:ibiapabaapp/features/auth/domain/repositories/auth_repository.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
-import 'package:ibiapabaapp/features/auth/infra/models/auth_result_model.dart';
-import 'package:ibiapabaapp/features/auth/infra/models/check_availability_model.dart';
-import 'package:ibiapabaapp/features/auth/infra/models/complete_google_registration_response_model.dart';
-import 'package:ibiapabaapp/features/auth/infra/models/google_auth_result_model.dart';
+import 'package:ibivibe/core/network/dio_exception_to_app_exception_mapper.dart';
+import 'package:ibivibe/core/storage/token_storage_strategy.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/features/auth/domain/entities/auth_result.dart';
+import 'package:ibivibe/features/auth/domain/entities/check_availability.dart';
+import 'package:ibivibe/features/auth/domain/entities/complete_google_registration.dart';
+import 'package:ibivibe/features/auth/domain/entities/google_auth_result.dart';
+import 'package:ibivibe/features/auth/domain/entities/register_form_data.dart';
+import 'package:ibivibe/features/auth/domain/repositories/auth_repository.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/shared/models/gender.dart';
+import 'package:ibivibe/features/accounts/infra/models/account_model.dart';
+import 'package:ibivibe/features/auth/infra/models/auth_result_model.dart';
+import 'package:ibivibe/features/auth/infra/models/check_availability_model.dart';
+import 'package:ibivibe/features/auth/infra/models/complete_google_registration_response_model.dart';
+import 'package:ibivibe/features/auth/infra/models/google_auth_result_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final Dio _dio;

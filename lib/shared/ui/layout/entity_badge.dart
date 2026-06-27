@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/shared/utils/get_entity_icon.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
+import 'package:ibivibe/shared/utils/get_entity_icon.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class EntityBadge extends StatelessWidget {

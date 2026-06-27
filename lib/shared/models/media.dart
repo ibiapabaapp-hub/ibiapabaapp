@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
 
 class Media {
   final String id;

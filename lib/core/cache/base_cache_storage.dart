@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
+import 'package:ibivibe/core/cache/cache_database_service.dart';
 
 abstract class BaseCacheStorage {
   final CacheDatabaseService cacheService;

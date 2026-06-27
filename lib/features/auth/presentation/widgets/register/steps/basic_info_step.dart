@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/auth/presentation/controllers/register_controller.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/name/name_field.dart';
-import 'package:ibiapabaapp/shared/ui/forms/fields/slug/slug_field.dart';
-import 'package:ibiapabaapp/shared/ui/layout/form_topbar.dart';
+import 'package:ibivibe/features/auth/presentation/controllers/register_controller.dart';
+import 'package:ibivibe/shared/ui/forms/fields/name/name_field.dart';
+import 'package:ibivibe/shared/ui/forms/fields/slug/slug_field.dart';
+import 'package:ibivibe/shared/ui/layout/form_topbar.dart';
 
 class BasicInfoStep extends ConsumerStatefulWidget {
   final VoidCallback onNext;

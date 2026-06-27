@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/inputs/tappable_container.dart';
-import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
+import 'package:ibivibe/shared/ui/fragments/inputs/tappable_container.dart';
+import 'package:ibivibe/shared/ui/layout/section_header.dart';
 
 class ItemsGrid extends StatelessWidget {
   final String title;

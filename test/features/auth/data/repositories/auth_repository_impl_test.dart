@@ -1,16 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/core/errors/exceptions/exceptions.dart';
-import 'package:ibiapabaapp/core/storage/token_storage_strategy.dart';
-import 'package:ibiapabaapp/features/auth/data/exceptions/auth_exceptions.dart';
-import 'package:ibiapabaapp/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/auth_result.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/complete_google_registration.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/google_auth_result.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/register_form_data.dart';
-import 'package:ibiapabaapp/shared/models/account_type.dart';
-import 'package:ibiapabaapp/shared/models/gender.dart';
+import 'package:ibivibe/core/errors/exceptions/exceptions.dart';
+import 'package:ibivibe/core/storage/token_storage_strategy.dart';
+import 'package:ibivibe/features/auth/data/exceptions/auth_exceptions.dart';
+import 'package:ibivibe/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:ibivibe/features/auth/domain/entities/auth_result.dart';
+import 'package:ibivibe/features/auth/domain/entities/check_availability.dart';
+import 'package:ibivibe/features/auth/domain/entities/complete_google_registration.dart';
+import 'package:ibivibe/features/auth/domain/entities/google_auth_result.dart';
+import 'package:ibivibe/features/auth/domain/entities/register_form_data.dart';
+import 'package:ibivibe/shared/models/account_type.dart';
+import 'package:ibivibe/shared/models/gender.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockDio extends Mock implements Dio {}

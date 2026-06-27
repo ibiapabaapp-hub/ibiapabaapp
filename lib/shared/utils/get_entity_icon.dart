@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
 
 IconData getEntityIcon(EntityType type) {
   switch (type) {

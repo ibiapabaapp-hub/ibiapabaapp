@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/app/theme/adapted_styles/text_field_style.dart';
+import 'package:ibivibe/app/theme/adapted_styles/text_field_style.dart';
 
 FSelectSearchStyle selectSearchStyle({
   required FColors colors,

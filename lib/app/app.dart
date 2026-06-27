@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/app/router/app_router_provider.dart';
-import 'package:ibiapabaapp/app/theme/adapted_styles/theme.dart';
-import 'package:ibiapabaapp/core/preferences/user_preferences_state_provider.dart';
+import 'package:ibivibe/app/router/app_router_provider.dart';
+import 'package:ibivibe/app/theme/adapted_styles/theme.dart';
+import 'package:ibivibe/core/preferences/user_preferences_state_provider.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});

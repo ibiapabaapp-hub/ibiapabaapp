@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/widgets/account_photo/account_photo.dart';
-import 'package:ibiapabaapp/features/accounts/presentation/widgets/dialogs/account_switcher_dialog.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/features/accounts/presentation/widgets/account_photo/account_photo.dart';
+import 'package:ibivibe/features/accounts/presentation/widgets/dialogs/account_switcher_dialog.dart';
 
 class DestinationItem {
   final String label;

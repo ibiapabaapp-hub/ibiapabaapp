@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/login/login_form.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/shared/google_oauth_button.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/shared/text_between_dividers.dart';
-import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
-import 'package:ibiapabaapp/shared/ui/layout/form_topbar.dart';
+import 'package:ibivibe/features/auth/presentation/providers/auth_providers.dart';
+import 'package:ibivibe/features/auth/presentation/widgets/login/login_form.dart';
+import 'package:ibivibe/features/auth/presentation/widgets/shared/google_oauth_button.dart';
+import 'package:ibivibe/features/auth/presentation/widgets/shared/text_between_dividers.dart';
+import 'package:ibivibe/shared/ui/layout/beautiful_background_overlay.dart';
+import 'package:ibivibe/shared/ui/layout/form_topbar.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibiapabaapp/shared/models/business.dart';
-import 'package:ibiapabaapp/shared/models/event.dart';
+import 'package:ibivibe/shared/models/business.dart';
+import 'package:ibivibe/shared/models/event.dart';
 
 Event _createEvent({
   String id = '1',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
+import 'package:ibivibe/features/auth/presentation/providers/auth_state_provider.dart';
 
 void showLogoutDialog(BuildContext context, WidgetRef ref) {
   final authState = ref.read(authStateProvider.notifier);

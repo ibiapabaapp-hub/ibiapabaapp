@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
-import 'package:ibiapabaapp/core/logger/handlers/repository_log_handler.dart';
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
-import 'package:ibiapabaapp/core/network/dio_exception_to_app_exception_mapper.dart';
-import 'package:ibiapabaapp/shared/models/category_entity.dart';
-import 'package:ibiapabaapp/shared/models/child_category.dart';
-import 'package:ibiapabaapp/shared/models/parent_category.dart';
-import 'package:ibiapabaapp/features/categories/domain/repositories/categories_repository.dart';
-import 'package:ibiapabaapp/features/categories/infra/models/child_category_model.dart';
-import 'package:ibiapabaapp/features/categories/infra/models/parent_category_model.dart';
+import 'package:ibivibe/core/cache/cache_database_service.dart';
+import 'package:ibivibe/core/logger/handlers/repository_log_handler.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
+import 'package:ibivibe/core/network/dio_exception_to_app_exception_mapper.dart';
+import 'package:ibivibe/shared/models/category_entity.dart';
+import 'package:ibivibe/shared/models/child_category.dart';
+import 'package:ibivibe/shared/models/parent_category.dart';
+import 'package:ibivibe/features/categories/domain/repositories/categories_repository.dart';
+import 'package:ibivibe/features/categories/infra/models/child_category_model.dart';
+import 'package:ibivibe/features/categories/infra/models/parent_category_model.dart';
 import 'package:logger/logger.dart';
 
 class CategoriesRepositoryImpl

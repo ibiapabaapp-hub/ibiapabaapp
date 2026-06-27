@@ -2,9 +2,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
-import 'package:ibiapabaapp/features/cities/presentation/providers/cities_providers.dart';
-import 'package:ibiapabaapp/shared/ui/maps/app_map.dart';
+import 'package:ibivibe/shared/models/city.dart';
+import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
+import 'package:ibivibe/shared/ui/maps/app_map.dart';
 
 class FallbackMapWidget extends AppMapWidget {
   const FallbackMapWidget({

@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/shared/models/event.dart';
+import 'package:ibivibe/shared/models/event.dart';
 
 abstract class EventsRepository {
   Future<List<Event>> getAllEvents();

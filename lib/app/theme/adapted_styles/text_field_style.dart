@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/app/theme/adapted_styles/button_style.dart';
+import 'package:ibivibe/app/theme/adapted_styles/button_style.dart';
 
 FTextFieldStyle textFieldStyle({
   required FColors colors,

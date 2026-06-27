@@ -1,5 +1,5 @@
-import 'package:ibiapabaapp/core/cache/cache_database_service.dart';
-import 'package:ibiapabaapp/core/logger/logger.dart';
+import 'package:ibivibe/core/cache/cache_database_service.dart';
+import 'package:ibivibe/core/logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cache_database_provider.g.dart';

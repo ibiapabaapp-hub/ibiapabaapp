@@ -1,7 +1,7 @@
-import 'package:ibiapabaapp/core/cache/base_cache_storage.dart';
-import 'package:ibiapabaapp/features/accounts/data/datasources/accounts_local_storage.dart';
-import 'package:ibiapabaapp/shared/models/account.dart';
-import 'package:ibiapabaapp/features/accounts/infra/models/account_model.dart';
+import 'package:ibivibe/core/cache/base_cache_storage.dart';
+import 'package:ibivibe/features/accounts/data/datasources/accounts_local_storage.dart';
+import 'package:ibivibe/shared/models/account.dart';
+import 'package:ibivibe/features/accounts/infra/models/account_model.dart';
 
 class AccountsLocalStorageImpl extends BaseCacheStorage
     implements AccountsLocalStorage {

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/shared/models/city.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/media/content_media.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
-import 'package:ibiapabaapp/shared/ui/layout/entity_badge.dart';
-import 'package:ibiapabaapp/shared/utils/get_entity_icon.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
+import 'package:ibivibe/shared/models/city.dart';
+import 'package:ibivibe/shared/ui/fragments/media/content_media.dart';
+import 'package:ibivibe/shared/ui/fragments/media/sources.dart';
+import 'package:ibivibe/shared/ui/layout/entity_badge.dart';
+import 'package:ibivibe/shared/utils/get_entity_icon.dart';
 
 class CityCard extends StatelessWidget {
   final City city;

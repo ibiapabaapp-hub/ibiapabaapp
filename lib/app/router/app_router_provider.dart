@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/app/router/app_router_redirect_provider.dart';
-import 'package:ibiapabaapp/app/router/app_routes.dart';
+import 'package:ibivibe/app/router/app_router_redirect_provider.dart';
+import 'package:ibivibe/app/router/app_routes.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router_provider.g.dart';

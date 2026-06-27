@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/shared/providers/accounts_state_provider.dart';
-import 'package:ibiapabaapp/shared/ui/layout/horizontal_infinite_carousel.dart';
-import 'package:ibiapabaapp/shared/utils/show_todo_toast.dart';
+import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/ui/layout/horizontal_infinite_carousel.dart';
+import 'package:ibivibe/shared/utils/show_todo_toast.dart';
 
 const List<String> _defaultCategories = [
   'Restaurantes',

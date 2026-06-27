@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ibiapabaapp/core/entities/entity_type.dart';
-import 'package:ibiapabaapp/shared/models/parent_category.dart';
-import 'package:ibiapabaapp/features/categories/infra/models/child_category_model.dart';
+import 'package:ibivibe/core/entities/entity_type.dart';
+import 'package:ibivibe/shared/models/parent_category.dart';
+import 'package:ibivibe/features/categories/infra/models/child_category_model.dart';
 
 part 'parent_category_model.g.dart';
 

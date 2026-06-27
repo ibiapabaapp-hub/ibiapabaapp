@@ -1,4 +1,4 @@
-import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibivibe/core/logger/log_tags.dart';
 
 enum AppSessionAction implements LogTag {
   restore('[RESTORE]'),
