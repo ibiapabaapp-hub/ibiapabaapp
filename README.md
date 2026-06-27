@@ -10,11 +10,11 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ibiapabaapp-hub_ibiapabaapp&metric=alert_status&token=f74b646b9b72ed266c152ab5aa8913c400e2957c)](https://sonarcloud.io/summary/new_code?id=ibiapabaapp-hub_ibiapabaapp)
 
-Aplicação mobile e web multiplataforma desenvolvida com Flutter para a plataforma IbiapabaApp, conectando usuários às informações sobre cidades, negócios, eventos e conteúdo multimídia da região do Ibiapaba.
+Aplicação mobile e web multiplataforma desenvolvida com Flutter, conectando usuários às informações sobre cidades, negócios, eventos e conteúdo multimídia da região do Ibiapaba.
 
 ## 📱 Sobre o Projeto
 
-IbiapabaApp é uma solução que oferece uma experiência integrada para exploradores urbanos, turistas, residentes e empresários da região do Ibiapaba. O aplicativo facilita a descoberta de estabelecimentos, acompanhamento de eventos, interação com a comunidade e acesso a conteúdo multimídia da região.
+IbiVibe é uma solução que oferece uma experiência integrada para exploradores urbanos, turistas, residentes e empresários da região do Ibiapaba. O aplicativo facilita a descoberta de estabelecimentos, acompanhamento de eventos, interação com a comunidade e acesso a conteúdo multimídia da região.
 
 ### Plataformas Suportadas
 - ✅ Android
@@ -262,7 +262,6 @@ Suporte a múltiplos idiomas com `intl` package. Strings localizadas em `assets/
 
 - **Issues**: Use GitHub Issues para reportar bugs
 - **Autor**: [@1manuelc](https://github.com/1manuelc)
-- **Organização**: [@ibiapabaapp-hub](https://github.com/ibiapabaapp-hub)
 
 ## 📄 Licença
 
