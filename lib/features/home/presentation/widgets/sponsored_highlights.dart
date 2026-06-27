@@ -5,38 +5,31 @@ import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
 class SponsoredHighlights extends StatelessWidget {
   const SponsoredHighlights({super.key});
 
-  // Lista de itens convertida para o novo padrão de Sealed Classes
   static final List<MediaSource> _items = [
     NetworkMedia(
-      url:
-          'https://instagram.fjdo10-1.fna.fbcdn.net/v/...', // URL encurtada para o exemplo
-      route: '/app/companies/1',
-      title: 'Patrocinado',
+      url: 'https://cdn.ibiapabaapp.com.br/cities/ubajara.png',
+      route: '/app/cities/ubajara',
+      title: 'Ubajara',
       isVideo: false,
     ),
     NetworkMedia(
-      url: 'https://instagram.fjdo10-1.fna.fbcdn.net/v/...',
-      route: '/app/events/2',
-      isVideo: false,
-    ),
-    NetworkMedia(
-      url: 'https://instagram.fjdo1-2.fna.fbcdn.net/v/...',
-      route: '/app/events/3',
+      url: 'https://cdn.ibiapabaapp.com.br/cities/tiangua.png',
+      route: '/app/cities/tiangua',
+      title: 'Tianguá',
       isVideo: false,
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    // Definimos o limite de largura para tablets aqui
-    return Center(
-      child: SizedBox(
-        width: 450,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: ContentCarousel(
-            items: _items,
-            aspectRatio: 5 / 6, // Passamos o aspecto desejado
+    return Padding(
+      padding: const .symmetric(horizontal: 16),
+      child: Center(
+        child: SizedBox(
+          width: .infinity,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: ContentCarousel(items: _items, aspectRatio: 3 / 2),
           ),
         ),
       ),

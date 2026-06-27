@@ -13,10 +13,12 @@ class MainWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(24, hasTopPadding ? 24 : 0, 24, 32),
+      padding: EdgeInsets.fromLTRB(16, hasTopPadding ? 24 : 0, 16, 32),
       child: Column(
         spacing: 24,
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: .start,
+        crossAxisAlignment: .start,
         children: children,
       ),
     );

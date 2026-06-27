@@ -7,10 +7,10 @@ mixin RepositoryLogHandler {
   Logger get logger;
   LogFeature get feature;
 
-  Failure Function(Object) get featureMapper =>
+  AppFailure Function(Object) get featureMapper =>
       GlobalExceptionToFailureMapper.map;
 
-  Failure handleRepositoryError({
+  AppFailure handleRepositoryError({
     required dynamic exception,
     required StackTrace stackTrace,
     required LogTag action,

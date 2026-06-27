@@ -1,12 +1,42 @@
-sealed class RegisterState {}
+import 'package:ibiapabaapp/features/auth/domain/entities/check_availability.dart';
+import 'package:ibiapabaapp/features/auth/domain/entities/register_form_data.dart';
 
-class RegisterInitial extends RegisterState {}
+enum RegisterStatus { initial, loading, success, error }
 
-class RegisterLoading extends RegisterState {}
+class RegisterState {
+  final RegisterStatus status;
+  final RegisterFormData formData;
+  final Map<AvailabilityField, ({bool? available, String? error, bool isChecking})> availability;
+  final String? errorMessage;
 
-class RegisterSuccess extends RegisterState {}
+  RegisterState({
+    required this.status,
+    required this.formData,
+    required this.availability,
+    this.errorMessage,
+  });
 
-class RegisterError extends RegisterState {
-  final String message;
-  RegisterError(this.message);
+  factory RegisterState.initial() => RegisterState(
+    status: RegisterStatus.initial,
+    formData: RegisterFormData(),
+    availability: {
+      AvailabilityField.slug: (available: null, error: null, isChecking: false),
+      AvailabilityField.email: (available: null, error: null, isChecking: false),
+      AvailabilityField.phoneNumber: (available: null, error: null, isChecking: false),
+    },
+  );
+
+  RegisterState copyWith({
+    RegisterStatus? status,
+    RegisterFormData? formData,
+    Map<AvailabilityField, ({bool? available, String? error, bool isChecking})>? availability,
+    String? errorMessage,
+  }) {
+    return RegisterState(
+      status: status ?? this.status,
+      formData: formData ?? this.formData,
+      availability: availability ?? this.availability,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 }

@@ -28,7 +28,7 @@ class ItemsGrid extends StatelessWidget {
         const SizedBox(height: 16),
         SectionHeader(title: title, onSeeAllTap: onSeeAllTap),
         const SizedBox(height: 16),
-        
+
         LayoutBuilder(
           builder: (context, constraints) {
             const double spacing = 8.0;
@@ -41,23 +41,16 @@ class ItemsGrid extends StatelessWidget {
               children: items.map((category) {
                 return SizedBox(
                   width: itemWidth,
-                  height: 72,
+                  height: 64,
                   child: TappableContainer(
                     color: context.theme.colors.secondary,
                     borderRadius: BorderRadius.circular(16),
                     onTap: () => onItemTap?.call(category),
                     child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          category,
-                          textAlign: TextAlign.center,
-                          softWrap: true,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                      child: Text(
+                        category,
+                        textAlign: TextAlign.center,
+                        style: context.theme.typography.sm,
                       ),
                     ),
                   ),

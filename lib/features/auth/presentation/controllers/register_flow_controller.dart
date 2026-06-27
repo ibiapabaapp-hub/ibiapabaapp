@@ -8,7 +8,7 @@ class RegisterFlowController {
     currentStep++;
     pageController.animateToPage(
       currentStep,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
     );
   }
@@ -18,7 +18,7 @@ class RegisterFlowController {
       currentStep--;
       pageController.animateToPage(
         currentStep,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.ease,
       );
     }

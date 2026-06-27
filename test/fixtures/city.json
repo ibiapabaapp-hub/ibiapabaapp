@@ -1,0 +1,11 @@
+{
+  "id": "test-city-id",
+  "name": "Test City",
+  "slug": "test-city",
+  "description": "A test city",
+  "cover_img_url": "https://example.com/city.jpg",
+  "categories": ["tourism", "culture"],
+  "location": {
+    "coordinates": [-38.5124, -12.9714]
+  }
+}

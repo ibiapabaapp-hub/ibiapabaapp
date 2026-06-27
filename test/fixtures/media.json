@@ -1,0 +1,11 @@
+{
+  "id": "test-media-id",
+  "entity_type": "city",
+  "entity_id": "test-city-id",
+  "media_type": "image",
+  "url": "https://example.com/media.jpg",
+  "thumbnail_url": "https://example.com/thumb.jpg",
+  "alt_text": "Test media",
+  "is_cover": true,
+  "position": 0
+}

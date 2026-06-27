@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
+import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
 
 void showLogoutDialog(BuildContext context, WidgetRef ref) {
-  final session = ref.read(appSessionProvider.notifier);
+  final authState = ref.read(authStateProvider.notifier);
   final foruiTheme = context.theme;
 
   showFDialog(
@@ -16,14 +16,14 @@ void showLogoutDialog(BuildContext context, WidgetRef ref) {
         style: style.call,
         animation: animation,
         title: const Text('Sair da conta'),
-        body: Text(
+        body: const Text(
           'Tem certeza que deseja sair? Você precisará fazer login novamente.',
         ),
         actions: [
           FButton(
             style: FButtonStyle.destructive(),
             onPress: () async {
-              await session.logout();
+              await authState.logout();
               if (context.mounted) context.pop();
             },
             child: const Text('Sair'),

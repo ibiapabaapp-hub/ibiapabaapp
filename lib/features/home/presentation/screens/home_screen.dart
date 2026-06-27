@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/companies_section.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
+import 'package:ibiapabaapp/features/home/presentation/widgets/businesses_section.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/explore_cities_section.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/now_happening_section.dart';
-import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet.dart';
 import 'package:ibiapabaapp/features/home/presentation/widgets/quick_categories.dart';
+import 'package:ibiapabaapp/features/home/presentation/widgets/sheets/change_location_sheet/change_location_sheet.dart';
+import 'package:ibiapabaapp/features/home/presentation/widgets/sponsored_highlights.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,21 +16,25 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: true,
       child: SingleChildScrollView(
         child: Column(
           children: [
             _HomeHeader(),
-            QuickCategoriesList(),
-            const SizedBox(height: 32),
+            const SizedBox(height: 8),
 
-            NowHappeningSection(),
-            const SizedBox(height: 32),
+            const SponsoredHighlights(),
+            const SizedBox(height: 24),
 
-            CompaniesSection(),
-            const SizedBox(height: 32),
+            const QuickCategoriesList(),
+            const SizedBox(height: 16),
 
-            ExploreCitiesSection(),
+            const NowHappeningSection(),
+            const SizedBox(height: 24),
+
+            const CompaniesSection(),
+            const SizedBox(height: 24),
+
+            const ExploreCitiesSection(),
           ],
         ),
       ),
@@ -41,13 +49,11 @@ class _HomeHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: 64,
+      toolbarHeight: 56,
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
       titleSpacing: 24,
-      automaticallyImplyLeading: false,
-
       title: _ActualCityButton(),
       actions: [
         Padding(
@@ -59,9 +65,10 @@ class _HomeHeader extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class _ActualCityButton extends StatelessWidget {
+class _ActualCityButton extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final session = ref.watch(appSessionProvider);
     return FTooltip(
       tipAnchor: Alignment.topLeft,
       spacing: const FPortalSpacing(12),
@@ -77,12 +84,9 @@ class _ActualCityButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Ubajara, CE', // TODO: trocar para cidade da sessão
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: context.theme.colors.foreground,
-              ),
+              session.currentCity?.name ?? 'Selecione uma cidade',
+              overflow: .ellipsis,
+              style: context.theme.typography.lg.copyWith(fontWeight: .w600),
             ),
             const SizedBox(width: 4),
             Icon(
@@ -104,7 +108,9 @@ class _NotificationButton extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         FButton.icon(
-          onPress: () {},
+          onPress: () {
+            context.push('/app/settings');
+          },
           style: FButtonStyle.ghost(),
           child: const Icon(Icons.notifications_outlined, size: 24),
         ),

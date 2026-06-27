@@ -1,10 +1,10 @@
 import 'exceptions.dart';
 import '../failures/failures.dart';
 
-typedef ExceptionToFailureFactory = Failure Function(AppException e);
+typedef ExceptionToFailureFactory = AppFailure Function(AppException e);
 
 class GlobalExceptionToFailureMapper {
-  static Failure map(Object error) {
+  static AppFailure map(Object error) {
     try {
       if (error is AppException) {
         final factory = _GlobalExceptionFailureRegistry.getByType(error);
@@ -29,7 +29,7 @@ class _GlobalExceptionFailureRegistry {
     NetworkException: 'Sem conexão. Verifique sua internet e tente novamente.',
   };
 
-  static const Failure fallback = ServerFailure(
+  static const AppFailure fallback = ServerFailure(
     'Ocorreu um erro inesperado. Tente novamente.',
   );
 

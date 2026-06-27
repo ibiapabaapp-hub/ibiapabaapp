@@ -1,8 +1,6 @@
-import 'package:dartz/dartz.dart';
-import 'package:ibiapabaapp/core/errors/failures/failures.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 
 abstract class CitiesRepository {
-  Future<Either<Failure, List<City>>> getAllCities({bool forceRefresh = false});
-  Future<Either<Failure, City?>> getCityById(String id);
+  Future<List<City>> getAllCities({bool forceRefresh = false});
+  Future<City?> getCityById(String id);
 }

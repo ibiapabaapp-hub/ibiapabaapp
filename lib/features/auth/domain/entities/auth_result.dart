@@ -1,16 +1,16 @@
 import 'package:ibiapabaapp/core/storage/token_response.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/user.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
 
 class AuthResult implements TokenResponse {
   @override
   final String accessToken;
   @override
   final String refreshToken;
-  final User user;
+  final Account account;
 
   AuthResult({
     required this.accessToken,
     required this.refreshToken,
-    required this.user,
+    required this.account,
   });
 }

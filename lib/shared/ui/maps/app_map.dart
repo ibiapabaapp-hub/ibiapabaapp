@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppLatLng {
   const AppLatLng(this.latitude, this.longitude);
@@ -7,19 +7,21 @@ class AppLatLng {
   final double longitude;
 }
 
-/// Contrato que toda implementação de mapa deve seguir.
-/// Para trocar de lib: crie uma nova classe que implemente [AppMapWidget]
-/// e atualize o [AppMapProvider] — o resto do app não muda.
-abstract class AppMapWidget extends StatefulWidget {
+abstract class AppMapWidget extends ConsumerStatefulWidget {
+  final AppLatLng initialPosition;
+  final double initialZoom;
+  final AppLatLng? currentPosition;
+  final Future<void> Function(String cityName)? onCitySelected;
+  final String? currentCityName;
+  final bool interactive;
+
   const AppMapWidget({
     super.key,
     required this.initialPosition,
     required this.initialZoom,
     this.currentPosition,
+    this.onCitySelected,
+    this.currentCityName,
+    this.interactive = false,
   });
-
-  /// Centro inicial do mapa (ex: fallback regional).
-  final AppLatLng initialPosition;
-  final double initialZoom;
-  final AppLatLng? currentPosition;
 }

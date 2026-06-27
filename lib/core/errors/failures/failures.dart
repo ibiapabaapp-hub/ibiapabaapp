@@ -1,40 +1,45 @@
-abstract class Failure {
+abstract class AppFailure {
   final String message;
   final String code;
-  const Failure({required this.message, required this.code});
+  const AppFailure({required this.message, required this.code});
 }
 
-class ServerFailure extends Failure {
+class InternalFailure extends AppFailure {
+  const InternalFailure(String message)
+    : super(message: message, code: 'internal_error');
+}
+
+class ServerFailure extends AppFailure {
   const ServerFailure(String message)
     : super(message: message, code: 'server_error');
 }
 
-class UnauthorizedFailure extends Failure {
+class UnauthorizedFailure extends AppFailure {
   const UnauthorizedFailure(String message, {required super.code})
     : super(message: message);
 }
 
-class NetworkFailure extends Failure {
+class NetworkFailure extends AppFailure {
   const NetworkFailure(String message, {required super.code})
     : super(message: message);
 }
 
-class BadRequestFailure extends Failure {
+class BadRequestFailure extends AppFailure {
   const BadRequestFailure(String message, {required super.code})
     : super(message: message);
 }
 
-class ForbiddenFailure extends Failure {
+class ForbiddenFailure extends AppFailure {
   const ForbiddenFailure(String message, {required super.code})
     : super(message: message);
 }
 
-class NotFoundFailure extends Failure {
+class NotFoundFailure extends AppFailure {
   const NotFoundFailure(String message, {required super.code})
     : super(message: message);
 }
 
-class LocationPermissionDeniedFailure extends Failure {
+class LocationPermissionDeniedFailure extends AppFailure {
   const LocationPermissionDeniedFailure()
     : super(
         message: 'Permissão de localização negada.',
@@ -42,7 +47,7 @@ class LocationPermissionDeniedFailure extends Failure {
       );
 }
 
-class LocationPermissionPermanentlyDeniedFailure extends Failure {
+class LocationPermissionPermanentlyDeniedFailure extends AppFailure {
   const LocationPermissionPermanentlyDeniedFailure()
     : super(
         message: 'Permissão negada permanentemente. Acesse as configurações.',
@@ -50,7 +55,7 @@ class LocationPermissionPermanentlyDeniedFailure extends Failure {
       );
 }
 
-class LocationDisabledFailure extends Failure {
+class LocationDisabledFailure extends AppFailure {
   const LocationDisabledFailure()
     : super(
         message: 'Serviço de localização desativado.',
@@ -58,7 +63,7 @@ class LocationDisabledFailure extends Failure {
       );
 }
 
-class LocationTimeoutFailure extends Failure {
+class LocationTimeoutFailure extends AppFailure {
   const LocationTimeoutFailure()
     : super(
         message: 'Tempo esgotado ao obter a localização.',
@@ -66,7 +71,7 @@ class LocationTimeoutFailure extends Failure {
       );
 }
 
-class LocationUnknownFailure extends Failure {
+class LocationUnknownFailure extends AppFailure {
   const LocationUnknownFailure(String message)
     : super(message: message, code: 'location_service_unknown_error');
 }

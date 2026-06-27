@@ -1,186 +1,125 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ibiapabaapp/features/events/domain/entities/event_detail_data.dart';
+import 'package:ibiapabaapp/features/events/presentation/controllers/event_detail_controller.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/favorite_button.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/carousel/content_carousel.dart';
-import 'package:ibiapabaapp/features/company/presentation/widgets/rating_section.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/default_shimmer_effect.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/comments/comment.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/comments/comment_list.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/effects/expandable_text.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/media/sources.dart';
 import 'package:ibiapabaapp/shared/ui/layout/wrappers/detail_page_wrapper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class EventDetailScreen extends StatefulWidget {
+class EventDetailScreen extends ConsumerWidget {
   final String id;
   const EventDetailScreen({super.key, required this.id});
 
   @override
-  State<EventDetailScreen> createState() => _EventDetailScreenState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final detailAsync = ref.watch(eventDetailProvider(id));
+
+    return detailAsync.when(
+      loading: () => const _EventDetailContent(isLoading: true, detail: null),
+      error: (e, _) =>
+          _ErrorView(onRetry: () => ref.invalidate(eventDetailProvider(id))),
+      data: (detail) => _EventDetailContent(isLoading: false, detail: detail),
+    );
+  }
 }
 
-class _EventDetailScreenState extends State<EventDetailScreen> {
-  bool _isLoading = true;
+class _EventDetailContent extends StatelessWidget {
+  final bool isLoading;
+  final EventDetailData? detail;
 
-  late final List<ContentItem> _defaultItems = [
-    ContentItem(
-      type: .image,
-      source: .asset,
-      url: 'assets/images/banner-trilhao-quadrado.webp',
-    ),
-    ContentItem(
-      type: .image,
-      source: .network,
-      url:
-          'https://ramilos-comunicacoes.github.io/trilhao/assets/images/gallery/foto-1.jpg',
-    ),
-    ContentItem(
-      type: .video,
-      source: .network,
-      url:
-          'https://ramilos-comunicacoes.github.io/trilhao/assets/images/videos/video-2.mp4',
-    ),
-  ];
+  const _EventDetailContent({required this.isLoading, required this.detail});
 
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 1), () {
-      if (mounted) setState(() => _isLoading = false);
-    });
+  List<MediaSource> get _carouselItems {
+    if (isLoading || detail == null || detail!.media.isEmpty) {
+      return List.generate(3, (_) => NetworkMedia(url: '', isVideo: false));
+    }
+
+    return detail!.media.map((m) {
+      return NetworkMedia(
+        url: m.url,
+        title: detail?.event.name,
+        isVideo: false,
+      );
+    }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    final event = detail?.event;
+
     return Skeletonizer(
       effect: customShimmerEffect(context),
-      enabled: _isLoading,
+      enabled: isLoading,
       child: DetailPageWrapper(
-        carousel: ContentCarousel(items: _defaultItems, isLoading: _isLoading),
+        carousel: ContentCarousel(
+          items: _carouselItems,
+          isLoading: isLoading,
+          aspectRatio: 1,
+        ),
         headerChildren: FHeader.nested(
           prefixes: [
             FButton.icon(
               style: FButtonStyle.secondary(),
-              onPress: context.pop,
-              child: Icon(Icons.arrow_back, size: 24),
+              onPress: () => context.pop(),
+              child: const Icon(Icons.arrow_back, size: 24),
             ),
           ],
-
           suffixes: [
-            Skeletonizer(
-              effect: customShimmerEffect(context),
-              enabled: _isLoading,
-              child: FavoriteButton(),
-            ),
+            FavoriteButton(eventId: detail?.event.id),
           ],
         ),
-
         bodyChildren: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.id,
+                event?.name ?? 'Nome do Evento Carregando',
                 style: context.theme.typography.xl2.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 12),
-
               Wrap(
                 runSpacing: 6,
                 spacing: 6,
-                children: [
-                  FBadge(
-                    style: FBadgeStyle.secondary(),
-                    child: Skeleton.ignore(
-                      child: Text(
-                        widget.id,
-                        style: context.theme.typography.sm.copyWith(
-                          fontWeight: .normal,
+                children: (event?.categories ?? ['Evento', 'Categoria'])
+                    .map(
+                      (tag) => FBadge(
+                        style: FBadgeStyle.secondary(),
+                        child: Text(
+                          tag,
+                          style: context.theme.typography.sm.copyWith(
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  FBadge(
-                    style: FBadgeStyle.secondary(),
-                    child: Skeleton.ignore(
-                      child: Text(
-                        'Evento',
-                        style: context.theme.typography.sm.copyWith(
-                          fontWeight: .normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                  FBadge(
-                    style: FBadgeStyle.secondary(),
-                    child: Skeleton.ignore(
-                      child: Text(
-                        'Aberto ao público',
-                        style: context.theme.typography.sm.copyWith(
-                          fontWeight: .normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                  FBadge(
-                    style: FBadgeStyle.secondary(),
-                    child: Skeleton.ignore(
-                      child: Text(
-                        'Esportivo',
-                        style: context.theme.typography.sm.copyWith(
-                          fontWeight: .normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                    )
+                    .toList(),
               ),
-
               const SizedBox(height: 16),
-
               ExpandableText(
-                text: _isLoading
-                    ? 'Este é um texto de exemplo para o skeleton ocupar espaço na tela, Este é um texto de exemplo para o skeleton ocupar espaço na tela'
-                    : 'Uma experiência única que desafia os limites de homens e máquinas. Percorrendo os caminhos mais radicais entre as cidades de Tianguá, Ubajara e Viçosa do Ceará, essa trilha se tornou o maior evento off-road da região Nordeste. \n\nCom mais de 120km de percurso off-road, o evento reúne centenas de participantes e milhares de espectadores, movimentando a economia local e promovendo o turismo de aventura.',
+                text: isLoading
+                    ? 'Este é um texto de exemplo para o skeleton ocupar espaço na tela enquanto os dados reais estão sendo carregados...'
+                    : (event?.description ?? 'Sem descrição disponível.'),
               ),
-
               const FDivider(),
-
               Column(
                 spacing: 12,
                 children: [
-                  FButton(onPress: () {}, child: const Text('Contato')),
                   FButton(
-                    style: FButtonStyle.ghost(),
-                    onPress: () {},
-                    child: const Text('Horário de funcionamento'),
+                    onPress: () {
+                      /* Lógica de contato */
+                    },
+                    child: const Text('Mais Informações'),
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-
-              RatingSection(averageRating: 4.7, ratingQuantity: 16),
-              const SizedBox(height: 12),
-
-              CommentList(
-                comments: [
-                  CommentItem(
-                    userName: 'Júnior Alonso',
-                    text: 'Ótimo restaurante, não existe outro igual na Serra!',
-                    ratingGiven: 5.0,
-                  ),
-                  CommentItem(
-                    userName: 'Mariazinha',
-                    text: 'Não tive uma boa experiência',
-                    ratingGiven: 2.0,
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 24),
-
-              Text('TODO: Recomendações parecidas'),
               const SizedBox(height: 48),
             ],
           ),
@@ -190,46 +129,29 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   }
 }
 
-class FavoriteButton extends StatefulWidget {
-  const FavoriteButton({super.key});
-
-  @override
-  State<FavoriteButton> createState() => _FavoriteButtonState();
-}
-
-class _FavoriteButtonState extends State<FavoriteButton> {
-  bool userHasFavourited = false;
+class _ErrorView extends StatelessWidget {
+  final VoidCallback onRetry;
+  const _ErrorView({required this.onRetry});
 
   @override
   Widget build(BuildContext context) {
-    return FButton.icon(
-      style: FButtonStyle.secondary(),
-
-      onPress: () => setState(() => userHasFavourited = !userHasFavourited),
-
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 150),
-
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return ScaleTransition(
-            scale: CurvedAnimation(parent: animation, curve: Curves.bounceOut),
-
-            child: FadeTransition(opacity: animation, child: child),
-          );
-        },
-
-        child: Icon(
-          userHasFavourited
-              ? Icons.favorite_rounded
-              : Icons.favorite_outline_rounded,
-
-          key: ValueKey<bool>(userHasFavourited),
-
-          size: 24,
-
-          color: userHasFavourited
-              ? context.theme.colors.primary
-              : context.theme.colors.foreground,
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 16,
+          children: [
+            Icon(
+              Icons.error_outline,
+              color: context.theme.colors.mutedForeground,
+              size: 64,
+            ),
+            Text(
+              'Erro ao carregar evento',
+              style: context.theme.typography.base,
+            ),
+            FButton(onPress: onRetry, child: const Text('Tentar novamente')),
+          ],
         ),
       ),
     );

@@ -1,40 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:ibiapabaapp/features/auth/domain/entities/user.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/account.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:latlong2/latlong.dart';
 
 class AppSession {
-  final User? user;
   final City? currentCity;
-  final LatLng?
-  devicePosition; // Null enquanto não resolvida ou se permissão negada
-  // Aberto para novas preferências — adicione aqui depois
-  final ThemeMode? themeMode;
-  // final Locale locale;
+  final LatLng? devicePosition;
+  final List<String> recentSearches;
+
+  final ThemeMode themeMode;
+  final bool needsOnboarding;
 
   const AppSession({
-    this.user,
     this.currentCity,
     this.devicePosition,
-    this.themeMode,
+    this.recentSearches = const [],
+    this.themeMode = ThemeMode.system,
+    this.needsOnboarding = true,
   });
 
   AppSession copyWith({
-    User? user,
+    Account? activeAccount,
+    bool clearActiveAccount = false,
+    List<Account>? cachedAccounts,
     City? currentCity,
-    ThemeMode? themeMode,
-    LatLng? devicePosition,
-    bool clearUser = false,
     bool clearCity = false,
+    LatLng? devicePosition,
     bool clearDevicePosition = false,
+    List<String>? recentSearches,
+    ThemeMode? themeMode,
+    bool? needsOnboarding,
   }) {
     return AppSession(
-      user: clearUser ? null : (user ?? this.user),
       currentCity: clearCity ? null : (currentCity ?? this.currentCity),
       devicePosition: clearDevicePosition
           ? null
           : (devicePosition ?? this.devicePosition),
+      recentSearches: recentSearches ?? this.recentSearches,
       themeMode: themeMode ?? this.themeMode,
+      needsOnboarding: needsOnboarding ?? this.needsOnboarding,
     );
   }
 }

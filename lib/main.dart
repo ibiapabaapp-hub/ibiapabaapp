@@ -11,25 +11,21 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  // container temporário para o warm-up
   final container = ProviderContainer();
 
-  // Warm-up
   try {
-    await Future.wait([
-      dotenv.load(fileName: ".env"),
-      container.read(cacheDatabaseProvider.future),
-    ]);
+    await dotenv.load(fileName: ".env");
+    await container.read(initializedCacheServiceProvider.future);
     await container.read(appSessionProvider.notifier).restore();
+
+    runApp(UncontrolledProviderScope(container: container, child: const App()));
   } catch (e, stack) {
-    final logger = container.read(loggerProvider);
-    logger.e(
-      'Erro fatal ao restaurar sessão na main',
-      error: e,
-      stackTrace: stack,
-    );
+    container
+        .read(loggerProvider)
+        .e('Erro fatal na main', error: e, stackTrace: stack);
+    runApp(UncontrolledProviderScope(container: container, child: const App()));
   } finally {
     FlutterNativeSplash.remove();
   }
-
-  runApp(UncontrolledProviderScope(container: container, child: const App()));
 }

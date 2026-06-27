@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:ibiapabaapp/core/logger/log_tags.dart';
+import 'package:ibiapabaapp/core/network/network_logtags.dart';
 import 'package:logger/logger.dart';
 
 mixin DioLogHandler {

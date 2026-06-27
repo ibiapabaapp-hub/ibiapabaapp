@@ -1,0 +1,3 @@
+- Corrigir bug de conta nova via Google não entrar no onboarding
+- Corrigir cta para colocar interesses
+- Corrigir cadastro manual

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-// Importação necessária
 
 class TappableContainer extends StatelessWidget {
   final Widget child;

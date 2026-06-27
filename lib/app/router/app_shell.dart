@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/shared/ui/fragments/inputs/navbar.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 
 class AppShell extends ConsumerStatefulWidget {
   final Widget child;
@@ -24,9 +24,14 @@ class _AppShellState extends ConsumerState<AppShell> {
     final locationIsHome = location == '/app/home';
 
     final routesWithoutNavbar = [
-      '/app/companies',
+      '/app/businesses',
       '/app/cities',
       '/app/events',
+      '/app/search/expanded',
+      '/app/settings',
+      '/app/beta',
+      '/app/webview',
+      '/app/accounts/manage',
     ];
 
     final bool hideNavbar = routesWithoutNavbar.any(
@@ -44,16 +49,11 @@ class _AppShellState extends ConsumerState<AppShell> {
             now.difference(_lastBackPressed!) > const Duration(seconds: 2)) {
           _lastBackPressed = now;
 
-          showFToast(
-            duration: Duration(seconds: 3),
+          showAppToast(
+            duration: const Duration(seconds: 3),
             alignment: .bottomCenter,
             context: context,
-            title: Text(
-              'Volte novamente para sair',
-              style: context.theme.typography.sm.copyWith(
-                color: context.theme.colors.foreground,
-              ),
-            ),
+            title: 'Volte novamente para sair',
           );
         } else {
           exit(0);
@@ -75,10 +75,7 @@ class _AppShellState extends ConsumerState<AppShell> {
             },
             child: hideNavbar
                 ? const SizedBox.shrink()
-                : SafeArea(
-                    key: const ValueKey('navbar'),
-                    child: const Navbar(),
-                  ),
+                : const SafeArea(key: ValueKey('navbar'), child: Navbar()),
           ),
           body: widget.child,
         ),

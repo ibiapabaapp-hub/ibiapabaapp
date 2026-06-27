@@ -11,14 +11,14 @@ class CheckAvailability {
 }
 
 enum AvailabilityField {
-  username,
+  slug,
   email,
   phoneNumber;
 
   String get value {
     switch (this) {
-      case AvailabilityField.username:
-        return 'username';
+      case AvailabilityField.slug:
+        return 'slug';
       case AvailabilityField.email:
         return 'email';
       case AvailabilityField.phoneNumber:
@@ -28,8 +28,8 @@ enum AvailabilityField {
 
   static AvailabilityField fromApi(String value) {
     switch (value) {
-      case 'username':
-        return AvailabilityField.username;
+      case 'slug':
+        return AvailabilityField.slug;
       case 'email':
         return AvailabilityField.email;
       case 'phone_number':

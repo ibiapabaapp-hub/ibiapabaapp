@@ -4,10 +4,13 @@ import 'package:forui/forui.dart';
 class SectionHeader extends StatelessWidget {
   final String title;
   final Function? onSeeAllTap;
+  final String seeAllText;
+
   const SectionHeader({
     super.key,
     required this.title,
     required this.onSeeAllTap,
+    this.seeAllText = 'Ver tudo',
   });
 
   @override
@@ -16,10 +19,13 @@ class SectionHeader extends StatelessWidget {
       spacing: 8,
       crossAxisAlignment: .center,
       children: [
-        Text(
-          title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          strutStyle: StrutStyle(leading: 1.2),
+        GestureDetector(
+          onTap: () => onSeeAllTap?.call(),
+          child: Text(
+            title,
+            style: context.theme.typography.base.copyWith(fontWeight: .w600),
+            strutStyle: const StrutStyle(leading: 1.2),
+          ),
         ),
 
         if (onSeeAllTap != null)
@@ -27,7 +33,7 @@ class SectionHeader extends StatelessWidget {
             onPress: () => onSeeAllTap?.call(),
             style: FButtonStyle.ghost(),
             child: Text(
-              'Ver tudo',
+              seeAllText,
               style: context.theme.typography.sm.copyWith(
                 fontWeight: .w500,
                 color: context.theme.colors.mutedForeground,

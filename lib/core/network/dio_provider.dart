@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ibiapabaapp/core/logger/logger.dart';
 import 'package:ibiapabaapp/core/network/dio_logger_interceptor.dart';
-import 'package:ibiapabaapp/core/session/app_session_notifier_provider.dart';
 import 'package:ibiapabaapp/core/storage/token_storage_provider.dart';
 import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
+import 'package:ibiapabaapp/features/auth/presentation/providers/auth_state_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_provider.g.dart';
@@ -74,7 +74,7 @@ Dio dio(Ref ref) {
           _globalRetryCount = 0;
           _pendingRefresh = null;
           if (ref.mounted) {
-            await ref.read(appSessionProvider.notifier).logout();
+            await ref.read(authStateProvider.notifier).logout();
           }
           return handler.next(e);
         }
@@ -87,7 +87,7 @@ Dio dio(Ref ref) {
 
           if (newToken == null || !ref.mounted) {
             _pendingRefresh = null;
-            await ref.read(appSessionProvider.notifier).logout();
+            await ref.read(authStateProvider.notifier).logout();
             return handler.next(e);
           }
 
@@ -105,7 +105,7 @@ Dio dio(Ref ref) {
           logger.e('Erro no retry após refresh', error: err, stackTrace: stack);
           _pendingRefresh = null;
           if (ref.mounted) {
-            await ref.read(appSessionProvider.notifier).logout();
+            await ref.read(authStateProvider.notifier).logout();
           }
           return handler.next(e);
         }
@@ -121,23 +121,15 @@ Future<String?> _doRefresh(Ref ref) async {
   try {
     if (!ref.mounted) return null;
 
-    final result = await ref.read(refreshTokensProvider).call();
+    final authResult = await ref.read(authRepositoryProvider).refreshTokens();
 
-    return result.fold(
-      (_) {
-        _pendingRefresh = null;
-        return null;
-      },
-      (authResult) async {
-        if (!ref.mounted) {
-          _pendingRefresh = null;
-          return null;
-        }
-        await ref.read(appSessionProvider.notifier).initSession(authResult);
-        _pendingRefresh = null;
-        return authResult.accessToken;
-      },
-    );
+    if (!ref.mounted) {
+      _pendingRefresh = null;
+      return null;
+    }
+    await ref.read(authStateProvider.notifier).initSession(authResult);
+    _pendingRefresh = null;
+    return authResult.accessToken;
   } catch (e) {
     _pendingRefresh = null;
     return null;

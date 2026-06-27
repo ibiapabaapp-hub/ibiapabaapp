@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibiapabaapp/features/cities/domain/entities/city.dart';
+import 'package:ibiapabaapp/shared/models/city.dart';
 import 'package:ibiapabaapp/features/cities/presentation/controllers/cities_controller.dart';
 import 'package:ibiapabaapp/features/cities/presentation/widgets/city_card.dart';
-import 'package:ibiapabaapp/shared/ui/fragments/carousel/horizontal_infinite_carousel.dart';
+import 'package:ibiapabaapp/shared/ui/layout/horizontal_infinite_carousel.dart';
 import 'package:ibiapabaapp/shared/ui/layout/section_header.dart';
 
 final List<City> _mockCities = List.generate(
@@ -71,27 +71,25 @@ class _CitiesOverviewScreenState extends ConsumerState<CitiesOverviewScreen> {
 
             data: (cities) => _Content(
               cities: cities,
-              isLoading: citiesAsync.isLoading,
+              isLoading: false,
               refreshCities: () => ref.read(citiesProvider.notifier).refresh(),
             ),
 
             error: (error, stack) => Center(
-              child: Expanded(
-                child: Column(
-                  mainAxisAlignment: .center,
-                  spacing: 16,
-                  children: [
-                    Icon(
-                      Icons.error_outline,
-                      color: context.theme.colors.mutedForeground,
-                      size: 64,
-                    ),
-                    Text(
-                      'Erro ao carregar cidades',
-                      style: context.theme.typography.base,
-                    ),
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: .center,
+                spacing: 16,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    color: context.theme.colors.mutedForeground,
+                    size: 64,
+                  ),
+                  Text(
+                    'Erro ao carregar cidades',
+                    style: context.theme.typography.base,
+                  ),
+                ],
               ),
             ),
           ),
@@ -117,39 +115,6 @@ class _Content extends StatelessWidget {
     return Column(
       spacing: 16,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Row(
-            spacing: 8,
-            children: [
-              FittedBox(
-                alignment: Alignment.centerLeft,
-                child: FButton(
-                  style: FButtonStyle.secondary(),
-                  onPress: () {},
-                  child: Row(
-                    spacing: 4,
-                    children: const [
-                      Icon(Icons.keyboard_arrow_down_rounded),
-                      Text('Categoria'),
-                    ],
-                  ),
-                ),
-              ),
-              FittedBox(
-                alignment: Alignment.centerLeft,
-                child: FButton(
-                  style: FButtonStyle.secondary(),
-                  onPress: () => refreshCities(),
-                  child: Row(
-                    spacing: 4,
-                    children: const [Icon(Icons.refresh), Text('Atualizar')],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
         _Section(
           cities: cities,
           isLoading: isLoading,
@@ -181,15 +146,15 @@ class _Section extends StatelessWidget {
       spacing: 8,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: header,
         ),
         HorizontalInfiniteCarousel(
           isLoading: isLoading,
           items: cities,
-          itemWidth: 250,
-          listHeight: 250,
-          separator: SizedBox(width: 12),
+          itemWidth: 220,
+          listHeight: 210,
+          separator: const SizedBox(width: 12),
           itemBuilder: (_, city) => CityCard(city: city),
         ),
       ],

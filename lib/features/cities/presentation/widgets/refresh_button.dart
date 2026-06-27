@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:intl/intl.dart';
 
 class RefreshButton extends StatefulWidget {
@@ -60,9 +61,9 @@ class _RefreshButtonState extends State<RefreshButton>
     if (_isRateLimited) {
       final waitTime = DateFormat('HH:mm').format(_nextReleaseTime);
       if (mounted) {
-        showFToast(
+        showAppToast(
           context: context,
-          title: Text('Limite atingido. Tente novamente após às $waitTime'),
+          title: 'Limite atingido. Tente novamente após às $waitTime',
         );
       }
       return;
@@ -79,23 +80,15 @@ class _RefreshButtonState extends State<RefreshButton>
     try {
       await widget.onRefresh();
       if (mounted) {
-        showFToast(
+        showAppToast(
           context: context,
-          title: const Row(
-            children: [
-              Icon(Icons.check_circle, color: Colors.green, size: 16),
-              SizedBox(width: 8),
-              Text('Dados atualizados!'),
-            ],
-          ),
+          icon: const Icon(Icons.check_circle, color: Colors.green, size: 16),
+          title: 'Dados atualizados!',
         );
       }
     } catch (e) {
       if (mounted) {
-        showFToast(
-          context: context,
-          title: const Text('Falha na sincronização.'),
-        );
+        showAppToast(context: context, title: 'Falha na sincronização.');
       }
     } finally {
       if (mounted) {

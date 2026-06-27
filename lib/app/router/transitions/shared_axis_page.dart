@@ -7,8 +7,8 @@ class SharedAxisPage<T> extends CustomTransitionPage<T> {
     required super.child,
     required LocalKey super.key,
     SharedAxisTransitionType type = SharedAxisTransitionType.horizontal,
-    Duration duration = const Duration(milliseconds: 400),
-    Duration reverseDuration = const Duration(milliseconds: 300),
+    Duration duration = const Duration(milliseconds: 450),
+    Duration reverseDuration = const Duration(milliseconds: 350),
   }) : super(
          transitionDuration: duration,
          reverseTransitionDuration: reverseDuration,

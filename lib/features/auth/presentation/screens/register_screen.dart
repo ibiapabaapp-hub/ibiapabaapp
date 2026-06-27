@@ -3,15 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/features/auth/presentation/controllers/register_controller.dart';
-import 'package:ibiapabaapp/features/auth/presentation/providers/auth_providers.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/register_state.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/birth_date_step.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/email_step.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/name_step.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/password_step.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/phone_step/phone_step.dart';
-import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/username_step.dart';
-import 'package:ibiapabaapp/shared/ui/layout/step_dots.dart';
+import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/basic_info_step.dart';
+import 'package:ibiapabaapp/features/auth/presentation/widgets/register/steps/credentials_step.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibiapabaapp/shared/ui/layout/beautiful_background_overlay.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
@@ -39,7 +35,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     setState(() => currentStep++);
     pageController.animateToPage(
       currentStep,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
     );
   }
@@ -49,7 +45,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       setState(() => currentStep--);
       pageController.animateToPage(
         currentStep,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.ease,
       );
     }
@@ -65,32 +61,25 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final RegisterController controller = ref.watch(registerControllerProvider);
-
-    ref.listen(registerControllerProvider.select((c) => c.state), (
-      previous,
-      nextState,
-    ) {
-      if (nextState is RegisterSuccess) {
-        showFToast(
+    ref.listen(registerControllerProvider, (previous, nextState) {
+      if (nextState.status == RegisterStatus.success) {
+        showAppToast(
           context: context,
-          icon: Icon(Icons.check),
-          title: Text(
-            "Bem vindo(a) ao IbiapabaApp!",
-            style: TextStyle(color: context.theme.colors.foreground),
-          ),
+          icon: const Icon(Icons.check),
+          title: "Bem vindo(a) ao IbiapabaApp!",
           alignment: FToastAlignment.bottomCenter,
           duration: const Duration(seconds: 4),
         );
-        context.go('/app/home');
+        context.go('/onboarding');
       }
 
-      if (nextState is RegisterError) {
-        showFToast(
+      if (nextState.status == RegisterStatus.error &&
+          nextState.errorMessage != null) {
+        showAppToast(
           context: context,
           icon: const Icon(Icons.gpp_maybe_outlined),
-          title: Text('Erro ao cadastrar'),
-          description: Text(nextState.message),
+          title: 'Erro ao cadastrar',
+          description: nextState.errorMessage!,
           alignment: FToastAlignment.bottomCenter,
           duration: const Duration(seconds: 4),
         );
@@ -104,38 +93,33 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           back();
         }
       },
-      child: FScaffold(
-        header: FHeader.nested(
-          prefixes: [
-            FButton.icon(
-              style: FButtonStyle.ghost(),
-              onPress: _handleBack,
-              child: Icon(Icons.arrow_back, size: 24),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          top: false,
+      child: SafeArea(
+        top: false,
+        child: FScaffold(
+          header: FHeader.nested(
+            prefixes: [
+              FButton.icon(
+                style: FButtonStyle.ghost(),
+                onPress: _handleBack,
+                child: const Icon(Icons.arrow_back, size: 24),
+              ),
+            ],
+          ),
           child: Column(
             children: [
-              StepDots(current: currentStep, total: 6),
               Expanded(
-                child: PageView(
-                  controller: pageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    BirthDateStep(controller: controller, onNext: next),
-                    NameStep(controller: controller, onNext: next),
-                    PhoneStep(controller: controller, onNext: next),
-                    UsernameStep(controller: controller, onNext: next),
-                    EmailStep(controller: controller, onNext: next),
-                    PasswordStep(
-                      controller: controller,
-                      onSubmit: () async {
-                        await controller.submit();
-                      },
-                    ),
-                  ],
+                child: BeautifulBackgroundOverlay(
+                  childBelow: true,
+                  opacity: 0.1,
+                  child: PageView(
+                    controller: pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      CredentialsStep(onNext: next),
+                      BasicInfoStep(onNext: next),
+                      // AccountTypeStep(onSubmit: _submit)
+                    ],
+                  ),
                 ),
               ),
             ],

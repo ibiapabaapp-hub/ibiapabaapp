@@ -1,0 +1,19 @@
+{
+  "is_new_user": true,
+  "temp_token": "temp-token-123",
+  "avatar_url": "https://example.com/avatar.jpg",
+  "account": {
+    "id": "test-account-id",
+    "email": "test@example.com",
+    "name": "Test User",
+    "active": true,
+    "is_verified": true,
+    "created_at": "2025-01-01T00:00:00.000Z",
+    "updated_at": "2025-01-01T00:00:00.000Z",
+    "slug": "test-user",
+    "display_name": "Test User",
+    "type": "personal"
+  },
+  "access_token": "test-access-token",
+  "refresh_token": "test-refresh-token"
+}

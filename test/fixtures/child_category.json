@@ -1,0 +1,5 @@
+{
+  "id": "test-child-category-id",
+  "name": "Test Child Category",
+  "entities": ["city"]
+}

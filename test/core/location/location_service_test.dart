@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:ibiapabaapp/core/location/exceptions/location_exceptions.dart';
-import 'package:ibiapabaapp/core/location/geolocator_wrapper.dart';
-import 'package:ibiapabaapp/core/location/location_service.dart';
+import 'package:ibiapabaapp/core/location/domain/exceptions/location_exceptions.dart';
+import 'package:ibiapabaapp/core/location/infra/location_service.dart';
+import 'package:ibiapabaapp/core/location/infra/models/geolocator_wrapper.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mocktail/mocktail.dart';
 

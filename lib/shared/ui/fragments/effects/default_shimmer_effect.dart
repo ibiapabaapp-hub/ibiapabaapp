@@ -7,6 +7,6 @@ ShimmerEffect customShimmerEffect(BuildContext context) {
     begin: .centerStart,
     baseColor: context.theme.colors.muted,
     highlightColor: context.theme.colors.muted.withAlpha(90),
-    duration: Duration(milliseconds: 800),
+    duration: const Duration(milliseconds: 800),
   );
 }

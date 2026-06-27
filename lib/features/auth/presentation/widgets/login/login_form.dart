@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibiapabaapp/features/auth/presentation/controllers/login_controller.dart';
-import 'package:ibiapabaapp/app/theme/theme.dart';
 import 'package:ibiapabaapp/features/auth/presentation/states/login_state.dart';
+import 'package:ibiapabaapp/shared/ui/forms/fields/email/email_field.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
+import 'package:ibiapabaapp/shared/utils/show_todo_toast.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends ConsumerStatefulWidget {
   final LoginController controller;
   const LoginForm({super.key, required this.controller});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends ConsumerState<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
   String _email = '';
@@ -30,19 +33,17 @@ class _LoginFormState extends State<LoginForm> {
       onChange: (v) => _password = v.text,
     );
     widget.controller.addListener(_controllerListener);
+    widget.controller.setEmail(_email);
   }
 
   void _controllerListener() {
     final state = widget.controller.state;
 
     if (state is LoginSuccess) {
-      showFToast(
+      showAppToast(
         context: context,
-        icon: Icon(Icons.check),
-        title: Text(
-          "Bem vindo(a) de volta!",
-          style: TextStyle(color: context.theme.colors.foreground),
-        ),
+        icon: const Icon(Icons.check),
+        title: "Bem vindo(a) de volta!",
         alignment: FToastAlignment.bottomCenter,
         duration: const Duration(seconds: 4),
       );
@@ -50,11 +51,11 @@ class _LoginFormState extends State<LoginForm> {
     }
 
     if (state is LoginError) {
-      showFToast(
+      showAppToast(
         context: context,
         icon: const Icon(Icons.gpp_maybe_outlined),
-        title: const Text('Erro ao fazer login'),
-        description: Text(state.message),
+        title: 'Erro ao fazer login',
+        description: state.message,
         alignment: FToastAlignment.bottomCenter,
         duration: const Duration(seconds: 4),
       );
@@ -84,35 +85,31 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 16,
         children: [
-          FTextFormField.email(
-            control: _emailControl,
-            style: (style) =>
-                style.withBaseFontSize(typography: context.theme.typography),
-            label: const Text("Email"),
-            hint: "exemplo@email.com",
-            enabled: !isLoading,
-            autovalidateMode: .onUnfocus,
-            validator: (v) {
-              if (v == null || v.isEmpty) return 'Informe o email';
-              if (!v.contains('@')) return 'Email inválido';
-              return null;
-            },
+          EmailField(
+            emailControl: _emailControl,
+            emailChecker: widget.controller,
           ),
 
           FTextFormField.password(
             control: _passwordControl,
-            style: (style) =>
-                style.withBaseFontSize(typography: context.theme.typography),
             label: const Text("Senha"),
             hint: 'Senha',
             enabled: !isLoading,
             autovalidateMode: .onUnfocus,
             onSubmit: (_) => _submit(),
-            validator: (v) {
-              if (v == null || v.isEmpty) return 'Informe a senha';
-              if (v.length < 8) return 'No mínimo 8 caracteres';
-              return null;
+            // validator: (v) =>
+            //     authValidator.validateField(AuthFields.password, v),
+          ),
+
+          FButton.raw(
+            style: FButtonStyle.ghost(),
+            onPress: () {
+              showTodoToast(context, 'Recuperação de senha');
             },
+            child: Text(
+              'Esqueci minha senha',
+              style: context.theme.typography.sm,
+            ),
           ),
 
           const SizedBox(height: 8),
@@ -120,12 +117,6 @@ class _LoginFormState extends State<LoginForm> {
           FButton(
             onPress: isLoading ? null : _submit,
             child: Text(isLoading ? 'Entrando…' : 'Entrar'),
-          ),
-
-          FButton(
-            style: FButtonStyle.ghost(),
-            onPress: () => context.push('/auth/register'),
-            child: const Text('Criar conta'),
           ),
         ],
       ),

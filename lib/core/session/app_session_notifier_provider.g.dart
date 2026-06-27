@@ -42,7 +42,7 @@ final class AppSessionNotifierProvider
 }
 
 String _$appSessionNotifierHash() =>
-    r'61a6679788fd6984c0bd903c7156cb9d60debff7';
+    r'06425167f91816890f5f347c5b12adc20a444b39';
 
 abstract class _$AppSessionNotifier extends $Notifier<AppSession> {
   AppSession build();
@@ -61,84 +61,3 @@ abstract class _$AppSessionNotifier extends $Notifier<AppSession> {
     element.handleCreate(ref, build);
   }
 }
-
-@ProviderFor(isAuthenticated)
-final isAuthenticatedProvider = IsAuthenticatedProvider._();
-
-final class IsAuthenticatedProvider
-    extends $FunctionalProvider<bool, bool, bool>
-    with $Provider<bool> {
-  IsAuthenticatedProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'isAuthenticatedProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$isAuthenticatedHash();
-
-  @$internal
-  @override
-  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  bool create(Ref ref) {
-    return isAuthenticated(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(bool value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<bool>(value),
-    );
-  }
-}
-
-String _$isAuthenticatedHash() => r'0f1fb89af493395c8cbcbfbd572aa4a02ecf80f3';
-
-@ProviderFor(currentCity)
-final currentCityProvider = CurrentCityProvider._();
-
-final class CurrentCityProvider extends $FunctionalProvider<City?, City?, City?>
-    with $Provider<City?> {
-  CurrentCityProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'currentCityProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$currentCityHash();
-
-  @$internal
-  @override
-  $ProviderElement<City?> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  City? create(Ref ref) {
-    return currentCity(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(City? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<City?>(value),
-    );
-  }
-}
-
-String _$currentCityHash() => r'0b0a00ebc1d9cdfd737ac6dbd7c5c975bad190f7';

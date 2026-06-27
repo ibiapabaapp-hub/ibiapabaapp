@@ -1,6 +1,7 @@
 import 'package:easy_stars/easy_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:ibiapabaapp/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:ibiapabaapp/shared/ui/layout/sheet_drag_indicator.dart';
 
 const commentMaxLength = 300;
@@ -22,7 +23,7 @@ void showRatingInputSheet({required BuildContext context}) {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: Column(
@@ -80,13 +81,12 @@ class _FormState extends State<_Form> {
 
   double _rating = 0.0;
 
-  String _text = '';
   late final FTextFieldControl _textControl;
 
   @override
   void initState() {
     super.initState();
-    _textControl = FTextFieldControl.managed(onChange: (v) => _text = v.text);
+    _textControl = const FTextFieldControl.managed();
     // widget.controller.addListener(_controllerListener);
   }
 
@@ -98,16 +98,11 @@ class _FormState extends State<_Form> {
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
-    showFToast(
+    showAppToast(
       context: context,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       alignment: .bottomCenter,
-      title: Text(
-        'TODO: Falta implementar controller e comunicação com backend',
-        style: context.theme.typography.sm.copyWith(
-          color: context.theme.colors.foreground,
-        ),
-      ),
+      title: 'TODO: Falta implementar controller e comunicação com backend',
     );
     // widget.controller.login(email: _email, password: _password);
   }
@@ -181,7 +176,7 @@ class _FormState extends State<_Form> {
           ),
           const SizedBox(height: 24),
 
-          FButton(onPress: _submit, child: Text('Enviar avaliação')),
+          FButton(onPress: _submit, child: const Text('Enviar avaliação')),
         ],
       ),
     );
