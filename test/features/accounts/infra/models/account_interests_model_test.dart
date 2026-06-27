@@ -53,7 +53,7 @@ void main() {
       test('should not be equal when businesses differ', () {
         final a = AccountInterestsModel.fromJson(jsonMap);
         final b = AccountInterestsModel(
-          businesses: [],
+          businesses: const [],
           events: a.events,
         );
         expect(a, isNot(equals(b)));

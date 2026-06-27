@@ -19,7 +19,7 @@ void main() {
 
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
-      MethodChannel('plugins.flutter.io/path_provider'),
+      const MethodChannel('plugins.flutter.io/path_provider'),
       (MethodCall methodCall) async {
         if (methodCall.method == 'getApplicationCacheDirectory') {
           return tempDir.path;

@@ -231,8 +231,8 @@ void main() {
   group('updateAccountInterests', () {
     test('returns response on success', () async {
       final interests = AccountInterests(
-        businesses: [Interest(id: 'b1', name: 'Business 1')],
-        events: [Interest(id: 'e1', name: 'Event 1')],
+        businesses: [const Interest(id: 'b1', name: 'Business 1')],
+        events: [const Interest(id: 'e1', name: 'Event 1')],
       );
       when(() => mockDio.post('/accounts/1/interests', data: any(named: 'data')))
           .thenAnswer((_) async => makeResponse({'count': 2}));

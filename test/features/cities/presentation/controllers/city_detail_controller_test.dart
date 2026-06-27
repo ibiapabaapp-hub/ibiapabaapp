@@ -5,14 +5,12 @@ import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/features/cities/domain/entities/city_detail_data.dart';
 import 'package:ibivibe/features/cities/presentation/controllers/city_detail_controller.dart';
 import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
-import 'package:ibivibe/features/medias/domain/repositories/medias_repository.dart';
 import 'package:ibivibe/features/medias/presentation/providers/medias_providers.dart';
 import 'package:ibivibe/shared/models/account.dart';
 import 'package:ibivibe/shared/models/account_type.dart';
 import 'package:ibivibe/shared/models/city.dart';
 import 'package:ibivibe/shared/models/media.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
-import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';
@@ -42,7 +40,7 @@ void main() {
     categories: ['cat1'],
   );
 
-  final testMedia = Media(
+  final testMedia = const Media(
     id: 'm1',
     entityType: EntityType.city,
     entityId: 'c1',

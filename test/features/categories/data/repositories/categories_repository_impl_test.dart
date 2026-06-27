@@ -102,7 +102,7 @@ void main() {
   group('getChildrenCategories', () {
     test('returns cached children when cache is not empty', () async {
       final cached = [
-        ChildCategory(id: 'c1', name: 'Child 1', entities: [EntityType.city]),
+        const ChildCategory(id: 'c1', name: 'Child 1', entities: [EntityType.city]),
       ];
       when(() => mockCacheService.getList<ChildCategory>(
         storeName: any(named: 'storeName'),

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/core/network/dio_logger_interceptor.dart';
@@ -8,7 +9,6 @@ import 'package:ibivibe/core/storage/token_storage_provider.dart';
 import 'package:ibivibe/core/storage/token_storage_strategy.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:riverpod/riverpod.dart';
 
 class MockTokenStorage extends Mock implements TokenStorageStrategy {}
 
@@ -34,7 +34,7 @@ void main() {
     testInterceptor = DioLoggerInterceptor(testLogger);
   });
 
-  ProviderContainer _createContainer() {
+  ProviderContainer createContainer() {
     return ProviderContainer(
       overrides: [
         loggerProvider.overrideWithValue(testLogger),
@@ -46,7 +46,7 @@ void main() {
 
   group('dio provider', () {
     test('should create a Dio instance', () {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       final dio = container.read(dioProvider);
@@ -54,7 +54,7 @@ void main() {
     });
 
     test('should set base URL from dotenv', () {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       final dio = container.read(dioProvider);
@@ -62,7 +62,7 @@ void main() {
     });
 
     test('should set connect timeout', () {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       final dio = container.read(dioProvider);
@@ -70,7 +70,7 @@ void main() {
     });
 
     test('should set default headers', () {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       final dio = container.read(dioProvider);
@@ -80,7 +80,7 @@ void main() {
     });
 
     test('should have interceptors configured', () {
-      final container = _createContainer();
+      final container = createContainer();
       addTearDown(container.dispose);
 
       final dio = container.read(dioProvider);

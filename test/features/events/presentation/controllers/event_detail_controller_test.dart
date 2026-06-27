@@ -12,7 +12,6 @@ import 'package:ibivibe/shared/models/business.dart';
 import 'package:ibivibe/shared/models/event.dart';
 import 'package:ibivibe/shared/models/media.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
-import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';
@@ -49,7 +48,7 @@ void main() {
     updatedAt: DateTime(2025),
   );
 
-  final testMedia = Media(
+  final testMedia = const Media(
     id: 'm1',
     entityType: EntityType.event,
     entityId: 'e1',

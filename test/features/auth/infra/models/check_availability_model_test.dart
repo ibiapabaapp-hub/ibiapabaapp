@@ -41,7 +41,7 @@ void main() {
       });
 
       test('should serialize phoneNumber field to phone_number', () {
-        final model = CheckAvailabilityModel(
+        final model = const CheckAvailabilityModel(
           field: AvailabilityField.phoneNumber,
           value: '+5511999999999',
           available: true,

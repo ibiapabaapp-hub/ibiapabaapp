@@ -7,7 +7,6 @@ import 'package:ibivibe/shared/models/account.dart';
 import 'package:ibivibe/shared/models/account_type.dart';
 import 'package:ibivibe/shared/models/business.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
-import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';

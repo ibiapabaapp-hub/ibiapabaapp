@@ -3,13 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
 import 'package:ibivibe/features/accounts/domain/entities/account_interests_response.dart';
-import 'package:ibivibe/features/accounts/domain/repositories/accounts_repository.dart';
 import 'package:ibivibe/features/accounts/presentation/controllers/account_interests_controller.dart';
 import 'package:ibivibe/features/accounts/presentation/providers/accounts_providers.dart';
 import 'package:ibivibe/shared/models/account.dart';
 import 'package:ibivibe/shared/models/account_type.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
-import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/mocks.dart';

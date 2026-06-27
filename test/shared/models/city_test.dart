@@ -42,13 +42,13 @@ void main() {
           slug: 'recife',
           description: 'Venice of Brazil',
           categories: ['beach'],
-          location: LatLng(-8.05, -34.87),
+          location: const LatLng(-8.05, -34.87),
           coverImgUrl: 'https://example.com/recife.png',
         );
 
         expect(city.description, 'Venice of Brazil');
         expect(city.categories, ['beach']);
-        expect(city.location, LatLng(-8.05, -34.87));
+        expect(city.location, const LatLng(-8.05, -34.87));
         expect(city.coverImgUrl, 'https://example.com/recife.png');
       });
     });

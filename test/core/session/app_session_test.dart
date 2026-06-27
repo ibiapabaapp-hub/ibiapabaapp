@@ -8,7 +8,7 @@ void main() {
   group('AppSession', () {
     group('constructor defaults', () {
       test('should create session with default values', () {
-        final session = AppSession();
+        final session = const AppSession();
 
         expect(session.currentCity, isNull);
         expect(session.devicePosition, isNull);
@@ -24,7 +24,7 @@ void main() {
           slug: 'sao-paulo',
           categories: [],
         );
-        final position = LatLng(-23.55, -46.63);
+        final position = const LatLng(-23.55, -46.63);
         final session = AppSession(
           currentCity: city,
           devicePosition: position,
@@ -49,7 +49,7 @@ void main() {
           slug: 'sao-paulo',
           categories: [],
         );
-        final position = LatLng(-23.55, -46.63);
+        final position = const LatLng(-23.55, -46.63);
         final session = AppSession(
           currentCity: city,
           devicePosition: position,
@@ -68,7 +68,7 @@ void main() {
       });
 
       test('should update currentCity', () {
-        final session = AppSession();
+        final session = const AppSession();
         final newCity = City(
           id: '2',
           name: 'Recife',
@@ -96,8 +96,8 @@ void main() {
       });
 
       test('should update devicePosition', () {
-        final session = AppSession();
-        final newPos = LatLng(-23.55, -46.63);
+        final session = const AppSession();
+        final newPos = const LatLng(-23.55, -46.63);
 
         final copied = session.copyWith(devicePosition: newPos);
 
@@ -105,7 +105,7 @@ void main() {
       });
 
       test('should clear devicePosition with clearDevicePosition flag', () {
-        final session = AppSession(devicePosition: LatLng(0, 0));
+        final session = const AppSession(devicePosition: LatLng(0, 0));
 
         final copied = session.copyWith(clearDevicePosition: true);
 
@@ -113,7 +113,7 @@ void main() {
       });
 
       test('should update recentSearches', () {
-        final session = AppSession();
+        final session = const AppSession();
 
         final copied = session.copyWith(recentSearches: ['search1']);
 
@@ -121,7 +121,7 @@ void main() {
       });
 
       test('should update themeMode', () {
-        final session = AppSession();
+        final session = const AppSession();
 
         final copied = session.copyWith(themeMode: ThemeMode.light);
 
@@ -129,7 +129,7 @@ void main() {
       });
 
       test('should update needsOnboarding', () {
-        final session = AppSession();
+        final session = const AppSession();
 
         final copied = session.copyWith(needsOnboarding: false);
 

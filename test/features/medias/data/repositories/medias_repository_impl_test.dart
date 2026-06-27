@@ -22,7 +22,7 @@ void main() {
     sut = MediasRepositoryImpl(remoteDatasource: mockRemoteDatasource);
   });
 
-  final testMedia = Media(
+  final testMedia = const Media(
     id: '1',
     entityType: EntityType.city,
     entityId: 'city1',
