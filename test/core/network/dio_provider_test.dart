@@ -17,8 +17,15 @@ void main() {
   late Logger testLogger;
   late DioLoggerInterceptor testInterceptor;
 
-  setUpAll(() {
-    dotenv.load();
+  setUpAll(() async {
+    await dotenv.load(
+      isOptional: true,
+      mergeWith: {
+        'API_BASE_URL': 'https://api.test.com',
+        'LOGGER_LEVEL': 'off',
+        'APP_VERSION_TAG': '0.0.0-test',
+      },
+    );
   });
 
   setUp(() {

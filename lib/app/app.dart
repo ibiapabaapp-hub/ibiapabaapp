@@ -32,22 +32,8 @@ class App extends ConsumerWidget {
       locale: const Locale('pt', 'BR'),
       routerConfig: router,
       themeMode: favoriteThemeMode,
-      theme: customLightTheme.toApproximateMaterialTheme().copyWith(
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
-        ),
-      ),
-      darkTheme: customDarkTheme.toApproximateMaterialTheme().copyWith(
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
-        ),
-      ),
+      theme: customLightTheme.toApproximateMaterialTheme(),
+      darkTheme: customDarkTheme.toApproximateMaterialTheme(),
 
       builder: (context, child) {
         final brightness = switch (favoriteThemeMode) {
