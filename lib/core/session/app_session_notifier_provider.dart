@@ -5,9 +5,9 @@ import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/core/preferences/user_preferences_state_provider.dart';
 import 'package:ibivibe/core/session/app_session.dart';
 import 'package:ibivibe/core/session/app_session_logtags.dart';
-import 'package:ibivibe/features/auth/auth_state_provider.dart';
-import 'package:ibivibe/features/favorites/favorites_state_provider.dart';
-import 'package:ibivibe/features/search/search_state_provider.dart';
+import 'package:ibivibe/features/auth/auth_viewmodel.dart';
+import 'package:ibivibe/features/favorites/favorites_viewmodel.dart';
+import 'package:ibivibe/features/search/search_viewmodel.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,9 +25,9 @@ class AppSessionNotifier extends _$AppSessionNotifier
   @override
   AppSession build() {
     final preferences = ref.watch(userPreferencesStateProvider);
-    final searches = ref.watch(searchStateProvider);
+    final searches = ref.watch(searchViewModelProvider);
     final location = ref.watch(locationStateProvider);
-    ref.watch(favoritesStateProvider);
+    ref.watch(favoritesViewModelProvider);
 
     return AppSession(
       themeMode: preferences.themeMode,
@@ -40,13 +40,13 @@ class AppSessionNotifier extends _$AppSessionNotifier
   Future<void> restore() async {
     try {
       await Future.wait([
-        ref.read(authStateProvider.notifier).restore(),
+        ref.read(authViewModelProvider.notifier).restore(),
         ref.read(userPreferencesStateProvider.notifier).restore(),
         ref.read(locationStateProvider.notifier).restore(),
-        ref.read(searchStateProvider.notifier).restore(),
+        ref.read(searchViewModelProvider.notifier).restore(),
       ]);
 
-      await ref.read(favoritesStateProvider.notifier).restore();
+      await ref.read(favoritesViewModelProvider.notifier).restore();
       await Future.microtask(ref.invalidateSelf);
 
       logControllerSuccess(action: AppSessionAction.restore);

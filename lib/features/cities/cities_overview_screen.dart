@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/shared/models/city.dart';
-import 'package:ibivibe/features/cities/cities_controller.dart';
+import 'package:ibivibe/features/cities/cities_viewmodel.dart';
 import 'package:ibivibe/features/cities/city_card.dart';
 import 'package:ibivibe/shared/ui/layout/horizontal_infinite_carousel.dart';
 import 'package:ibivibe/shared/ui/layout/section_header.dart';
@@ -30,7 +30,7 @@ class CitiesOverviewScreen extends ConsumerStatefulWidget {
 class _CitiesOverviewScreenState extends ConsumerState<CitiesOverviewScreen> {
   @override
   Widget build(BuildContext context) {
-    final citiesAsync = ref.watch(citiesProvider);
+    final citiesAsync = ref.watch(citiesViewModelProvider);
 
     return Column(
       children: [
@@ -66,13 +66,13 @@ class _CitiesOverviewScreenState extends ConsumerState<CitiesOverviewScreen> {
             loading: () => _Content(
               cities: _mockCities,
               isLoading: true,
-              refreshCities: () => ref.read(citiesProvider.notifier).refresh(),
+              refreshCities: () => ref.read(citiesViewModelProvider.notifier).refresh(),
             ),
 
             data: (cities) => _Content(
               cities: cities,
               isLoading: false,
-              refreshCities: () => ref.read(citiesProvider.notifier).refresh(),
+              refreshCities: () => ref.read(citiesViewModelProvider.notifier).refresh(),
             ),
 
             error: (error, stack) => Center(

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibivibe/features/auth/login_controller.dart';
+import 'package:ibivibe/features/auth/login_viewmodel.dart';
 import 'package:ibivibe/features/auth/login_state.dart';
 import 'package:ibivibe/shared/ui/forms/fields/email/email_field.dart';
 import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:ibivibe/shared/utils/show_todo_toast.dart';
 
 class LoginForm extends ConsumerStatefulWidget {
-  final LoginController controller;
+  final LoginViewModel controller;
   const LoginForm({super.key, required this.controller});
 
   @override

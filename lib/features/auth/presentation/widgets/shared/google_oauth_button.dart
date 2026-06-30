@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:ibivibe/app/router/app_router_provider.dart';
-import 'package:ibivibe/features/auth/google_oauth_state_provider.dart';
+import 'package:ibivibe/features/auth/google_oauth_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class GoogleOAuthButton extends ConsumerWidget {
@@ -9,7 +9,7 @@ class GoogleOAuthButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final googleOAuthState = ref.watch(googleOAuthStateProvider);
+    final googleOAuthState = ref.watch(googleOAuthViewModelProvider);
     final isLoading = googleOAuthState.isLoading;
     final theme = context.theme;
 
@@ -19,7 +19,7 @@ class GoogleOAuthButton extends ConsumerWidget {
           : () async {
               final router = ref.read(appRouterProvider);
               final shouldRedirect = await ref
-                  .read(googleOAuthStateProvider.notifier)
+                  .read(googleOAuthViewModelProvider.notifier)
                   .signInWithGoogle();
 
               if (shouldRedirect) {

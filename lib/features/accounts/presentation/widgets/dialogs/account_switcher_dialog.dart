@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ibivibe/app/theme/custom_styles/inverted_badge.dart';
 import 'package:ibivibe/shared/models/account.dart';
 import 'package:ibivibe/shared/models/account_type.dart';
-import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:ibivibe/features/accounts/presentation/widgets/account_photo/account_photo.dart';
 import 'package:ibivibe/shared/ui/layout/sheet_drag_indicator.dart';
 
@@ -27,7 +27,7 @@ class _AccountSwitcherSheetContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accountsState = ref.watch(accountsStateProvider);
+    final accountsState = ref.watch(accountsViewModelProvider);
     final activeAccount = accountsState.activeAccount;
     final cachedAccounts = accountsState.cachedAccounts;
 
@@ -78,7 +78,7 @@ class _AccountSwitcherSheetContent extends ConsumerWidget {
                     isSelected: activeAccount?.id == account.id,
                     onTap: () {
                       ref
-                          .read(accountsStateProvider.notifier)
+                          .read(accountsViewModelProvider.notifier)
                           .switchAccount(account.id);
                       context.pop();
                     },
@@ -99,7 +99,7 @@ class _AccountSwitcherSheetContent extends ConsumerWidget {
                     isSelected: activeAccount?.id == account.id,
                     onTap: () {
                       ref
-                          .read(accountsStateProvider.notifier)
+                          .read(accountsViewModelProvider.notifier)
                           .switchAccount(account.id);
                       context.pop();
                     },

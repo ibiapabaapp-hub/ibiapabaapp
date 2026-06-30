@@ -50,44 +50,43 @@ final class AuthRepositoryProvider
 
 String _$authRepositoryHash() => r'cf957c53ffaa90803dd5e9adfae998770964ac9a';
 
-@ProviderFor(loginController)
-final loginControllerProvider = LoginControllerProvider._();
+@ProviderFor(loginViewModel)
+final loginViewModelProvider = LoginViewModelProvider._();
 
-final class LoginControllerProvider
-    extends
-        $FunctionalProvider<LoginController, LoginController, LoginController>
-    with $Provider<LoginController> {
-  LoginControllerProvider._()
+final class LoginViewModelProvider
+    extends $FunctionalProvider<LoginViewModel, LoginViewModel, LoginViewModel>
+    with $Provider<LoginViewModel> {
+  LoginViewModelProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'loginControllerProvider',
+        name: r'loginViewModelProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$loginControllerHash();
+  String debugGetCreateSourceHash() => _$loginViewModelHash();
 
   @$internal
   @override
-  $ProviderElement<LoginController> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<LoginViewModel> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  LoginController create(Ref ref) {
-    return loginController(ref);
+  LoginViewModel create(Ref ref) {
+    return loginViewModel(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(LoginController value) {
+  Override overrideWithValue(LoginViewModel value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<LoginController>(value),
+      providerOverride: $SyncValueProvider<LoginViewModel>(value),
     );
   }
 }
 
-String _$loginControllerHash() => r'e38aaa7200bc0d681cbea704bf5b1a8cd96cee0c';
+String _$loginViewModelHash() => r'5562ec11a7054b2078035fcc06e78fcd56ac1b72';

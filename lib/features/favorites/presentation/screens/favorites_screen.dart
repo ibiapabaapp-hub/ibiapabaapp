@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibivibe/shared/models/business.dart';
-import 'package:ibivibe/features/businesses/businesses_controller.dart';
+import 'package:ibivibe/features/businesses/businesses_viewmodel.dart';
 import 'package:ibivibe/features/businesses/business_card.dart';
 import 'package:ibivibe/shared/models/city.dart';
-import 'package:ibivibe/features/cities/cities_controller.dart';
+import 'package:ibivibe/features/cities/cities_viewmodel.dart';
 import 'package:ibivibe/features/cities/city_card.dart';
 import 'package:ibivibe/shared/models/event.dart';
-import 'package:ibivibe/features/events/events_controller.dart';
-import 'package:ibivibe/features/favorites/favorites_state_provider.dart';
+import 'package:ibivibe/features/events/events_viewmodel.dart';
+import 'package:ibivibe/features/favorites/favorites_viewmodel.dart';
 import 'package:ibivibe/shared/ui/fragments/events/event_card.dart';
 
 class FavoritesScreen extends ConsumerStatefulWidget {
@@ -34,9 +34,9 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
   }
 
   void _fetchFavoritedEntities() {
-    final favorites = ref.read(favoritesStateProvider).favorites;
-    final citiesNotifier = ref.read(citiesProvider.notifier);
-    final eventsNotifier = ref.read(eventsProvider.notifier);
+    final favorites = ref.read(favoritesViewModelProvider).favorites;
+    final citiesNotifier = ref.read(citiesViewModelProvider.notifier);
+    final eventsNotifier = ref.read(eventsViewModelProvider.notifier);
 
     for (final fav in favorites) {
       if (fav.cityId != null) {
@@ -49,10 +49,10 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = ref.watch(favoritesStateProvider).favorites;
-    final citiesState = ref.watch(citiesProvider);
-    final businessesState = ref.watch(businessesProvider);
-    final eventsState = ref.watch(eventsProvider);
+    final favorites = ref.watch(favoritesViewModelProvider).favorites;
+    final citiesState = ref.watch(citiesViewModelProvider);
+    final businessesState = ref.watch(businessesViewModelProvider);
+    final eventsState = ref.watch(eventsViewModelProvider);
 
     final cityIds = favorites
         .where((f) => f.cityId != null)

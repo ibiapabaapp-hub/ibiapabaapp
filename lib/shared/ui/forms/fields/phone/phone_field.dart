@@ -98,7 +98,7 @@ class _PhoneFieldState extends ConsumerState<PhoneField> {
         _countryCode = result.code;
       });
       ref.read(selectedCountryProvider.notifier).state = (result.code, 11);
-      // ref.read(registerControllerProvider.notifier).setPhone('');
+      // ref.read(registerViewModelProvider.notifier).setPhone('');
     }
   }
 
@@ -113,7 +113,7 @@ class _PhoneFieldState extends ConsumerState<PhoneField> {
         _countryCode = code;
       });
       ref.read(selectedCountryProvider.notifier).state = (code, 8);
-      // ref.read(registerControllerProvider.notifier).setPhone('');
+      // ref.read(registerViewModelProvider.notifier).setPhone('');
     }
   }
 

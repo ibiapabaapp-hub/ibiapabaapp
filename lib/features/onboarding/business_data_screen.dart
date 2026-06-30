@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/shared/models/city.dart';
-import 'package:ibivibe/features/onboarding/business_data_controller.dart';
+import 'package:ibivibe/features/onboarding/business_data_viewmodel.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class BusinessDataScreen extends ConsumerStatefulWidget {
@@ -21,7 +21,7 @@ class _BusinessDataScreenState extends ConsumerState<BusinessDataScreen> {
   // void _handleComplete() async {
   //   setState(() => _isLoading = true);
   //   try {
-  //     await ref.read(businessDataControllerProvider.notifier).submit();
+  //     await ref.read(businessDataViewModelProvider.notifier).submit();
 
   //     if (mounted) context.push('/app/home');
   //   } finally {
@@ -97,7 +97,7 @@ class _CompanyFormState extends ConsumerState<_CompanyForm> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(businessDataControllerProvider);
+    final state = ref.watch(businessDataViewModelProvider);
 
     return Form(
       key: _formKey,

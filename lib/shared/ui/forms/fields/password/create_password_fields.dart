@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibivibe/features/auth/register_controller.dart';
+import 'package:ibivibe/features/auth/register_viewmodel.dart';
 import 'package:ibivibe/features/auth/register_state.dart';
 import 'package:ibivibe/features/auth/validation/auth_validator.dart';
 
@@ -22,11 +22,11 @@ class _CreatePasswordFieldsState extends ConsumerState<CreatePasswordFields> {
     super.initState();
     _passwordControl = FTextFieldControl.managed(
       onChange: (v) =>
-          ref.read(registerControllerProvider.notifier).setPassword(v.text),
+          ref.read(registerViewModelProvider.notifier).setPassword(v.text),
     );
     _confirmPasswordControl = FTextFieldControl.managed(
       onChange: (v) => ref
-          .read(registerControllerProvider.notifier)
+          .read(registerViewModelProvider.notifier)
           .setConfirmPassword(v.text),
     );
   }
@@ -35,7 +35,7 @@ class _CreatePasswordFieldsState extends ConsumerState<CreatePasswordFields> {
   Widget build(BuildContext context) {
     final authValidator = ref.watch(authValidatorProvider);
     final status = ref.watch(
-      registerControllerProvider.select((s) => s.status),
+      registerViewModelProvider.select((s) => s.status),
     );
     final isLoading = status == RegisterStatus.loading;
 

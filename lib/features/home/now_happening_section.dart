@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/shared/models/event.dart';
-import 'package:ibivibe/features/events/events_controller.dart';
+import 'package:ibivibe/features/events/events_viewmodel.dart';
 import 'package:ibivibe/shared/ui/fragments/events/event_card.dart';
 import 'package:ibivibe/shared/ui/layout/section_header.dart';
 import 'package:ibivibe/shared/models/business.dart';
@@ -41,7 +41,7 @@ class NowHappeningSection extends ConsumerStatefulWidget {
 class _NowHappeningSectionState extends ConsumerState<NowHappeningSection> {
   @override
   Widget build(BuildContext context) {
-    final eventsAsync = ref.watch(eventsProvider);
+    final eventsAsync = ref.watch(eventsViewModelProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -80,7 +80,7 @@ class _NowHappeningSectionState extends ConsumerState<NowHappeningSection> {
                       style: context.theme.typography.base,
                     ),
                     FButton(
-                      onPress: () => ref.invalidate(eventsProvider),
+                      onPress: () => ref.invalidate(eventsViewModelProvider),
                       child: const Text('Tentar novamente'),
                     ),
                   ],

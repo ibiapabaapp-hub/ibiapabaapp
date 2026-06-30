@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibivibe/features/auth/register_controller.dart';
+import 'package:ibivibe/features/auth/register_viewmodel.dart';
 import 'package:ibivibe/features/auth/register_state.dart';
 import 'package:ibivibe/features/auth/presentation/widgets/register/steps/basic_info_step.dart';
 import 'package:ibivibe/features/auth/presentation/widgets/register/steps/credentials_step.dart';
@@ -61,7 +61,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(registerControllerProvider, (previous, nextState) {
+    ref.listen(registerViewModelProvider, (previous, nextState) {
       if (nextState.status == RegisterStatus.success) {
         showAppToast(
           context: context,

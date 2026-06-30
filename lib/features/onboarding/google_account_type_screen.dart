@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibivibe/shared/models/account_type.dart';
-import 'package:ibivibe/features/onboarding/google_onboarding_controller.dart';
+import 'package:ibivibe/features/onboarding/google_onboarding_viewmodel.dart';
 import 'package:ibivibe/features/onboarding/google_onboarding_state.dart';
 import 'package:ibivibe/features/onboarding/profile_type_tile.dart';
 import 'package:go_router/go_router.dart';
@@ -28,7 +28,7 @@ class _GoogleAccountTypeScreenState
     super.initState();
     // Initialize with the current account type from controller if available
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final state = ref.read(googleOnboardingControllerProvider);
+      final state = ref.read(googleOnboardingViewModelProvider);
       if (state.accountType != null) {
         setState(() {
           _selected = state.accountType!;
@@ -76,7 +76,7 @@ class _GoogleAccountTypeScreenState
   }
 
   Widget _buildProfileSelector() {
-    final state = ref.watch(googleOnboardingControllerProvider);
+    final state = ref.watch(googleOnboardingViewModelProvider);
     final isLoading = state.status == GoogleOnboardingStatus.loading;
 
     return LayoutBuilder(
@@ -129,7 +129,7 @@ class _GoogleAccountTypeScreenState
       onTap: () {
         setState(() => _selected = AccountType.personal);
         ref
-            .read(googleOnboardingControllerProvider.notifier)
+            .read(googleOnboardingViewModelProvider.notifier)
             .setAccountType(AccountType.personal);
       },
     );
@@ -144,18 +144,18 @@ class _GoogleAccountTypeScreenState
       onTap: () {
         setState(() => _selected = AccountType.business);
         ref
-            .read(googleOnboardingControllerProvider.notifier)
+            .read(googleOnboardingViewModelProvider.notifier)
             .setAccountType(AccountType.business);
       },
     );
   }
 
   Future<void> _handleContinue() async {
-    await ref.read(googleOnboardingControllerProvider.notifier).submit();
+    await ref.read(googleOnboardingViewModelProvider.notifier).submit();
 
     if (!mounted) return;
 
-    final state = ref.read(googleOnboardingControllerProvider);
+    final state = ref.read(googleOnboardingViewModelProvider);
     if (state.status == GoogleOnboardingStatus.error) {
       showAppToast(
         context: context,

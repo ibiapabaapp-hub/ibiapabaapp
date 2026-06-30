@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibivibe/features/auth/register_controller.dart';
+import 'package:ibivibe/features/auth/register_viewmodel.dart';
 import 'package:ibivibe/shared/ui/forms/fields/password/create_password_fields.dart';
 import 'package:ibivibe/shared/ui/forms/fields/email/create_email_field.dart';
 import 'package:ibivibe/features/auth/presentation/widgets/shared/google_oauth_button.dart';
@@ -28,7 +28,7 @@ class _CredentialsStepState extends ConsumerState<CredentialsStep> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = ref.read(registerControllerProvider.notifier);
+    final controller = ref.read(registerViewModelProvider.notifier);
 
     return Form(
       key: formKey,

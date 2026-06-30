@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/shared/models/city.dart';
-import 'package:ibivibe/features/cities/cities_controller.dart';
+import 'package:ibivibe/features/cities/cities_viewmodel.dart';
 import 'package:ibivibe/features/cities/city_card.dart';
 import 'package:ibivibe/shared/ui/layout/vertical_items_list.dart';
 import 'package:ibivibe/shared/ui/layout/section_header.dart';
@@ -30,7 +30,7 @@ class ExploreCitiesSection extends ConsumerStatefulWidget {
 class _ExploreCitiesSectionState extends ConsumerState<ExploreCitiesSection> {
   @override
   Widget build(BuildContext context) {
-    final citiesAsync = ref.watch(citiesProvider);
+    final citiesAsync = ref.watch(citiesViewModelProvider);
 
     return Column(
       mainAxisAlignment: .start,

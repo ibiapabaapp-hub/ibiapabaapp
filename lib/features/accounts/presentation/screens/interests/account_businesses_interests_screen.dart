@@ -7,7 +7,7 @@ import 'package:ibivibe/features/accounts/transform_account_interests.dart';
 import 'package:ibivibe/shared/models/parent_category.dart';
 import 'package:ibivibe/features/categories/categories_providers.dart';
 import 'package:ibivibe/shared/models/category_entity.dart';
-import 'package:ibivibe/features/accounts/account_interests_controller.dart';
+import 'package:ibivibe/features/accounts/account_interests_viewmodel.dart';
 import 'package:ibivibe/features/onboarding/interests_accordion.dart';
 import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -47,7 +47,7 @@ class _AccountBusinessesInterestsScreenState
   void initState() {
     super.initState();
     final interests = ref
-        .read(accountInterestsControllerProvider)
+        .read(accountInterestsViewModelProvider)
         .interestsData;
     _selected = getInterestsIdsSet(interests);
   }
@@ -60,7 +60,7 @@ class _AccountBusinessesInterestsScreenState
     setState(() => _isLoading = true);
     try {
       await ref
-          .read(accountInterestsControllerProvider.notifier)
+          .read(accountInterestsViewModelProvider.notifier)
           .saveInterests(selected: [], entity: CategoryEntity.business);
       if (mounted) context.push('/app/interests/events');
     } finally {
@@ -72,7 +72,7 @@ class _AccountBusinessesInterestsScreenState
     setState(() => _isLoading = true);
     try {
       await ref
-          .read(accountInterestsControllerProvider.notifier)
+          .read(accountInterestsViewModelProvider.notifier)
           .saveInterests(
             selected: _selected.toList(),
             entity: CategoryEntity.business,

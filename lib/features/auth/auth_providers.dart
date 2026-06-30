@@ -2,8 +2,8 @@ import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/core/network/dio_provider.dart';
 import 'package:ibivibe/core/storage/token_storage_provider.dart';
 import 'package:ibivibe/features/auth/auth_repository.dart';
-import 'package:ibivibe/features/auth/login_controller.dart';
-import 'package:ibivibe/features/auth/auth_state_provider.dart';
+import 'package:ibivibe/features/auth/login_viewmodel.dart';
+import 'package:ibivibe/features/auth/auth_viewmodel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ibivibe/features/auth/auth_repository_impl.dart';
 
@@ -17,14 +17,14 @@ AuthRepository authRepository(Ref ref) {
   return AuthRepositoryImpl(dio, tokenStorage);
 }
 
-// CONTROLLERS
+// VIEWMODELS
 @riverpod
-LoginController loginController(Ref ref) {
+LoginViewModel loginViewModel(Ref ref) {
   final logger = ref.watch(loggerProvider);
   final repository = ref.watch(authRepositoryProvider);
-  final authState = ref.watch(authStateProvider.notifier);
+  final authState = ref.watch(authViewModelProvider.notifier);
 
-  return LoginController(
+  return LoginViewModel(
     repository: repository,
     authState: authState,
     logger: logger,

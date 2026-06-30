@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/features/events/models/event_detail_data.dart';
-import 'package:ibivibe/features/events/event_detail_controller.dart';
+import 'package:ibivibe/features/events/event_detail_viewmodel.dart';
 import 'package:ibivibe/shared/ui/fragments/favorite_button.dart';
 import 'package:ibivibe/shared/ui/fragments/carousel/content_carousel.dart';
 import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
@@ -18,12 +18,12 @@ class EventDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final detailAsync = ref.watch(eventDetailProvider(id));
+    final detailAsync = ref.watch(eventDetailViewModelProvider(id));
 
     return detailAsync.when(
       loading: () => const _EventDetailContent(isLoading: true, detail: null),
       error: (e, _) =>
-          _ErrorView(onRetry: () => ref.invalidate(eventDetailProvider(id))),
+          _ErrorView(onRetry: () => ref.invalidate(eventDetailViewModelProvider(id))),
       data: (detail) => _EventDetailContent(isLoading: false, detail: detail),
     );
   }

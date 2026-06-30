@@ -4,7 +4,7 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/app/theme/custom_styles/fselect_item_style.dart';
 import 'package:ibivibe/shared/models/gender.dart';
-import 'package:ibivibe/features/onboarding/google_onboarding_controller.dart';
+import 'package:ibivibe/features/onboarding/google_onboarding_viewmodel.dart';
 import 'package:ibivibe/shared/ui/layout/beautiful_background_overlay.dart';
 
 class GoogleSlugGenderScreen extends ConsumerStatefulWidget {
@@ -25,8 +25,8 @@ class _GoogleSlugGenderScreenState
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
 
-    final state = ref.read(googleOnboardingControllerProvider);
-    final controller = ref.read(googleOnboardingControllerProvider.notifier);
+    final state = ref.read(googleOnboardingViewModelProvider);
+    final controller = ref.read(googleOnboardingViewModelProvider.notifier);
     if (!controller.isSlugAvailable()!) return;
     if (state.gender == null) return;
 
@@ -35,8 +35,8 @@ class _GoogleSlugGenderScreenState
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(googleOnboardingControllerProvider);
-    final controller = ref.read(googleOnboardingControllerProvider.notifier);
+    final state = ref.watch(googleOnboardingViewModelProvider);
+    final controller = ref.read(googleOnboardingViewModelProvider.notifier);
     final isAvailable = controller.isSlugAvailable();
     final canContinue =
         isAvailable != null && isAvailable == true && state.gender != null;

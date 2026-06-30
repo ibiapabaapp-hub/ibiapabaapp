@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/shared/models/account.dart';
-import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:ibivibe/shared/ui/layout/beautiful_background_overlay.dart';
 
 class ManageAccountsScreen extends ConsumerWidget {
@@ -11,7 +11,7 @@ class ManageAccountsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accountsState = ref.watch(accountsStateProvider);
+    final accountsState = ref.watch(accountsViewModelProvider);
     final accounts = accountsState.cachedAccounts;
     final activeAccountId = accountsState.activeAccountId;
     final isLoading = accountsState.isLoading;
@@ -87,7 +87,7 @@ class ManageAccountsScreen extends ConsumerWidget {
                               onTap: () {
                                 if (!isActive) {
                                   ref
-                                      .read(accountsStateProvider.notifier)
+                                      .read(accountsViewModelProvider.notifier)
                                       .switchAccount(account.id);
                                   context.pop();
                                 }
@@ -139,7 +139,7 @@ class ManageAccountsScreen extends ConsumerWidget {
             style: FButtonStyle.destructive(),
             onPress: () {
               ref
-                  .read(accountsStateProvider.notifier)
+                  .read(accountsViewModelProvider.notifier)
                   .removeAccountFromCache(account.id);
               context.pop();
             },

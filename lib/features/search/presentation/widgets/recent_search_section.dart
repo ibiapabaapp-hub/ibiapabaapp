@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibivibe/core/session/app_session_notifier_provider.dart';
-import 'package:ibivibe/features/search/search_state_provider.dart';
+import 'package:ibivibe/features/search/search_viewmodel.dart';
 import 'package:ibivibe/features/search/presentation/widgets/recent_search_item.dart';
 
 class RecentSearchSection extends ConsumerWidget {
@@ -40,7 +40,7 @@ class RecentSearchSection extends ConsumerWidget {
             FButton(
               style: FButtonStyle.ghost(),
               onPress: () =>
-                  ref.read(searchStateProvider.notifier).clearRecentSearches(),
+                  ref.read(searchViewModelProvider.notifier).clearRecentSearches(),
               child: Text('Limpar todas', style: context.theme.typography.xs),
             ),
           ],
@@ -54,7 +54,7 @@ class RecentSearchSection extends ConsumerWidget {
                   query: q,
                   onTap: () => onSuggestionTap(q),
                   onRemove: () => ref
-                      .read(searchStateProvider.notifier)
+                      .read(searchViewModelProvider.notifier)
                       .removeRecentSearch(q),
                 ),
               )

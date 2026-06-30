@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/core/network/dio_provider.dart';
-import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:ibivibe/features/home/explore_cities_section.dart';
 import 'package:ibivibe/features/search/presentation/widgets/search_field_shell.dart';
 import 'package:ibivibe/shared/ui/layout/items_grid.dart';
@@ -15,7 +15,7 @@ class SearchScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dioClient = ref.watch(dioProvider);
-    final interests = ref.watch(accountsStateProvider).activeAccount?.interests;
+    final interests = ref.watch(accountsViewModelProvider).activeAccount?.interests;
     final businessesInterests = interests?.businesses
         .map((b) => b.name)
         .toList();

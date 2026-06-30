@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:ibivibe/features/accounts/presentation/widgets/account_photo/account_photo.dart';
 import 'package:ibivibe/features/accounts/presentation/widgets/dialogs/account_switcher_dialog.dart';
 
@@ -81,7 +81,7 @@ class Navbar extends ConsumerWidget {
     final location = GoRouterState.of(context).uri.toString();
     final index = _locationToIndex(location);
     final theme = context.theme;
-    final accountsState = ref.watch(accountsStateProvider);
+    final accountsState = ref.watch(accountsViewModelProvider);
     final activeAccount = accountsState.activeAccount;
 
     return NavigationBarTheme(

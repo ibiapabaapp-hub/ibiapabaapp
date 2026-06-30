@@ -9,7 +9,7 @@ import 'package:ibivibe/features/accounts/transform_account_interests.dart';
 import 'package:ibivibe/shared/models/category_entity.dart';
 import 'package:ibivibe/shared/models/parent_category.dart';
 import 'package:ibivibe/features/categories/categories_providers.dart';
-import 'package:ibivibe/features/accounts/account_interests_controller.dart';
+import 'package:ibivibe/features/accounts/account_interests_viewmodel.dart';
 import 'package:ibivibe/features/onboarding/skip_interests_dialog.dart';
 import 'package:ibivibe/features/onboarding/interests_accordion.dart';
 import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
@@ -51,7 +51,7 @@ class _AccountEventsInterestsScreenState
   void initState() {
     super.initState();
     final interests = ref
-        .read(accountInterestsControllerProvider)
+        .read(accountInterestsViewModelProvider)
         .interestsData;
     _selected = getInterestsIdsSet(interests);
   }
@@ -61,8 +61,8 @@ class _AccountEventsInterestsScreenState
   }
 
   void _handleSkip() async {
-    final controller = ref.read(accountInterestsControllerProvider.notifier);
-    final controllerState = ref.read(accountInterestsControllerProvider);
+    final controller = ref.read(accountInterestsViewModelProvider.notifier);
+    final controllerState = ref.read(accountInterestsViewModelProvider);
 
     if (controllerState.interestsData.businesses.isNotEmpty) {
       setState(() => _isLoading = true);
@@ -127,7 +127,7 @@ class _AccountEventsInterestsScreenState
   void _handleComplete() async {
     setState(() => _isLoading = true);
     try {
-      final controller = ref.read(accountInterestsControllerProvider.notifier);
+      final controller = ref.read(accountInterestsViewModelProvider.notifier);
 
       await controller.saveInterests(
         selected: _selected.toList(),
@@ -138,7 +138,7 @@ class _AccountEventsInterestsScreenState
 
       if (!mounted) return;
 
-      final controllerState = ref.read(accountInterestsControllerProvider);
+      final controllerState = ref.read(accountInterestsViewModelProvider);
 
       if (controllerState.status == AccountInterestsStatus.error) {
         showAppToast(
@@ -163,7 +163,7 @@ class _AccountEventsInterestsScreenState
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(accountInterestsControllerProvider);
+    ref.watch(accountInterestsViewModelProvider);
 
     final categoriesAsync = ref.watch(parentCategoriesProvider(entity: .event));
 

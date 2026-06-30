@@ -14,7 +14,7 @@ class LoginScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(loginControllerProvider);
+    final controller = ref.watch(loginViewModelProvider);
     return SafeArea(
       child: FScaffold(
         header: FHeader.nested(

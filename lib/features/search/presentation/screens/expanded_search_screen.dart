@@ -6,7 +6,7 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/core/errors/failures/failures.dart';
 import 'package:ibivibe/features/search/search_providers.dart';
-import 'package:ibivibe/features/search/search_state_provider.dart';
+import 'package:ibivibe/features/search/search_viewmodel.dart';
 import 'package:ibivibe/features/search/presentation/widgets/recent_search_section.dart';
 import 'package:ibivibe/features/search/presentation/widgets/search_field_shell.dart';
 import 'package:ibivibe/features/search/presentation/widgets/search_list.dart';
@@ -36,7 +36,7 @@ class _ExpandedSearchScreenState extends ConsumerState<ExpandedSearchScreen>
     _debounce = Timer(const Duration(milliseconds: 500), () {
       if (query.length >= 2) {
         ref.read(searchProvider.notifier).search(query);
-        ref.read(searchStateProvider.notifier).addRecentSearch(query);
+        ref.read(searchViewModelProvider.notifier).addRecentSearch(query);
       } else if (query.isEmpty) {
         ref.read(searchProvider.notifier).search('');
       }

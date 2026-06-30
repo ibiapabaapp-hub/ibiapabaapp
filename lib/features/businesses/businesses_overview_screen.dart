@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/shared/models/business.dart';
-import 'package:ibivibe/features/businesses/businesses_controller.dart';
+import 'package:ibivibe/features/businesses/businesses_viewmodel.dart';
 import 'package:ibivibe/features/businesses/business_card.dart';
 import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:ibivibe/shared/ui/layout/section_header.dart';
@@ -33,7 +33,7 @@ class _BusinessesOverviewScreenState
     extends ConsumerState<BusinessesOverviewScreen> {
   @override
   Widget build(BuildContext context) {
-    final businessesAsync = ref.watch(businessesProvider);
+    final businessesAsync = ref.watch(businessesViewModelProvider);
 
     return Column(
       children: [

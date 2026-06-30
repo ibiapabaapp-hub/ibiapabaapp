@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:ibivibe/features/favorites/models/favorite.dart';
-import 'package:ibivibe/features/favorites/favorites_state_provider.dart';
+import 'package:ibivibe/features/favorites/favorites_viewmodel.dart';
 
 class FavoriteButton extends ConsumerStatefulWidget {
   final String? cityId;
@@ -59,7 +59,7 @@ class _FavoriteButtonState extends ConsumerState<FavoriteButton> {
 
     try {
       if (isFavorited && favorite != null) {
-        await ref.read(favoritesStateProvider.notifier).popFavorite(favorite);
+        await ref.read(favoritesViewModelProvider.notifier).popFavorite(favorite);
       } else {
         final newFavorite = Favorite(
           id: null,
@@ -69,7 +69,7 @@ class _FavoriteButtonState extends ConsumerState<FavoriteButton> {
           businessId: widget.businessId,
         );
         await ref
-            .read(favoritesStateProvider.notifier)
+            .read(favoritesViewModelProvider.notifier)
             .pushFavorite(newFavorite);
       }
     } finally {
@@ -79,8 +79,8 @@ class _FavoriteButtonState extends ConsumerState<FavoriteButton> {
 
   @override
   Widget build(BuildContext context) {
-    final favoritesState = ref.watch(favoritesStateProvider);
-    final activeAccount = ref.watch(accountsStateProvider).activeAccount;
+    final favoritesState = ref.watch(favoritesViewModelProvider);
+    final activeAccount = ref.watch(accountsViewModelProvider).activeAccount;
     final isFavorited = _isFavorited(favoritesState.favorites);
     final favorite = _getFavorite(favoritesState.favorites);
 

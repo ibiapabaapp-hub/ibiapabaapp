@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibivibe/features/auth/register_controller.dart';
+import 'package:ibivibe/features/auth/register_viewmodel.dart';
 import 'package:ibivibe/shared/ui/forms/fields/name/name_field.dart';
 import 'package:ibivibe/shared/ui/forms/fields/slug/slug_field.dart';
 import 'package:ibivibe/shared/ui/layout/form_topbar.dart';
@@ -26,7 +26,7 @@ class _BasicInfoStepState extends ConsumerState<BasicInfoStep> {
   @override
   void initState() {
     super.initState();
-    _name = ref.read(registerControllerProvider).formData.name;
+    _name = ref.read(registerViewModelProvider).formData.name;
     _nameControl = FTextFieldControl.managed(onChange: (v) => _name = v.text);
   }
 
@@ -38,7 +38,7 @@ class _BasicInfoStepState extends ConsumerState<BasicInfoStep> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = ref.read(registerControllerProvider.notifier);
+    final controller = ref.read(registerViewModelProvider.notifier);
 
     return Form(
       key: formKey,

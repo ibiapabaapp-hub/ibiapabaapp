@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibivibe/shared/models/account_type.dart';
-import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:ibivibe/features/accounts/presentation/widgets/account_card.dart';
 import 'package:ibivibe/features/accounts/presentation/widgets/contents/business_account_content.dart';
 import 'package:ibivibe/features/accounts/presentation/widgets/contents/personal_account_content.dart';
@@ -12,7 +12,7 @@ class AccountScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final account = ref.watch(accountsStateProvider).activeAccount;
+    final account = ref.watch(accountsViewModelProvider).activeAccount;
 
     return SafeArea(
       child: FScaffold(

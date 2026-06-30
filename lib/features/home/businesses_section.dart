@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/shared/models/business.dart';
-import 'package:ibivibe/features/businesses/businesses_controller.dart';
+import 'package:ibivibe/features/businesses/businesses_viewmodel.dart';
 import 'package:ibivibe/features/businesses/business_card.dart';
 import 'package:ibivibe/shared/ui/layout/section_header.dart';
 import 'package:ibivibe/shared/ui/layout/vertical_items_list.dart';
@@ -30,7 +30,7 @@ class CompaniesSection extends ConsumerStatefulWidget {
 class _CompaniesSectionState extends ConsumerState<CompaniesSection> {
   @override
   Widget build(BuildContext context) {
-    final companiesAsync = ref.watch(businessesProvider);
+    final companiesAsync = ref.watch(businessesViewModelProvider);
 
     return Column(
       mainAxisAlignment: .start,

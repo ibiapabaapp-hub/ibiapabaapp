@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibivibe/features/auth/auth_state_provider.dart';
+import 'package:ibivibe/features/auth/auth_viewmodel.dart';
 
 void showLogoutDialog(BuildContext context, WidgetRef ref) {
-  final authState = ref.read(authStateProvider.notifier);
+  final authState = ref.read(authViewModelProvider.notifier);
   final foruiTheme = context.theme;
 
   showFDialog(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
+import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:ibivibe/shared/ui/layout/horizontal_infinite_carousel.dart';
 import 'package:ibivibe/shared/utils/show_todo_toast.dart';
 
@@ -21,7 +21,7 @@ class QuickCategoriesList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
-    final interests = ref.watch(accountsStateProvider).activeAccount?.interests;
+    final interests = ref.watch(accountsViewModelProvider).activeAccount?.interests;
     final businessesInterests = interests?.businesses
         .map((b) => b.name)
         .toList();

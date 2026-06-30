@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/features/businesses/models/business_detail_data.dart';
-import 'package:ibivibe/features/businesses/business_detail_controller.dart';
+import 'package:ibivibe/features/businesses/business_detail_viewmodel.dart';
 import 'package:ibivibe/shared/ui/fragments/favorite_button.dart';
 import 'package:ibivibe/shared/ui/fragments/carousel/content_carousel.dart';
 import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
@@ -19,13 +19,13 @@ class BusinessDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final detailAsync = ref.watch(businessDetailProvider(id));
+    final detailAsync = ref.watch(businessDetailViewModelProvider(id));
 
     return detailAsync.when(
       loading: () =>
           const _BusinessDetailContent(isLoading: true, detail: null),
       error: (e, _) =>
-          _ErrorView(onRetry: () => ref.invalidate(businessDetailProvider(id))),
+          _ErrorView(onRetry: () => ref.invalidate(businessDetailViewModelProvider(id))),
       data: (detail) =>
           _BusinessDetailContent(isLoading: false, detail: detail),
     );

@@ -1,7 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:forui/forui.dart';
-// import 'package:ibivibe/features/auth/register_controller.dart';
+// import 'package:ibivibe/features/auth/register_viewmodel.dart';
 // import 'package:ibivibe/features/auth/validation/auth_validator.dart';
 // import 'package:ibivibe/shared/ui/fragments/inputs/native_date_input.dart';
 // import 'package:intl/intl.dart';
@@ -25,7 +25,7 @@
 //   @override
 //   void initState() {
 //     super.initState();
-//     final birthDate = ref.read(registerControllerProvider).formData.birthDate;
+//     final birthDate = ref.read(registerViewModelProvider).formData.birthDate;
 //     if (birthDate != null) {
 //       _dateController.text = DateFormat(
 //         'dd/MM/yyyy',
@@ -66,7 +66,7 @@
 //               controller: _dateController,
 //               onDateChanged: (date) {
 //                 if (date != null) {
-//                   ref.read(registerControllerProvider.notifier).setBirthDate(date);
+//                   ref.read(registerViewModelProvider.notifier).setBirthDate(date);
 //                   setState(() {});
 //                 }
 //               },
