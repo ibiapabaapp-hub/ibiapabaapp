@@ -7,7 +7,7 @@ import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibivibe/core/logger/log_tags.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/shared/models/city.dart';
-import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
+import 'package:ibivibe/features/cities/providers/cities_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

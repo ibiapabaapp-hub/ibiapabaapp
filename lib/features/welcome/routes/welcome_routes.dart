@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:ibivibe/features/onboarding/presentation/screens/business_data_screen.dart';
-import 'package:ibivibe/features/welcome/welcome_screen.dart';
+import 'package:ibivibe/features/onboarding/screens/business_data_screen.dart';
+import 'package:ibivibe/features/welcome/screens/welcome_screen.dart';
 
 final List<RouteBase> welcomeRoutes = [
   GoRoute(path: '/welcome', builder: (context, state) => const WelcomeScreen()),
