@@ -4,8 +4,8 @@ import 'package:ibivibe/core/logger/log_tags.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
 
-import 'package:ibivibe/features/businesses/domain/entities/business_detail_data.dart';
-import 'package:ibivibe/features/businesses/domain/tags/businesses_logtags.dart';
+import 'package:ibivibe/features/businesses/models/business_detail_data.dart';
+import 'package:ibivibe/features/businesses/businesses_logtags.dart';
 import 'package:ibivibe/features/businesses/presentation/providers/businesses_providers.dart';
 import 'package:ibivibe/features/medias/presentation/providers/medias_providers.dart';
 import 'package:logger/logger.dart';

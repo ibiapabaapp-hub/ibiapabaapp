@@ -2,8 +2,8 @@ import 'package:ibivibe/core/errors/failures/failures.dart';
 import 'package:ibivibe/core/logger/handlers/controller_log_handler.dart';
 import 'package:ibivibe/core/logger/log_tags.dart';
 import 'package:ibivibe/core/logger/logger.dart';
-import 'package:ibivibe/features/favorites/domain/entities/favorite.dart';
-import 'package:ibivibe/features/favorites/domain/tags/favorites_logtags.dart'
+import 'package:ibivibe/features/favorites/models/favorite.dart';
+import 'package:ibivibe/features/favorites/favorites_logtags.dart'
     as fav_tags;
 import 'package:ibivibe/features/favorites/presentation/providers/favorites_providers.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';

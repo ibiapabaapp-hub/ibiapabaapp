@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibivibe/features/cities/data/repositories/cities_repository_impl.dart';
+import 'package:ibivibe/features/cities/cities_repository_impl.dart';
 import 'package:ibivibe/shared/models/city.dart';
 import 'package:mocktail/mocktail.dart';
 

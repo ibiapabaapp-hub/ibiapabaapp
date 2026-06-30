@@ -3,7 +3,7 @@ import 'package:ibivibe/core/logger/log_tags.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
 import 'package:ibivibe/shared/models/event.dart';
-import 'package:ibivibe/features/events/domain/tags/events_logtags.dart';
+import 'package:ibivibe/features/events/events_logtags.dart';
 import 'package:ibivibe/features/events/presentation/providers/events_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

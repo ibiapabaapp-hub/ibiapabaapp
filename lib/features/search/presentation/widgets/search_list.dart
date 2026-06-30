@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ibivibe/features/search/domain/entities/search_result.dart';
+import 'package:ibivibe/features/search/models/search_result.dart';
 import 'package:ibivibe/features/search/presentation/widgets/search_item.dart';
 
 class SearchList extends StatelessWidget {

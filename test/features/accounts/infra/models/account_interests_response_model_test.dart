@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibivibe/features/accounts/infra/models/account_interests_response_model.dart';
+import 'package:ibivibe/features/accounts/models/account_interests_response_model.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {

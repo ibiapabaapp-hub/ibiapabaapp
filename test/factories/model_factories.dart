@@ -6,10 +6,10 @@ import 'package:ibivibe/shared/models/event.dart';
 import 'package:ibivibe/shared/models/gender.dart';
 import 'package:ibivibe/shared/models/parent_category.dart';
 import 'package:ibivibe/shared/models/child_category.dart';
-import 'package:ibivibe/features/auth/domain/entities/auth_result.dart';
-import 'package:ibivibe/features/favorites/domain/entities/favorite.dart';
-import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
-import 'package:ibivibe/features/accounts/domain/entities/account_business.dart';
+import 'package:ibivibe/features/auth/models/auth_result.dart';
+import 'package:ibivibe/features/favorites/models/favorite.dart';
+import 'package:ibivibe/features/accounts/models/account_interests.dart';
+import 'package:ibivibe/features/accounts/models/account_business.dart';
 import 'package:ibivibe/core/entities/entity_type.dart';
 
 Account makeAccount({

@@ -4,7 +4,7 @@ import 'package:ibivibe/core/logger/log_tags.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
 import 'package:ibivibe/shared/models/media.dart';
-import 'package:ibivibe/features/medias/domain/tags/medias_logtags.dart';
+import 'package:ibivibe/features/medias/medias_logtags.dart';
 import 'package:ibivibe/features/medias/presentation/providers/medias_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

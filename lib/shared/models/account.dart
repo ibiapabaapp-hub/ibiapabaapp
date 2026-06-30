@@ -1,6 +1,6 @@
 import 'package:ibivibe/shared/models/account_type.dart';
-import 'package:ibivibe/features/accounts/domain/entities/account_business.dart';
-import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
+import 'package:ibivibe/features/accounts/models/account_business.dart';
+import 'package:ibivibe/features/accounts/models/account_interests.dart';
 import 'package:ibivibe/shared/models/gender.dart';
 
 class Account {

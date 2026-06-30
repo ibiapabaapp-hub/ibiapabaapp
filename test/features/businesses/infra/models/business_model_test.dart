@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ibivibe/features/businesses/infra/models/business_model.dart';
+import 'package:ibivibe/features/businesses/models/business_model.dart';
 import 'package:ibivibe/shared/models/business.dart';
 import '../../../../fixtures/fixture_reader.dart';
 

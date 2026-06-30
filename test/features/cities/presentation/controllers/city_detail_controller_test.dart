@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ibivibe/core/entities/entity_type.dart';
 import 'package:ibivibe/core/logger/logger.dart';
-import 'package:ibivibe/features/cities/domain/entities/city_detail_data.dart';
+import 'package:ibivibe/features/cities/models/city_detail_data.dart';
 import 'package:ibivibe/features/cities/presentation/controllers/city_detail_controller.dart';
 import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
 import 'package:ibivibe/features/medias/presentation/providers/medias_providers.dart';

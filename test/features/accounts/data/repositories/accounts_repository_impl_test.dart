@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ibivibe/core/errors/exceptions/exceptions.dart';
-import 'package:ibivibe/features/accounts/data/repositories/accounts_repository_impl.dart';
-import 'package:ibivibe/features/accounts/domain/entities/account_interests.dart';
-import 'package:ibivibe/features/accounts/domain/entities/account_interests_response.dart';
+import 'package:ibivibe/features/accounts/accounts_repository_impl.dart';
+import 'package:ibivibe/features/accounts/models/account_interests.dart';
+import 'package:ibivibe/features/accounts/models/account_interests_response.dart';
 import 'package:ibivibe/shared/models/account.dart';
 import 'package:ibivibe/shared/models/account_type.dart';
 import 'package:mocktail/mocktail.dart';

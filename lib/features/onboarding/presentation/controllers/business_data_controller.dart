@@ -5,7 +5,7 @@ import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
 import 'package:ibivibe/shared/models/city.dart';
 import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
-import 'package:ibivibe/features/onboarding/domain/tags/onboarding_logtags.dart';
+import 'package:ibivibe/features/onboarding/onboarding_logtags.dart';
 import 'package:ibivibe/features/onboarding/presentation/states/business_data_states.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibivibe/core/entities/entity_type.dart';
-import 'package:ibivibe/features/accounts/domain/utils/transform_account_interests.dart';
+import 'package:ibivibe/features/accounts/transform_account_interests.dart';
 import 'package:ibivibe/shared/models/parent_category.dart';
 import 'package:ibivibe/features/categories/presentation/providers/categories_providers.dart';
 import 'package:ibivibe/shared/models/category_entity.dart';

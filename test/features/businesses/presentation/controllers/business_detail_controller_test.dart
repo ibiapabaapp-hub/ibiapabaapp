@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ibivibe/core/entities/entity_type.dart';
 import 'package:ibivibe/core/logger/logger.dart';
-import 'package:ibivibe/features/businesses/domain/entities/business_detail_data.dart';
+import 'package:ibivibe/features/businesses/models/business_detail_data.dart';
 import 'package:ibivibe/features/businesses/presentation/controllers/business_detail_controller.dart';
 import 'package:ibivibe/features/businesses/presentation/providers/businesses_providers.dart';
 import 'package:ibivibe/features/medias/presentation/providers/medias_providers.dart';

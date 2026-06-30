@@ -1,8 +1,8 @@
 import 'package:ibivibe/core/cache/cache_database_provider.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/core/network/dio_provider.dart';
-import 'package:ibivibe/features/businesses/data/repositories/businesses_repository_impl.dart';
-import 'package:ibivibe/features/businesses/domain/repositories/business_repository.dart';
+import 'package:ibivibe/features/businesses/businesses_repository_impl.dart';
+import 'package:ibivibe/features/businesses/business_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'businesses_providers.g.dart';

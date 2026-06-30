@@ -3,7 +3,7 @@ import 'package:ibivibe/core/logger/log_tags.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/shared/providers/accounts_state_provider.dart';
 import 'package:ibivibe/shared/models/city.dart';
-import 'package:ibivibe/features/cities/domain/tags/cities_logtags.dart';
+import 'package:ibivibe/features/cities/cities_logtags.dart';
 import 'package:ibivibe/features/cities/presentation/providers/cities_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibivibe/features/events/domain/entities/event_detail_data.dart';
+import 'package:ibivibe/features/events/models/event_detail_data.dart';
 import 'package:ibivibe/features/events/presentation/controllers/event_detail_controller.dart';
 import 'package:ibivibe/shared/ui/fragments/favorite_button.dart';
 import 'package:ibivibe/shared/ui/fragments/carousel/content_carousel.dart';

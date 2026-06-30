@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ibivibe/core/entities/entity_type.dart';
 import 'package:ibivibe/core/logger/logger.dart';
-import 'package:ibivibe/features/events/domain/entities/event_detail_data.dart';
+import 'package:ibivibe/features/events/models/event_detail_data.dart';
 import 'package:ibivibe/features/events/presentation/controllers/event_detail_controller.dart';
 import 'package:ibivibe/features/events/presentation/providers/events_providers.dart';
 import 'package:ibivibe/features/medias/presentation/providers/medias_providers.dart';
