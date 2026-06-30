@@ -23,10 +23,8 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
     unknownValue: ReachLevel.local,
   ),
   coverImgUrl: json['cover_img_url'] as String?,
-  categories:
-      (json['categories'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList() ??
+  tags:
+      (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
   startDate: DateTime.parse(json['start_date'] as String),
   endDate: DateTime.parse(json['end_date'] as String),
@@ -44,7 +42,7 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'type': _$EventTypeEnumMap[instance.type]!,
       'reach_level': _$ReachLevelEnumMap[instance.reachLevel]!,
       'cover_img_url': instance.coverImgUrl,
-      'categories': instance.categories,
+      'tags': instance.tags,
       'start_date': instance.startDate.toIso8601String(),
       'end_date': instance.endDate.toIso8601String(),
       'created_at': instance.createdAt.toIso8601String(),

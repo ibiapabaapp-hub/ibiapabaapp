@@ -21,10 +21,8 @@ BusinessModel _$BusinessModelFromJson(Map<String, dynamic> json) =>
         unknownValue: ReachLevel.local,
       ),
       coverImgUrl: json['cover_img_url'] as String?,
-      categories:
-          (json['categories'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
+      tags:
+          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
           const [],
       createdAt: DateTime.parse(json['created_at'] as String),
     );
@@ -40,7 +38,7 @@ Map<String, dynamic> _$BusinessModelToJson(BusinessModel instance) =>
       'avatar_url': instance.avatar,
       'max_reach_level': _$ReachLevelEnumMap[instance.maxReachLevel]!,
       'cover_img_url': instance.coverImgUrl,
-      'categories': instance.categories,
+      'tags': instance.tags,
       'created_at': instance.createdAt.toIso8601String(),
     };
 

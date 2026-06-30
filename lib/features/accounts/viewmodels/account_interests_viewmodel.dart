@@ -6,13 +6,14 @@ import 'package:ibivibe/features/accounts/models/account_interests.dart';
 import 'package:ibivibe/features/accounts/models/account_interests_response.dart';
 import 'package:ibivibe/features/accounts/providers/accounts_providers.dart';
 import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
-import 'package:ibivibe/shared/models/category_entity.dart';
-import 'package:ibivibe/features/categories/providers/categories_providers.dart';
+import 'package:ibivibe/features/tags/providers/tags_providers.dart';
 import 'package:ibivibe/features/onboarding/onboarding_logtags.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'account_interests_viewmodel.g.dart';
+
+enum InterestEntityType { business, event }
 
 final _emptyInterests = AccountInterests.empty();
 
@@ -41,7 +42,7 @@ class AccountInterestsViewModel extends _$AccountInterestsViewModel
 
   Future<void> saveInterests({
     required List<String> selected,
-    required CategoryEntity entity,
+    required InterestEntityType entityType,
   }) async {
     final account = ref.read(accountsViewModelProvider).activeAccount;
     final sessionInterests = account?.interests ?? _emptyInterests;
@@ -58,11 +59,11 @@ class AccountInterestsViewModel extends _$AccountInterestsViewModel
 
     final selectedInterests = selected.isEmpty
         ? const <Interest>[]
-        : await _mapSelectedInterests(selected: selected, entity: entity);
+        : await _mapSelectedInterests(selected: selected);
 
     final updated = _mergeInterests(
       base: baseInterests,
-      entity: entity,
+      entityType: entityType,
       selectedInterests: selectedInterests,
     );
 
@@ -75,17 +76,14 @@ class AccountInterestsViewModel extends _$AccountInterestsViewModel
 
   Future<List<Interest>> _mapSelectedInterests({
     required List<String> selected,
-    required CategoryEntity entity,
   }) async {
-    final categories = await ref.read(
-      parentCategoriesProvider(entity: entity).future,
-    );
+    final tagGroups = await ref.read(tagGroupsProvider.future);
 
-    final allChildren = categories
-        .expand((parent) => parent.children ?? const [])
+    final allTags = tagGroups
+        .expand((group) => group.tags)
         .toList(growable: false);
 
-    final byId = {for (final child in allChildren) child.id: child.name};
+    final byId = {for (final tag in allTags) tag.id: tag.name};
 
     return selected
         .map((id) => Interest(id: id, name: byId[id] ?? id))
@@ -94,19 +92,18 @@ class AccountInterestsViewModel extends _$AccountInterestsViewModel
 
   AccountInterests _mergeInterests({
     required AccountInterests base,
-    required CategoryEntity entity,
+    required InterestEntityType entityType,
     required List<Interest> selectedInterests,
   }) {
-    return switch (entity) {
-      CategoryEntity.business => AccountInterests(
+    return switch (entityType) {
+      InterestEntityType.business => AccountInterests(
         businesses: selectedInterests,
         events: base.events,
       ),
-      CategoryEntity.event => AccountInterests(
+      InterestEntityType.event => AccountInterests(
         businesses: base.businesses,
         events: selectedInterests,
       ),
-      _ => base,
     };
   }
 

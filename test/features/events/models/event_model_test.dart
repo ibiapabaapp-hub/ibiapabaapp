@@ -17,7 +17,7 @@ void main() {
         expect(result.name, equals('Test Event'));
         expect(result.ownerAccountId, equals('test-owner-id'));
         expect(result.description, equals('A test event'));
-        expect(result.categories, equals(['music', 'culture']));
+        expect(result.tags, equals(['rock', 'cultura']));
         expect(result.startDate, isA<DateTime>());
         expect(result.endDate, isA<DateTime>());
         expect(result.createdAt, isA<DateTime>());
@@ -36,10 +36,10 @@ void main() {
         expect(result.coverImgUrl, isNull);
       });
 
-      test('should handle empty categories', () {
-        final json = {...jsonMap, 'categories': <String>[]};
+      test('should handle empty tags', () {
+        final json = {...jsonMap, 'tags': <String>[]};
         final result = EventModel.fromJson(json);
-        expect(result.categories, isEmpty);
+        expect(result.tags, isEmpty);
       });
     });
 

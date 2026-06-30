@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibivibe/shared/models/category_entity.dart';
-import 'package:ibivibe/shared/models/child_category.dart';
-import 'package:ibivibe/shared/models/parent_category.dart';
-import 'package:ibivibe/features/categories/providers/categories_providers.dart';
-import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import 'package:ibivibe/shared/models/tag_group.dart';
+import 'package:ibivibe/shared/models/tag.dart';
 
 IconData getCategoryIcon(String name) {
   const icons = {
@@ -32,14 +27,12 @@ IconData getCategoryIcon(String name) {
 class InterestsAccordion extends StatefulWidget {
   const InterestsAccordion({
     super.key,
-    required this.categories,
+    required this.tagGroups,
     this.initialSelected = const {},
     required this.onChanged,
-    required this.categoriesEntity,
   });
 
-  final CategoryEntity categoriesEntity;
-  final List<ParentCategory> categories;
+  final List<TagGroup> tagGroups;
   final Set<String> initialSelected;
   final void Function(Set<String> selected) onChanged;
 
@@ -63,37 +56,36 @@ class _InterestsAccordionState extends State<InterestsAccordion> {
     super.dispose();
   }
 
-  void _toggle(String catId, String subId) {
+  void _toggle(String tagId) {
     final next = Set<String>.from(_selected.value);
-    next.contains(subId) ? next.remove(subId) : next.add(subId);
+    next.contains(tagId) ? next.remove(tagId) : next.add(tagId);
     _selected.value = next;
     widget.onChanged(_selected.value);
   }
 
-  void _toggleAll(String catId, List<ChildCategory> subcategories) {
+  void _toggleAll(List<Tag> tags) {
     final next = Set<String>.from(_selected.value);
-    final allSubIds = subcategories.map((s) => s.id).toSet();
+    final allTagIds = tags.map((t) => t.id).toSet();
 
-    if (allSubIds.every(next.contains)) {
-      for (final id in allSubIds) {
+    if (allTagIds.every(next.contains)) {
+      for (final id in allTagIds) {
         next.remove(id);
       }
     } else {
-      next.addAll(allSubIds);
+      next.addAll(allTagIds);
     }
     _selected.value = next;
     widget.onChanged(_selected.value);
   }
 
-  bool _isAllSelected(String catId, List<ChildCategory> subcategories) {
-    if (subcategories.isEmpty) return false;
-    return subcategories.every((s) => _selected.value.contains(s.id));
+  bool _isAllSelected(List<Tag> tags) {
+    if (tags.isEmpty) return false;
+    return tags.every((t) => _selected.value.contains(t.id));
   }
 
-  int _countForCat(String catId, List<ChildCategory>? loadedSubcategories) {
-    if (loadedSubcategories == null) return 0;
-    final catSubIds = loadedSubcategories.map((s) => s.id).toSet();
-    return _selected.value.intersection(catSubIds).length;
+  int _countForGroup(List<Tag> tags) {
+    final tagIds = tags.map((t) => t.id).toSet();
+    return _selected.value.intersection(tagIds).length;
   }
 
   @override
@@ -101,9 +93,11 @@ class _InterestsAccordionState extends State<InterestsAccordion> {
     final theme = context.theme;
 
     return Column(
-      children: List.generate(widget.categories.length, (index) {
-        final cat = widget.categories[index];
+      children: List.generate(widget.tagGroups.length, (index) {
+        final group = widget.tagGroups[index];
         final isExpanded = _expandedIndex == index;
+        final tags = group.tags;
+        final count = _countForGroup(tags);
 
         return Column(
           children: [
@@ -120,11 +114,11 @@ class _InterestsAccordionState extends State<InterestsAccordion> {
                 ),
                 child: Row(
                   children: [
-                    Icon(getCategoryIcon(cat.name), size: 18),
+                    Icon(getCategoryIcon(group.name), size: 18),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        cat.name,
+                        group.name,
                         style: theme.typography.base.copyWith(
                           fontWeight: isExpanded
                               ? FontWeight.w600
@@ -135,31 +129,10 @@ class _InterestsAccordionState extends State<InterestsAccordion> {
                     ValueListenableBuilder(
                       valueListenable: _selected,
                       builder: (context, selectedState, _) {
-                        if (cat.id.startsWith('mock')) {
-                          return const SizedBox.shrink();
-                        }
-
-                        return Consumer(
-                          builder: (context, ref, _) {
-                            final childrenAsync = ref.watch(
-                              childCategoriesProvider(
-                                parentId: cat.id,
-                                entity: widget.categoriesEntity,
-                              ),
-                            );
-
-                            return childrenAsync.maybeWhen(
-                              data: (children) {
-                                final count = _countForCat(cat.id, children);
-                                if (count == 0) return const SizedBox.shrink();
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: FBadge(child: Text('$count')),
-                                );
-                              },
-                              orElse: () => const SizedBox.shrink(),
-                            );
-                          },
+                        if (count == 0) return const SizedBox.shrink();
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: FBadge(child: Text('$count')),
                         );
                       },
                     ),
@@ -178,92 +151,19 @@ class _InterestsAccordionState extends State<InterestsAccordion> {
             ),
             FCollapsible(
               value: isExpanded ? 1 : 0,
-              child: _SubcategoryChipsLoader(
-                categoriesEntity: widget.categoriesEntity,
-                parentId: cat.id,
-                isExpanded: isExpanded,
-                parentSelected: _selected,
+              child: _ChipsContent(
+                tags: tags,
+                selected: _selected,
                 onToggle: _toggle,
                 onToggleAll: _toggleAll,
                 isAllSelected: _isAllSelected,
               ),
             ),
-            if (index < widget.categories.length - 1)
+            if (index < widget.tagGroups.length - 1)
               Divider(height: 1, color: theme.colors.border.withAlpha(150)),
           ],
         );
       }),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// _SubcategoryChipsLoader — carrega os filhos e renderiza os chips
-// ─────────────────────────────────────────────────────────────────────────────
-
-final _mockSubcategories = List.generate(
-  6,
-  (i) =>
-      ChildCategory(id: 'mock─sub─$i', name: 'Subcategoria $i', entities: []),
-);
-
-class _SubcategoryChipsLoader extends ConsumerWidget {
-  const _SubcategoryChipsLoader({
-    required this.parentId,
-    required this.isExpanded,
-    required this.categoriesEntity,
-    required this.parentSelected,
-    required this.onToggle,
-    required this.onToggleAll,
-    required this.isAllSelected,
-  });
-
-  final String parentId;
-  final bool isExpanded;
-  final CategoryEntity categoriesEntity;
-  final ValueNotifier<Set<String>> parentSelected;
-  final void Function(String catId, String subId) onToggle;
-  final void Function(String catId, List<ChildCategory> subcategories)
-  onToggleAll;
-  final bool Function(String catId, List<ChildCategory> subcategories)
-  isAllSelected;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (!isExpanded || parentId.startsWith('mock')) {
-      return const SizedBox.shrink();
-    }
-
-    final childrenAsync = ref.watch(
-      childCategoriesProvider(parentId: parentId, entity: categoriesEntity),
-    );
-
-    return childrenAsync.when(
-      loading: () => Skeletonizer(
-        enabled: true,
-        effect: customShimmerEffect(context),
-        child: _ChipsContent(
-          categoryId: parentId,
-          subcategories: _mockSubcategories,
-          selected: parentSelected,
-          onToggle: onToggle,
-          onToggleAll: onToggleAll,
-          isAllSelected: isAllSelected,
-        ),
-      ),
-      error: (error, stack) => _ErrorState(
-        onRetry: () => ref.refresh(
-          childCategoriesProvider(parentId: parentId, entity: categoriesEntity),
-        ),
-      ),
-      data: (children) => _ChipsContent(
-        categoryId: parentId,
-        subcategories: children,
-        selected: parentSelected,
-        onToggle: onToggle,
-        onToggleAll: onToggleAll,
-        isAllSelected: isAllSelected,
-      ),
     );
   }
 }
@@ -274,22 +174,18 @@ class _SubcategoryChipsLoader extends ConsumerWidget {
 
 class _ChipsContent extends StatelessWidget {
   const _ChipsContent({
-    required this.categoryId,
-    required this.subcategories,
+    required this.tags,
     required this.selected,
     required this.onToggle,
     required this.onToggleAll,
     required this.isAllSelected,
   });
 
-  final String categoryId;
-  final List<ChildCategory> subcategories;
+  final List<Tag> tags;
   final ValueNotifier<Set<String>> selected;
-  final void Function(String catId, String subId) onToggle;
-  final void Function(String catId, List<ChildCategory> subcategories)
-  onToggleAll;
-  final bool Function(String catId, List<ChildCategory> subcategories)
-  isAllSelected;
+  final void Function(String tagId) onToggle;
+  final void Function(List<Tag> tags) onToggleAll;
+  final bool Function(List<Tag> tags) isAllSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -298,7 +194,7 @@ class _ChipsContent extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: selected,
         builder: (context, snap, _) {
-          final isFull = isAllSelected(categoryId, subcategories);
+          final isFull = isAllSelected(tags);
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -306,58 +202,25 @@ class _ChipsContent extends StatelessWidget {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: subcategories.map((sub) {
-                  final isSubSelected = snap.contains(sub.id);
+                children: tags.map((tag) {
+                  final isTagSelected = snap.contains(tag.id);
                   return _SelectableChip(
-                    label: sub.name,
-                    isSelected: isSubSelected,
-                    onTap: () => onToggle(categoryId, sub.id),
+                    label: tag.name,
+                    isSelected: isTagSelected,
+                    onTap: () => onToggle(tag.id),
                   );
                 }).toList(),
               ),
               const SizedBox(height: 16),
               FButton(
                 style: FButtonStyle.outline(),
-                onPress: () => onToggleAll(categoryId, subcategories),
+                onPress: () => onToggleAll(tags),
                 prefix: Icon(isFull ? FIcons.x : FIcons.plus),
                 child: Text(isFull ? 'Remover tudo' : 'Adicionar tudo'),
               ),
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// _ErrorState
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _ErrorState extends StatelessWidget {
-  const _ErrorState({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        children: [
-          Text(
-            'Não foi possível carregar as opções.',
-            style: context.theme.typography.sm.copyWith(
-              color: context.theme.colors.mutedForeground,
-            ),
-          ),
-          const SizedBox(height: 8),
-          FButton(
-            style: FButtonStyle.ghost(),
-            onPress: onRetry,
-            child: const Text('Tentar novamente'),
-          ),
-        ],
       ),
     );
   }

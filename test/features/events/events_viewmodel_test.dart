@@ -36,7 +36,7 @@ void main() {
     ownerAccountId: 'acc1',
     type: EventType.simple,
     reachLevel: ReachLevel.local,
-    categories: ['cat1'],
+    tags: ['cat1'],
     startDate: DateTime(2025, 6, 1),
     endDate: DateTime(2025, 6, 2),
     createdAt: DateTime(2025),

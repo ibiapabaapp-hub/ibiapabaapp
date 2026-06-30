@@ -16,7 +16,7 @@ Event _createEvent({
     name: name,
     type: type,
     reachLevel: reachLevel,
-    categories: [],
+    tags: [],
     startDate: DateTime(2025),
     endDate: DateTime(2025, 12),
     createdAt: DateTime(2025),
@@ -36,7 +36,7 @@ void main() {
         expect(event.slug, 'test-event');
         expect(event.type, EventType.simple);
         expect(event.reachLevel, ReachLevel.local);
-        expect(event.categories, isEmpty);
+        expect(event.tags, isEmpty);
       });
 
       test('should allow null optional fields', () {
@@ -56,7 +56,7 @@ void main() {
           type: EventType.featured,
           reachLevel: ReachLevel.regional,
           coverImgUrl: 'https://example.com/cover.png',
-          categories: ['music'],
+          tags: ['music'],
           startDate: DateTime(2025),
           endDate: DateTime(2025, 12),
           createdAt: DateTime(2025),
@@ -67,7 +67,7 @@ void main() {
         expect(event.type, EventType.featured);
         expect(event.reachLevel, ReachLevel.regional);
         expect(event.coverImgUrl, 'https://example.com/cover.png');
-        expect(event.categories, ['music']);
+        expect(event.tags, ['music']);
       });
     });
 

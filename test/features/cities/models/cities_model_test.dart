@@ -17,7 +17,7 @@ void main() {
         expect(result.slug, equals('test-city'));
         expect(result.description, equals('A test city'));
         expect(result.coverImgUrl, equals('https://example.com/city.jpg'));
-        expect(result.categories, equals(['tourism', 'culture']));
+        expect(result.tags, equals(['praia', 'cultura']));
         expect(result.location, isNotNull);
       });
 
@@ -38,7 +38,7 @@ void main() {
         expect(result.id, equals(''));
         expect(result.name, equals(''));
         expect(result.slug, equals(''));
-        expect(result.categories, isEmpty);
+        expect(result.tags, isEmpty);
       });
     });
 
@@ -48,7 +48,7 @@ void main() {
         final result = model.toJson();
         expect(result['id'], equals('test-city-id'));
         expect(result['name'], equals('Test City'));
-        expect(result['categories'], isA<List>());
+        expect(result['tags'], isA<List>());
       });
     });
 
@@ -65,7 +65,7 @@ void main() {
           id: a.id,
           name: 'Different City',
           slug: a.slug,
-          categories: a.categories,
+          tags: a.tags,
         );
         expect(a, isNot(equals(b)));
       });

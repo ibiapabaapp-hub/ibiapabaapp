@@ -18,7 +18,7 @@ void main() {
       name: '',
       slug: '',
       maxReachLevel: ReachLevel.local,
-      categories: [],
+      tags: [],
       createdAt: DateTime(2025),
     ));
   });
@@ -46,7 +46,7 @@ void main() {
     'name': 'Business 1',
     'slug': 'business-1',
     'max_reach_level': 'local',
-    'categories': ['cat1'],
+    'tags': ['cat1'],
     'created_at': '2025-01-01T00:00:00.000Z',
   };
 
@@ -58,7 +58,7 @@ void main() {
           name: 'Business 1',
           slug: 'business-1',
           maxReachLevel: ReachLevel.local,
-          categories: ['cat1'],
+          tags: ['cat1'],
           createdAt: DateTime(2025),
         ),
       ];
@@ -129,7 +129,7 @@ void main() {
         name: 'Business 1',
         slug: 'business-1',
         maxReachLevel: ReachLevel.local,
-        categories: ['cat1'],
+        tags: ['cat1'],
         createdAt: DateTime(2025),
       );
       when(() => mockCacheService.getObject<Business>(
@@ -159,7 +159,7 @@ void main() {
           name: 'Business 1',
           slug: 'business-1',
           maxReachLevel: ReachLevel.local,
-          categories: ['cat1'],
+          tags: ['cat1'],
           createdAt: DateTime(2025),
         ),
       ];

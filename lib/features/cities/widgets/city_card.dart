@@ -50,7 +50,7 @@ class CityCard extends StatelessWidget {
           spacing: 6,
           clipBehavior: .hardEdge,
           children: [
-            ...city.categories
+            ...city.tags
                 .map(
                   (cat) => FBadge(
                     style: FBadgeStyle.secondary(),

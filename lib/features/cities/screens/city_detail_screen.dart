@@ -88,7 +88,7 @@ class _CityDetailContent extends StatelessWidget {
               Wrap(
                 runSpacing: 6,
                 spacing: 6,
-                children: (city?.categories ?? ['Categoria', 'Subcategoria'])
+                children: (city?.tags ?? ['Categoria', 'Subcategoria'])
                     .map(
                       (cat) => FBadge(
                         style: FBadgeStyle.secondary(),

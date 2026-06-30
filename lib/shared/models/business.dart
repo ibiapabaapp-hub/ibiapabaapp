@@ -7,7 +7,7 @@ class Business {
   final String? bio;
   final String? avatar;
   final ReachLevel maxReachLevel;
-  final List<String> categories;
+  final List<String> tags;
   final DateTime createdAt;
 
   Business({
@@ -17,7 +17,7 @@ class Business {
     this.bio,
     this.avatar,
     required this.maxReachLevel,
-    required this.categories,
+    required this.tags,
     required this.createdAt,
   });
 }

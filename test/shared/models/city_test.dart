@@ -11,7 +11,7 @@ City _createCity({
     id: id,
     name: name,
     slug: slug,
-    categories: [],
+    tags: [],
   );
 }
 
@@ -24,7 +24,7 @@ void main() {
         expect(city.id, '1');
         expect(city.name, 'São Paulo');
         expect(city.slug, 'sao-paulo');
-        expect(city.categories, isEmpty);
+        expect(city.tags, isEmpty);
       });
 
       test('should allow null optional fields', () {
@@ -41,13 +41,13 @@ void main() {
           name: 'Recife',
           slug: 'recife',
           description: 'Venice of Brazil',
-          categories: ['beach'],
+          tags: ['beach'],
           location: const LatLng(-8.05, -34.87),
           coverImgUrl: 'https://example.com/recife.png',
         );
 
         expect(city.description, 'Venice of Brazil');
-        expect(city.categories, ['beach']);
+        expect(city.tags, ['beach']);
         expect(city.location, const LatLng(-8.05, -34.87));
         expect(city.coverImgUrl, 'https://example.com/recife.png');
       });

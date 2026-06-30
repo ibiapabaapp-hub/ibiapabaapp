@@ -22,7 +22,7 @@ void main() {
           id: '1',
           name: 'São Paulo',
           slug: 'sao-paulo',
-          categories: [],
+          tags: [],
         );
         final position = const LatLng(-23.55, -46.63);
         final session = AppSession(
@@ -47,7 +47,7 @@ void main() {
           id: '1',
           name: 'São Paulo',
           slug: 'sao-paulo',
-          categories: [],
+          tags: [],
         );
         final position = const LatLng(-23.55, -46.63);
         final session = AppSession(
@@ -73,7 +73,7 @@ void main() {
           id: '2',
           name: 'Recife',
           slug: 'recife',
-          categories: [],
+          tags: [],
         );
 
         final copied = session.copyWith(currentCity: newCity);
@@ -86,7 +86,7 @@ void main() {
           id: '1',
           name: 'São Paulo',
           slug: 'sao-paulo',
-          categories: [],
+          tags: [],
         );
         final session = AppSession(currentCity: city);
 
@@ -142,7 +142,7 @@ void main() {
             id: '1',
             name: 'São Paulo',
             slug: 'sao-paulo',
-            categories: [],
+            tags: [],
           ),
           needsOnboarding: true,
         );

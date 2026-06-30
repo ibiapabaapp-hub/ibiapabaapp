@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibivibe/core/entities/entity_type.dart';
 import 'package:ibivibe/core/preferences/user_preferences_state_provider.dart';
 import 'package:ibivibe/features/accounts/models/account_interests_response.dart';
 import 'package:ibivibe/features/accounts/transform_account_interests.dart';
-import 'package:ibivibe/shared/models/category_entity.dart';
-import 'package:ibivibe/shared/models/parent_category.dart';
-import 'package:ibivibe/features/categories/providers/categories_providers.dart';
+import 'package:ibivibe/shared/models/tag_group.dart';
+import 'package:ibivibe/features/tags/providers/tags_providers.dart';
 import 'package:ibivibe/features/accounts/viewmodels/account_interests_viewmodel.dart';
 import 'package:ibivibe/features/onboarding/widgets/skip_interests_dialog.dart';
 import 'package:ibivibe/features/onboarding/widgets/interests_accordion.dart';
@@ -16,22 +14,10 @@ import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart'
 import 'package:ibivibe/shared/ui/fragments/toast/show_app_toast.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-final _mockParentCategories = [
-  const ParentCategory(
-    id: 'mock-1',
-    name: 'Carregando categoria',
-    entities: [EntityType.city],
-  ),
-  const ParentCategory(
-    id: 'mock-2',
-    name: 'Carregando categoria',
-    entities: [EntityType.city],
-  ),
-  const ParentCategory(
-    id: 'mock-3',
-    name: 'Carregando categoria',
-    entities: [EntityType.city],
-  ),
+final _mockTagGroups = [
+  const TagGroup(id: 'mock-1', name: 'Carregando categoria'),
+  const TagGroup(id: 'mock-2', name: 'Carregando categoria'),
+  const TagGroup(id: 'mock-3', name: 'Carregando categoria'),
 ];
 
 class AccountEventsInterestsScreen extends ConsumerStatefulWidget {
@@ -69,7 +55,7 @@ class _AccountEventsInterestsScreenState
       try {
         await controller.saveInterests(
           selected: [],
-          entity: CategoryEntity.event,
+          entityType: InterestEntityType.event,
         );
 
         final result = await controller.submitInterests();
@@ -90,7 +76,7 @@ class _AccountEventsInterestsScreenState
             try {
               await controller.saveInterests(
                 selected: [],
-                entity: CategoryEntity.event,
+                entityType: InterestEntityType.event,
               );
               final result = await controller.submitInterests();
               if (mounted) {
@@ -131,7 +117,7 @@ class _AccountEventsInterestsScreenState
 
       await controller.saveInterests(
         selected: _selected.toList(),
-        entity: CategoryEntity.event,
+        entityType: InterestEntityType.event,
       );
 
       final result = await controller.submitInterests();
@@ -165,7 +151,7 @@ class _AccountEventsInterestsScreenState
   Widget build(BuildContext context) {
     ref.watch(accountInterestsViewModelProvider);
 
-    final categoriesAsync = ref.watch(parentCategoriesProvider(entity: .event));
+    final tagGroupsAsync = ref.watch(tagGroupsProvider);
 
     return SafeArea(
       child: FScaffold(
@@ -229,15 +215,14 @@ class _AccountEventsInterestsScreenState
                     ),
                   ),
                   const SizedBox(height: 24),
-                  categoriesAsync.when(
+                  tagGroupsAsync.when(
                     skipLoadingOnRefresh: false,
                     loading: () => Skeletonizer(
                       effect: customShimmerEffect(context),
                       child: InterestsAccordion(
-                        categories: _mockParentCategories,
+                        tagGroups: _mockTagGroups,
                         initialSelected: _selected,
                         onChanged: _handleChanged,
-                        categoriesEntity: CategoryEntity.event,
                       ),
                     ),
                     error: (error, stack) => Center(
@@ -257,11 +242,10 @@ class _AccountEventsInterestsScreenState
                         ],
                       ),
                     ),
-                    data: (categories) => InterestsAccordion(
-                      categories: categories,
+                    data: (tagGroups) => InterestsAccordion(
+                      tagGroups: tagGroups,
                       initialSelected: _selected,
                       onChanged: _handleChanged,
-                      categoriesEntity: CategoryEntity.event,
                     ),
                   ),
                 ],

@@ -16,6 +16,9 @@ migrate_working_dir/
 *.excalidraw
 docs
 
+# Codex/MCP config (contains secrets)
+.codex/
+
 # IntelliJ related
 *.iml
 *.ipr

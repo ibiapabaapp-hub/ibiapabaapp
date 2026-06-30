@@ -26,7 +26,7 @@ class BusinessModel extends Equatable implements Business {
   @JsonKey(name: 'cover_img_url')
   final String? coverImgUrl;
   @override
-  final List<String> categories;
+  final List<String> tags;
   @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
@@ -41,7 +41,7 @@ class BusinessModel extends Equatable implements Business {
     this.avatar,
     required this.maxReachLevel,
     this.coverImgUrl,
-    this.categories = const [],
+    this.tags = const [],
     required this.createdAt,
   });
 
@@ -66,7 +66,7 @@ class BusinessModel extends Equatable implements Business {
       bio: business.bio,
       avatar: business.avatar,
       maxReachLevel: business.maxReachLevel,
-      categories: business.categories,
+      tags: business.tags,
       createdAt: business.createdAt,
     ).toJson();
   }
@@ -82,7 +82,7 @@ class BusinessModel extends Equatable implements Business {
         avatar,
         maxReachLevel,
         coverImgUrl,
-        categories,
+        tags,
         createdAt,
       ];
 }

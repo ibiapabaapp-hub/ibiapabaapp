@@ -32,7 +32,7 @@ void main() {
     id: 'c1',
     name: 'City 1',
     slug: 'city-1',
-    categories: ['cat1'],
+    tags: ['cat1'],
   );
 
   setUp(() {

@@ -43,7 +43,7 @@ final class AccountInterestsViewModelProvider
 }
 
 String _$accountInterestsViewModelHash() =>
-    r'2d55dca781958b4aed61c61ed9521dbd1bf44bcd';
+    r'33a4eefc1190dfba2243a6b80b82a3015c82f090';
 
 abstract class _$AccountInterestsViewModel
     extends $Notifier<AccountInterestsState> {

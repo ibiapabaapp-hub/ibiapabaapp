@@ -12,7 +12,7 @@ Business _createBusiness({
     name: name,
     slug: slug,
     maxReachLevel: maxReachLevel,
-    categories: [],
+    tags: [],
     createdAt: DateTime(2025),
   );
 }
@@ -27,7 +27,7 @@ void main() {
         expect(business.name, 'Test Business');
         expect(business.slug, 'test-business');
         expect(business.maxReachLevel, ReachLevel.local);
-        expect(business.categories, isEmpty);
+        expect(business.tags, isEmpty);
         expect(business.createdAt, DateTime(2025));
       });
 
@@ -46,14 +46,14 @@ void main() {
           bio: 'Coffee shop',
           avatar: 'https://example.com/cafe.png',
           maxReachLevel: ReachLevel.regional,
-          categories: ['food'],
+          tags: ['food'],
           createdAt: DateTime(2025),
         );
 
         expect(business.bio, 'Coffee shop');
         expect(business.avatar, 'https://example.com/cafe.png');
         expect(business.maxReachLevel, ReachLevel.regional);
-        expect(business.categories, ['food']);
+        expect(business.tags, ['food']);
       });
     });
 

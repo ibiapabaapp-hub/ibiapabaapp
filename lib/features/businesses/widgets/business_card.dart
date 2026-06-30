@@ -52,7 +52,7 @@ class BusinessCard extends StatelessWidget {
           runSpacing: 6,
           spacing: 6,
           children: [
-            ...business.categories
+            ...business.tags
                 .map(
                   (cat) => FBadge(
                     style: FBadgeStyle.secondary(),

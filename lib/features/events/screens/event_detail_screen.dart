@@ -88,7 +88,7 @@ class _EventDetailContent extends StatelessWidget {
               Wrap(
                 runSpacing: 6,
                 spacing: 6,
-                children: (event?.categories ?? ['Evento', 'Categoria'])
+                children: (event?.tags ?? ['Evento', 'Categoria'])
                     .map(
                       (tag) => FBadge(
                         style: FBadgeStyle.secondary(),

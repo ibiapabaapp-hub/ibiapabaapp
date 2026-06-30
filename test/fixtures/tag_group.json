@@ -1,0 +1,16 @@
+{
+  "id": "test-tag-group-id",
+  "name": "Test Tag Group",
+  "description": "A test tag group",
+  "tags": [
+    {
+      "id": "test-tag-id",
+      "name": "Test Tag",
+      "slug": "test-tag",
+      "description": null,
+      "color": null,
+      "group_id": "test-tag-group-id",
+      "position": 0
+    }
+  ]
+}

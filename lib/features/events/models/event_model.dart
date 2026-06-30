@@ -28,7 +28,7 @@ class EventModel extends Equatable implements Event {
   @JsonKey(name: 'cover_img_url')
   final String? coverImgUrl;
   @override
-  final List<String> categories;
+  final List<String> tags;
   @override
   @JsonKey(name: 'start_date')
   final DateTime startDate;
@@ -51,7 +51,7 @@ class EventModel extends Equatable implements Event {
     required this.type,
     required this.reachLevel,
     this.coverImgUrl,
-    this.categories = const [],
+    this.tags = const [],
     required this.startDate,
     required this.endDate,
     required this.createdAt,
@@ -83,7 +83,7 @@ class EventModel extends Equatable implements Event {
       type: event.type,
       reachLevel: event.reachLevel,
       coverImgUrl: event.coverImgUrl,
-      categories: event.categories,
+      tags: event.tags,
       startDate: event.startDate,
       endDate: event.endDate,
       createdAt: event.createdAt,
@@ -101,7 +101,7 @@ class EventModel extends Equatable implements Event {
         type,
         reachLevel,
         coverImgUrl,
-        categories,
+        tags,
         startDate,
         endDate,
         createdAt,

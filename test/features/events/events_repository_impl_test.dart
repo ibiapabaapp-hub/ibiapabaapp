@@ -32,7 +32,7 @@ void main() {
     'owner_account_id': 'acc1',
     'type': 'simple',
     'reach_level': 'local',
-    'categories': ['cat1'],
+    'tags': ['cat1'],
     'start_date': '2025-06-01T00:00:00.000Z',
     'end_date': '2025-06-02T00:00:00.000Z',
     'created_at': '2025-01-01T00:00:00.000Z',

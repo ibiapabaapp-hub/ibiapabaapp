@@ -12,10 +12,8 @@ CityModel _$CityModelFromJson(Map<String, dynamic> json) => CityModel(
   slug: json['slug'] as String? ?? '',
   description: json['description'] as String?,
   coverImgUrl: _readCoverImgUrl(json, 'coverImgUrl') as String?,
-  categories:
-      (json['categories'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList() ??
+  tags:
+      (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
   location: const LatLngConverter().fromJson(json['location']),
 );
@@ -26,6 +24,6 @@ Map<String, dynamic> _$CityModelToJson(CityModel instance) => <String, dynamic>{
   'slug': instance.slug,
   'description': instance.description,
   'coverImgUrl': instance.coverImgUrl,
-  'categories': instance.categories,
+  'tags': instance.tags,
   'location': const LatLngConverter().toJson(instance.location),
 };

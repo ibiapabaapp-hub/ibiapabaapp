@@ -19,7 +19,7 @@ void main() {
         expect(result.bio, equals('A test business'));
         expect(result.avatar, equals('https://example.com/avatar.jpg'));
         expect(result.maxReachLevel, equals(ReachLevel.local));
-        expect(result.categories, equals(['food', 'services']));
+        expect(result.tags, equals(['restaurante', 'servicos']));
         expect(result.createdAt, isA<DateTime>());
       });
 

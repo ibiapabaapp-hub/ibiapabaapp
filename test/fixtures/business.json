@@ -5,6 +5,6 @@
   "bio": "A test business",
   "avatar_url": "https://example.com/avatar.jpg",
   "max_reach_level": "local",
-  "categories": ["food", "services"],
+  "tags": ["restaurante", "servicos"],
   "created_at": "2025-01-01T00:00:00.000Z"
 }

@@ -41,7 +41,7 @@ enum LogFeature implements LogTag {
   medias('[MEDIAS]'),
   session('[SESSION]'),
   preferences('[PREFERENCES]'),
-  categories('[CATEGORIES]'),
+  tags('[TAGS]'),
   interests('[INTERESTS]'),
   onboarding('[ONBOARDING]'),
   profiles('[PROFILES]'),

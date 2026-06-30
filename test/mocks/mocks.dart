@@ -10,7 +10,7 @@ import 'package:ibivibe/features/favorites/favorites_remote_datasource.dart';
 import 'package:ibivibe/features/favorites/favorites_local_storage.dart';
 import 'package:ibivibe/features/search/search_repository.dart';
 import 'package:ibivibe/features/search/search_remote_datasource.dart';
-import 'package:ibivibe/features/categories/categories_repository.dart';
+import 'package:ibivibe/features/tags/tags_repository.dart';
 import 'package:ibivibe/features/medias/medias_repository.dart';
 import 'package:ibivibe/features/medias/medias_remote_datasource.dart';
 import 'package:ibivibe/core/storage/token_storage_strategy.dart';
@@ -29,7 +29,7 @@ class MockFavoritesRemoteDatasource extends Mock implements FavoritesRemoteDatas
 class MockFavoritesLocalStorage extends Mock implements FavoritesLocalStorage {}
 class MockSearchRepository extends Mock implements SearchRepository {}
 class MockSearchRemoteDatasource extends Mock implements SearchRemoteDatasource {}
-class MockCategoriesRepository extends Mock implements CategoriesRepository {}
+class MockTagsRepository extends Mock implements TagsRepository {}
 class MockMediasRepository extends Mock implements MediasRepository {}
 class MockMediasRemoteDatasource extends Mock implements MediasRemoteDatasource {}
 class MockTokenStorageStrategy extends Mock implements TokenStorageStrategy {}

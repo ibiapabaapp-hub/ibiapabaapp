@@ -4,13 +4,12 @@ import 'package:ibivibe/shared/models/business.dart';
 import 'package:ibivibe/shared/models/city.dart';
 import 'package:ibivibe/shared/models/event.dart';
 import 'package:ibivibe/shared/models/gender.dart';
-import 'package:ibivibe/shared/models/parent_category.dart';
-import 'package:ibivibe/shared/models/child_category.dart';
+import 'package:ibivibe/shared/models/tag_group.dart';
+import 'package:ibivibe/shared/models/tag.dart';
 import 'package:ibivibe/features/auth/models/auth_result.dart';
 import 'package:ibivibe/features/favorites/models/favorite.dart';
 import 'package:ibivibe/features/accounts/models/account_interests.dart';
 import 'package:ibivibe/features/accounts/models/account_business.dart';
-import 'package:ibivibe/core/entities/entity_type.dart';
 
 Account makeAccount({
   String? id,
@@ -50,7 +49,7 @@ Event makeEvent({
   String? name,
   EventType type = EventType.simple,
   ReachLevel reachLevel = ReachLevel.local,
-  List<String>? categories,
+  List<String>? tags,
   DateTime? startDate,
   DateTime? endDate,
 }) {
@@ -62,7 +61,7 @@ Event makeEvent({
     name: name ?? 'Test Event',
     type: type,
     reachLevel: reachLevel,
-    categories: categories ?? ['music'],
+    tags: tags ?? ['rock'],
     startDate: startDate ?? now.add(const Duration(days: 7)),
     endDate: endDate ?? now.add(const Duration(days: 8)),
     createdAt: now,
@@ -74,13 +73,13 @@ City makeCity({
   String? id,
   String? name,
   String? slug,
-  List<String>? categories,
+  List<String>? tags,
 }) {
   return City(
     id: id ?? 'test-city-id',
     name: name ?? 'Test City',
     slug: slug ?? 'test-city',
-    categories: categories ?? ['tourism'],
+    tags: tags ?? ['praia'],
   );
 }
 
@@ -89,7 +88,7 @@ Business makeBusiness({
   String? name,
   String? slug,
   ReachLevel maxReachLevel = ReachLevel.local,
-  List<String>? categories,
+  List<String>? tags,
   DateTime? createdAt,
 }) {
   return Business(
@@ -97,7 +96,7 @@ Business makeBusiness({
     name: name ?? 'Test Business',
     slug: slug ?? 'test-business',
     maxReachLevel: maxReachLevel,
-    categories: categories ?? ['food'],
+    tags: tags ?? ['restaurante'],
     createdAt: createdAt ?? DateTime(2025, 1, 1),
   );
 }
@@ -130,28 +129,32 @@ Favorite makeFavorite({
   );
 }
 
-ParentCategory makeParentCategory({
+TagGroup makeTagGroup({
   String? id,
   String? name,
-  List<EntityType>? entities,
-  List<ChildCategory>? children,
+  String? description,
 }) {
-  return ParentCategory(
-    id: id ?? 'test-category-id',
-    name: name ?? 'Test Category',
-    entities: entities ?? [EntityType.city],
-    children: children,
+  return TagGroup(
+    id: id ?? 'test-tag-group-id',
+    name: name ?? 'Test Tag Group',
+    description: description,
   );
 }
 
-ChildCategory makeChildCategory({
+Tag makeTag({
   String? id,
   String? name,
-  List<EntityType>? entities,
+  String? slug,
+  String? color,
+  String? groupId,
+  int position = 0,
 }) {
-  return ChildCategory(
-    id: id ?? 'test-child-category-id',
-    name: name ?? 'Test Child Category',
-    entities: entities ?? [EntityType.city],
+  return Tag(
+    id: id ?? 'test-tag-id',
+    name: name ?? 'Test Tag',
+    slug: slug ?? 'test-tag',
+    color: color,
+    groupId: groupId ?? 'test-tag-group-id',
+    position: position,
   );
 }

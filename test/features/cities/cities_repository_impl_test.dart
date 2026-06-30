@@ -33,7 +33,7 @@ void main() {
   group('getAllCities', () {
     test('returns cached cities when cache is not empty', () async {
       final cached = [
-        City(id: '1', name: 'City 1', slug: 'city-1', categories: []),
+        City(id: '1', name: 'City 1', slug: 'city-1', tags: []),
       ];
       when(() => mockCacheService.getList<City>(
         storeName: any(named: 'storeName'),
@@ -59,7 +59,7 @@ void main() {
           'id': '1',
           'name': 'City 1',
           'slug': 'city-1',
-          'categories': [],
+          'tags': [],
         },
       ];
       when(() => mockDio.get('/cities'))
@@ -82,7 +82,7 @@ void main() {
     test('forces refresh when forceRefresh is true', () async {
       when(() => mockDio.get('/cities')).thenAnswer(
         (_) async => makeResponse([
-          {'id': '1', 'name': 'City 1', 'slug': 'city-1', 'categories': []},
+          {'id': '1', 'name': 'City 1', 'slug': 'city-1', 'tags': []},
         ]),
       );
       when(() => mockCacheService.clear(storeName: any(named: 'storeName')))
@@ -124,7 +124,7 @@ void main() {
   group('getCityById', () {
     test('returns city from cache', () async {
       final cached = [
-        City(id: '1', name: 'City 1', slug: 'city-1', categories: []),
+        City(id: '1', name: 'City 1', slug: 'city-1', tags: []),
       ];
       when(() => mockCacheService.getList<City>(
         storeName: any(named: 'storeName'),

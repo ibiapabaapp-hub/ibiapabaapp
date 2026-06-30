@@ -23,7 +23,7 @@ class CityModel extends Equatable implements City {
   @JsonKey(readValue: _readCoverImgUrl)
   final String? coverImgUrl;
   @override
-  final List<String> categories;
+  final List<String> tags;
   @override
   @LatLngConverter()
   final LatLng? location;
@@ -34,7 +34,7 @@ class CityModel extends Equatable implements City {
     this.slug = '',
     this.description,
     this.coverImgUrl,
-    this.categories = const [],
+    this.tags = const [],
     this.location,
   });
 
@@ -59,7 +59,7 @@ class CityModel extends Equatable implements City {
       slug: city.slug,
       coverImgUrl: city.coverImgUrl,
       description: city.description,
-      categories: city.categories,
+      tags: city.tags,
       location: city.location,
     ).toJson();
   }
@@ -71,7 +71,7 @@ class CityModel extends Equatable implements City {
         slug,
         description,
         coverImgUrl,
-        categories,
+        tags,
         location,
       ];
 }

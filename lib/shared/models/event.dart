@@ -12,7 +12,7 @@ class Event {
   final EventType type;
   final ReachLevel reachLevel;
   final String? coverImgUrl;
-  final List<String> categories;
+  final List<String> tags;
 
   final DateTime startDate;
   final DateTime endDate;
@@ -29,7 +29,7 @@ class Event {
     required this.type,
     required this.reachLevel,
     this.coverImgUrl,
-    required this.categories,
+    required this.tags,
 
     required this.startDate,
     required this.endDate,

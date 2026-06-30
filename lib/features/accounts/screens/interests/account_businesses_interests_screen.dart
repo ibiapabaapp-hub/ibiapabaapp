@@ -2,32 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ibivibe/core/entities/entity_type.dart';
 import 'package:ibivibe/features/accounts/transform_account_interests.dart';
-import 'package:ibivibe/shared/models/parent_category.dart';
-import 'package:ibivibe/features/categories/providers/categories_providers.dart';
-import 'package:ibivibe/shared/models/category_entity.dart';
+import 'package:ibivibe/shared/models/tag_group.dart';
+import 'package:ibivibe/features/tags/providers/tags_providers.dart';
 import 'package:ibivibe/features/accounts/viewmodels/account_interests_viewmodel.dart';
 import 'package:ibivibe/features/onboarding/widgets/interests_accordion.dart';
 import 'package:ibivibe/shared/ui/fragments/effects/default_shimmer_effect.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-final _mockParentCategories = [
-  const ParentCategory(
-    id: 'mock-1',
-    name: 'Carregando categoria',
-    entities: [EntityType.city],
-  ),
-  const ParentCategory(
-    id: 'mock-2',
-    name: 'Carregando categoria',
-    entities: [EntityType.city],
-  ),
-  const ParentCategory(
-    id: 'mock-3',
-    name: 'Carregando categoria',
-    entities: [EntityType.city],
-  ),
+final _mockTagGroups = [
+  const TagGroup(id: 'mock-1', name: 'Carregando categoria'),
+  const TagGroup(id: 'mock-2', name: 'Carregando categoria'),
+  const TagGroup(id: 'mock-3', name: 'Carregando categoria'),
 ];
 
 class AccountBusinessesInterestsScreen extends ConsumerStatefulWidget {
@@ -61,7 +47,7 @@ class _AccountBusinessesInterestsScreenState
     try {
       await ref
           .read(accountInterestsViewModelProvider.notifier)
-          .saveInterests(selected: [], entity: CategoryEntity.business);
+          .saveInterests(selected: [], entityType: InterestEntityType.business);
       if (mounted) context.push('/app/interests/events');
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -75,7 +61,7 @@ class _AccountBusinessesInterestsScreenState
           .read(accountInterestsViewModelProvider.notifier)
           .saveInterests(
             selected: _selected.toList(),
-            entity: CategoryEntity.business,
+            entityType: InterestEntityType.business,
           );
 
       if (mounted) context.push('/app/interests/events');
@@ -86,9 +72,7 @@ class _AccountBusinessesInterestsScreenState
 
   @override
   Widget build(BuildContext context) {
-    final categoriesAsync = ref.watch(
-      parentCategoriesProvider(entity: .business),
-    );
+    final tagGroupsAsync = ref.watch(tagGroupsProvider);
 
     return SafeArea(
       child: FScaffold(
@@ -152,15 +136,14 @@ class _AccountBusinessesInterestsScreenState
                     ),
                   ),
                   const SizedBox(height: 24),
-                  categoriesAsync.when(
+                  tagGroupsAsync.when(
                     skipLoadingOnRefresh: false,
                     loading: () => Skeletonizer(
                       effect: customShimmerEffect(context),
                       child: InterestsAccordion(
-                        categories: _mockParentCategories,
+                        tagGroups: _mockTagGroups,
                         initialSelected: _selected,
                         onChanged: _handleChanged,
-                        categoriesEntity: CategoryEntity.business,
                       ),
                     ),
                     error: (error, stack) => Center(
@@ -180,11 +163,10 @@ class _AccountBusinessesInterestsScreenState
                         ],
                       ),
                     ),
-                    data: (categories) => InterestsAccordion(
-                      categories: categories,
+                    data: (tagGroups) => InterestsAccordion(
+                      tagGroups: tagGroups,
                       initialSelected: _selected,
                       onChanged: _handleChanged,
-                      categoriesEntity: CategoryEntity.business,
                     ),
                   ),
                 ],

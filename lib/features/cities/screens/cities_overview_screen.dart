@@ -15,7 +15,7 @@ final List<City> _mockCities = List.generate(
     slug: 'mock',
     name: 'Nome da Cidade',
     coverImgUrl: 'loading',
-    categories: ['Categoria', 'Subcategoria'],
+    tags: ['Categoria', 'Subcategoria'],
   ),
 );
 

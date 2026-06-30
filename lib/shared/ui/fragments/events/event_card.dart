@@ -88,16 +88,16 @@ class EventCard extends StatelessWidget {
                             _buildBadge(context, 'Evento'),
                           ];
 
-                          if (event.categories.isNotEmpty) {
-                            final categoryBadges = event.categories
+                          if (event.tags.isNotEmpty) {
+                            final tagBadges = event.tags
                                 .take(2)
-                                .map((cat) => _buildBadge(context, cat))
+                                .map((tag) => _buildBadge(context, tag))
                                 .toList();
 
                             final remainingSlots = maxBadges - 1;
                             if (remainingSlots > 0) {
                               badges.addAll(
-                                categoryBadges.take(remainingSlots),
+                                tagBadges.take(remainingSlots),
                               );
                             }
                           } else {

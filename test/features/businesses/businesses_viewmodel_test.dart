@@ -33,7 +33,7 @@ void main() {
     name: 'Business 1',
     slug: 'business-1',
     maxReachLevel: ReachLevel.local,
-    categories: ['cat1'],
+    tags: ['cat1'],
     createdAt: DateTime(2025),
   );
 

@@ -15,7 +15,7 @@ final List<Business> _mockCompanies = List.generate(
     maxReachLevel: .local,
     slug: 'mock',
     name: 'Carregando empresa',
-    categories: ['Categoria', 'Subcategoria'],
+    tags: ['Categoria', 'Subcategoria'],
     createdAt: DateTime.now(),
   ),
 );

@@ -118,7 +118,6 @@ class CacheDatabaseService {
       _logger.i('🧹 [Sembast] Store "$storeName" limpa.');
     } else {
       await _db.transaction((txn) async {
-        await stringMapStoreFactory.store('categories_cache').delete(txn);
         await stringMapStoreFactory.store('cities_store').delete(txn);
       });
       _logger.i('🧹 [Sembast] Cache total limpo.');

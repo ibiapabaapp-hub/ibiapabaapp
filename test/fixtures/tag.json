@@ -1,0 +1,9 @@
+{
+  "id": "test-tag-id",
+  "name": "Test Tag",
+  "slug": "test-tag",
+  "description": null,
+  "color": null,
+  "group_id": "test-tag-group-id",
+  "position": 0
+}

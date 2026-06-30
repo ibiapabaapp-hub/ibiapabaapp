@@ -20,7 +20,7 @@ final List<Event> _mockEvents = List.generate(
     type: EventType.simple,
     reachLevel: ReachLevel.local,
     coverImgUrl: '',
-    categories: ['Categoria'],
+    tags: ['Categoria'],
 
     startDate: .now(),
     endDate: .now(),

@@ -91,7 +91,7 @@ class _BusinessDetailContent extends StatelessWidget {
                 runSpacing: 6,
                 spacing: 6,
                 children:
-                    (business?.categories ?? ['Categoria', 'Subcategoria'])
+                    (business?.tags ?? ['Categoria', 'Subcategoria'])
                         .map(
                           (cat) => FBadge(
                             style: FBadgeStyle.secondary(),

@@ -24,7 +24,6 @@ Future<void> clearUnnecessaryCache(Ref ref) async {
   final nonEssentialStores = [
     'location',
     'search',
-    'categories_cache',
     'cities_store',
   ];
 
