@@ -13,10 +13,10 @@ import 'package:ibivibe/features/auth/viewmodels/auth_viewmodel.dart';
 import 'package:ibivibe/features/auth/register_state.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
-import '../../../../mocks/mocks.dart';
-import '../../../../factories/model_factories.dart';
+import '../../mocks/mocks.dart';
+import '../../factories/model_factories.dart';
 
-class StubAuthState extends AuthState {
+class StubAuthViewModel extends AuthViewModel {
   bool initSessionCalled = false;
   AuthResult? lastInitSessionResult;
 
@@ -39,7 +39,7 @@ class StubAuthState extends AuthState {
 void main() {
   late MockAuthRepository mockAuthRepository;
   late MockLogger mockLogger;
-  late StubAuthState stubAuthState;
+  late StubAuthViewModel stubAuthState;
   late ProviderContainer container;
 
   final mockAuthResult = makeAuthResult();
@@ -64,7 +64,7 @@ void main() {
   setUp(() {
     mockAuthRepository = MockAuthRepository();
     mockLogger = MockLogger();
-    stubAuthState = StubAuthState();
+    stubAuthState = StubAuthViewModel();
 
     container = ProviderContainer(
       overrides: [
@@ -80,11 +80,11 @@ void main() {
     container.dispose();
   });
 
-  RegisterController createSut() {
+  RegisterViewModel createSut() {
     return container.read(registerViewModelProvider.notifier);
   }
 
-  group('RegisterController', () {
+  group('RegisterViewModel', () {
     group('initial state', () {
       test('should start with RegisterStatus.initial', () {
         final sut = createSut();

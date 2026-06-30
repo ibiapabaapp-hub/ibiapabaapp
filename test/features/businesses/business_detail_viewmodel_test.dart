@@ -13,7 +13,7 @@ import 'package:ibivibe/shared/models/media.dart';
 import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../mocks/mocks.dart';
+import '../../mocks/mocks.dart';
 
 void main() {
   late MockBusinessesRepository mockBusinessesRepo;

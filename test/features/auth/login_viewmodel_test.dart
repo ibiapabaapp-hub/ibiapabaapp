@@ -12,13 +12,13 @@ import 'package:mocktail/mocktail.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
-class MockAuthState extends Mock implements AuthState {}
+class MockAuthViewModel extends Mock implements AuthViewModel {}
 
 class MockLogger extends Mock implements Logger {}
 
 void main() {
   late MockAuthRepository mockRepository;
-  late MockAuthState mockAuthState;
+  late MockAuthViewModel mockAuthViewModel;
   late MockLogger mockLogger;
   late LoginViewModel sut;
 
@@ -45,11 +45,11 @@ void main() {
 
   setUp(() {
     mockRepository = MockAuthRepository();
-    mockAuthState = MockAuthState();
+    mockAuthViewModel = MockAuthViewModel();
     mockLogger = MockLogger();
     sut = LoginViewModel(
       repository: mockRepository,
-      authState: mockAuthState,
+      authState: mockAuthViewModel,
       logger: mockLogger,
     );
   });
@@ -103,12 +103,12 @@ void main() {
             password: any(named: 'password'),
           ),
         ).thenAnswer((_) async => mockAuthResult);
-        when(() => mockAuthState.initSession(any())).thenAnswer((_) async {});
+        when(() => mockAuthViewModel.initSession(any())).thenAnswer((_) async {});
 
         await sut.login(email: testEmail, password: testPassword);
 
         expect(sut.state, isA<LoginSuccess>());
-        verify(() => mockAuthState.initSession(any())).called(1);
+        verify(() => mockAuthViewModel.initSession(any())).called(1);
       });
 
       test('should emit LoginError when login fails', () async {
@@ -136,7 +136,7 @@ void main() {
             password: any(named: 'password'),
           ),
         ).thenAnswer((_) async => mockAuthResult);
-        when(() => mockAuthState.initSession(any())).thenAnswer((_) async {});
+        when(() => mockAuthViewModel.initSession(any())).thenAnswer((_) async {});
 
         await sut.login(email: emailWithSpaces, password: testPassword);
 
@@ -158,7 +158,7 @@ void main() {
 
         await sut.login(email: testEmail, password: testPassword);
 
-        verifyNever(() => mockAuthState.initSession(any()));
+        verifyNever(() => mockAuthViewModel.initSession(any()));
       });
     });
   });
