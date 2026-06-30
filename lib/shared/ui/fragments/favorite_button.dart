@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibivibe/shared/providers/accounts_viewmodel.dart';
 import 'package:ibivibe/features/favorites/models/favorite.dart';
-import 'package:ibivibe/features/favorites/favorites_viewmodel.dart';
+import 'package:ibivibe/features/favorites/viewmodels/favorites_viewmodel.dart';
 
 class FavoriteButton extends ConsumerStatefulWidget {
   final String? cityId;

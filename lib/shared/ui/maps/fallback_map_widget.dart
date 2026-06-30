@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:ibivibe/shared/models/city.dart';
-import 'package:ibivibe/features/cities/cities_providers.dart';
+import 'package:ibivibe/features/cities/providers/cities_providers.dart';
 import 'package:ibivibe/shared/ui/maps/app_map.dart';
 
 class FallbackMapWidget extends AppMapWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
-import 'package:ibivibe/features/auth/register_viewmodel.dart';
+import 'package:ibivibe/features/auth/viewmodels/register_viewmodel.dart';
 import 'package:ibivibe/features/auth/register_state.dart';
 import 'package:ibivibe/features/auth/validation/auth_validator.dart';
 

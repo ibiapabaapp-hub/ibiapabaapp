@@ -6,7 +6,7 @@ import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/shared/models/account.dart';
 import 'package:ibivibe/features/accounts/models/account_interests.dart';
 import 'package:ibivibe/features/accounts/accounts_logtags.dart';
-import 'package:ibivibe/features/accounts/accounts_providers.dart';
+import 'package:ibivibe/features/accounts/providers/accounts_providers.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

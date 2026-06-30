@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ibivibe/core/logger/logger.dart';
-import 'package:ibivibe/features/cities/cities_viewmodel.dart';
-import 'package:ibivibe/features/cities/cities_providers.dart';
+import 'package:ibivibe/features/cities/viewmodels/cities_viewmodel.dart';
+import 'package:ibivibe/features/cities/providers/cities_providers.dart';
 import 'package:ibivibe/shared/models/account.dart';
 import 'package:ibivibe/shared/models/account_type.dart';
 import 'package:ibivibe/shared/models/city.dart';

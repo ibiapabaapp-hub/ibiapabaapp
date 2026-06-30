@@ -3,8 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ibivibe/core/logger/logger.dart';
 import 'package:ibivibe/core/network/dio_logger_interceptor.dart';
 import 'package:ibivibe/core/storage/token_storage_provider.dart';
-import 'package:ibivibe/features/auth/auth_providers.dart';
-import 'package:ibivibe/features/auth/auth_viewmodel.dart';
+import 'package:ibivibe/features/auth/providers/auth_providers.dart';
+import 'package:ibivibe/features/auth/viewmodels/auth_viewmodel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_provider.g.dart';
